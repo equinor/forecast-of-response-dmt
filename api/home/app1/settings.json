@@ -1,0 +1,36 @@
+{
+  "name": "app1",
+  "label": "App One",
+  "tabIndex": 1,
+  "hidden": false,
+  "visibleDataSources": ["app1local"],
+  "type": "system/SIMOS/Application",
+  "description": "",
+  "packages": ["app1local/Demos"],
+  "models": ["app1local/Demos/Actions/WindTurbineWithAction"],
+  "actions": [
+    {
+      "name": "Run storm simulation",
+      "description": "Simulate a category 3 storm",
+      "input": "app1local/Demos/Actions/WindTurbineWithAction",
+      "output": "app1local/Demos/Actions/ActionResult",
+      "method": "simulateCat3StormResultInEntity",
+      "actionType": "resultInEntity"
+    },
+    {
+      "name": "Cancel Simulation",
+      "description": "Cancel started simulation",
+      "input": "app1local/Demos/Actions/WindTurbineWithAction",
+      "method": "cancelSimulation",
+      "actionType": "resultInEntity"
+    },
+    {
+      "name": "Run storm simulation - new result file",
+      "description": "Simulate a category 3 storm",
+      "input": "app1local/Demos/Actions/WindTurbineWithAction",
+      "output": "app1local/Demos/Actions/ActionResult",
+      "method": "simulateCat3StormResultInNewFile",
+      "actionType": "separateResultFile"
+    }
+  ]
+}

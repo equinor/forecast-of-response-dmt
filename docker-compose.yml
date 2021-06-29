@@ -1,0 +1,74 @@
+version: "3.4"
+
+services:
+  api:
+    build:
+      context: ./api
+      args:
+        DMT_VERSION: "${DMT_VERSION}"
+    restart: unless-stopped
+    depends_on:
+      - dmss
+    environment:
+      LOGGING_LEVEL: DEBUG
+      ENVIRONMENT: local
+      DMSS_HOST: dmss
+      DMSS_PORT: 5000
+    volumes:
+      - ./api/home/:/code/home
+      - ../data-modelling-storage-service/gen/dmss_api:/dmss_api
+      
+  web:
+    build:
+      context: ./web
+      target: development
+      args:
+        DMT_VERSION: "${DMT_VERSION}"
+    stdin_open: true
+    restart: unless-stopped
+    volumes:
+      - ./web/custom-plugins/:/code/custom-plugins
+      - ./web/config.js:/code/app/config.js
+      - ./web/actions.js:/code/app/actions.js
+
+  db:
+    image: mongo:3.4
+    command: --quiet
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: maf
+      MONGO_INITDB_ROOT_PASSWORD: maf
+
+  dmss:
+    image: "mariner.azurecr.io/dmss:${DMSS_VERSION}"
+    restart: unless-stopped
+    environment:
+      ENVIRONMENT: local
+      MONGO_INITDB_ROOT_USERNAME: maf
+      MONGO_INITDB_ROOT_PASSWORD: maf
+    depends_on:
+      - db
+    ports:
+      - "5010:5000"
+      
+  nginx:
+    links:
+      - web
+      - api
+    depends_on:
+      - api
+      - web
+    image: "mariner.azurecr.io/dmt/nginx:${DMT_VERSION}"
+    ports:
+      - "9000:80"
+      
+  db-ui:
+    image: mongo-express:0.49
+    restart: unless-stopped
+    ports:
+      - "8090:8081"
+    environment:
+      ME_CONFIG_MONGODB_SERVER: db
+      ME_CONFIG_MONGODB_ADMINUSERNAME: maf
+      ME_CONFIG_MONGODB_ADMINPASSWORD: maf
+      ME_CONFIG_MONGODB_ENABLE_ADMIN: "true"

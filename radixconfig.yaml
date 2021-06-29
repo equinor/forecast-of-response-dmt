@@ -1,0 +1,63 @@
+apiVersion: radix.equinor.com/v1
+kind: RadixApplication
+metadata:
+  name: dmt-demo
+spec:
+  environments:
+    - name: prod
+      build:
+        from: stable
+    - name: dev
+      build:
+        from: master
+  components:
+    - name: dmss
+      image: mariner.azurecr.io/dmss:{imageTagName}
+      alwaysPullImageOnDeploy: true
+      environmentConfig:
+        - environment: prod
+          imageTagName: release
+        - environment: dev
+          imageTagName: latest
+      ports:
+        - name: dmss
+          port: 5000
+      publicPort: dmss
+      secrets:
+        - MONGO_AZURE_URI
+    - name: web
+      src: web
+      alwaysPullImageOnDeploy: true
+      ports:
+        - name: http
+          port: 3000
+    - name: api
+      src: api
+      alwaysPullImageOnDeploy: true
+      environmentConfig:
+        - environment: prod
+          variables:
+            DMSS_HOST: dmss
+            DMSS_PORT: 5000
+            ENVIRONMENT: production
+        - environment: dev
+          variables:
+            DMSS_HOST: dmss
+            DMSS_PORT: 5000
+            ENVIRONMENT: production
+      ports:
+        - name: flask
+          port: 5000
+    - name: proxy
+      image: mariner.azurecr.io/dmt/nginx:latest
+      ports:
+        - name: nginx
+          port: 80
+      publicPort: nginx
+  dnsAppAlias:
+    environment: prod
+    component: proxy
+  privateImageHubs:
+    mariner.azurecr.io:
+      username: mariner
+      email: eaks@equinor.com

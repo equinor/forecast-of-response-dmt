@@ -1,0 +1,7 @@
+{
+  "_id": "myMooring",
+  "name": "myTurbineMooring",
+  "type": "/UncontainedDemo/Mooring",
+  "description": "",
+  "Bigness": 10
+}

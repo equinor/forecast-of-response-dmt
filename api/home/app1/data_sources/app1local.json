@@ -1,0 +1,17 @@
+{
+  "name": "app1local",
+  "repositories": {
+    "app1local": {
+      "type": "mongo-db",
+      "host": "db",
+      "port": 27017,
+      "username": "maf",
+      "password": "maf",
+      "tls": false,
+      "database": "app1local",
+      "collection": "app1local"
+    }
+  }
+}
+
+
