@@ -1,0 +1,21 @@
+{
+  "name": "WeatherData",
+  "type": "system/SIMOS/Blueprint",
+  "extends": ["system/SIMOS/DefaultUiRecipes","system/SIMOS/NamedEntity"],
+  "description": "",
+  "attributes": [
+    {
+      "name": "utmCoordinates",
+      "type": "system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    },
+    {
+      "name": "name",
+      "type": "system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    }
+  ],
+    "uiRecipes": []
+}

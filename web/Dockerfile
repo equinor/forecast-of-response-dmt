@@ -4,8 +4,6 @@ COPY ./actions.js /code/app/src/actions.js
 COPY ./config.js /code/app/src/config.js
 COPY ./custom-plugins /code/custom-plugins
 RUN yarn install --frozen-lockfile
-ENV REACT_APP_EXPORTED_APP 1
-ENV REACT_APP_EXPORTED_APP_NAME "App. Menu"
 
 FROM base as development
 CMD ["yarn", "start"]

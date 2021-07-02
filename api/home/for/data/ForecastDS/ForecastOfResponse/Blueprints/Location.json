@@ -1,0 +1,20 @@
+{
+  "name": "Location",
+  "type": "system/SIMOS/Blueprint",
+  "extends": ["system/SIMOS/DefaultUiRecipes","system/SIMOS/NamedEntity"],
+  "description": "Coordinates for a geographical location",
+  "attributes": [
+    {
+      "name": "UTM",
+      "type": "system/SIMOS/BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "name",
+      "type": "system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    }
+  ],
+    "uiRecipes": []
+}

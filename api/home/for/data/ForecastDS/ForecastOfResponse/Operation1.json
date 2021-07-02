@@ -1,0 +1,34 @@
+{
+  "name": "SnorreAnchorReplace2021",
+  "type": "/Blueprints/Operation",
+  "description": "Bridge forecast",
+  "creator": "stoo",
+  "location": {
+    "_id": "gullfaks-location",
+    "name": "Gullfaks",
+    "type": "/Blueprints/Location"
+  },
+  "start": "2021-06-25 13:45:37.352574",
+  "end": "2021-06-27 13:45:37.352574",
+  "status": "Concluded",
+  "simulationRuns": [
+    {
+      "name": "test1",
+      "type": "/Blueprints/SimulationRun",
+      "description": "",
+      "weatherDataId": "25.6,19:15",
+      "progress": "Running",
+      "started": "2021-06-27 13:45:37.352574",
+      "ended": "2021-06-27 13:45:37.352574"
+    },
+    {
+      "name": "test2",
+      "type": "/Blueprints/SimulationRun",
+      "description": "",
+      "weatherDataId": "1235",
+      "progress": "Running",
+      "started": "2021-06-27 13:45:37.352574",
+      "ended": "2021-06-27 13:45:37.352574"
+    }
+  ]
+}

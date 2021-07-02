@@ -1,0 +1,59 @@
+{
+  "name": "Operation",
+  "type": "system/SIMOS/Blueprint",
+  "extends": ["system/SIMOS/DefaultUiRecipes", "system/SIMOS/NamedEntity"],
+  "description": "",
+  "attributes": [
+    {
+      "name": "simulationRuns",
+      "type": "system/SIMOS/BlueprintAttribute",
+      "attributeType": "/Blueprints/SimulationRun",
+      "optional": true,
+      "contained": true,
+      "dimensions": "*"
+    },
+    {
+      "name": "creator",
+      "type": "system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    },
+    {
+      "name": "location",
+      "type": "system/SIMOS/BlueprintAttribute",
+      "attributeType": "/Blueprints/Location",
+      "optional": true,
+      "contained": false
+    },
+    {
+      "name": "start",
+      "type": "system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    },
+    {
+      "name": "end",
+      "type": "system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    },
+    {
+      "name": "status",
+      "type": "system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    }
+  ],
+  "uiRecipes": [
+    {
+      "name": "Operation",
+      "plugin": "for-operation",
+      "type": "system/SIMOS/UiRecipe"
+    },
+    {
+      "name": "OperationEdit",
+      "plugin": "for-operation-edit",
+      "type": "system/SIMOS/UiRecipe"
+    }
+  ]
+}

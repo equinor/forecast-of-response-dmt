@@ -35,6 +35,9 @@ services:
     image: mongo:3.4
     command: --quiet
     restart: unless-stopped
+    volumes:
+      - ./data:/data/db
+
     environment:
       MONGO_INITDB_ROOT_USERNAME: maf
       MONGO_INITDB_ROOT_PASSWORD: maf

@@ -1,28 +1,26 @@
-# data-modelling-tool-demo-app
+# Forecast of Response 
 
-Demo application built using data modelling tool (DMT) and data modelling storage service (DMSS).
+Application for create, schedule, and display forcasted responses of any type.
 
-## Prerequisites
-
-In order to run the commands described below, you need:
-- [Docker](https://www.docker.com/) 
-- [Docker Compose](https://docs.docker.com/compose/)
-- make (`sudo apt-get install make` on Ubuntu)
+Built with the Data Modelling Tool
 
 ## Running 
 
 ```bash
-docker-compose up
+docker-compose up --build
 ```
 
-Visit [http://localhost:9000] in your web browser (Internet Explorer is not supported).
+Visit [http://localhost:9000] in your web browser.
 
 ## Reset data
 
+When blueprints or entities has been changed on disk, they need to be re-imported to the storage service like so;
+
 ```
-docker-compose exec api ./reset-application.sh
+docker-compose run --rm api reset-app
 ```
+Note: This also deletes any data not saved to disk
 
 ## Data Modelling Storage Service
 
-API documentation can be found at [http://localhost:5010/api/v1/ui/](http://localhost:5010/api/v1/ui/).
+API documentation can be found at [http://localhost:5010/docs](http://localhost:5010/docs).
