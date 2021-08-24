@@ -5,6 +5,7 @@ export default {
         import('@dmt/default-pdf'),
         import('@dmt/default-preview'),
         import('@dmt/yaml-view'),
+        // Custom plugins
         import('forecast-of-response'),
     ]
 }
