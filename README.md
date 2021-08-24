@@ -1,12 +1,18 @@
 # Forecast of Response 
 
-Application for create, schedule, and display forcasted responses of any type.
+Application for create, schedule, and display forecasted responses of any type.
 
 Built with the Data Modelling Tool
+
+## Prerequisites
+- Access to the Container Registry
 
 ## Running 
 
 ```bash
+# Set environment variables
+export DMSS_VERSION=latest DMT_VERSION=latest
+# Run
 docker-compose up --build
 ```
 
