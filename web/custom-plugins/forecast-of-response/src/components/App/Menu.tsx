@@ -4,7 +4,7 @@ import { Layout, Menu } from 'antd'
 import { Button } from '@equinor/eds-core-react'
 import { TAppMenu } from '../../Types'
 import Icon from '../Icons'
-import './AppMenu.css'
+import './Menu.css'
 
 const { Sider } = Layout
 const { SubMenu } = Menu
