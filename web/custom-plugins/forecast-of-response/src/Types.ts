@@ -28,7 +28,7 @@ export type TContent = {
   settings: TSettings
 }
 
-export type TMainLayout = {
+export type TLayout = {
   content: string
   settings: TSettings
 }
