@@ -1,5 +1,5 @@
 {
-  "name": "forecast-of-response",
+  "name": "for-operations",
   "version": "0.0.1",
   "main": "src/index.tsx",
   "dependencies": {
