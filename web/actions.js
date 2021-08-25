@@ -1,6 +1,3 @@
-
-const runnableMethods = {
-
-}
+const runnableMethods = {}
 
 export default runnableMethods
