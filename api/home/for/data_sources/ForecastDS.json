@@ -1,8 +1,7 @@
 {
   "name": "ForecastDS",
   "repositories": {
-    "a": {
-      "data_types": ["blob"],
+    "forecastDB": {
       "type": "mongo-db",
       "host": "db",
       "port": 27017,
@@ -14,4 +13,5 @@
     }
   }
 }
+
 

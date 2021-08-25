@@ -1,10 +1,11 @@
 {
-  "type": "system/SIMOS/Application",
   "name": "for",
-  "label": "Forecast Of Response",
+  "label": "Forecast of Response",
   "tabIndex": 0,
   "hidden": false,
   "visibleDataSources": ["ForecastDS"],
+  "type": "system/SIMOS/Application",
+  "description": "Forecast of Response app",
   "packages": ["ForecastDS/ForecastOfResponse"],
   "models": [
     "ForecastDS/ForecastOfResponse/Blueprints/Operation",
