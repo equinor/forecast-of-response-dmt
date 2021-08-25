@@ -3,6 +3,7 @@ export type TRoute = {
   content: string
 }
 
+// TODO: Move to DMT and import from there
 export type TSettings = {
   name: string
   label: string
