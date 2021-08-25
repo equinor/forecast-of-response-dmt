@@ -2,23 +2,23 @@ import React from 'react'
 import { Route } from 'react-router-dom'
 import { Layout } from 'antd'
 
-import AppHeader from './AppHeader'
-import AppMenu from './AppMenu'
-import AppContent from './AppContent'
+import Header from './Header'
+import Menu from './Menu'
+import Content from './Content'
 import { backgroundColorDefault } from '../Colors'
-import { TApp, TMainLayout } from '../../Types'
+import { TApp, TLayout } from '../../Types'
 import Routes from './Routes'
 
-const MainLayout = (props: TMainLayout) => {
+const MainLayout = (props: TLayout) => {
   const { content, settings } = props
   return (
     <>
-      <AppHeader appName={settings.label} />
+      <Header appName={settings.label} />
       <Layout
         style={{ margin: '10px 10px 0', background: backgroundColorDefault }}
       >
-        <AppMenu appRootPath={settings.name} />
-        <AppContent settings={settings} content={content} />
+        <Menu appRootPath={settings.name} />
+        <Content settings={settings} content={content} />
       </Layout>
     </>
   )
