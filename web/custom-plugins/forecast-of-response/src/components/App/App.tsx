@@ -14,9 +14,7 @@ const MainLayout = (props: TLayout) => {
   return (
     <>
       <Header appName={settings.label} />
-      <Layout
-        style={{ margin: '10px 10px 0', background: backgroundColorDefault }}
-      >
+      <Layout style={{ background: backgroundColorDefault }}>
         <Menu appRootPath={settings.name} />
         <Content settings={settings} content={content} />
       </Layout>
