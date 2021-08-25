@@ -16,7 +16,7 @@ export default (props: TContent): JSX.Element => {
   const { content } = props
 
   return (
-    <Content style={{ margin: '5px 10px 0' }}>
+    <Content style={{ margin: '4px 0px 10px 0px' }}>
       <PageContent>{content}</PageContent>
     </Content>
   )
