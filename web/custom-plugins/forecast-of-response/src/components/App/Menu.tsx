@@ -18,7 +18,7 @@ const CreateOperationButton = () => {
   )
 }
 
-export default (props: TAppMenu): JSX.Element => {
+export default (props: { appRootPath: string }): JSX.Element => {
   const { appRootPath } = props
   const [collapsed, setCollapsed] = useState(false)
 
