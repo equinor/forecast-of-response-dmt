@@ -12,7 +12,7 @@ const Icons = styled.div`
   }
 `
 
-export default (props: TAppHeader): JSX.Element => {
+export default (props: { appName: string }): JSX.Element => {
   const { appName } = props
   return (
     <TopBar>
