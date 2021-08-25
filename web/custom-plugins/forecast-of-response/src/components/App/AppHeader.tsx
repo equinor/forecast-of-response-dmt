@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { TopBar } from '@equinor/eds-core-react'
 import styled from 'styled-components'
 import Icon from '../Icons'
-import { TAppHeader } from '../../Types'
 
 const Icons = styled.div`
   display: flex;
