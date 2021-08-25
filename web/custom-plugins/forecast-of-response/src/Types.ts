@@ -29,6 +29,7 @@ export type TAppMenu = {
 
 export type TAppContent = {
   content: string
+  settings: TSettings
 }
 
 export type TMainLayout = {
