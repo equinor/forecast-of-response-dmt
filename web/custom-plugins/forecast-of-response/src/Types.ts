@@ -23,11 +23,7 @@ export type TApp = {
   settings: TSettings
 }
 
-export type TAppMenu = {
-  appRootPath: string
-}
-
-export type TAppContent = {
+export type TContent = {
   content: string
   settings: TSettings
 }
