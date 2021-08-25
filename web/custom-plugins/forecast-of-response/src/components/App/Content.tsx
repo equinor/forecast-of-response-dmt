@@ -2,7 +2,7 @@ import React from 'react'
 import { Layout } from 'antd'
 import styled from 'styled-components'
 
-import { TAppContent } from '../../Types'
+import { TContent } from '../../Types'
 import { backgroundColorLight } from '../Colors'
 
 const { Content } = Layout
@@ -12,7 +12,7 @@ const PageContent = styled.div`
   background-color: ${backgroundColorLight};
 `
 
-export default (props: TAppContent): JSX.Element => {
+export default (props: TContent): JSX.Element => {
   const { content } = props
 
   return (
