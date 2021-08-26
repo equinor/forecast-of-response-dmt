@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Layout, Menu } from 'antd'
 import { Button } from '@equinor/eds-core-react'
-import Icon from '../Icons'
+import Icon from '../Design/Icons'
 import './Menu.css'
 
 const { Sider } = Layout
