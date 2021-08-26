@@ -1,8 +1,11 @@
 import { DmtSettings } from '@dmt/core-plugins'
 
+export type DmtSettings = DmtSettings
+
 export type TRoute = {
   path: string
-  content: string
+  heading: string
+  content: JSX.Element
 }
 
 export type TApp = {
@@ -11,7 +14,8 @@ export type TApp = {
 }
 
 export type TContent = {
-  content: string
+  heading: string
+  content: JSX.Element
   settings: DmtSettings
 }
 
