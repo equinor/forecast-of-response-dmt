@@ -20,6 +20,7 @@ export type TContent = {
 }
 
 export type TLayout = {
+  heading: string
   content: string
   settings: DmtSettings
 }
