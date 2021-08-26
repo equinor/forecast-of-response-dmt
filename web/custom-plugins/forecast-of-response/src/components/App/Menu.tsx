@@ -55,13 +55,13 @@ export default (props: { appRootPath: string }): JSX.Element => {
           title="My operations"
         >
           <Menu.Item key="5">
-            <Link to={`/${appRootPath}/operations/drafts`}>Drafts</Link>
+            <Link to={`/${appRootPath}/operations#drafts`}>Drafts</Link>
           </Menu.Item>
           <Menu.Item key="6">
-            <Link to={`/${appRootPath}/operations/ongoing`}>Active</Link>
+            <Link to={`/${appRootPath}/operations#ongoing`}>Active</Link>
           </Menu.Item>
           <Menu.Item key="7">
-            <Link to={`/${appRootPath}/operations/done`}>Completed</Link>
+            <Link to={`/${appRootPath}/operations#completed`}>Completed</Link>
           </Menu.Item>
           <Menu.Item key="8">
             <Link to={`/${appRootPath}/operations/new`}>
