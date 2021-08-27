@@ -28,8 +28,8 @@ export type TLayout = {
 // TODO: Retrieve from Blueprint / DMT?
 export type TOperation = {
   name: string
-  startDate: number
-  endDate?: number
+  startDate: number | string
+  endDate?: number | string
   location: string
   author: string
   status: string
