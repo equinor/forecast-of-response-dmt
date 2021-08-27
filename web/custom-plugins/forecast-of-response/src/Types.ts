@@ -24,3 +24,13 @@ export type TLayout = {
   content: string
   settings: DmtSettings
 }
+
+// TODO: Retrieve from Blueprint / DMT?
+export type TOperation = {
+  name: string
+  startDate: number
+  endDate?: number
+  location: string
+  author: string
+  status: string
+}
