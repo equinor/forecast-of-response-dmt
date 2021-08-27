@@ -1,24 +1,23 @@
 import { TRoute } from '../../Types'
 import { Dashboard } from '../Dashboard'
-import { WeatherForecast, Stask } from '../Library'
+import { Library } from '../Library'
 import { Operations, OperationsCreate } from '../Operations'
 
 // Temporary basic routes while developing UI
 const Routes: Array<TRoute> = [
   { path: '', heading: 'Dashboard', content: Dashboard },
   {
-    path: '/library/weather',
-    heading: 'Weather forecast',
-    content: WeatherForecast,
+    path: '/library',
+    heading: 'Library',
+    content: Library,
   },
-  { path: '/library/stask', heading: 'Stask', content: Stask },
   {
     path: '/operations',
     heading: 'Operations',
     content: Operations,
   },
   {
-    path: '/operations#drafts',
+    path: '/operations#draft',
     heading: 'Operation drafts',
     content: Operations,
   },
