@@ -1,22 +1,83 @@
-import React from 'react'
-import { DmtSettings } from '../../Types'
+import React, { useEffect, useState } from 'react'
+import { Divider, SingleSelect } from '@equinor/eds-core-react'
+import { DynamicTable } from '../DynamicTable'
+import { DmtSettings, TOperation } from '../../Types'
+import { SearchInput } from '../SearchInput'
+import Grid from '../Design/Grid'
+import { DateRangePicker } from '../DateRangePicker'
+
+// Dummy data
+import { dummyOperations } from '../../DummyData'
+const columns: Array<string> = [
+  'Operation name',
+  'Date from',
+  'Date to',
+  'Location',
+  'Author',
+  'Status',
+]
+const statuses: Array<string> = ['In progress', 'Completed', 'Draft']
+
+const convertTStoDate = (timestamp: any): string => {
+  if (timestamp == undefined) {
+    return '-'
+  }
+  try {
+    return new Date(timestamp).toDateString()
+  } catch {
+    return `Un-parseable timestamp ${timestamp}`
+  }
+}
 
 export const Operations = (props: DmtSettings): JSX.Element => {
-  const { settings } = props
-  const operationsListType = document.location.hash.split('#')[1]
-  const operationsListTypes = ['drafts', 'ongoing', 'completed']
-  const operations = {
-    drafts: ['draft #1', 'njord'],
-    ongoing: ['troll', 'current op'],
-    completed: ['old op', 'aged cheese'],
+  const documentHash = document.location.hash.split('#')[1]
+  let scopedOperations = dummyOperations.filter((operation) =>
+    documentHash ? operation.status.toLowerCase() === documentHash : true
+  )
+  const [operations, setOperations] = useState<TOperation>(scopedOperations)
+
+  /**
+   * Set operations when the document hash changes
+   */
+  useEffect(() => {
+    setOperations(
+      scopedOperations.filter((operation) =>
+        documentHash ? operation.status.toLowerCase() === documentHash : true
+      )
+    )
+  }, [documentHash])
+
+  /**
+   * Allow filtering of operations by name
+   * @param event
+   */
+  const handleSearch = (event: any) => {
+    const query = event.target.value
+    if (query) {
+      setOperations(
+        scopedOperations.filter((operation) =>
+          operation.name.toLowerCase().includes(event.target.value)
+        )
+      )
+    } else {
+      setOperations(scopedOperations)
+    }
   }
+
+  operations.forEach((operation: TOperation) => {
+    operation.startDate = convertTStoDate(operation.startDate)
+    operation.endDate = convertTStoDate(operation.endDate)
+  })
+
   return (
     <>
-      <ul>
-        {operations[operationsListType].map((operationName: string) => {
-          return <li>{operationName}</li>
-        })}
-      </ul>
+      <Grid>
+        <SearchInput onChange={handleSearch} />
+        <DateRangePicker />
+        <SingleSelect label="Status" items={statuses} />
+      </Grid>
+      <Divider variant="medium" />
+      <DynamicTable columns={columns} rows={operations} />
     </>
   )
 }
