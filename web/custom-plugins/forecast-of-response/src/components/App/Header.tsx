@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { TopBar } from '@equinor/eds-core-react'
 import styled from 'styled-components'
-import Icon from '../Icons'
+import Icon from '../Design/Icons'
 
 const Icons = styled.div`
   display: flex;
