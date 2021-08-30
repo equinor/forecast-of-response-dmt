@@ -15,6 +15,12 @@ const Routes: Array<TRoute> = [
     path: '/operations',
     heading: 'Operations',
     content: Operations,
+    // TODO: Consider more dynamic approach, e.g.
+    //content: (<UIPlugin
+    // name='OperationsOverview'
+    // uiRecipe='operations-overview'
+    // type='ForecastDS/ForecastOfResponse/Blueprints/Operation'
+    // />)
   },
   {
     path: '/operations#draft',
