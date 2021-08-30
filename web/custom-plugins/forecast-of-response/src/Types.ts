@@ -26,6 +26,19 @@ export type TLayout = {
   settings: DmtSettings
 }
 
+export type TLocation = {
+  UTM: string
+  name: string
+  _id: string
+}
+
+export type TOperationPhase = {
+  weatherDataId?: string
+  progress: string
+  started: Date
+  ended: Date
+}
+
 // TODO: Retrieve from Blueprint / DMT?
 export type TOperation = {
   name: string
