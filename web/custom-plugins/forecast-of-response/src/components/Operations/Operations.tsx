@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Divider, SingleSelect } from '@equinor/eds-core-react'
-import { DynamicTable } from '../DynamicTable'
+import { OperationsTable } from './OperationsTable'
 import { DmtSettings, TOperation } from '../../Types'
 import { SearchInput } from '../SearchInput'
 import Grid from '../App/Grid'
@@ -77,7 +77,7 @@ export const Operations = (props: DmtSettings): JSX.Element => {
         <SingleSelect label="Status" items={statuses} />
       </Grid>
       <Divider variant="medium" />
-      <DynamicTable columns={columns} rows={operations} />
+      <OperationsTable operations={operations} />
     </>
   )
 }
