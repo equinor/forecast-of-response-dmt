@@ -6,26 +6,36 @@ import { OperationStatus } from '../../Enums'
 import { SearchInput } from '../SearchInput'
 import Grid from '../App/Grid'
 import { DateRangePicker } from '../DateRangePicker'
-
-// Dummy data
-import { dummyOperations } from '../../data/DummyData'
+import { useSearch } from '../../hooks/useSearch'
 
 export const Operations = (props: DmtSettings): JSX.Element => {
+  const [operations, setOperations] = useState<Array<TOperation>>([])
   const documentHash = document.location.hash.split('#')[1]
-  let scopedOperations = dummyOperations.filter((operation) =>
+  const [searchResult, isLoading, setSearchResult, hasError] = useSearch(
+    'ForecastDS/ForecastOfResponse/Blueprints/Operation'
+  )
+  const scopedOperations = searchResult?.filter((operation: TOperation) =>
     documentHash
       ? operation.status.toLowerCase().replace(/ /g, '') === documentHash
       : true
   )
-  const [operations, setOperations] = useState<TOperation>(scopedOperations)
+
+  /**
+   * Set operations when the search has completed
+   */
+  useEffect(() => {
+    setOperations(searchResult)
+  }, [!isLoading, searchResult, !hasError])
 
   /**
    * Set operations when the document hash changes
    */
   useEffect(() => {
     setOperations(
-      scopedOperations.filter((operation) =>
-        documentHash ? operation.status.toLowerCase() === documentHash : true
+      searchResult?.filter((operation: TOperation) =>
+        documentHash
+          ? operation.status.toLowerCase().replace(/ /g, '') === documentHash
+          : true
       )
     )
   }, [documentHash])
@@ -38,7 +48,7 @@ export const Operations = (props: DmtSettings): JSX.Element => {
     const query = event.target.value
     if (query) {
       setOperations(
-        scopedOperations.filter((operation) =>
+        scopedOperations.filter((operation: TOperation) =>
           operation.name.toLowerCase().includes(event.target.value)
         )
       )
