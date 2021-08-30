@@ -1,6 +1,7 @@
 import React from 'react'
 import { DynamicTable } from '../DynamicTable'
 import { TOperation } from '../../Types'
+import { OperationStatus } from '../../Enums'
 
 const columns: Array<string> = [
   'Operation name',
@@ -10,6 +11,19 @@ const columns: Array<string> = [
   'Author',
   'Status',
 ]
+
+type TOperationRow = {
+  name: string
+  start: number | string
+  end: number | string
+  location: string
+  creator: string
+  status:
+    | OperationStatus.DRAFT
+    | OperationStatus.UPCOMING
+    | OperationStatus.ONGOING
+    | OperationStatus.CONCLUDED
+}
 
 /**
  * Takes a parameter date and converts into a string representation
