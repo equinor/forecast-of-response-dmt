@@ -33,7 +33,7 @@ const Routes: Array<TRoute> = [
     content: Operations,
   },
   {
-    path: '/operations#completed',
+    path: '/operations#concluded',
     heading: 'Completed operations',
     content: Operations,
   },
