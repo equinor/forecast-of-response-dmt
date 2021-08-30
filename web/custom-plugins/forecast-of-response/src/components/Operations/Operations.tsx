@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Divider, SingleSelect } from '@equinor/eds-core-react'
 import { OperationsTable } from './OperationsTable'
 import { DmtSettings, TOperation } from '../../Types'
+import { OperationStatus } from '../../Enums'
 import { SearchInput } from '../SearchInput'
 import Grid from '../App/Grid'
 import { DateRangePicker } from '../DateRangePicker'
@@ -74,7 +75,7 @@ export const Operations = (props: DmtSettings): JSX.Element => {
       <Grid>
         <SearchInput onChange={handleSearch} />
         <DateRangePicker />
-        <SingleSelect label="Status" items={statuses} />
+        <SingleSelect label="Status" items={Object.values(OperationStatus)} />
       </Grid>
       <Divider variant="medium" />
       <OperationsTable operations={operations} />
