@@ -8,27 +8,7 @@ import Grid from '../App/Grid'
 import { DateRangePicker } from '../DateRangePicker'
 
 // Dummy data
-import { dummyOperations } from '../../DummyData'
-const columns: Array<string> = [
-  'Operation name',
-  'Date from',
-  'Date to',
-  'Location',
-  'Author',
-  'Status',
-]
-const statuses: Array<string> = ['In progress', 'Completed', 'Draft']
-
-const convertTStoDate = (timestamp: any): string => {
-  if (timestamp == undefined) {
-    return '-'
-  }
-  try {
-    return new Date(timestamp).toDateString()
-  } catch {
-    return `Un-parseable timestamp ${timestamp}`
-  }
-}
+import { dummyOperations } from '../../data/DummyData'
 
 export const Operations = (props: DmtSettings): JSX.Element => {
   const documentHash = document.location.hash.split('#')[1]
