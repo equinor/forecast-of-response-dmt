@@ -8,7 +8,7 @@ const columns: Array<string> = [
   'Date from',
   'Date to',
   'Location',
-  'Author',
+  'Creator',
   'Status',
 ]
 
@@ -44,22 +44,22 @@ export const OperationsTable = (props: {
   operations: Array<TOperation>
 }): JSX.Element => {
   const { operations } = props
-  operations.forEach((operation: TOperation) => {
-    operation.start = formatDate(operation.start)
-    operation.end = formatDate(operation.end)
-    // TODO: Handle in a better way
-    // For some reason this loops twice, which causes it to map
-    // operation.location from a TLocation to the string name,
-    // then repeated but on the new string value
-    operation.location =
-      typeof operation.location === 'string'
-        ? operation.location
-        : operation.location.name
+  const rows: Array<TOperationRow> = []
+  operations?.forEach((operation: TOperation) => {
+    let row: TOperationRow = {
+      name: operation.name,
+      start: formatDate(operation.start),
+      end: formatDate(operation.end),
+      location: operation.location.name,
+      creator: operation.creator,
+      status: operation.status,
+    }
+    rows.push(row)
   })
 
   return (
     <>
-      <DynamicTable columns={columns} rows={operations} />
+      <DynamicTable columns={columns} rows={rows} />
     </>
   )
 }
