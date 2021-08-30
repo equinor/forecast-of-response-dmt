@@ -61,7 +61,7 @@ export default (props: { appRootPath: string }): JSX.Element => {
             <Link to={`/${appRootPath}/operations#ongoing`}>Active</Link>
           </Menu.Item>
           <Menu.Item key="7">
-            <Link to={`/${appRootPath}/operations#completed`}>Completed</Link>
+            <Link to={`/${appRootPath}/operations#concluded`}>Completed</Link>
           </Menu.Item>
           <Menu.Item key="8">
             <Link to={`/${appRootPath}/operations/new`}>
