@@ -13,7 +13,9 @@ import { dummyOperations } from '../../data/DummyData'
 export const Operations = (props: DmtSettings): JSX.Element => {
   const documentHash = document.location.hash.split('#')[1]
   let scopedOperations = dummyOperations.filter((operation) =>
-    documentHash ? operation.status.toLowerCase() === documentHash : true
+    documentHash
+      ? operation.status.toLowerCase().replace(/ /g, '') === documentHash
+      : true
   )
   const [operations, setOperations] = useState<TOperation>(scopedOperations)
 
