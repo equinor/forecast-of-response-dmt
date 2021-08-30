@@ -45,11 +45,6 @@ export const Operations = (props: DmtSettings): JSX.Element => {
     }
   }
 
-  operations.forEach((operation: TOperation) => {
-    operation.startDate = convertTStoDate(operation.startDate)
-    operation.endDate = convertTStoDate(operation.endDate)
-  })
-
   return (
     <>
       <Grid>
