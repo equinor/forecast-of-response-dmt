@@ -3,7 +3,7 @@ import { Divider, SingleSelect } from '@equinor/eds-core-react'
 import { DynamicTable } from '../DynamicTable'
 import { DmtSettings, TOperation } from '../../Types'
 import { SearchInput } from '../SearchInput'
-import Grid from '../Design/Grid'
+import Grid from '../App/Grid'
 import { DateRangePicker } from '../DateRangePicker'
 
 // Dummy data
