@@ -44,7 +44,7 @@ export const dummyOperations: Array<TOperation> = [
     end: 1669852800000,
     location: dummyLocations.gullfaks,
     creator: 'moamu',
-    status: OperationStatus.IN_PROGRESS,
+    status: OperationStatus.ONGOING,
     phases: [],
   },
   {
@@ -53,7 +53,7 @@ export const dummyOperations: Array<TOperation> = [
     end: 1625097600000,
     location: dummyLocations.gullfaks,
     creator: 'moamu',
-    status: OperationStatus.IN_PROGRESS,
+    status: OperationStatus.ONGOING,
     phases: [],
   },
   {
