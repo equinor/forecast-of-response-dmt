@@ -41,10 +41,12 @@ export type TOperationPhase = {
 
 // TODO: Retrieve from Blueprint / DMT?
 export type TOperation = {
+  _id?: string
   name: string
-  startDate: number | string
-  endDate?: number | string
-  location: string
-  author: string
-  status: string
+  creator: string
+  start: number | string
+  end?: number | string
+  status: OperationStatus
+  location: TLocation
+  phases: TOperationPhase[]
 }
