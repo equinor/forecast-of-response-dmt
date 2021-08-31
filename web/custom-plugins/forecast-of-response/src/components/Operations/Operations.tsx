@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Button, Divider, SingleSelect } from '@equinor/eds-core-react'
+import {
+  Button,
+  Divider,
+  Progress,
+  SingleSelect,
+} from '@equinor/eds-core-react'
 import { OperationsTable } from './OperationsTable'
 import { DmtSettings, TOperation } from '../../Types'
 import { OperationStatus } from '../../Enums'
@@ -72,6 +77,7 @@ export const Operations = (props: DmtSettings): JSX.Element => {
         </div>
       </Grid>
       <Divider variant="medium" />
+      {isLoading && <Progress.Linear />}
       <OperationsTable operations={operations} />
     </>
   )
