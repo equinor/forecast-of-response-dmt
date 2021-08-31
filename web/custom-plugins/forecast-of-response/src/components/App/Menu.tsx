@@ -40,10 +40,10 @@ export default (props: { appRootPath: string }): JSX.Element => {
           title="Library"
         >
           <Menu.Item key="2">
-            <Link to={`/${appRootPath}/library/weather`}>Weather forecast</Link>
+            <Link to={`/${appRootPath}/library#weather`}>Weather forecast</Link>
           </Menu.Item>
           <Menu.Item key="3">
-            <Link to={`/${appRootPath}/library/stask`}>Stask</Link>
+            <Link to={`/${appRootPath}/library#stask`}>Stask</Link>
           </Menu.Item>
         </SubMenu>
         <Menu.Item key="4" icon={<Icon name="list" size={24} />}>
@@ -55,13 +55,13 @@ export default (props: { appRootPath: string }): JSX.Element => {
           title="My operations"
         >
           <Menu.Item key="5">
-            <Link to={`/${appRootPath}/operations#drafts`}>Drafts</Link>
+            <Link to={`/${appRootPath}/operations#draft`}>Drafts</Link>
           </Menu.Item>
           <Menu.Item key="6">
             <Link to={`/${appRootPath}/operations#ongoing`}>Active</Link>
           </Menu.Item>
           <Menu.Item key="7">
-            <Link to={`/${appRootPath}/operations#completed`}>Completed</Link>
+            <Link to={`/${appRootPath}/operations#concluded`}>Completed</Link>
           </Menu.Item>
           <Menu.Item key="8">
             <Link to={`/${appRootPath}/operations/new`}>

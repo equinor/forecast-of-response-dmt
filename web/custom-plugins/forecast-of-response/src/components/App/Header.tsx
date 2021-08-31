@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { TopBar } from '@equinor/eds-core-react'
 import styled from 'styled-components'
 import Icon from '../Design/Icons'
