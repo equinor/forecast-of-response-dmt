@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { Button } from '@equinor/eds-core-react'
 import { Layout, Menu } from 'antd'
-import { CreateOperationButton } from '../Operations/CreateOperationButton'
 import Icon from '../Design/Icons'
 import './Menu.css'
 
@@ -54,7 +54,9 @@ export default (props: { appRootPath: string }): JSX.Element => {
             <Link to={`/${appRootPath}/operations#concluded`}>Completed</Link>
           </Menu.Item>
           <Menu.Item key="8">
-            <CreateOperationButton appRootPath={appRootPath} />
+            <Link to={`/${appRootPath}/operations/new`}>
+              <Button>Create new operation</Button>
+            </Link>
           </Menu.Item>
         </SubMenu>
       </Menu>

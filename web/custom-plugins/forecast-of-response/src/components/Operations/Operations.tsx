@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { Divider, SingleSelect } from '@equinor/eds-core-react'
+import { Link } from 'react-router-dom'
+import { Button, Divider, SingleSelect } from '@equinor/eds-core-react'
 import { OperationsTable } from './OperationsTable'
 import { DmtSettings, TOperation } from '../../Types'
 import { OperationStatus } from '../../Enums'
@@ -7,7 +8,6 @@ import { SearchInput } from '../SearchInput'
 import Grid from '../App/Grid'
 import { DateRangePicker } from '../DateRangePicker'
 import { useSearch } from '../../hooks/useSearch'
-import { CreateOperationButton } from './CreateOperationButton'
 import { ProgressIndicator } from '../ProgressIndicator'
 
 export const Operations = (props: DmtSettings): JSX.Element => {
@@ -67,7 +67,9 @@ export const Operations = (props: DmtSettings): JSX.Element => {
         <DateRangePicker />
         <SingleSelect label="Status" items={Object.values(OperationStatus)} />
         <div style={{ 'padding-top': '16px' }}>
-          <CreateOperationButton appRootPath={settings.name} />
+          <Link to={`/${settings.name}/operations/new`}>
+            <Button>Create new operation</Button>
+          </Link>
         </div>
       </Grid>
       <Divider variant="medium" />
