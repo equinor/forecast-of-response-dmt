@@ -8,6 +8,7 @@ import Grid from '../App/Grid'
 import { DateRangePicker } from '../DateRangePicker'
 import { useSearch } from '../../hooks/useSearch'
 import { CreateOperationButton } from './CreateOperationButton'
+import { ProgressIndicator } from '../ProgressIndicator'
 
 export const Operations = (props: DmtSettings): JSX.Element => {
   const { settings } = props
@@ -70,6 +71,7 @@ export const Operations = (props: DmtSettings): JSX.Element => {
         </div>
       </Grid>
       <Divider variant="medium" />
+      {isLoading && <ProgressIndicator />}
       <OperationsTable operations={operations} />
     </>
   )
