@@ -1,22 +1,12 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Layout, Menu } from 'antd'
-import { Button } from '@equinor/eds-core-react'
+import { CreateOperationButton } from '../Operations/CreateOperationButton'
 import Icon from '../Design/Icons'
 import './Menu.css'
 
 const { Sider } = Layout
 const { SubMenu } = Menu
-
-const CreateOperationButton = () => {
-  return (
-    //<EdsProvider density="compact">
-    // Should use EdsProvider to set scale, but it will not work.
-    //<Icon name="add_circle_outlined" title="add" size={16} />
-    <Button>Create new operation</Button>
-    //</EdsProvider>
-  )
-}
 
 export default (props: { appRootPath: string }): JSX.Element => {
   const { appRootPath } = props
@@ -64,9 +54,7 @@ export default (props: { appRootPath: string }): JSX.Element => {
             <Link to={`/${appRootPath}/operations#concluded`}>Completed</Link>
           </Menu.Item>
           <Menu.Item key="8">
-            <Link to={`/${appRootPath}/operations/new`}>
-              {<CreateOperationButton />}
-            </Link>
+            <CreateOperationButton appRootPath={appRootPath} />
           </Menu.Item>
         </SubMenu>
       </Menu>
