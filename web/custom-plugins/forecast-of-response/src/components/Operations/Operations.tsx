@@ -7,6 +7,7 @@ import { SearchInput } from '../SearchInput'
 import Grid from '../App/Grid'
 import { DateRangePicker } from '../DateRangePicker'
 import { useSearch } from '../../hooks/useSearch'
+import { CreateOperationButton } from './CreateOperationButton'
 
 export const Operations = (props: DmtSettings): JSX.Element => {
   const [operations, setOperations] = useState<Array<TOperation>>([])
