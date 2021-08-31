@@ -10,6 +10,7 @@ import { useSearch } from '../../hooks/useSearch'
 import { CreateOperationButton } from './CreateOperationButton'
 
 export const Operations = (props: DmtSettings): JSX.Element => {
+  const { settings } = props
   const [operations, setOperations] = useState<Array<TOperation>>([])
   const documentHash = document.location.hash.split('#')[1]
   const [searchResult, isLoading, setSearchResult, hasError] = useSearch(
@@ -64,6 +65,9 @@ export const Operations = (props: DmtSettings): JSX.Element => {
         <SearchInput onChange={handleSearch} />
         <DateRangePicker />
         <SingleSelect label="Status" items={Object.values(OperationStatus)} />
+        <div style={{ 'padding-top': '16px' }}>
+          <CreateOperationButton appRootPath={settings.name} />
+        </div>
       </Grid>
       <Divider variant="medium" />
       <OperationsTable operations={operations} />
