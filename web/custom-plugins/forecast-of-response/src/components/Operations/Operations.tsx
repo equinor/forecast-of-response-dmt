@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { Divider, SingleSelect } from '@equinor/eds-core-react'
+import { Link } from 'react-router-dom'
+import { Button, Divider, SingleSelect } from '@equinor/eds-core-react'
 import { OperationsTable } from './OperationsTable'
 import { DmtSettings, TOperation } from '../../Types'
 import { OperationStatus } from '../../Enums'
@@ -9,6 +10,7 @@ import { DateRangePicker } from '../DateRangePicker'
 import { useSearch } from '../../hooks/useSearch'
 
 export const Operations = (props: DmtSettings): JSX.Element => {
+  const { settings } = props
   const [operations, setOperations] = useState<Array<TOperation>>([])
   const documentHash = document.location.hash.split('#')[1]
   const [searchResult, isLoading, setSearchResult, hasError] = useSearch(
@@ -63,6 +65,11 @@ export const Operations = (props: DmtSettings): JSX.Element => {
         <SearchInput onChange={handleSearch} />
         <DateRangePicker />
         <SingleSelect label="Status" items={Object.values(OperationStatus)} />
+        <div style={{ 'padding-top': '16px' }}>
+          <Link to={`/${settings.name}/operations/new`}>
+            <Button>Create new operation</Button>
+          </Link>
+        </div>
       </Grid>
       <Divider variant="medium" />
       <OperationsTable operations={operations} />
