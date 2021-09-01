@@ -5,7 +5,7 @@ services:
     build:
       context: ./api
       args:
-        DMT_VERSION: "${DMT_VERSION}"
+        DMT_VERSION:-latest: ${DMT_VERSION:-latest}
     restart: unless-stopped
     depends_on:
       - dmss
@@ -23,7 +23,7 @@ services:
       context: ./web
       target: development
       args:
-        DMT_VERSION: "${DMT_VERSION}"
+        DMT_VERSION:-latest: ${DMT_VERSION:-latest}
     stdin_open: true
     restart: unless-stopped
     volumes:
@@ -43,7 +43,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: maf
 
   dmss:
-    image: "mariner.azurecr.io/dmss:${DMSS_VERSION}"
+    image: mariner.azurecr.io/dmss:${DMSS_VERSION:-latest}
     restart: unless-stopped
     environment:
       ENVIRONMENT: local
@@ -61,7 +61,7 @@ services:
     depends_on:
       - api
       - web
-    image: "mariner.azurecr.io/dmt/nginx:${DMT_VERSION}"
+    image: mariner.azurecr.io/dmt/nginx:${DMT_VERSION:-latest}
     ports:
       - "9000:80"
       

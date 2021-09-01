@@ -1,4 +1,4 @@
-ARG DMT_VERSION=stable
+ARG DMT_VERSION=latest
 FROM mariner.azurecr.io/dmt/web:${DMT_VERSION} as base
 COPY ./actions.js /code/app/src/actions.js
 COPY ./config.js /code/app/src/config.js
