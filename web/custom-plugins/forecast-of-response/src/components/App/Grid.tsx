@@ -24,6 +24,7 @@ const StyledGrid = styled.div`
   `}
 `
 
+// TODO: Rework all of this, change to flex?
 const Grid = ({ centerContent, children }) => {
   return <StyledGrid centerContent={centerContent}>{children}</StyledGrid>
 }
