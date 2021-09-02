@@ -278,7 +278,7 @@ const readFile = (file: any) => {
   })
 }
 
-export const CreateOperation = (props: DmtSettings): JSX.Element => {
+export const OperationsCreate = (props: DmtSettings): JSX.Element => {
   const { settings } = props
   const [operationName, setOperationName] = useState<string>()
   const [operationConfig, setOperationConfig] = useState<TOperationConfig>()
