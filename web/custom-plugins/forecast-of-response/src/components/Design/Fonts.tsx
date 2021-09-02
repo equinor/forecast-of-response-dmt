@@ -29,3 +29,8 @@ export const Heading = (props: {
     </Typography>
   )
 }
+
+export const Meta = (props: { text: string }) => {
+  const { text } = props
+  return <Typography variant="meta">{text}</Typography>
+}
