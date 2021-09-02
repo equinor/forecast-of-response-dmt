@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - "deploy-to-radix"
+      - "master"
     tags:
       - "v**"
 
@@ -23,11 +23,11 @@ jobs:
       - name: "Build API"
         run: docker build --cache-from ${API_IMAGE} --tag ${API_IMAGE} api
       - name: "Build Web"
-        run: docker build --cache-from ${WEB_IMAGE} --tag ${WEB_IMAGE} web
+        run: docker build --build-arg REDIRECT_URI=https://proxy-forecast-of-response-test.radix.equinor.com --cache-from ${WEB_IMAGE} --tag ${WEB_IMAGE} web
       - name: "Push Docker images"
         run: docker push ${API_IMAGE} && docker push ${WEB_IMAGE}
 
-  deploy-master-to-radix:
+  deploy-master-to-radix-test-env:
     needs: [build-and-publish]
     runs-on: ubuntu-latest
     steps:
