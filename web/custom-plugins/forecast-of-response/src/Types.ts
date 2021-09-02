@@ -32,11 +32,21 @@ export type TLocation = {
   _id: string
 }
 
+export type TSimulationRun = {
+  weatherDataId?: string
+  progress: string
+  started: Date
+  ended: Date
+  variables: any[]
+}
+
 export type TOperationPhase = {
   weatherDataId?: string
   progress: string
   started: Date
   ended: Date
+  defaultVariables?: any[]
+  simulationRuns: TSimulationRun[]
 }
 
 // TODO: Retrieve from Blueprint / DMT?
@@ -48,5 +58,13 @@ export type TOperation = {
   end?: number | string
   status: OperationStatus
   location: TLocation
+  config: TOperationConfig
+}
+
+// placeholder for Operation configs, which define Stask/docker image etc.
+export type TOperationConfig = {
+  _id: string
+  name: string
+  image: string
   phases: TOperationPhase[]
 }
