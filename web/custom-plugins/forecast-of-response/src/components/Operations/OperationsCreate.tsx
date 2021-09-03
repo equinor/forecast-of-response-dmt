@@ -281,12 +281,15 @@ const prepareOperationEntity = (
   location: TLocation
 ): string => {
   const operation: TOperation = {
+    _id: 'testInsert',
     name: operationName,
+    type: '/Blueprints/Operation',
+    description: '', // TODO: Add description input?
+    creator: 'someUser', // TODO: Get user from current session, or automatically in the backend based on token?
     location: location,
-    start: 'n/a',
+    start: new Date().toISOString(),
     end: undefined,
     status: OperationStatus.UPCOMING, // TODO: decide based on start attr? allow user to select?
-    creator: 'someUser', // TODO: Get user from current session, or automatically in the backend based on token?
     config: operationConfig,
   }
 
@@ -317,7 +320,6 @@ export const OperationsCreate = (props: DmtSettings): JSX.Element => {
           <SelectOperationName setOperationName={setOperationName} />
           <br />
           <SelectOperationConfig
-            operationConfigs={operationConfigs}
             operationConfig={operationConfig}
             setOperationConfig={setOperationConfig}
             isLoading={isLoading}
@@ -325,7 +327,6 @@ export const OperationsCreate = (props: DmtSettings): JSX.Element => {
           />
         </Div>
         <SelectOperationLocation
-          locations={operationLocations}
           selectedLocation={selectedLocation}
           setSelectedLocation={setSelectedLocation}
         />
