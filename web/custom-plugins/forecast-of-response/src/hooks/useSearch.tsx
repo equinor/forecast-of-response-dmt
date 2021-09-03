@@ -21,6 +21,7 @@ export const useSearch = (
       })
       .then((result: any) => {
         setIsLoading(false)
+        // @ts-ignore-line
         setSearchResult(Object.values(result))
       })
       .catch((err: any) => {
