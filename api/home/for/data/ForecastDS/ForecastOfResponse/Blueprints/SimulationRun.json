@@ -27,6 +27,14 @@
       "type": "system/SIMOS/BlueprintAttribute",
       "attributeType": "string",
       "optional": true
+    },
+    {
+      "name": "variables",
+      "type": "system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true,
+      "contained": true,
+      "dimensions": "*"
     }
   ],
     "uiRecipes": []
