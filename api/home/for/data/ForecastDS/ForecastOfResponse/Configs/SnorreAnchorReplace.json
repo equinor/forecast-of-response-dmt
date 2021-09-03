@@ -1,0 +1,39 @@
+{
+  "_id": "snorre-anchor-replace-cfg",
+  "name": "SnorreAnchorReplaceCFG",
+  "type": "/Blueprints/OperationConfig",
+  "description": "Config for Snorre anchor replacement",
+  "image": "ghcr.io/some/repo:snorreAnchor2021",
+  "phases": [
+    {
+      "name": "phase1",
+      "type": "/Blueprints/OperationPhase",
+      "description": "The initial phase",
+      "progress": "Active",
+      "started": "2021-06-27 13:45:37.352574",
+      "ended": null,
+      "defaultVariables": [],
+      "simulationRuns": [
+        {
+          "name": "test1",
+          "type": "/Blueprints/SimulationRun",
+          "description": "",
+          "weatherDataId": "25.6,19:15",
+          "progress": "Running",
+          "started": "2021-06-27 13:45:37.352574",
+          "ended": "2021-06-27 13:45:37.352574",
+          "variables": []
+        },
+        {
+          "name": "test2",
+          "type": "/Blueprints/SimulationRun",
+          "description": "",
+          "weatherDataId": "1235",
+          "progress": "Running",
+          "started": "2021-06-27 13:45:37.352574",
+          "ended": "2021-06-27 13:45:37.352574"
+        }
+      ]
+    }
+  ]
+}
