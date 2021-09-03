@@ -1,5 +1,5 @@
 import { DmtSettings } from '@dmt/core-plugins'
-import { OperationStatus } from './Enums'
+import { OperationStatus, PhaseStatus, SimulationStatus } from './Enums'
 
 export type DmtSettings = DmtSettings
 
@@ -26,45 +26,51 @@ export type TLayout = {
   settings: DmtSettings
 }
 
-export type TLocation = {
-  UTM: string
-  name: string
-  _id: string
-}
-
-export type TSimulationRun = {
-  weatherDataId?: string
-  progress: string
-  started: Date
-  ended: Date
-  variables: any[]
-}
-
-export type TOperationPhase = {
-  weatherDataId?: string
-  progress: string
-  started: Date
-  ended: Date
-  defaultVariables?: any[]
-  simulationRuns: TSimulationRun[]
-}
-
-// TODO: Retrieve from Blueprint / DMT?
+// DMT
 export type TOperation = {
   _id?: string
   name: string
+  type: string
+  description: string
   creator: string
-  start: number | string
-  end?: number | string
-  status: OperationStatus
   location: TLocation
+  start?: string | number
+  end?: string | number
+  status: OperationStatus
   config: TOperationConfig
 }
 
+// Uncontained in TOperation
+export type TLocation = {
+  _id: string
+  name: string
+  type: string
+  UTM?: string
+}
+
 // placeholder for Operation configs, which define Stask/docker image etc.
+// Uncontained in TOperation
 export type TOperationConfig = {
   _id: string
   name: string
   image: string
   phases: TOperationPhase[]
+}
+
+// Contained in TOperationConfig
+export type TOperationPhase = {
+  progress: PhaseStatus
+  started?: string | number
+  ended?: string | number
+  defaultVariables?: any[]
+  simulationRuns: TSimulationRun[]
+}
+
+// Contained in TOperationPhase
+export type TSimulationRun = {
+  weatherDataId: string
+  progress: SimulationStatus
+  started?: string | number
+  ended?: string | number
+  variables?: any[]
 }
