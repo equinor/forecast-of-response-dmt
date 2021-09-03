@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   Button,
   Card,
@@ -16,6 +16,7 @@ import {
   TOperationConfig,
 } from '../../Types'
 import { OperationStatus } from '../../Enums'
+import { useSearch } from '../../hooks/useSearch'
 
 const Div = styled.div``
 const Input = styled.input``
@@ -45,23 +46,30 @@ const SelectOperationName = (props: { setOperationName: any }): JSX.Element => {
 }
 
 const SelectOperationConfig = (props: {
-  operationConfigs: TOperationConfig[]
   operationConfig: TOperationConfig
   setOperationConfig: any
   isLoading: boolean
   setIsLoading: any
 }): JSX.Element => {
+  const [operationConfigs, setOperationConfigs] = useState<TOperationConfig[]>(
+    []
+  )
+  const [searchResult, isLoadingConfigs, setSearchResult, hasError] = useSearch(
+    'ForecastDS/ForecastOfResponse/Blueprints/OperationConfig'
+  )
   const [
     operationConfigUploadFileName,
     setOperationConfigUploadFileName,
   ] = useState<string>()
-  const {
-    operationConfigs,
-    operationConfig,
-    setOperationConfig,
-    isLoading,
-    setIsLoading,
-  } = props
+  const { operationConfig, setOperationConfig, isLoading, setIsLoading } = props
+
+  /**
+   * Set operation configs when the search has completed
+   */
+  useEffect(() => {
+    setOperationConfigs(searchResult)
+  }, [!isLoadingConfigs, searchResult, !hasError])
+
   return (
     <>
       <Heading text="Pick or upload the operation config" variant="h4" />
@@ -69,7 +77,7 @@ const SelectOperationConfig = (props: {
         <SingleSelect
           id="operationConfigSelector"
           label="Select operation config from library"
-          items={operationConfigs.map((opConfig) => {
+          items={operationConfigs?.map((opConfig: TOperationConfig) => {
             return opConfig.name
           })}
           handleSelectedItemChange={(event: any) => {
@@ -152,12 +160,25 @@ const OperationLocationMap = (props: {
 }
 
 const SelectOperationLocation = (props: {
-  locations: TLocation[]
   selectedLocation: TLocation
   setSelectedLocation: any
 }): JSX.Element => {
+  const [locations, setLocations] = useState<TLocation[]>([])
+  const [
+    searchResult,
+    isLoadingLocations,
+    setSearchResult,
+    hasError,
+  ] = useSearch('ForecastDS/ForecastOfResponse/Blueprints/Location')
   const [selectLocationType, setSelectLocationType] = useState<string>('select')
-  const { locations, selectedLocation, setSelectedLocation } = props
+  const { selectedLocation, setSelectedLocation } = props
+
+  /**
+   * Set locations when the search has completed
+   */
+  useEffect(() => {
+    setLocations(searchResult)
+  }, [!isLoadingLocations, searchResult, !hasError])
 
   return (
     <>
@@ -191,7 +212,7 @@ const SelectOperationLocation = (props: {
             <SingleSelect
               id="operationLocationSelector"
               label="Select location"
-              items={locations.map((loc: TLocation) => {
+              items={locations?.map((loc: TLocation) => {
                 return `${loc.name} - ${loc.UTM}`
               })}
               handleSelectedItemChange={(event: any) => {
