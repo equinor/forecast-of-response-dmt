@@ -1,16 +1,38 @@
-import { TLocation, TOperation, TOperationConfig } from '../Types'
-import { OperationStatus } from '../Enums'
+import {
+  TLocation,
+  TOperation,
+  TOperationConfig,
+  TOperationPhase,
+  TSimulationRun,
+} from '../Types'
+import { OperationStatus, PhaseStatus, SimulationStatus } from '../Enums'
 
 export const operationConfigs: TOperationConfig[] = [
   {
     _id: 'njord-cfg',
-    name: 'njord.yml',
+    name: 'njord.json',
     image: 'none',
-    phases: [],
+    phases: [
+      {
+        progress: PhaseStatus.ACTIVE,
+        started: new Date().toLocaleDateString(),
+        ended: '0',
+        defaultVariables: [],
+        simulationRuns: [
+          {
+            weatherDataId: '1',
+            progress: SimulationStatus.RUNNING,
+            started: new Date().toLocaleDateString(),
+            ended: undefined,
+            variables: [],
+          },
+        ],
+      },
+    ],
   },
   {
     _id: 'gullfaks-cfg',
-    name: 'gullfaks.yml',
+    name: 'gullfaks.json',
     image: 'none',
     phases: [],
   },
@@ -18,61 +40,78 @@ export const operationConfigs: TOperationConfig[] = [
 
 export const operationLocations: TLocation[] = [
   {
-    UTM: '10 S 055974, 4282182',
-    name: 'Njord',
     _id: 'njord',
+    name: 'Njord',
+    type: '/Blueprints/Location',
+    UTM: '10 S 055974, 4282182',
   },
   {
-    UTM: '10 S 055974, 4282182',
-    name: 'Gullfaks',
     _id: 'gullfaks',
+    name: 'Gullfaks',
+    type: '/Blueprints/Location',
+    UTM: '10 S 055974, 4282182',
   },
 ]
 
 export const operations: Array<TOperation> = [
   {
+    _id: 'draft1',
     name: 'draft #1',
-    start: 1631664000000,
-    end: undefined,
+    type: '/Blueprints/Operation',
+    description: 'some draft',
+    creator: 'moamu',
     location: operationLocations[0],
-    creator: 'moamu',
-    status: OperationStatus.DRAFT,
-    phases: [],
-  },
-  {
-    name: 'NjordPipeChange2021',
     start: 1631664000000,
     end: undefined,
-    location: operationLocations[1],
-    creator: 'moamu',
-    status: OperationStatus.UPCOMING,
-    phases: [],
+    status: OperationStatus.DRAFT,
+    config: operationConfigs[0],
   },
   {
+    _id: 'njordPipe1',
+    name: 'NjordPipeChange2021',
+    type: '/Blueprints/Operation',
+    description: 'some draft',
+    creator: 'moamu',
+    location: operationLocations[1],
+    start: 1631664000000,
+    end: undefined,
+    status: OperationStatus.UPCOMING,
+    config: operationConfigs[0],
+  },
+  {
+    _id: 'gullfaksM2',
     name: 'GullfaksMaintenance2022',
+    type: '/Blueprints/Operation',
+    description: 'some draft',
+    creator: 'moamu',
     start: 1654041600000,
     end: 1669852800000,
-    location: operationLocations[0],
-    creator: 'moamu',
+    location: operationLocations[1],
     status: OperationStatus.ONGOING,
-    phases: [],
+    config: operationConfigs[0],
   },
   {
+    _id: 'snorreOp',
     name: 'SnorreAnchorReplace2021',
+    type: '/Blueprints/Operation',
+    description: 'some draft',
+    creator: 'moamu',
+    location: operationLocations[0],
     start: 1609459200000,
     end: 1625097600000,
-    location: operationLocations[0],
-    creator: 'moamu',
     status: OperationStatus.ONGOING,
-    phases: [],
+    config: operationConfigs[1],
   },
   {
+    _id: 'x',
     name: 'TrollWindFarmInstallation',
+    type: '/Blueprints/Operation',
+    description: 'some draft',
+    creator: 'moamu',
+    location: operationLocations[0],
     start: 0,
     end: 34214400000,
-    location: operationLocations[0],
-    creator: 'moamu',
     status: OperationStatus.CONCLUDED,
-    phases: [],
+    config: operationConfigs[1],
   },
 ]
