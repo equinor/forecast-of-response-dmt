@@ -1,0 +1,43 @@
+{
+  "name": "OperationPhase",
+  "type": "system/SIMOS/Blueprint",
+  "extends": ["system/SIMOS/DefaultUiRecipes","system/SIMOS/NamedEntity"],
+  "description": "A phase of an operation",
+  "attributes": [
+    {
+      "name": "progress",
+      "type": "system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    },
+    {
+      "name": "started",
+      "type": "system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    },
+    {
+      "name": "ended",
+      "type": "system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    },
+    {
+      "name": "defaultVariables",
+      "type": "system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true,
+      "contained": true,
+      "dimensions": "*"
+    },
+    {
+      "name": "simulationRuns",
+      "type": "system/SIMOS/BlueprintAttribute",
+      "attributeType": "/Blueprints/SimulationRun",
+      "optional": true,
+      "contained": true,
+      "dimensions": "*"
+    }
+  ],
+    "uiRecipes": []
+}
