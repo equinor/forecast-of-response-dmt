@@ -6,6 +6,7 @@ import {
   Progress,
   SingleSelect,
 } from '@equinor/eds-core-react'
+import styled from 'styled-components'
 import { OperationsTable } from './OperationsTable'
 import { DmtSettings, TOperation } from '../../Types'
 import { OperationStatus } from '../../Enums'
@@ -14,9 +15,15 @@ import Grid from '../App/Grid'
 import { DateRangePicker } from '../DateRangePicker'
 import { useSearch } from '../../hooks/useSearch'
 
+const Div = styled.div`
+  padding-top: 16px;
+`
+
 export const Operations = (props: DmtSettings): JSX.Element => {
   const { settings } = props
-  const [operations, setOperations] = useState<Array<TOperation>>([])
+  // @ts-ignore-line
+  const operationStatuses = Object.values(OperationStatus)
+  const [operations, setOperations] = useState<TOperation[]>([])
   const documentHash = document.location.hash.split('#')[1]
   const [searchResult, isLoading, setSearchResult, hasError] = useSearch(
     'ForecastDS/ForecastOfResponse/Blueprints/Operation'
@@ -56,6 +63,7 @@ export const Operations = (props: DmtSettings): JSX.Element => {
     if (query) {
       setOperations(
         scopedOperations.filter((operation: TOperation) =>
+          // @ts-ignore-line
           operation.name.toLowerCase().includes(event.target.value)
         )
       )
@@ -69,12 +77,12 @@ export const Operations = (props: DmtSettings): JSX.Element => {
       <Grid>
         <SearchInput onChange={handleSearch} />
         <DateRangePicker />
-        <SingleSelect label="Status" items={Object.values(OperationStatus)} />
-        <div style={{ 'padding-top': '16px' }}>
+        <SingleSelect label="Status" items={operationStatuses} />
+        <Div>
           <Link to={`/${settings.name}/operations/new`}>
             <Button>Create new operation</Button>
           </Link>
-        </div>
+        </Div>
       </Grid>
       <Divider variant="medium" />
       {isLoading && <Progress.Linear />}
