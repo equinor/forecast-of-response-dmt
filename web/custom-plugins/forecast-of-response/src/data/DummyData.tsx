@@ -42,13 +42,13 @@ export const operationLocations: TLocation[] = [
   {
     _id: 'njord',
     name: 'Njord',
-    type: '/Blueprints/Location',
+    type: 'ForecastDS/ForecastOfResponse/Blueprints/Location',
     UTM: '10 S 055974, 4282182',
   },
   {
     _id: 'gullfaks',
     name: 'Gullfaks',
-    type: '/Blueprints/Location',
+    type: 'ForecastDS/ForecastOfResponse/Blueprints/Location',
     UTM: '10 S 055974, 4282182',
   },
 ]
@@ -57,7 +57,7 @@ export const operations: Array<TOperation> = [
   {
     _id: 'draft1',
     name: 'draft #1',
-    type: '/Blueprints/Operation',
+    type: 'ForecastDS/ForecastOfResponse/Blueprints/Operation',
     description: 'some draft',
     creator: 'moamu',
     location: operationLocations[0],
@@ -69,7 +69,7 @@ export const operations: Array<TOperation> = [
   {
     _id: 'njordPipe1',
     name: 'NjordPipeChange2021',
-    type: '/Blueprints/Operation',
+    type: 'ForecastDS/ForecastOfResponse/Blueprints/Operation',
     description: 'some draft',
     creator: 'moamu',
     location: operationLocations[1],
@@ -81,7 +81,7 @@ export const operations: Array<TOperation> = [
   {
     _id: 'gullfaksM2',
     name: 'GullfaksMaintenance2022',
-    type: '/Blueprints/Operation',
+    type: 'ForecastDS/ForecastOfResponse/Blueprints/Operation',
     description: 'some draft',
     creator: 'moamu',
     start: 1654041600000,
@@ -93,7 +93,7 @@ export const operations: Array<TOperation> = [
   {
     _id: 'snorreOp',
     name: 'SnorreAnchorReplace2021',
-    type: '/Blueprints/Operation',
+    type: 'ForecastDS/ForecastOfResponse/Blueprints/Operation',
     description: 'some draft',
     creator: 'moamu',
     location: operationLocations[0],
@@ -105,7 +105,7 @@ export const operations: Array<TOperation> = [
   {
     _id: 'x',
     name: 'TrollWindFarmInstallation',
-    type: '/Blueprints/Operation',
+    type: 'ForecastDS/ForecastOfResponse/Blueprints/Operation',
     description: 'some draft',
     creator: 'moamu',
     location: operationLocations[0],
