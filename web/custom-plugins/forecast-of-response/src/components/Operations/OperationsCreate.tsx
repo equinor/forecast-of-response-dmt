@@ -17,8 +17,9 @@ import {
 } from '../../Types'
 import { OperationStatus } from '../../Enums'
 
-// temp
-import { operationConfigs, operationLocations } from '../../data/DummyData'
+const Div = styled.div``
+const Input = styled.input``
+const Label = styled.label``
 
 const LocationButtonsGrid = styled.div`
   display: grid;
@@ -79,8 +80,8 @@ const SelectOperationConfig = (props: {
             setOperationConfig(matches[0])
           }}
         />
-        <div>
-          <input
+        <Div>
+          <Input
             type="file"
             id="operationConfigUpload"
             style={{ display: 'none' }}
@@ -109,16 +110,16 @@ const SelectOperationConfig = (props: {
               }
             }}
           />
-          <label htmlFor="operationConfigUpload">
+          <Label htmlFor="operationConfigUpload">
             <Button as="span" variant="outlined">
               {(isLoading && <Progress.Dots color="primary" />) ||
                 'Upload new config'}
             </Button>
-          </label>
+          </Label>
           {operationConfigUploadFileName && (
             <Meta text={`File: ${operationConfigUploadFileName}`} />
           )}
-        </div>
+        </Div>
       </Grid>
     </>
   )
@@ -137,7 +138,7 @@ const OperationLocationMap = (props: {
     </Card.Media>
   )
   return (
-    <div style={{ width: '300px' }}>
+    <Div style={{ width: '300px' }}>
       <Card>
         <Card.Header>
           <Card.HeaderTitle>
@@ -146,7 +147,7 @@ const OperationLocationMap = (props: {
         </Card.Header>
         <Map />
       </Card>
-    </div>
+    </Div>
   )
 }
 
@@ -160,9 +161,9 @@ const SelectOperationLocation = (props: {
 
   return (
     <>
-      <div id="opLoc">
+      <Div id="opLoc">
         <Heading text="Enter location" variant="h4" />
-        <div id="opLoc-type">
+        <Div id="opLoc-type">
           <LocationButtonsGrid>
             <Button
               variant={
@@ -183,10 +184,10 @@ const SelectOperationLocation = (props: {
               Enter UTM coordinates
             </Button>
           </LocationButtonsGrid>
-        </div>
+        </Div>
         <br />
         {(selectLocationType === 'select' && (
-          <div id="opLoc-selector">
+          <Div id="opLoc-selector">
             <SingleSelect
               id="operationLocationSelector"
               label="Select location"
@@ -206,10 +207,10 @@ const SelectOperationLocation = (props: {
                 setSelectedLocation(matches[0])
               }}
             />
-          </div>
+          </Div>
         )) ||
           (selectLocationType === 'add' && (
-            <div id="opLoc-creator">
+            <Div id="opLoc-creator">
               <TextField
                 id="operationLocationName"
                 placeholder="Location name"
@@ -217,6 +218,7 @@ const SelectOperationLocation = (props: {
                 helperText="Provide the name of the location to create"
                 onChange={(event: any) => {
                   setSelectedLocation(
+                    // @ts-ignore-line
                     Object.assign({}, selectedLocation, {
                       name: event.target.value,
                     })
@@ -231,15 +233,16 @@ const SelectOperationLocation = (props: {
                 helperText="Provide the UTM coordinates of the location to create"
                 onChange={(event: any) => {
                   setSelectedLocation(
+                    // @ts-ignore-line
                     Object.assign({}, selectedLocation, {
                       UTM: event.target.value,
                     })
                   )
                 }}
               />
-            </div>
+            </Div>
           ))}
-      </div>
+      </Div>
       <OperationLocationMap selectedLocation={selectedLocation} />
     </>
   )
@@ -271,8 +274,9 @@ const prepareOperationEntity = (
 
 const readFile = (file: any) => {
   const fileReader = new FileReader()
+  // @ts-ignore-line
   return new Promise<any>((resolve, reject) => {
-    fileReader.onload = (event) => resolve(event.target.result)
+    fileReader.onload = (event) => resolve(event?.target?.result)
     fileReader.onerror = (error) => reject(error)
     fileReader.readAsText(file)
   })
@@ -288,7 +292,7 @@ export const OperationsCreate = (props: DmtSettings): JSX.Element => {
   return (
     <>
       <Grid>
-        <div>
+        <Div>
           <SelectOperationName setOperationName={setOperationName} />
           <br />
           <SelectOperationConfig
@@ -298,7 +302,7 @@ export const OperationsCreate = (props: DmtSettings): JSX.Element => {
             isLoading={isLoading}
             setIsLoading={setIsLoading}
           />
-        </div>
+        </Div>
         <SelectOperationLocation
           locations={operationLocations}
           selectedLocation={selectedLocation}
