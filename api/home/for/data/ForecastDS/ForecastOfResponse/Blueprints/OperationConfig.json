@@ -1,0 +1,22 @@
+{
+  "name": "OperationConfig",
+  "type": "system/SIMOS/Blueprint",
+  "extends": ["system/SIMOS/DefaultUiRecipes","system/SIMOS/NamedEntity"],
+  "description": "Configuration for operations",
+  "attributes": [
+    {
+      "name": "image",
+      "type": "system/SIMOS/BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "phases",
+      "type": "system/SIMOS/BlueprintAttribute",
+      "attributeType": "/Blueprints/OperationPhase",
+      "optional": true,
+      "contained": true,
+      "dimensions": "*"
+    }
+  ],
+    "uiRecipes": []
+}
