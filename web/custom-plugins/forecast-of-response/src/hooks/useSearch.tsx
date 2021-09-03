@@ -20,14 +20,14 @@ export const useSearch = (
         type: type,
       })
       .then((result: any) => {
-        setIsLoading(false)
         // @ts-ignore-line
         setSearchResult(Object.values(result))
+        setIsLoading(false)
       })
       .catch((err: any) => {
         console.error(err)
-        setIsLoading(false)
         setHasError(true)
+        setIsLoading(false)
       })
   }, [dataSourceId, type])
 
