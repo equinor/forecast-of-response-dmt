@@ -1,5 +1,8 @@
-import React, { useState } from 'react'
-import { Search } from '@equinor/eds-core-react'
+import React from 'react'
+import { Label, Search } from '@equinor/eds-core-react'
+import styled from 'styled-components'
+
+const Div = styled.div``
 
 export const SearchInput = (props: {
   placeholder?: string
@@ -8,17 +11,15 @@ export const SearchInput = (props: {
   const { placeholder, onChange } = props
   return (
     <>
-      <div>
-        <label className="sc-dIvrsQ kwOJXh">
-          <span>Search by operation name</span>
-        </label>
+      <Div>
+        <Label label="Search by operation name" />
         <Search
           aria-label="operations"
           id="search-operations"
           placeholder={placeholder || 'Search'}
           onChange={onChange}
         />
-      </div>
+      </Div>
     </>
   )
 }
