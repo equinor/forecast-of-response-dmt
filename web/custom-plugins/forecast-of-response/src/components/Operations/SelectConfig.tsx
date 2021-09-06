@@ -10,6 +10,10 @@ const Div = styled.div``
 const Input = styled.input``
 const Label = styled.label``
 
+/**
+ * Read the contents of a file as text
+ * @param file The file to read
+ */
 const readFile = (file: any) => {
   const fileReader = new FileReader()
   // @ts-ignore-line
@@ -21,7 +25,6 @@ const readFile = (file: any) => {
 }
 
 export const SelectOperationConfig = (props: {
-  operationConfig: TOperationConfig
   setOperationConfig: any
   isLoading: boolean
   setIsLoading: any
@@ -36,7 +39,7 @@ export const SelectOperationConfig = (props: {
     operationConfigUploadFileName,
     setOperationConfigUploadFileName,
   ] = useState<string>()
-  const { operationConfig, setOperationConfig, isLoading, setIsLoading } = props
+  const { setOperationConfig, isLoading, setIsLoading } = props
 
   /**
    * Set operation configs when the search has completed
@@ -78,7 +81,10 @@ export const SelectOperationConfig = (props: {
                   readFile(file)
                     .then((contents: string) => {
                       const configJson = JSON.parse(contents)
-                      setOperationConfig(configJson)
+                      // @ts-ignore-line
+                      setOperationConfig(
+                        Object.assign({}, configJson, { isNew: true })
+                      )
                       setIsLoading(false)
                     })
                     .catch((err: any) => {
