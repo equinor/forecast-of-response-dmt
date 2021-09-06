@@ -11,10 +11,8 @@ const LocationButtonsGrid = styled.div`
   grid-template-columns: auto auto;
 `
 
-const OperationLocationMap = (props: {
-  selectedLocation: TLocation
-}): JSX.Element => {
-  const { selectedLocation } = props
+const OperationLocationMap = (props: { location: TLocation }): JSX.Element => {
+  const { location } = props
   const Map = () => (
     <Card.Media fullWidth>
       <img
@@ -38,8 +36,8 @@ const OperationLocationMap = (props: {
 }
 
 export const SelectOperationLocation = (props: {
-  selectedLocation: TLocation
-  setSelectedLocation: any
+  location: TLocation
+  setLocation: any
 }): JSX.Element => {
   const [locations, setLocations] = useState<TLocation[]>([])
   const [
@@ -49,7 +47,7 @@ export const SelectOperationLocation = (props: {
     hasError,
   ] = useSearch('ForecastDS/ForecastOfResponse/Blueprints/Location')
   const [selectLocationType, setSelectLocationType] = useState<string>('select')
-  const { selectedLocation, setSelectedLocation } = props
+  const { location, setLocation } = props
 
   /**
    * Set locations when the search has completed
@@ -103,7 +101,7 @@ export const SelectOperationLocation = (props: {
                   (loc: TLocation) =>
                     loc.name === locationName && loc.UTM === locationUTM
                 )
-                setSelectedLocation(matches[0])
+                setLocation(matches[0])
               }}
             />
           </Div>
@@ -116,10 +114,11 @@ export const SelectOperationLocation = (props: {
                 label="Location name"
                 helperText="Provide the name of the location to create"
                 onChange={(event: any) => {
-                  setSelectedLocation(
+                  setLocation(
                     // @ts-ignore-line
-                    Object.assign({}, selectedLocation, {
+                    Object.assign({}, location, {
                       name: event.target.value,
+                      isNew: true,
                     })
                   )
                 }}
@@ -131,10 +130,11 @@ export const SelectOperationLocation = (props: {
                 label="Location coordinates (UTM)"
                 helperText="Provide the UTM coordinates of the location to create"
                 onChange={(event: any) => {
-                  setSelectedLocation(
+                  setLocation(
                     // @ts-ignore-line
-                    Object.assign({}, selectedLocation, {
+                    Object.assign({}, location, {
                       UTM: event.target.value,
+                      isNew: true,
                     })
                   )
                 }}
@@ -142,7 +142,7 @@ export const SelectOperationLocation = (props: {
             </Div>
           ))}
       </Div>
-      <OperationLocationMap selectedLocation={selectedLocation} />
+      <OperationLocationMap location={location} />
     </>
   )
 }
