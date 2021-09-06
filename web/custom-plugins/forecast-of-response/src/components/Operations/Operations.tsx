@@ -24,6 +24,7 @@ export const Operations = (props: DmtSettings): JSX.Element => {
   // @ts-ignore-line
   const operationStatuses = Object.values(OperationStatus)
   const [operations, setOperations] = useState<TOperation[]>([])
+  const [dateRange, setDateRange] = useState<Date[]>()
   const documentHash = document.location.hash.split('#')[1]
   const [searchResult, isLoading, setSearchResult, hasError] = useSearch(
     'ForecastDS/ForecastOfResponse/Blueprints/Operation'
@@ -76,7 +77,7 @@ export const Operations = (props: DmtSettings): JSX.Element => {
     <>
       <Grid>
         <SearchInput onChange={handleSearch} />
-        <DateRangePicker />
+        <DateRangePicker setDateRange={setDateRange} />
         <SingleSelect label="Status" items={operationStatuses} />
         <Div>
           <Link to={`/${settings.name}/operations/new`}>
