@@ -42,7 +42,7 @@ export type TOperation = {
 
 // Uncontained in TOperation
 export type TLocation = {
-  _id: string
+  _id?: string
   name: string
   type: string
   UTM?: string
@@ -51,10 +51,11 @@ export type TLocation = {
 // placeholder for Operation configs, which define Stask/docker image etc.
 // Uncontained in TOperation
 export type TOperationConfig = {
-  _id: string
+  _id?: string
   name: string
-  image: string
-  phases: TOperationPhase[]
+  type: string
+  image?: string
+  phases?: TOperationPhase[]
 }
 
 // Contained in TOperationConfig
