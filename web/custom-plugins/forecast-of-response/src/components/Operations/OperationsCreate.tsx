@@ -90,8 +90,6 @@ export const OperationsCreate = (props: DmtSettings): JSX.Element => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
   // TODO: redirect to operation view upon creation
-  // TODO: Create new location if not exists (currently overwrites topmost location)
-  // TODO: Create new config if not exists (^)
   // TODO: Upon clicking cancel, ask for confirmation and whether it should be saved as a draft
   // TODO: Add "Save as Draft" button?
 
