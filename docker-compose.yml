@@ -14,8 +14,8 @@ services:
       ENVIRONMENT: local
       # DMSS_HOST: dmss-forecast-of-response-test.radix.equinor.com
       # DMSS_PORT: 80
-     DMSS_HOST: dmss
-     DMSS_PORT: 5000
+      DMSS_HOST: dmss
+      DMSS_PORT: 5000
     volumes:
       - ./api/home/:/code/home
       - ../data-modelling-storage-service/gen/dmss_api:/dmss_api
