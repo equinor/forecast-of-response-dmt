@@ -112,6 +112,9 @@ export const OperationsCreate = (props: DmtSettings): JSX.Element => {
           <br />
           <SelectOperationConfig
             setOperationConfig={setOperationConfig}
+            setIsNewConfig={(isNew: boolean) => {
+              setIsNewEntity({ ...isNewEntity, config: isNew })
+            }}
             isLoading={isLoading}
             setIsLoading={setIsLoading}
           />
@@ -119,6 +122,9 @@ export const OperationsCreate = (props: DmtSettings): JSX.Element => {
         <SelectOperationLocation
           location={operationLocation}
           setLocation={setOperationLocation}
+          setIsNewLocation={(isNew: boolean) => {
+            setIsNewEntity({ ...isNewEntity, location: isNew })
+          }}
         />
       </Grid>
       <Button
