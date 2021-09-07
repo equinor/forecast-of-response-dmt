@@ -115,8 +115,8 @@ export const OperationsCreate = (props: DmtSettings): JSX.Element => {
         <Div>
           <SelectOperationName
             setOperationName={(operationName: string) => {
-              // @ts-ignore-line
               setOperationMeta(
+                // @ts-ignore-line
                 Object.assign({}, operationMeta, { name: operationName })
               )
             }}
@@ -125,8 +125,8 @@ export const OperationsCreate = (props: DmtSettings): JSX.Element => {
           <Heading text="Select start and end date" variant="h4" />
           <DateRangePicker
             setDateRange={(dateRange: Date[]) => {
-              // @ts-ignore-line
               setOperationMeta(
+                // @ts-ignore-line
                 Object.assign({}, operationMeta, { dateRange: dateRange })
               )
             }}

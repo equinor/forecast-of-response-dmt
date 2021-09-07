@@ -81,8 +81,8 @@ export const SelectOperationConfig = (props: {
                   readFile(file)
                     .then((contents: string) => {
                       const configJson = JSON.parse(contents)
-                      // @ts-ignore-line
                       setOperationConfig(
+                        // @ts-ignore-line
                         Object.assign({}, configJson, { isNew: true })
                       )
                       setIsLoading(false)
