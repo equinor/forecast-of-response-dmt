@@ -99,20 +99,14 @@ export const OperationsCreate = (props: DmtSettings): JSX.Element => {
         <Div>
           <SelectOperationName
             setOperationName={(operationName: string) => {
-              setOperationMeta(
-                // @ts-ignore-line
-                Object.assign({}, operationMeta, { name: operationName })
-              )
+              setOperationMeta({ ...operationMeta, name: operationName })
             }}
           />
           <br />
           <Heading text="Select start and end date" variant="h4" />
           <DateRangePicker
             setDateRange={(dateRange: Date[]) => {
-              setOperationMeta(
-                // @ts-ignore-line
-                Object.assign({}, operationMeta, { dateRange: dateRange })
-              )
+              setOperationMeta({ ...operationMeta, dateRange: dateRange })
             }}
           />
           <br />
