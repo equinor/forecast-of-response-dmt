@@ -129,6 +129,7 @@ export const OperationsCreate = (props: DmtSettings): JSX.Element => {
       </Grid>
       <Button
         onClick={() => {
+          setError()
           if (
             operationMeta?.name &&
             operationLocation?.name &&
@@ -136,46 +137,40 @@ export const OperationsCreate = (props: DmtSettings): JSX.Element => {
             !isLoading
           ) {
             // Prepare the uncontained entities for the Operation
-            const locationEntity: TLocation = {
-              _id: operationLocation._id ? operationLocation._id : undefined,
-              name: operationLocation.name,
-              type: 'ForecastDS/ForecastOfResponse/Blueprints/Location',
-              UTM: operationLocation.UTM,
-            }
-            const configEntity: TOperationConfig = {
-              _id: operationConfig._id ? operationConfig._id : undefined,
-              name: operationConfig.name,
-              type: 'ForecastDS/ForecastOfResponse/Blueprints/OperationConfig',
-            }
+            operationLocation.type =
+              'ForecastDS/ForecastOfResponse/Blueprints/Location'
+            operationConfig.type =
+              'ForecastDS/ForecastOfResponse/Blueprints/OperationConfig'
+
             Promise.all([
-              createOrGetLocationEntity(
-                locationEntity,
-                !!operationLocation.isNew
-              ),
-              createOrGetOperationConfigEntity(
-                configEntity,
-                !!operationConfig.isNew
-              ),
+              getEntityId(operationLocation, !!isNewEntity.location),
+              getEntityId(operationConfig, !!isNewEntity.config),
             ])
               .then((documentIds: string[]) => {
-                delete locationEntity.UTM
-                locationEntity._id = documentIds[0]
-                configEntity._id = documentIds[1]
+                // Remove attrs not needed in the uncontained doc ref
+                delete operationLocation.UTM
+                delete operationConfig.image
+                delete operationConfig.phases
+                // Add the retrieved documentIds
+                operationLocation._id = documentIds[0]
+                operationConfig._id = documentIds[1]
                 createOperationEntity(
                   operationMeta.name,
                   operationMeta.dateRange,
-                  configEntity,
-                  locationEntity
+                  operationConfig,
+                  operationLocation
                 )
                   .then((documentId) => {
                     console.log(`New operation ${documentId}`)
                   })
                   .catch((err: any) => {
                     console.log(err)
+                    setError('An error occurred') // TODO: Improve
                   })
               })
               .catch((err: any) => {
                 console.error(err)
+                setError('An error occurred') // TODO: Improve
               })
           } else {
             const missing = []
