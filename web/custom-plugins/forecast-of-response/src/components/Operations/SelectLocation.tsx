@@ -13,14 +13,6 @@ const LocationButtonsGrid = styled.div`
 
 const OperationLocationMap = (props: { location: TLocation }): JSX.Element => {
   const { location } = props
-  const Map = () => (
-    <Card.Media fullWidth>
-      <img
-        src="https://images.all-free-download.com/images/graphiclarge/europe_map_vectors_design_588720.jpg"
-        alt="map"
-      />
-    </Card.Media>
-  )
   return (
     <Div style={{ width: '300px' }}>
       <Card>
@@ -29,7 +21,12 @@ const OperationLocationMap = (props: { location: TLocation }): JSX.Element => {
             <Heading text="Location on map" variant="h5" />
           </Card.HeaderTitle>
         </Card.Header>
-        <Map />
+        <Card.Media fullWidth>
+          <img
+            src="https://images.all-free-download.com/images/graphiclarge/europe_map_vectors_design_588720.jpg"
+            alt="map"
+          />
+        </Card.Media>
       </Card>
     </Div>
   )
