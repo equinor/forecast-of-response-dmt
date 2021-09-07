@@ -38,6 +38,7 @@ const OperationLocationMap = (props: { location: TLocation }): JSX.Element => {
 export const SelectOperationLocation = (props: {
   location: TLocation
   setLocation: any
+  setIsNewLocation: any
 }): JSX.Element => {
   const [locations, setLocations] = useState<TLocation[]>([])
   const [
@@ -47,7 +48,7 @@ export const SelectOperationLocation = (props: {
     hasError,
   ] = useSearch('ForecastDS/ForecastOfResponse/Blueprints/Location')
   const [selectLocationType, setSelectLocationType] = useState<string>('select')
-  const { location, setLocation } = props
+  const { location, setLocation, setIsNewLocation } = props
 
   /**
    * Set locations when the search has completed
@@ -114,13 +115,8 @@ export const SelectOperationLocation = (props: {
                 label="Location name"
                 helperText="Provide the name of the location to create"
                 onChange={(event: any) => {
-                  setLocation(
-                    // @ts-ignore-line
-                    Object.assign({}, location, {
-                      name: event.target.value,
-                      isNew: true,
-                    })
-                  )
+                  setIsNewLocation(true)
+                  setLocation({ ...location, name: event.target.value })
                 }}
               />
               <br />
@@ -130,13 +126,7 @@ export const SelectOperationLocation = (props: {
                 label="Location coordinates (UTM)"
                 helperText="Provide the UTM coordinates of the location to create"
                 onChange={(event: any) => {
-                  setLocation(
-                    // @ts-ignore-line
-                    Object.assign({}, location, {
-                      UTM: event.target.value,
-                      isNew: true,
-                    })
-                  )
+                  setLocation({ ...location, UTM: event.target.value })
                 }}
               />
             </Div>

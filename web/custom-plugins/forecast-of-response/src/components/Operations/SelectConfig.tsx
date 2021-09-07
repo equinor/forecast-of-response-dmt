@@ -26,6 +26,7 @@ const readFile = (file: any) => {
 
 export const SelectOperationConfig = (props: {
   setOperationConfig: any
+  setIsNewConfig: any
   isLoading: boolean
   setIsLoading: any
 }): JSX.Element => {
@@ -39,7 +40,7 @@ export const SelectOperationConfig = (props: {
     operationConfigUploadFileName,
     setOperationConfigUploadFileName,
   ] = useState<string>()
-  const { setOperationConfig, isLoading, setIsLoading } = props
+  const { setOperationConfig, setIsNewConfig, isLoading, setIsLoading } = props
 
   /**
    * Set operation configs when the search has completed
@@ -81,10 +82,8 @@ export const SelectOperationConfig = (props: {
                   readFile(file)
                     .then((contents: string) => {
                       const configJson = JSON.parse(contents)
-                      setOperationConfig(
-                        // @ts-ignore-line
-                        Object.assign({}, configJson, { isNew: true })
-                      )
+                      setIsNewConfig(true)
+                      setOperationConfig(configJson)
                       setIsLoading(false)
                     })
                     .catch((err: any) => {
