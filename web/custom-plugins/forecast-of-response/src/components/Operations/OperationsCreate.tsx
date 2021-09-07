@@ -81,6 +81,10 @@ export const OperationsCreate = (props: DmtSettings): JSX.Element => {
     name: string
     dateRange: Date[]
   }>()
+  const [isNewEntity, setIsNewEntity] = useState<{
+    location: boolean
+    config: boolean
+  }>({ location: false, config: false })
   const [operationConfig, setOperationConfig] = useState<TOperationConfig>()
   const [operationLocation, setOperationLocation] = useState<TLocation>({})
   const [isLoading, setIsLoading] = useState<boolean>(false)
