@@ -1,0 +1,49 @@
+on:
+  push:
+    branches:
+      - "master"
+    tags:
+      - "v**"
+
+env:
+  API_IMAGE: mariner.azurecr.io/for/api:latest
+  WEB_IMAGE: mariner.azurecr.io/for/web:latest
+
+jobs:
+  build-and-publish:
+    name: Build and deploy
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@master
+      - name: "Docker Login"
+        run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login mariner.azurecr.io --password-stdin --username ${{ secrets.DOCKER_USERNAME }}
+      - name: Pull latest
+        run: docker pull ${API_IMAGE} && docker pull ${WEB_IMAGE}
+      - name: "Build API"
+        run: docker build --cache-from ${API_IMAGE} --tag ${API_IMAGE} api
+      - name: "Build Web"
+        run: docker build --build-arg REDIRECT_URI=https://proxy-forecast-of-response-test.radix.equinor.com --cache-from ${WEB_IMAGE} --tag ${WEB_IMAGE} web
+      - name: "Push Docker images"
+        run: docker push ${API_IMAGE} && docker push ${WEB_IMAGE}
+
+  deploy-master-to-radix-test-env:
+    needs: [build-and-publish]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Deploy on Radix
+        uses: equinor/radix-github-actions@master
+        env:
+          APP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.APP_SERVICE_ACCOUNT_TOKEN }}
+        with:
+          args: >
+            create job
+            deploy
+            --application forecast-of-response
+            --environment test
+            --user stoo@equinor.com
+            --context production
+            --from-config
+            --token-environment
+            --follow
