@@ -31,37 +31,19 @@ const SelectOperationName = (props: { setOperationName: any }): JSX.Element => {
 }
 
 /**
- * Create a new Location or retrieve the Id of an existing one
- * @param locationEntity A Location entity
+ * Create a new entity and return its Id, or retrieve the Id of an existing one
+ * @param entity An entity of type TLocation | TOperationConfig
  * @param isNew true if the Location needs to be created in DMSS
  */
-const createOrGetLocationEntity = (
-  locationEntity: TLocation,
+const getEntityId = (
+  entity: TLocation | TOperationConfig,
   isNew: boolean = false
 ): PromiseLike<string> => {
   if (isNew) {
-    return insertDocument(locationEntity)
+    return insertDocument(entity)
   } else {
     return new Promise((resolve: any) => {
-      resolve(locationEntity._id)
-    })
-  }
-}
-
-/**
- * Create a new OperationConfig or retrieve the Id of an existing one
- * @param configEntity An OperationConfig entity
- * @param isNew true if the OperationConfig needs to be created in DMSS
- */
-const createOrGetOperationConfigEntity = (
-  configEntity: TOperationConfig,
-  isNew: boolean = false
-): PromiseLike<string> => {
-  if (isNew) {
-    return insertDocument(configEntity)
-  } else {
-    return new Promise((resolve: any) => {
-      resolve(configEntity._id)
+      resolve(entity._id)
     })
   }
 }
