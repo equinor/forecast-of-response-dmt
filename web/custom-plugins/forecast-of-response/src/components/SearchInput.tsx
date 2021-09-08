@@ -6,7 +6,7 @@ const Div = styled.div``
 
 export const SearchInput = (props: {
   placeholder?: string
-  onChange: any
+  onChange: Function
 }): JSX.Element => {
   const { placeholder, onChange } = props
   return (
