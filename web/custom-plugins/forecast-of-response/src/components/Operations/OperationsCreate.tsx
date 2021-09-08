@@ -135,9 +135,6 @@ export const OperationsCreate = (props: DmtSettings): JSX.Element => {
   const [operationConfig, setOperationConfig] = useState<TOperationConfig>()
   const [operationLocation, setOperationLocation] = useState<TLocation>({})
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const { handleSubmit, control } = useForm({
-    defaultValues: {},
-  })
 
   // TODO: redirect to operation view upon creation
   // TODO: Upon clicking cancel, ask for confirmation and whether it should be saved as a draft
