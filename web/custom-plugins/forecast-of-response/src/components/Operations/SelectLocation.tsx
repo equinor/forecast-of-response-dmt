@@ -76,10 +76,11 @@ const SelectLocation = (props: {
 }
 
 const CreateLocation = (props: {
+  location: TLocation
   setLocation: Function
   setIsNewLocation: Function
 }): JSX.Element => {
-  const { setLocation, setIsNewLocation } = props
+  const { location, setLocation, setIsNewLocation } = props
   return (
     <Div>
       <TextField
