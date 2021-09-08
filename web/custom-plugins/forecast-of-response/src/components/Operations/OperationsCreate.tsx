@@ -54,15 +54,15 @@ const getEntityId = (
  * Create a new Operation entity
  * @param operationName Name of the operation to create
  * @param dateRange An array of dates as [startDate, endDate]
- * @param operationConfig An OperationConfig entity
  * @param location A Location entity
+ * @param config An OperationConfig entity
  */
 const createOperationEntity = (
   operationName: string,
   dateRange: Date[],
-  operationConfig: TOperationConfig,
-  location: TLocation
-): PromiseLike<string> => {
+  location: TLocation,
+  config: TOperationConfig
+): Promise<string> => {
   return insertDocument({
     name: operationName,
     type: 'ForecastDS/ForecastOfResponse/Blueprints/Operation',
@@ -72,7 +72,7 @@ const createOperationEntity = (
     start: dateRange && dateRange[0] ? dateRange[0].toISOString() : undefined,
     end: dateRange && dateRange[1] ? dateRange[1].toISOString() : undefined,
     status: OperationStatus.UPCOMING, // TODO: decide based on start attr? allow user to select?
-    config: operationConfig,
+    config: config,
   })
 }
 
