@@ -74,6 +74,51 @@ const createOperationEntity = (
   })
 }
 
+const onClickCreate = (
+  operationMeta: { name: string; dateRange: Date[] },
+  operationLocation: TLocation,
+  operationConfig: TOperationConfig,
+  isNewEntity: { location: boolean; config: boolean },
+  setError: Function
+) => {
+  setError()
+  // Prepare the uncontained entities for the Operation
+  operationLocation.type = 'ForecastDS/ForecastOfResponse/Blueprints/Location'
+  operationConfig.type =
+    'ForecastDS/ForecastOfResponse/Blueprints/OperationConfig'
+
+  Promise.all([
+    getEntityId(operationLocation, isNewEntity.location),
+    getEntityId(operationConfig, isNewEntity.config),
+  ])
+    .then((documentIds: string[]) => {
+      // Remove attrs not needed in the uncontained doc ref
+      delete operationLocation.UTM
+      delete operationConfig.image
+      delete operationConfig.phases
+      // Add the retrieved documentIds
+      operationLocation._id = documentIds[0]
+      operationConfig._id = documentIds[1]
+      createOperationEntity(
+        operationMeta.name,
+        operationMeta.dateRange,
+        operationConfig,
+        operationLocation
+      )
+        .then((documentId) => {
+          console.log(`New operation ${documentId}`)
+        })
+        .catch((err: any) => {
+          console.log(err)
+          setError('An error occurred') // TODO: Improve
+        })
+    })
+    .catch((err: any) => {
+      console.error(err)
+      setError('An error occurred') // TODO: Improve
+    })
+}
+
 export const OperationsCreate = (props: DmtSettings): JSX.Element => {
   const { settings } = props
   const [error, setError] = useState<string>()
@@ -88,6 +133,9 @@ export const OperationsCreate = (props: DmtSettings): JSX.Element => {
   const [operationConfig, setOperationConfig] = useState<TOperationConfig>()
   const [operationLocation, setOperationLocation] = useState<TLocation>({})
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const { handleSubmit, control } = useForm({
+    defaultValues: {},
+  })
 
   // TODO: redirect to operation view upon creation
   // TODO: Upon clicking cancel, ask for confirmation and whether it should be saved as a draft
@@ -95,6 +143,7 @@ export const OperationsCreate = (props: DmtSettings): JSX.Element => {
 
   return (
     <>
+      {isLoading && <Progress.Linear />}
       <Grid>
         <Div>
           <SelectOperationName
@@ -128,68 +177,15 @@ export const OperationsCreate = (props: DmtSettings): JSX.Element => {
         />
       </Grid>
       <Button
-        onClick={() => {
-          setError()
-          if (
-            operationMeta?.name &&
-            operationLocation?.name &&
-            operationConfig?.name &&
-            !isLoading
-          ) {
-            // Prepare the uncontained entities for the Operation
-            operationLocation.type =
-              'ForecastDS/ForecastOfResponse/Blueprints/Location'
-            operationConfig.type =
-              'ForecastDS/ForecastOfResponse/Blueprints/OperationConfig'
-
-            Promise.all([
-              getEntityId(operationLocation, !!isNewEntity.location),
-              getEntityId(operationConfig, !!isNewEntity.config),
-            ])
-              .then((documentIds: string[]) => {
-                // Remove attrs not needed in the uncontained doc ref
-                delete operationLocation.UTM
-                delete operationConfig.image
-                delete operationConfig.phases
-                // Add the retrieved documentIds
-                operationLocation._id = documentIds[0]
-                operationConfig._id = documentIds[1]
-                createOperationEntity(
-                  operationMeta.name,
-                  operationMeta.dateRange,
-                  operationConfig,
-                  operationLocation
-                )
-                  .then((documentId) => {
-                    console.log(`New operation ${documentId}`)
-                  })
-                  .catch((err: any) => {
-                    console.log(err)
-                    setError('An error occurred') // TODO: Improve
-                  })
-              })
-              .catch((err: any) => {
-                console.error(err)
-                setError('An error occurred') // TODO: Improve
-              })
-          } else {
-            const missing = []
-            if (!operationMeta?.name) {
-              missing.push('Operation name')
-            }
-            if (!operationLocation?._id) {
-              missing.push('Location')
-            }
-            if (!operationConfig?._id) {
-              missing.push('Configuration')
-            }
-            setError(
-              `Missing required ${
-                missing.length > 1 ? 'fields' : 'field'
-              } ${missing.join(', ')}`
-            )
-          }
-        }}
+        onClick={() =>
+          onClickCreate(
+            operationMeta,
+            operationLocation,
+            operationConfig,
+            isNewEntity,
+            setError
+          )
+        }
       >
         Create operation
       </Button>
