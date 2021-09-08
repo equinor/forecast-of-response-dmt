@@ -33,7 +33,7 @@ export const SelectOperationConfig = (props: {
   const [operationConfigs, setOperationConfigs] = useState<TOperationConfig[]>(
     []
   )
-  const [searchResult, isLoadingConfigs, setSearchResult, hasError] = useSearch(
+  const { result: searchResult, hasError } = useSearch(
     'ForecastDS/ForecastOfResponse/Blueprints/OperationConfig'
   )
   const [
@@ -47,7 +47,7 @@ export const SelectOperationConfig = (props: {
    */
   useEffect(() => {
     setOperationConfigs(searchResult)
-  }, [!isLoadingConfigs, searchResult, !hasError])
+  }, [searchResult, !hasError])
 
   return (
     <>
