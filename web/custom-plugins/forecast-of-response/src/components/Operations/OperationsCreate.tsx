@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, TextField } from '@equinor/eds-core-react'
+import { Button, Progress, TextField } from '@equinor/eds-core-react'
 import styled from 'styled-components'
 import Grid from '../App/Grid'
 import { Heading } from '../Design/Fonts'
