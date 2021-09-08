@@ -147,6 +147,7 @@ export const SelectOperationLocation = (props: {
           />
         ) : (
           <CreateLocation
+            location={location}
             setLocation={setLocation}
             setIsNewLocation={setIsNewLocation}
           />
