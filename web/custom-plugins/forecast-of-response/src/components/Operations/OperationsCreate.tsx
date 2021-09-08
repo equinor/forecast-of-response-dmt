@@ -94,18 +94,13 @@ const onClickCreate = (
     getEntityId(operationConfig, isNewEntity.config),
   ])
     .then((documentIds: string[]) => {
-      // Remove attrs not needed in the uncontained doc ref
-      delete operationLocation.UTM
-      delete operationConfig.image
-      delete operationConfig.phases
-      // Add the retrieved documentIds
-      operationLocation._id = documentIds[0]
-      operationConfig._id = documentIds[1]
+      if (isNewEntity.location) operationLocation._id = documentIds[0]
+      if (isNewEntity.config) operationConfig._id = documentIds[1]
       createOperationEntity(
         operationMeta.name,
         operationMeta.dateRange,
-        operationConfig,
-        operationLocation
+        operationLocation,
+        operationConfig
       )
         .then((documentId) => {
           console.log(`New operation ${documentId}`)
