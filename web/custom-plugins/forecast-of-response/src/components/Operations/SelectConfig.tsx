@@ -14,10 +14,10 @@ const Label = styled.label``
  * Read the contents of a file as text
  * @param file The file to read
  */
-const readFile = (file: any) => {
+const readFile = (file: Blob): Promise<string> => {
   const fileReader = new FileReader()
   // @ts-ignore-line
-  return new Promise<any>((resolve, reject) => {
+  return new Promise<string>((resolve, reject) => {
     fileReader.onload = (event) => resolve(event?.target?.result)
     fileReader.onerror = (error) => reject(error)
     fileReader.readAsText(file)
