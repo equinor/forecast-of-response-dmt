@@ -106,7 +106,7 @@ const onClickCreate = (
           console.log(`New operation ${documentId}`)
         })
         .catch((err: any) => {
-          console.log(err)
+          console.error(err)
           setError('An error occurred') // TODO: Improve
         })
     })
