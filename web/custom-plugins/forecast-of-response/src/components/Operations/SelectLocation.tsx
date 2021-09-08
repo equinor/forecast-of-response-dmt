@@ -38,19 +38,16 @@ const SelectLocation = (props: {
 }): JSX.Element => {
   const { setLocation, setIsNewLocation } = props
   const [locations, setLocations] = useState<TLocation[]>([])
-  const [
-    searchResult,
-    isLoadingLocations,
-    setSearchResult,
-    hasError,
-  ] = useSearch('ForecastDS/ForecastOfResponse/Blueprints/Location')
+  const { result: searchResult, hasError } = useSearch(
+    'ForecastDS/ForecastOfResponse/Blueprints/Location'
+  )
 
   /**
    * Set locations when the search has completed
    */
   useEffect(() => {
     setLocations(searchResult)
-  }, [!isLoadingLocations, searchResult, !hasError])
+  }, [searchResult, !hasError])
 
   return (
     <Div>
