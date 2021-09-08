@@ -25,10 +25,10 @@ const readFile = (file: any) => {
 }
 
 export const SelectOperationConfig = (props: {
-  setOperationConfig: any
-  setIsNewConfig: any
+  setOperationConfig: Function
+  setIsNewConfig: Function
   isLoading: boolean
-  setIsLoading: any
+  setIsLoading: Function
 }): JSX.Element => {
   const [operationConfigs, setOperationConfigs] = useState<TOperationConfig[]>(
     []
