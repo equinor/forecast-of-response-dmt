@@ -56,15 +56,16 @@ export const SelectOperationConfig = (props: {
         <SingleSelect
           id="operationConfigSelector"
           label="Select operation config from library"
-          items={operationConfigs?.map((opConfig: TOperationConfig) => {
-            return opConfig.name
-          })}
+          items={operationConfigs?.map(
+            (opConfig: TOperationConfig) => opConfig.name
+          )}
           handleSelectedItemChange={(event: any) => {
-            const matches = operationConfigs?.filter(
-              (opConfig: TOperationConfig) =>
-                opConfig.name === event.selectedItem
+            setIsNewConfig(false)
+            setOperationConfig(
+              operationConfigs.find(
+                (config: TOperationConfig) => config.name === event.selectedItem
+              )
             )
-            setOperationConfig(matches[0])
           }}
         />
         <Div>
