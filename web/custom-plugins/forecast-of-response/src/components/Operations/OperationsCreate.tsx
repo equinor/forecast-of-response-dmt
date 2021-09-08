@@ -12,7 +12,9 @@ import { insertDocument } from '../../utils/insertDocument'
 
 const Div = styled.div``
 
-const SelectOperationName = (props: { setOperationName: any }): JSX.Element => {
+const SelectOperationName = (props: {
+  setOperationName: Function
+}): JSX.Element => {
   const { setOperationName } = props
   return (
     <>
