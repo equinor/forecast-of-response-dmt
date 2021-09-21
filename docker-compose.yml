@@ -67,7 +67,7 @@ services:
       - web
     image: mariner.azurecr.io/dmt/nginx:${DMT_VERSION:-latest}
     ports:
-      - "9000:80"
+      - "9000:8080"
 
   db-ui:
     image: mongo-express:0.49
