@@ -1,25 +1,25 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { DmtUIPlugin } from '@dmt/core-plugins'
 import { Label, Search, SingleSelect, Table } from '@equinor/eds-core-react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
-import { DocumentAPI } from '@dmt/common'
+import { DmssAPI, AuthContext } from '@dmt/common'
 import { TOperation } from '../Types'
 import { CenterWrapper, FlexWrapper, GroupWrapper } from './Wrappers'
 import { OperationStatus } from '../Enums'
 import { StatusDot } from './Other'
-
-const documentAPI = new DocumentAPI()
 
 export default (props: DmtUIPlugin): JSX.Element => {
   const { dataSourceId } = props
   const [startDate, setStartDate] = useState(new Date())
   const [operations, setOperations] = useState<TOperation[]>([])
   const local = 'en-GB'
+  const { token } = useContext(AuthContext)
+  const dmssAPI = new DmssAPI(token)
   // const local = window.navigator.language
 
   useEffect(() => {
-    documentAPI
+    dmssAPI
       .search(dataSourceId, {
         type: 'ForecastDS/for/Blueprints/Operation',
       })
