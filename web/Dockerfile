@@ -2,8 +2,12 @@ ARG DMT_VERSION=latest
 FROM mariner.azurecr.io/dmt/web:${DMT_VERSION} as base
 ARG REDIRECT_URI=http://localhost:9000/
 ARG AUTH_ENABLED=0
+ARG AUTH_SCOPE=api://ee7dbf49-e358-4c9c-a7e4-fb6d56c02205/FoR_test_scope
+ARG CLIENT_ID=ee7dbf49-e358-4c9c-a7e4-fb6d56c02205
+ENV REACT_APP_AUTH_CLIENT_ID=$CLIENT_ID
 ENV REACT_APP_AUTH_REDIRECT_URI=$REDIRECT_URI
 ENV REACT_APP_AUTH=$AUTH_ENABLED
+ENV REACT_APP_AUTH_SCOPE=$AUTH_SCOPE
 USER 0
 COPY ./actions.js /code/app/src/actions.js
 COPY ./config.js /code/app/src/config.js
