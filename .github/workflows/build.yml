@@ -23,7 +23,7 @@ jobs:
       - name: "Build API"
         run: docker build --cache-from ${API_IMAGE} --tag ${API_IMAGE} api
       - name: "Build Web"
-        run: docker build --build-arg REDIRECT_URI=https://proxy-forecast-of-response-test.radix.equinor.com --cache-from ${WEB_IMAGE} --tag ${WEB_IMAGE} web
+        run: docker build --build-arg REDIRECT_URI=https://forecast-of-response.app.radix.equinor.com/ AUTH_ENABLED=1 --cache-from ${WEB_IMAGE} --tag ${WEB_IMAGE} web
       - name: "Push Docker images"
         run: docker push ${API_IMAGE} && docker push ${WEB_IMAGE}
 
