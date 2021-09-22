@@ -20,7 +20,7 @@ export default (props: DmtUIPlugin): JSX.Element => {
 
   useEffect(() => {
     dmssAPI
-      .search(dataSourceId, {
+      .searchDocuments(dataSourceId, {
         type: 'ForecastDS/for/Blueprints/Operation',
       })
       .then((result: any) => setOperations(Object.values(result)))

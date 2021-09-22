@@ -1,8 +1,9 @@
 ARG DMT_VERSION=latest
-ARG REDIRECT_URI=http://localhost
 FROM mariner.azurecr.io/dmt/web:${DMT_VERSION} as base
-ENV REACT_APP_AUTH=0
-ENV REACT_APP_AUTH_REDIRECT_URI=${REDIRECT_URI}
+ARG REDIRECT_URI=http://localhost:9000/
+ARG AUTH_ENABLED=0
+ENV REACT_APP_AUTH_REDIRECT_URI=$REDIRECT_URI
+ENV REACT_APP_AUTH=$AUTH_ENABLED
 USER 0
 COPY ./actions.js /code/app/src/actions.js
 COPY ./config.js /code/app/src/config.js

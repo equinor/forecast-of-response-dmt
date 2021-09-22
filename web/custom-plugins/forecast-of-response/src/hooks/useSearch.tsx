@@ -16,7 +16,7 @@ export const useSearch = (
   useEffect(() => {
     setIsLoading(true)
     dmssAPI
-      .search(dataSourceId, {
+      .searchDocuments(dataSourceId, {
         type: type,
       })
       .then((result: any) => {

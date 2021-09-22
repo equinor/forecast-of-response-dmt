@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { TLocation } from '../Types'
 import { SingleSelect } from '@equinor/eds-core-react'
 import 'react-datepicker/dist/react-datepicker.css'
@@ -11,7 +11,7 @@ export default ({ nextStep, onChange }: any): JSX.Element => {
   const dmssAPI = new DmssAPI(token)
   useEffect(() => {
     dmssAPI
-      .search('ForecastDS', {
+      .searchDocuments('ForecastDS', {
         type: 'ForecastDS/for/Blueprints/Location',
       })
       .then((result: any) => setLocations(Object.values(result)))

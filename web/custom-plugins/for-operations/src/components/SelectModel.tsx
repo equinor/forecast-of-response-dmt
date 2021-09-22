@@ -12,7 +12,7 @@ export default ({ nextStep }: any): JSX.Element => {
   const dmssAPI = new DmssAPI(token)
   useEffect(() => {
     dmssAPI
-      .search('ForecastDS', {
+      .searchDocuments('ForecastDS', {
         type: 'ForecastDS/for/Blueprints/Location',
       })
       .then((result: any) => setLocations(Object.values(result)))
