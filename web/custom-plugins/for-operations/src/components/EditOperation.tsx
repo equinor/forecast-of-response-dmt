@@ -3,14 +3,11 @@ import { DmtUIPlugin } from '@dmt/core-plugins'
 import { TLocation, TOperation } from '../Types'
 import 'react-datepicker/dist/react-datepicker.css'
 import { StepperState } from '../Enums'
-import { DocumentAPI } from '@dmt/common'
 import Stepper from './Stepper'
 import { CenterWrapper, FlexWrapper } from './Wrappers'
 import SelectLocation from './SelectLocation'
 import SelectModel from './SelectModel'
 import { Button } from '@equinor/eds-core-react'
-
-const documentAPI = new DocumentAPI()
 
 // export interface DmtUIPlugin {
 //   type: string

@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
-import { DocumentAPI } from '@dmt/common'
+import { useEffect, useState, useContext } from 'react'
+import { DmssAPI, AuthContext } from '@dmt/common'
 
 const DEFAULT_DATASOURCE_ID = 'ForecastDS'
 
@@ -10,12 +10,13 @@ export const useSearch = (
   const [searchResult, setSearchResult] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
   const [hasError, setHasError] = useState(false)
-  const documentAPI = new DocumentAPI()
+  const { token } = useContext(AuthContext)
+  const dmssAPI = new DmssAPI(token)
 
   useEffect(() => {
     setIsLoading(true)
-    documentAPI
-      .search(dataSourceId, {
+    dmssAPI
+      .searchDocuments(dataSourceId, {
         type: type,
       })
       .then((result: any) => {

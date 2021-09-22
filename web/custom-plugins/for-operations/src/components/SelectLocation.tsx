@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { TLocation } from '../Types'
 import { SingleSelect } from '@equinor/eds-core-react'
 import 'react-datepicker/dist/react-datepicker.css'
-import { DocumentAPI } from '@dmt/common'
+import { DmssAPI, AuthContext } from '@dmt/common'
 import { NextButton } from './Other'
-
-const documentAPI = new DocumentAPI()
 
 export default ({ nextStep, onChange }: any): JSX.Element => {
   const [locations, setLocations] = useState<TLocation[]>([])
+  const { token } = useContext(AuthContext)
+  const dmssAPI = new DmssAPI(token)
   useEffect(() => {
-    documentAPI
-      .search('ForecastDS', {
+    dmssAPI
+      .searchDocuments('ForecastDS', {
         type: 'ForecastDS/for/Blueprints/Location',
       })
       .then((result: any) => setLocations(Object.values(result)))
