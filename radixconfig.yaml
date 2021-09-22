@@ -14,11 +14,6 @@ spec:
       ports:
         - name: http
           port: 3000
-      environmentConfig:
-        - environment: test
-          variables:
-            REDIRECT_URI: https://proxy-forecast-of-response-test.radix.equinor.com/
-            AUTH_ENABLED: 1
 
     - name: api
       image: mariner.azurecr.io/for/api:latest
