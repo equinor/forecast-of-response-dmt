@@ -21,7 +21,7 @@ spec:
       environmentConfig:
         - environment: test
           variables:
-            DMSS_HOST: dmss
+            DMSS_HOST: dmss-forecast-of-response-test.radix.equinor.com
             DMSS_PORT: 5000
             ENVIRONMENT: production
       ports:
