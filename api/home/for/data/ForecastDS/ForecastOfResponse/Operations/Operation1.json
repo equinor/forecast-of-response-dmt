@@ -1,0 +1,54 @@
+{
+  "_id": "26a4d888-3ab4-4ad2-9bd9-9614dcb066d4",
+  "name": "SverdrupAnchorReplace2021",
+  "type": "/Blueprints/Operation",
+  "description": "Bridge forecast",
+  "creator": "eaks",
+  "location": {
+    "_id": "gullfaks-location",
+    "name": "Gullfaks",
+    "type": "/Blueprints/Location"
+  },
+  "start": "2021-06-25 13:45:37.352574",
+  "end": "2021-06-27 13:45:37.352574",
+  "status": "Ongoing",
+  "phases": [
+    {
+      "name": "the-first_phase",
+      "type": "/Blueprints/Phase",
+      "start": "2021-06-25 13:45:37.352574",
+      "end": "2021-06-27 13:45:37.352574",
+      "status": "Ongoing",
+      "activeForecast": {
+        "name": "test1",
+        "type": "/Blueprints/Simulation",
+        "description": "",
+        "weatherDataId": "25.6,19:15",
+        "progress": "Running",
+        "result": {},
+        "started": "2021-06-27 13:45:37.352574",
+        "ended": "2021-06-27 13:45:37.352574"
+      },
+      "simulations": [
+        {
+          "name": "test1",
+          "type": "/Blueprints/Simulation",
+          "description": "",
+          "weatherDataId": "25.6,19:15",
+          "progress": "Running",
+          "started": "2021-06-27 13:45:37.352574",
+          "ended": "2021-06-27 13:45:37.352574"
+        },
+        {
+          "name": "test2",
+          "type": "/Blueprints/Simulation",
+          "description": "",
+          "weatherDataId": "1235",
+          "progress": "Running",
+          "started": "2021-06-27 13:45:37.352574",
+          "ended": "2021-06-27 13:45:37.352574"
+        }
+      ]
+    }
+  ]
+}

@@ -1,15 +1,32 @@
 import React from 'react'
+import { useParams } from 'react-router-dom'
 import { DmtUIPlugin } from '@dmt/core-plugins'
+import { useDocument } from '@dmt/common'
 import { TOperation } from '../Types'
-import { FlexWrapper } from './Wrappers'
 import { Button, Card, Label, Table, Typography } from '@equinor/eds-core-react'
 import 'react-datepicker/dist/react-datepicker.css'
-import { OperationStatus } from '../Enums'
-import { StatusDot } from './Other'
+import { StatusDot } from "../Other"
+import { OperationStatus } from "../../Enums"
+import styled from "styled-components"
+
+export const FlexWrapper = styled.div`
+  display: flex;
+  align-items: flex-end;
+  justify-content: right;
+`
 
 export default (props: DmtUIPlugin): JSX.Element => {
-  const operation: TOperation = props.document
+  const { data_source, entity_id } = useParams()
+  const [document, isLoading, updateDocument, error] = useDocument(data_source, entity_id)
   const local = 'en-GB'
+
+  if(isLoading) return <>Loading...</>
+
+  if(error) return <>Something went wrong. Sorry...</>
+
+  const operation: TOperation = document
+
+  if(!operation) return <>The document is empty...</>
 
   return (
     <>
@@ -49,31 +66,31 @@ export default (props: DmtUIPlugin): JSX.Element => {
         </Card.Actions>
         <Table density="comfortable" style={{ width: '100%' }}>
           <Table.Caption>
-            <Typography variant="h3">Simulation runs</Typography>
+            <Typography variant="h3">Phases in operation</Typography>
           </Table.Caption>
           <Table.Head>
             <Table.Row>
-              <Table.Cell>WeatherData</Table.Cell>
+              <Table.Cell>Phase</Table.Cell>
               <Table.Cell>Started</Table.Cell>
               <Table.Cell>Ended</Table.Cell>
               <Table.Cell>Progress</Table.Cell>
             </Table.Row>
           </Table.Head>
           <Table.Body>
-            {operation.simulationRuns.length &&
-              operation.simulationRuns.map((simulation, index) => (
+            {operation.phases.length &&
+              operation.phases.map((phase, index) => (
                 <Table.Row key={index}>
-                  <Table.Cell>{simulation.weatherDataId}</Table.Cell>
+                  <Table.Cell>{phase.name}</Table.Cell>
                   <Table.Cell>
-                    {new Date(simulation.started).toLocaleString(local)}
+                    {new Date(phase.start).toLocaleString(local)}
                   </Table.Cell>
                   <Table.Cell>
-                    {new Date(simulation.ended).toLocaleString(local)}
+                    {new Date(phase.end).toLocaleString(local)}
                   </Table.Cell>
                   <Table.Cell>
                     <FlexWrapper>
                       <StatusDot status={OperationStatus.IN_PROGRESS} />
-                      {simulation.progress}
+                      {phase.status}
                     </FlexWrapper>
                   </Table.Cell>
                 </Table.Row>

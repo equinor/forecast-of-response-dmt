@@ -1,0 +1,39 @@
+{
+  "name": "Simulation",
+  "type": "system/SIMOS/Blueprint",
+  "extends": ["system/SIMOS/DefaultUiRecipes","system/SIMOS/NamedEntity"],
+  "description": "",
+  "attributes": [
+    {
+      "name": "weatherDataId",
+      "type": "system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    },
+    {
+      "name": "progress",
+      "type": "system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    },
+    {
+      "name": "started",
+      "type": "system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    },
+    {
+      "name": "result",
+      "type": "system/SIMOS/BlueprintAttribute",
+      "attributeType": "/Blueprints/Result",
+      "optional": true,
+      "contained": false
+    },
+    {
+      "name": "ended",
+      "type": "system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    }
+  ]
+}

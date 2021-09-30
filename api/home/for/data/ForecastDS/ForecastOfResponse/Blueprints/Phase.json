@@ -1,33 +1,34 @@
 {
-  "name": "SimulationRun",
+  "name": "Phase",
   "type": "system/SIMOS/Blueprint",
-  "extends": ["system/SIMOS/DefaultUiRecipes","system/SIMOS/NamedEntity"],
-  "description": "",
+  "extends": ["system/SIMOS/DefaultUiRecipes", "system/SIMOS/NamedEntity"],
+  "description": "A phase belonging to an Operation",
   "attributes": [
     {
-      "name": "weatherDataId",
+      "name": "simulations",
+      "type": "system/SIMOS/BlueprintAttribute",
+      "attributeType": "/Blueprints/Simulation",
+      "optional": true,
+      "contained": true,
+      "dimensions": "*"
+    },
+    {
+      "name": "start",
       "type": "system/SIMOS/BlueprintAttribute",
       "attributeType": "string",
       "optional": true
     },
     {
-      "name": "progress",
+      "name": "end",
       "type": "system/SIMOS/BlueprintAttribute",
       "attributeType": "string",
       "optional": true
     },
     {
-      "name": "started",
-      "type": "system/SIMOS/BlueprintAttribute",
-      "attributeType": "string",
-      "optional": true
-    },
-    {
-      "name": "ended",
+      "name": "status",
       "type": "system/SIMOS/BlueprintAttribute",
       "attributeType": "string",
       "optional": true
     }
-  ],
-    "uiRecipes": []
+  ]
 }
