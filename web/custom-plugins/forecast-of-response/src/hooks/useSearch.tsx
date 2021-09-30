@@ -31,5 +31,5 @@ export const useSearch = (
       })
   }, [dataSourceId, type])
 
-  return [searchResult, isLoading, setSearchResult, hasError]
+  return { result: searchResult, hasError: hasError }
 }
