@@ -43,21 +43,28 @@ users: StringMap
 others: ACLEnum
 }
 
-export type TOperationPhase = {
+export type TSimulation = {
   weatherDataId?: string
   progress: string
   started: Date
   ended: Date
 }
 
-// TODO: Retrieve from Blueprint / DMT?
+export type TPhase = {
+  simulations: TSimulation[]
+  name: string
+  start: Date
+  end: Date
+  status: OperationStatus
+}
+
 export type TOperation = {
-  _id?: string
+  _id: string
   name: string
   creator: string
-  start: number | string
-  end?: number | string
+  start: Date
+  end: Date
   status: OperationStatus
   location: TLocation
-  phases: TOperationPhase[]
+  phases: TPhase[]
 }

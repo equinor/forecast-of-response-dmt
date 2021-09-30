@@ -1,7 +1,9 @@
 import { TRoute } from '../../Types'
 import { Dashboard } from '../Dashboard'
 import { Library } from '../Library'
-import { Operations, OperationsCreate } from '../Operations'
+import OperationDetails from "../Operations/OperationDetails"
+import { OperationOverview } from "../Operations/OperationOverview"
+import { OperationsCreate } from "../Operations/Create"
 
 // Temporary basic routes while developing UI
 const Routes: Array<TRoute> = [
@@ -12,36 +14,36 @@ const Routes: Array<TRoute> = [
     content: Library,
   },
   {
-    path: '/operations',
-    heading: 'Operations',
-    content: Operations,
-    // TODO: Consider more dynamic approach, e.g.
-    //content: (<UIPlugin
-    // name='OperationsOverview'
-    // uiRecipe='operations-overview'
-    // type='ForecastDS/ForecastOfResponse/Blueprints/Operation'
-    // />)
+    path: '/operation/:data_source/:entity_id',
+    heading: 'Operation details',
+    content: OperationDetails,
   },
   {
-    path: '/operations#draft',
-    heading: 'Operation drafts',
-    content: Operations,
-  },
-  {
-    path: '/operations#ongoing',
-    heading: 'Ongoing operations',
-    content: Operations,
-  },
-  {
-    path: '/operations#concluded',
-    heading: 'Completed operations',
-    content: Operations,
-  },
-  {
-    path: '/operations/new',
+    path: '/operation/new',
     heading: 'Create new operation',
     content: OperationsCreate,
   },
+  {
+    path: '/operation',
+    heading: 'Operations',
+    content: OperationOverview,
+  },
+  {
+    path: '/operation#draft',
+    heading: 'Operation drafts',
+    content: OperationOverview,
+  },
+  {
+    path: '/operation#ongoing',
+    heading: 'Ongoing operations',
+    content: OperationOverview,
+  },
+  {
+    path: '/operation#concluded',
+    heading: 'Completed operations',
+    content: OperationOverview,
+  },
+
 ]
 
 export default Routes

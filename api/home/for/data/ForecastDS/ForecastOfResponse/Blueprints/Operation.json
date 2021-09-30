@@ -5,10 +5,9 @@
   "description": "",
   "attributes": [
     {
-      "name": "simulationRuns",
+      "name": "phases",
       "type": "system/SIMOS/BlueprintAttribute",
-      "attributeType": "/Blueprints/SimulationRun",
-      "optional": true,
+      "attributeType": "/Blueprints/Phase",
       "contained": true,
       "dimensions": "*"
     },

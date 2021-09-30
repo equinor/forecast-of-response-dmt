@@ -14,7 +14,7 @@ import Grid from '../App/Grid'
 import { DateRangePicker } from '../DateRangePicker'
 import { useSearch } from '../../hooks/useSearch'
 
-export const Operations = (props: DmtSettings): JSX.Element => {
+export const OperationOverview = (props: DmtSettings): JSX.Element => {
   const { settings } = props
   const [operations, setOperations] = useState<Array<TOperation>>([])
   const documentHash = document.location.hash.split('#')[1]
