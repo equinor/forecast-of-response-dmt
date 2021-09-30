@@ -26,7 +26,7 @@ export const Operations = (props: DmtSettings): JSX.Element => {
   const [operations, setOperations] = useState<TOperation[]>([])
   const [dateRange, setDateRange] = useState<Date[]>()
   const documentHash = document.location.hash.split('#')[1]
-  const [searchResult, isLoading, setSearchResult, hasError] = useSearch(
+  const { result: searchResult, isLoading, hasError } = useSearch(
     'ForecastDS/ForecastOfResponse/Blueprints/Operation'
   )
   const scopedOperations = searchResult?.filter((operation: TOperation) =>

@@ -33,9 +33,11 @@ export const SelectOperationConfig = (props: {
   const [operationConfigs, setOperationConfigs] = useState<TOperationConfig[]>(
     []
   )
-  const [searchResult, isLoadingConfigs, setSearchResult, hasError] = useSearch(
-    'ForecastDS/ForecastOfResponse/Blueprints/OperationConfig'
-  )
+  const {
+    result: searchResult,
+    isLoading: isLoadingConfigs,
+    hasError,
+  } = useSearch('ForecastDS/ForecastOfResponse/Blueprints/OperationConfig')
   const [
     operationConfigUploadFileName,
     setOperationConfigUploadFileName,
