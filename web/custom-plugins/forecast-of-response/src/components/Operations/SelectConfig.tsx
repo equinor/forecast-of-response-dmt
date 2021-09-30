@@ -49,7 +49,7 @@ export const SelectOperationConfig = (props: {
    */
   useEffect(() => {
     setOperationConfigs(searchResult)
-  }, [!isLoadingConfigs, searchResult, !hasError])
+  }, [searchResult])
 
   return (
     <>
