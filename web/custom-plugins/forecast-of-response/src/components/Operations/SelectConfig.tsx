@@ -1,14 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import styled from 'styled-components'
 import { Button, Progress, SingleSelect } from '@equinor/eds-core-react'
 import { TOperationConfig } from '../../Types'
 import { useSearch } from '../../hooks/useSearch'
 import { Heading, Meta } from '../Design/Fonts'
 import Grid from '../App/Grid'
-
-const Div = styled.div``
-const Input = styled.input``
-const Label = styled.label``
 
 /**
  * Read the contents of a file as text
@@ -46,7 +41,9 @@ export const SelectOperationConfig = (props: {
    * Set operation configs when the search has completed
    */
   useEffect(() => {
-    setOperationConfigs(searchResult)
+    if (searchResult) {
+      setOperationConfigs(searchResult)
+    }
   }, [searchResult])
 
   return (
@@ -68,14 +65,14 @@ export const SelectOperationConfig = (props: {
             )
           }}
         />
-        <Div>
-          <Input
+        <div>
+          <input
             type="file"
             id="operationConfigUpload"
             style={{ display: 'none' }}
             accept=".json"
             onChange={(event: any) => {
-              if (event.target.files.length === 1) {
+              if (event.target.files.length >= 1) {
                 const file = event.target.files[0]
                 if (file.type === 'application/json') {
                   setOperationConfigUploadFileName(file.name)
@@ -93,22 +90,22 @@ export const SelectOperationConfig = (props: {
                     })
                 } else {
                   console.error(
-                    'Specified file is not in the required format JSON.'
+                    'Specified file is not in the required format (JSON).'
                   )
                 }
               }
             }}
           />
-          <Label htmlFor="operationConfigUpload">
+          <label htmlFor="operationConfigUpload">
             <Button as="span" variant="outlined">
               {(isLoading && <Progress.Dots color="primary" />) ||
                 'Upload new config'}
             </Button>
-          </Label>
+          </label>
           {operationConfigUploadFileName && (
             <Meta text={`File: ${operationConfigUploadFileName}`} />
           )}
-        </Div>
+        </div>
       </Grid>
     </>
   )

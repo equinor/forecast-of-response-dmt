@@ -5,7 +5,6 @@ import { TLocation } from '../../Types'
 import { useSearch } from '../../hooks/useSearch'
 import { Heading } from '../Design/Fonts'
 
-const Div = styled.div``
 const LocationButtonsGrid = styled.div`
   display: grid;
   grid-template-columns: auto auto;
@@ -14,7 +13,7 @@ const LocationButtonsGrid = styled.div`
 const OperationLocationMap = (props: { location: TLocation }): JSX.Element => {
   const { location } = props
   return (
-    <Div style={{ width: '300px' }}>
+    <div style={{ width: '300px' }}>
       <Card>
         <Card.Header>
           <Card.HeaderTitle>
@@ -28,7 +27,7 @@ const OperationLocationMap = (props: { location: TLocation }): JSX.Element => {
           />
         </Card.Media>
       </Card>
-    </Div>
+    </div>
   )
 }
 
@@ -46,11 +45,13 @@ const SelectLocation = (props: {
    * Set locations when the search has completed
    */
   useEffect(() => {
-    setLocations(searchResult)
-  }, [searchResult, !hasError])
+    if (searchResult) {
+      setLocations(searchResult)
+    }
+  }, [searchResult, locations])
 
   return (
-    <Div>
+    <div>
       <SingleSelect
         id="operationLocationSelector"
         label="Select location"
@@ -68,7 +69,7 @@ const SelectLocation = (props: {
           )
         }}
       />
-    </Div>
+    </div>
   )
 }
 
@@ -79,7 +80,7 @@ const CreateLocation = (props: {
 }): JSX.Element => {
   const { location, setLocation, setIsNewLocation } = props
   return (
-    <Div>
+    <div>
       <TextField
         id="operationLocationName"
         placeholder="Location name"
@@ -100,7 +101,7 @@ const CreateLocation = (props: {
           setLocation({ ...location, UTM: event.target.value })
         }}
       />
-    </Div>
+    </div>
   )
 }
 
@@ -114,9 +115,9 @@ export const SelectOperationLocation = (props: {
 
   return (
     <>
-      <Div>
+      <div>
         <Heading text="Enter location" variant="h4" />
-        <Div>
+        <div>
           <LocationButtonsGrid>
             <Button
               variant={
@@ -135,7 +136,7 @@ export const SelectOperationLocation = (props: {
               Enter UTM coordinates
             </Button>
           </LocationButtonsGrid>
-        </Div>
+        </div>
         <br />
         {selectLocationType === 'select' ? (
           <SelectLocation
@@ -149,7 +150,7 @@ export const SelectOperationLocation = (props: {
             setIsNewLocation={setIsNewLocation}
           />
         )}
-      </Div>
+      </div>
       <OperationLocationMap location={location} />
     </>
   )
