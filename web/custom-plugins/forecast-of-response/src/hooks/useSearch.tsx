@@ -28,6 +28,7 @@ export const useSearch = (
         setIsLoading(false)
       })
       .catch((err: any) => {
+        console.error(err)
         setHasError(true)
         setIsLoading(false)
       })
