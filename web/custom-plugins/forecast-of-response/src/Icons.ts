@@ -6,6 +6,10 @@ import {
   notifications,
   fullscreen,
   grid_on,
+  edit_text,
+  delete_forever,
+  delete_to_trash,
+  save
 } from '@equinor/eds-icons'
 
 Icon.add({
@@ -15,6 +19,10 @@ Icon.add({
   notifications,
   fullscreen,
   grid_on,
+  edit_text,
+  delete_forever,
+  delete_to_trash,
+  save
 })
 export default Icon
 // Usage example:

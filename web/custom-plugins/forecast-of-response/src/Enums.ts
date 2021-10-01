@@ -4,3 +4,9 @@ export enum OperationStatus {
   ONGOING = 'Ongoing',
   CONCLUDED = 'Concluded',
 }
+
+export enum ACLEnum {
+  READ = 'READ',
+  WRITE = 'WRITE',
+  NONE = 'NONE'
+}
