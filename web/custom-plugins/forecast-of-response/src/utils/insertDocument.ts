@@ -1,15 +1,29 @@
-import { DocumentAPI } from '@dmt/common'
+import { DmssAPI } from '@dmt/common'
 
 const DEFAULT_DATASOURCE_ID = 'ForecastDS'
-const baseUrl = '/dmss/api/v1'
+const DEFAULT_DIRECTORY = 'ForecastOfResponse'
 
 export const insertDocument = (
   body: any,
-  isNew: boolean = true,
-  dataSourceId: string = DEFAULT_DATASOURCE_ID
+  token: string,
+  dataSourceId: string = DEFAULT_DATASOURCE_ID,
+  directory: string = DEFAULT_DIRECTORY
 ): Promise<string> => {
-  const documentAPI = new DocumentAPI()
-  const url = `${baseUrl}/explorer/${dataSourceId}/add-document`
+  const dmssAPI = new DmssAPI(token)
 
-  return documentAPI.create(url, body)
+  return new Promise((resolve, reject) => {
+    dmssAPI.generatedDmssApi
+      .explorerAddToPath({
+        dataSourceId: dataSourceId,
+        document: JSON.stringify(body),
+        directory: directory,
+      })
+      .then((addToPathResponse: string) => {
+        const jsonRes = JSON.parse(addToPathResponse)
+        resolve(jsonRes.uid)
+      })
+      .catch((err: any) => {
+        reject(err)
+      })
+  })
 }
