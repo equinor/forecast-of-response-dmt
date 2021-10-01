@@ -16,8 +16,11 @@ export const useSearch = (
   useEffect(() => {
     setIsLoading(true)
     dmssAPI
-      .searchDocuments(dataSourceId, {
-        type: type,
+      .searchDocuments({
+        dataSourceId: dataSourceId,
+        body: {
+          type: type,
+        },
       })
       .then((result: any) => {
         // @ts-ignore-line
@@ -25,7 +28,6 @@ export const useSearch = (
         setIsLoading(false)
       })
       .catch((err: any) => {
-        console.error(err)
         setHasError(true)
         setIsLoading(false)
       })
