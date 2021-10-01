@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Button, Progress, TextField } from '@equinor/eds-core-react'
-import styled from 'styled-components'
+import { AuthContext } from '@dmt/common'
 import Grid from '../App/Grid'
 import { Heading } from '../Design/Fonts'
 import { DmtSettings, TLocation, TOperationConfig } from '../../Types'
@@ -9,8 +9,6 @@ import { SelectOperationLocation } from './SelectLocation'
 import { SelectOperationConfig } from './SelectConfig'
 import { DateRangePicker } from '../DateRangePicker'
 import { insertDocument } from '../../utils/insertDocument'
-
-const Div = styled.div``
 
 const SelectOperationName = (props: {
   setOperationName: Function
@@ -36,13 +34,15 @@ const SelectOperationName = (props: {
  * Create a new entity and return its Id, or retrieve the Id of an existing one
  * @param entity An entity of type TLocation | TOperationConfig
  * @param isNew true if the Location needs to be created in DMSS
+ * @param token The access token
  */
 const getEntityId = (
   entity: TLocation | TOperationConfig,
+  token: string,
   isNew: boolean = false
 ): PromiseLike<string> => {
   if (isNew) {
-    return insertDocument(entity)
+    return insertDocument(entity, token)
   } else {
     return new Promise((resolve: any) => {
       resolve(entity._id)
@@ -56,24 +56,29 @@ const getEntityId = (
  * @param dateRange An array of dates as [startDate, endDate]
  * @param location A Location entity
  * @param config An OperationConfig entity
+ * @param token The access token
  */
 const createOperationEntity = (
   operationName: string,
   dateRange: Date[],
   location: TLocation,
-  config: TOperationConfig
+  config: TOperationConfig,
+  token: string
 ): Promise<string> => {
-  return insertDocument({
-    name: operationName,
-    type: 'ForecastDS/ForecastOfResponse/Blueprints/Operation',
-    description: '', // TODO: Add description input?
-    creator: 'someUser', // TODO: Get user from current session, or automatically in the backend based on token?
-    location: location,
-    start: dateRange && dateRange[0] ? dateRange[0].toISOString() : undefined,
-    end: dateRange && dateRange[1] ? dateRange[1].toISOString() : undefined,
-    status: OperationStatus.UPCOMING, // TODO: decide based on start attr? allow user to select?
-    config: config,
-  })
+  return insertDocument(
+    {
+      name: operationName,
+      type: 'ForecastDS/ForecastOfResponse/Blueprints/Operation',
+      description: '', // TODO: Add description input?
+      creator: 'someUser', // TODO: Get user from current session, or automatically in the backend based on token?
+      location: location,
+      start: dateRange && dateRange[0] ? dateRange[0].toISOString() : undefined,
+      end: dateRange && dateRange[1] ? dateRange[1].toISOString() : undefined,
+      status: OperationStatus.UPCOMING, // TODO: decide based on start attr? allow user to select?
+      config: config,
+    },
+    token
+  )
 }
 
 const onClickCreate = (
@@ -81,17 +86,17 @@ const onClickCreate = (
   operationLocation: TLocation,
   operationConfig: TOperationConfig,
   isNewEntity: { location: boolean; config: boolean },
-  setError: Function
+  setError: Function,
+  token: string
 ) => {
-  setError()
   // Prepare the uncontained entities for the Operation
   operationLocation.type = 'ForecastDS/ForecastOfResponse/Blueprints/Location'
   operationConfig.type =
     'ForecastDS/ForecastOfResponse/Blueprints/OperationConfig'
 
   Promise.all([
-    getEntityId(operationLocation, isNewEntity.location),
-    getEntityId(operationConfig, isNewEntity.config),
+    getEntityId(operationLocation, token, isNewEntity.location),
+    getEntityId(operationConfig, token, isNewEntity.config),
   ])
     .then((documentIds: string[]) => {
       if (isNewEntity.location) operationLocation._id = documentIds[0]
@@ -100,9 +105,11 @@ const onClickCreate = (
         operationMeta.name,
         operationMeta.dateRange,
         operationLocation,
-        operationConfig
+        operationConfig,
+        token
       )
         .then((documentId) => {
+          // todo redirect to operation view
           console.log(`New operation ${documentId}`)
         })
         .catch((err: any) => {
@@ -118,6 +125,7 @@ const onClickCreate = (
 
 export const OperationsCreate = (props: DmtSettings): JSX.Element => {
   const { settings } = props
+  const { token } = useContext(AuthContext)
   const [error, setError] = useState<string>()
   const [operationMeta, setOperationMeta] = useState<{
     name: string
@@ -139,7 +147,7 @@ export const OperationsCreate = (props: DmtSettings): JSX.Element => {
     <>
       {isLoading && <Progress.Linear />}
       <Grid>
-        <Div>
+        <div>
           <SelectOperationName
             setOperationName={(operationName: string) => {
               setOperationMeta({ ...operationMeta, name: operationName })
@@ -161,7 +169,7 @@ export const OperationsCreate = (props: DmtSettings): JSX.Element => {
             isLoading={isLoading}
             setIsLoading={setIsLoading}
           />
-        </Div>
+        </div>
         <SelectOperationLocation
           location={operationLocation}
           setLocation={setOperationLocation}
@@ -177,7 +185,8 @@ export const OperationsCreate = (props: DmtSettings): JSX.Element => {
             operationLocation,
             operationConfig,
             isNewEntity,
-            setError
+            setError,
+            token
           )
         }
       >
