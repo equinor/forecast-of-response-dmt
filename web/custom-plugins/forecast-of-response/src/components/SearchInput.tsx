@@ -1,8 +1,5 @@
 import React from 'react'
 import { Label, Search } from '@equinor/eds-core-react'
-import styled from 'styled-components'
-
-const Div = styled.div``
 
 export const SearchInput = (props: {
   placeholder?: string
@@ -11,7 +8,7 @@ export const SearchInput = (props: {
   const { placeholder, onChange } = props
   return (
     <>
-      <Div>
+      <div>
         <Label label="Search by operation name" />
         <Search
           aria-label="operations"
@@ -19,7 +16,7 @@ export const SearchInput = (props: {
           placeholder={placeholder || 'Search'}
           onChange={onChange}
         />
-      </Div>
+      </div>
     </>
   )
 }
