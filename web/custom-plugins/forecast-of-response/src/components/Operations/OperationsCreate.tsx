@@ -57,20 +57,22 @@ const getEntityId = (
  * @param location A Location entity
  * @param config An OperationConfig entity
  * @param token The access token
+ * @param user The username of the authenticated user
  */
 const createOperationEntity = (
   operationName: string,
   dateRange: Date[],
   location: TLocation,
   config: TOperationConfig,
-  token: string
+  token: string,
+  user: string
 ): Promise<string> => {
   return insertDocument(
     {
       name: operationName,
       type: 'ForecastDS/ForecastOfResponse/Blueprints/Operation',
       description: '', // TODO: Add description input?
-      creator: 'someUser', // TODO: Get user from current session, or automatically in the backend based on token?
+      creator: user,
       location: location,
       start: dateRange && dateRange[0] ? dateRange[0].toISOString() : undefined,
       end: dateRange && dateRange[1] ? dateRange[1].toISOString() : undefined,
@@ -87,7 +89,8 @@ const onClickCreate = (
   operationConfig: TOperationConfig,
   isNewEntity: { location: boolean; config: boolean },
   setError: Function,
-  token: string
+  token: string,
+  user: string
 ) => {
   // Prepare the uncontained entities for the Operation
   operationLocation.type = 'ForecastDS/ForecastOfResponse/Blueprints/Location'
@@ -106,7 +109,8 @@ const onClickCreate = (
         operationMeta.dateRange,
         operationLocation,
         operationConfig,
-        token
+        token,
+        user
       )
         .then((documentId) => {
           // todo redirect to operation view
@@ -125,7 +129,8 @@ const onClickCreate = (
 
 export const OperationsCreate = (props: DmtSettings): JSX.Element => {
   const { settings } = props
-  const { token } = useContext(AuthContext)
+  const { userData, token } = useContext(AuthContext)
+  const user = userData.loggedIn ? userData.name : 'Anonymous'
   const [error, setError] = useState<string>()
   const [operationMeta, setOperationMeta] = useState<{
     name: string
@@ -186,7 +191,8 @@ export const OperationsCreate = (props: DmtSettings): JSX.Element => {
             operationConfig,
             isNewEntity,
             setError,
-            token
+            token,
+            user
           )
         }
       >
