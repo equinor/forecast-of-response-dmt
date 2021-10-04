@@ -4,7 +4,6 @@ import { DmtUIPlugin } from '@dmt/core-plugins'
 import { useDocument } from '@dmt/common'
 import { TOperation } from '../Types'
 import { Button, Card, Label, Table, Typography } from '@equinor/eds-core-react'
-import 'react-datepicker/dist/react-datepicker.css'
 import { StatusDot } from "../Other"
 import { OperationStatus } from "../../Enums"
 import styled from "styled-components"

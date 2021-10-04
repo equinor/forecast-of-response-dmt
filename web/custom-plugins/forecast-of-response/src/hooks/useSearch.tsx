@@ -16,19 +16,23 @@ export const useSearch = (
   useEffect(() => {
     setIsLoading(true)
     dmssAPI
-      .searchDocuments(dataSourceId, {
-        type: type,
+      .searchDocuments({
+        dataSourceId: dataSourceId,
+        body: {
+          type: type,
+        },
       })
       .then((result: any) => {
-        setIsLoading(false)
+        // @ts-ignore-line
         setSearchResult(Object.values(result))
+        setIsLoading(false)
       })
       .catch((err: any) => {
         console.error(err)
-        setIsLoading(false)
         setHasError(true)
+        setIsLoading(false)
       })
   }, [dataSourceId, type])
 
-  return [searchResult, isLoading, setSearchResult, hasError]
+  return { result: searchResult, isLoading: isLoading, hasError: hasError }
 }

@@ -1,17 +1,15 @@
-import React, { useState } from 'react'
-import { Search } from '@equinor/eds-core-react'
+import React from 'react'
+import { Label, Search } from '@equinor/eds-core-react'
 
 export const SearchInput = (props: {
   placeholder?: string
-  onChange: any
+  onChange: Function
 }): JSX.Element => {
   const { placeholder, onChange } = props
   return (
     <>
       <div>
-        <label className="sc-dIvrsQ kwOJXh">
-          <span>Search by operation name</span>
-        </label>
+        <Label label="Search by operation name" />
         <Search
           aria-label="operations"
           id="search-operations"

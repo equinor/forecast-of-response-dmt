@@ -1,68 +1,90 @@
-import { TLocation, TOperation } from '../Types'
+import {
+  TLocation,
+  TOperation,
+  TConfig,
+  TPhase,
+  TSimulation,
+} from '../Types'
 import { OperationStatus } from '../Enums'
 
-export const dummyLocations: Record<string, TLocation> = {
-  gullfaks: {
+export const operationConfigs: TConfig[] = [
+  {
+    _id: 'njord-cfg',
+    name: 'njord.json',
+    simaVersion: '1.0.0',
+  },
+  {
+    _id: 'gullfaks-cfg',
+    name: 'gullfaks.json',
+    simaVersion: '2.3.1-rc',
+  },
+]
+
+export const operationLocations: TLocation[] = [
+  {
+    _id: 'njord',
+    name: 'Njord',
+    type: 'ForecastDS/ForecastOfResponse/Blueprints/Location',
+    UTM: '10 S 055974, 4282182',
+  },
+  {
     _id: 'gullfaks',
     name: 'Gullfaks',
+    type: 'ForecastDS/ForecastOfResponse/Blueprints/Location',
     UTM: '10 S 055974, 4282182',
   },
-  troll: {
-    _id: 'troll',
-    name: 'Troll',
-    UTM: '10 S 055974, 4282182',
-  },
-  njord: {
-    _id: 'njord',
-    name: 'njord',
-    UTM: '10 S 055974, 4282182',
-  },
-}
+]
 
-export const dummyOperations: Array<TOperation> = [
+export const operations: Array<TOperation> = [
   {
+    _id: 'draft1',
+    type: 'ForecastDS/ForecastOfResponse/Blueprints/Operation',
     name: 'draft #1',
-    start: 1631664000000,
-    end: undefined,
-    location: dummyLocations.gullfaks,
+    description: 'some draft',
     creator: 'moamu',
-    status: OperationStatus.DRAFT,
-    phases: [],
+    start: new Date(),
+    end: undefined,
+    status: OperationStatus.IN_PROGRESS,
+    location: operationLocations[0],
+    phases: [
+      {
+        simulations: [
+          {
+            weatherDataId: '1',
+            progress: 'Running',
+            started: new Date(),
+            ended: undefined,
+            variables: {},
+          },
+        ],
+        name: 'Phase 1',
+        start: new Date(),
+        end: undefined,
+        status: OperationStatus.IN_PROGRESS,
+        defaultVariables: {
+          someValue: '0.001',
+          anotherVal: 'fifteen'
+        },
+      },
+    ],
+    config: operationConfigs[1],
   },
   {
+    _id: 'njordPipe1',
+    type: 'ForecastDS/ForecastOfResponse/Blueprints/Operation',
     name: 'NjordPipeChange2021',
-    start: 1631664000000,
-    end: undefined,
-    location: dummyLocations.njord,
+    description: 'some draft',
     creator: 'moamu',
+    start: new Date(),
     status: OperationStatus.UPCOMING,
-    phases: [],
-  },
-  {
-    name: 'GullfaksMaintenance2022',
-    start: 1654041600000,
-    end: 1669852800000,
-    location: dummyLocations.gullfaks,
-    creator: 'moamu',
-    status: OperationStatus.ONGOING,
-    phases: [],
-  },
-  {
-    name: 'SnorreAnchorReplace2021',
-    start: 1609459200000,
-    end: 1625097600000,
-    location: dummyLocations.gullfaks,
-    creator: 'moamu',
-    status: OperationStatus.ONGOING,
-    phases: [],
-  },
-  {
-    name: 'TrollWindFarmInstallation',
-    start: 0,
-    end: 34214400000,
-    location: dummyLocations.troll,
-    creator: 'moamu',
-    status: OperationStatus.CONCLUDED,
-    phases: [],
-  },
+    location: operationLocations[1],
+    phases: [
+      {
+        simulations: [],
+        name: 'Anchor lowering',
+        status: OperationStatus.UPCOMING,
+      },
+    ],
+    config: operationConfigs[0],
+  }
 ]

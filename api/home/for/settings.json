@@ -9,7 +9,8 @@
   "packages": ["ForecastDS/ForecastOfResponse"],
   "models": [
     "ForecastDS/ForecastOfResponse/Blueprints/Operation",
-    "ForecastDS/ForecastOfResponse/Blueprints/Location"
+    "ForecastDS/ForecastOfResponse/Blueprints/Location",
+    "ForecastDS/ForecastOfResponse/Blueprints/Config"
   ],
   "actions": []
 }
