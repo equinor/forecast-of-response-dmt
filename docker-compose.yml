@@ -12,10 +12,7 @@ services:
     environment:
       LOGGING_LEVEL: DEBUG
       ENVIRONMENT: local
-      # DMSS_HOST: dmss-forecast-of-response-test.radix.equinor.com
-      # DMSS_PORT: 80
-      DMSS_HOST: dmss
-      DMSS_PORT: 5000
+      DMSS_API: http://dmss:5000
     volumes:
       - ./api/home/:/code/home
 
