@@ -1,9 +1,9 @@
 import React from 'react'
-import { WeatherForecast } from './Weather'
-import { Stask } from './Stask'
+import WeatherForecast from './Weather'
+import Stask from './Stask'
 import { DmtSettings } from '../../Types'
 
-export const Library = (props: DmtSettings): JSX.Element => {
+const Library = (props: DmtSettings): JSX.Element => {
   const { settings } = props
   const libraryContentType = document.location.hash.split('#')[1]
   if (libraryContentType === 'weather') {
@@ -20,3 +20,5 @@ export const Library = (props: DmtSettings): JSX.Element => {
     )
   }
 }
+
+export default Library

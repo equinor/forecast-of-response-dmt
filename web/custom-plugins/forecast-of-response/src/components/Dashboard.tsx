@@ -2,7 +2,7 @@ import React from 'react'
 import { DmtSettings } from '../Types'
 import AccessControlList from "./AccessControl/AccessControlList"
 
-export const Dashboard = (props: DmtSettings): JSX.Element => {
+const Dashboard = (props: DmtSettings): JSX.Element => {
   const { settings } = props
   return (
     <>
@@ -11,3 +11,5 @@ export const Dashboard = (props: DmtSettings): JSX.Element => {
     </>
   )
 }
+
+export default Dashboard

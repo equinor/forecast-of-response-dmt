@@ -12,7 +12,7 @@ const prepareColumns = (columns: Array<string>): Array<Column> => {
   return prepared
 }
 
-export const DynamicTable = (props: {
+const DynamicTable = (props: {
   columns: Array<string>
   rows: Array<any>
 }): JSX.Element => {
@@ -31,8 +31,8 @@ export const DynamicTable = (props: {
         </Table.Head>
         <Table.Body>
           {rows?.map((row) => (
-            <Table.Row key={row.name}>
-              {Object.keys(row).map((attrKey: string) => (
+            <Table.Row key={row._id}>
+              {Object.keys(row).filter(key => key !== '_id').map((attrKey: string) => (
                 <Table.Cell key={attrKey}>{row[attrKey]}</Table.Cell>
               ))}
             </Table.Row>
@@ -42,3 +42,5 @@ export const DynamicTable = (props: {
     </>
   )
 }
+
+export default DynamicTable

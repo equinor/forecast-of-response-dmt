@@ -1,0 +1,6 @@
+ {
+  "_id": "example-cfg",
+  "name": "ExampleConfig",
+  "type": "/Blueprints/Config",
+  "simaVersion": "1.2.3-rc"
+}

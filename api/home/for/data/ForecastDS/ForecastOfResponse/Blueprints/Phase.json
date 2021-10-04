@@ -29,6 +29,14 @@
       "type": "system/SIMOS/BlueprintAttribute",
       "attributeType": "string",
       "optional": true
+    },
+    {
+      "name": "defaultVariables",
+      "type": "system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true,
+      "contained": true,
+      "dimensions": "*"
     }
   ]
 }

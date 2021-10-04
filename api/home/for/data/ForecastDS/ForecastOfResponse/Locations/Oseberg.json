@@ -1,6 +1,6 @@
 {
+  "_id": "oseberg-location",
   "name": "Oseberg",
-  "type": "ForecastDS/ForecastOfResponse/Blueprints/Location",
-  "description": "",
+  "type": "/Blueprints/Location",
   "UTM": "10 S 055974, 4282182"
 }
