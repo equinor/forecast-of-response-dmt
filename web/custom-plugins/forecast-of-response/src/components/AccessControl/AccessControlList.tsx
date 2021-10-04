@@ -3,6 +3,7 @@ import { Button, Input, Tabs } from '@equinor/eds-core-react'
 import styled from "styled-components"
 import { ACLEnum } from "../../Enums"
 import Icons from "../../Icons"
+import { StringMap, TAcl } from "../../Types"
 
 const ACLWrapper = styled.div`
   border: teal 2px solid;
@@ -39,9 +40,20 @@ const CenteredRow = styled.div`
   justify-content: ${props => props.justifyContent || 'space-between'};
   width: ${props => props.width || 'inherit'};
   background-color: ${props => {
-  if (props.even) return "#F7F7F7"
-  return "inherit"
-}}
+    if (props.even) return "#F7F7F7"
+    return "inherit"
+  }}
+`
+
+const GridContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+  align-items: center;
+  background-color: ${props => {
+    if (props.even) return "#F7F7F7"
+    return "inherit"
+  }}
 `
 
 const StyledOption = styled.option`
@@ -67,7 +79,12 @@ const ACLSelect = ({ value, handleChange }: any): JSX.Element => {
   )
 }
 
-const ACLOwnerPanel = ({ acl, handleChange }: any): JSX.Element => {
+interface ACLOwnerPanelProps {
+  acl: TAcl
+  handleChange: Function
+}
+
+const ACLOwnerPanel = ({ acl, handleChange }: ACLOwnerPanelProps): JSX.Element => {
   return <>
     <CenteredRow width={"230px"}>
       Owner:
@@ -84,10 +101,6 @@ const ACLOwnerPanel = ({ acl, handleChange }: any): JSX.Element => {
   </>
 }
 
-interface StringMap {
-  [key: string]: string
-}
-
 interface URPanelProps {
   entities: StringMap
   handleChange: Function
@@ -96,14 +109,16 @@ interface URPanelProps {
 }
 
 const ACLUserRolesPanel = ({ entities, handleChange, aclKey }: URPanelProps): JSX.Element => {
-  const [newRole, setNewRole] = useState<string>("")
+  const [newRole, setNewRole] = useState<string>(null)
   return <>
     <CenteredRow>
       <Input
         style={{ width: "170px" }}
         placeholder={"Add new role"}
         onChange={(e): Event => setNewRole(e.target.value)}/>
-      <Button onClick={() => handleChange({ [aclKey]: { ...entities, [newRole]: "NONE" } })}>Add +</Button>
+      <Button onClick={() => handleChange({ [aclKey]: { ...entities, [newRole]: ACLEnum.NONE } })}
+        disabled={!newRole}
+      >Add +</Button>
     </CenteredRow>
     <ListRow>
       <div>Role</div>
@@ -117,16 +132,16 @@ const ACLUserRolesPanel = ({ entities, handleChange, aclKey }: URPanelProps): JS
           handleChange({ [aclKey]: entities })
         }
         return (
-          <ListRow key={entity} even={index % 2 == 0}>
+          <GridContainer key={entity} even={index % 2 == 0}>
             <div>{entity}</div>
             <ACLSelect value={access} handleChange={roleHandleChange}/>
-            <Button variant="outlined" color="danger" onClick={() => {
-              delete entities[entity]
-              handleChange({ [aclKey]: entities })
-            }}>
-              Remove
-            </Button>
-          </ListRow>
+              <Button variant="outlined" color="danger" onClick={() => {
+                  delete entities[entity]
+                  handleChange({[aclKey]: entities})
+              }}>
+                Remove
+              </Button>
+          </GridContainer>
         )
       })
       }
@@ -136,7 +151,7 @@ const ACLUserRolesPanel = ({ entities, handleChange, aclKey }: URPanelProps): JS
 
 export default (documentId: any): JSX.Element => {
   const [activeTab, setActiveTab] = useState<number>(0)
-  const [documentACL, setDocumentACL] = useState<any|null>({
+  const [documentACL, setDocumentACL] = useState<TAcl|null>({
     owner: "stoo",
     roles: {
       someRole: "WRITE",
@@ -162,7 +177,7 @@ export default (documentId: any): JSX.Element => {
 
   }, [documentId])
 
-  function saveACL(acl: Object) {
+  function saveACL(acl: TAcl) {
     //  TODO: Some code to set the edited ACL
   }
 
