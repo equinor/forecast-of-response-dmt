@@ -1,5 +1,5 @@
 import { DmtSettings } from '@dmt/core-plugins'
-import { OperationStatus } from './Enums'
+import { ACLEnum, OperationStatus } from './Enums'
 
 export type DmtSettings = DmtSettings
 
@@ -30,6 +30,17 @@ export type TLocation = {
   UTM: string
   name: string
   _id: string
+}
+
+export type StringMap = {
+  [key: string]: string
+}
+
+export type TAcl = {
+owner: ACLEnum
+roles: StringMap
+users: StringMap
+others: ACLEnum
 }
 
 export type TOperationPhase = {
