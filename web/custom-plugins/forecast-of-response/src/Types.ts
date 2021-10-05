@@ -53,16 +53,20 @@ export type TAcl = {
 }
 
 export type TSimulation = {
-  weatherDataId?: string
   progress?: string
   started?: Date
   ended?: Date
-  result?: any
-  variables?: StringMap
+  results?: any
+}
+
+export type TSimulationConfig = {
+  name: string
+  simulations: TSimulation[]
+  variables: string[]
 }
 
 export type TPhase = {
-  simulations?: TSimulation[]
+  simulationConfigs?: TSimulationConfig[]
   name: string
   start?: Date
   end?: Date

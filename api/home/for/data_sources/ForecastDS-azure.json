@@ -1,5 +1,5 @@
 {
-  "name": "ForecastDS",
+  "name": "TestForecastDS",
   "repositories": {
     "forecastDB": {
       "type": "mongo-db",

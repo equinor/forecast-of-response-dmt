@@ -1,7 +1,7 @@
 import React from 'react'
 import { DmtPluginType } from '@dmt/core-plugins'
 
-import App from './components/App/App'
+import App from './App'
 
 export const plugins: any = [
   {

@@ -1,7 +1,6 @@
 import { OperationStatus } from '../Enums'
 import styled, { keyframes } from 'styled-components'
 import React from 'react'
-import { Button } from '@equinor/eds-core-react'
 
 interface StatusDotProps {
   status: OperationStatus
@@ -28,7 +27,7 @@ export const StatusDot = ({ status }: StatusDotProps): JSX.Element => {
   switch (status) {
     case OperationStatus.UPCOMING:
       return <IconWrapper color={'black'}>&#9679;</IconWrapper>
-    case OperationStatus.IN_PROGRESS:
+    case OperationStatus.ONGOING:
       return (
         <AnimationWrapper>
           <IconWrapper color={'orange'}>&#9679;</IconWrapper>
@@ -39,14 +38,4 @@ export const StatusDot = ({ status }: StatusDotProps): JSX.Element => {
     default:
       return <IconWrapper color={'grey'}>&#9679;</IconWrapper>
   }
-}
-
-export const NextButton = ({ onClick }: any): JSX.Element => {
-  return (
-    <div
-      style={{ display: 'flex', justifyContent: 'flex-end', margin: '1rem' }}
-    >
-      <Button onClick={() => onClick()}>Next</Button>
-    </div>
-  )
 }

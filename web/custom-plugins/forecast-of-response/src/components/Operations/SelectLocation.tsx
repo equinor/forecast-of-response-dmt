@@ -4,9 +4,9 @@ import { Button, SingleSelect, TextField } from '@equinor/eds-core-react'
 import { TLocation } from '../../Types'
 import useSearch from '../../hooks/useSearch'
 import { Heading } from '../Design/Fonts'
-import { MapContainer, Marker, TileLayer } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
+import { LocationOnMap } from '../Map'
 
 delete L.Icon.Default.prototype._getIconUrl
 
@@ -30,20 +30,6 @@ const SelectLocationWrapper = styled.div`
 const StyledTextField = styled(TextField)`
   margin: 10px 0;
 `
-
-const OperationLocationMap = (props: { location: TLocation }): JSX.Element => {
-  const { location } = props
-  const marker = [location.lat | 60, location.long | 4]
-  return (
-    <MapContainer center={marker} zoom={5} scrollWheelZoom={true}>
-      <TileLayer
-        attribution='<a href="https://openstreetmap.org/copyright">OpenStreetMap</a>'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-      <Marker position={marker}></Marker>
-    </MapContainer>
-  )
-}
 
 const SelectLocation = (props: {
   setLocation: Function
@@ -168,7 +154,7 @@ const SelectOperationLocation = (props: {
           />
         )}
       </SelectLocationWrapper>
-      <OperationLocationMap location={location} />
+      <LocationOnMap location={location} zoom={5} />
     </>
   )
 }
