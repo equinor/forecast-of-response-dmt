@@ -1,7 +1,5 @@
 import { DmssAPI } from '@dmt/common'
-
-const DEFAULT_DATASOURCE_ID = 'ForecastDS'
-const DEFAULT_DIRECTORY = 'ForecastOfResponse'
+import { DEFAULT_DATASOURCE_ID, DEFAULT_DIRECTORY } from '../const'
 
 export const addToPath = (
   body: any,

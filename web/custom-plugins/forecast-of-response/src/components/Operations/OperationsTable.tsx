@@ -1,7 +1,8 @@
 import React from 'react'
 import DynamicTable from '../DynamicTable'
-import { TOperation } from '../../Types'
+import { DmtSettings, TOperation } from '../../Types'
 import { OperationStatus } from '../../Enums'
+import { DEFAULT_DATASOURCE_ID } from '../../const'
 
 const columns: Array<string> = [
   'Operation name',
@@ -22,8 +23,15 @@ type TOperationRow = {
   status?: OperationStatus
 }
 
+const onRowClicked = (event: any) => {
+  const documentId = event.target.parentElement.accessKey
+  document.location = `${document.location.pathname}/${DEFAULT_DATASOURCE_ID}/${documentId}`
+
+}
+
 const OperationsTable = (props: {
   operations: Array<TOperation>
+  settings: DmtSettings
 }): JSX.Element => {
   const { operations } = props
   const rows: Array<TOperationRow> = []
@@ -42,7 +50,7 @@ const OperationsTable = (props: {
 
   return (
     <>
-      <DynamicTable columns={columns} rows={rows} />
+      <DynamicTable columns={columns} rows={rows} onRowClicked={onRowClicked}/>
     </>
   )
 }

@@ -93,7 +93,7 @@ const OperationOverview = (props: DmtSettings): JSX.Element => {
       </Grid>
       <Divider variant="medium" />
       {isLoading && <Progress.Linear />}
-      <OperationsTable operations={operations} />
+      <OperationsTable operations={operations} settings={settings} />
     </>
   )
 }

@@ -90,7 +90,8 @@ const onClickCreate = (
   isNewEntity: { location: boolean; config: boolean },
   setError: Function,
   token: string,
-  user: string
+  user: string,
+  settings: DmtSettings
 ) => {
   const getIds = []
   // Prepare the uncontained entities for the Operation
@@ -118,6 +119,7 @@ const onClickCreate = (
         .then((documentId) => {
           // todo redirect to operation view
           console.log(`New operation ${documentId}`)
+          document.location = `/${settings.name}/operation/${DEFAULT_DATASOURCE_ID}/${documentId}`
         })
         .catch((err: any) => {
           if (err.json) {
@@ -205,7 +207,8 @@ const OperationCreate = (props: DmtSettings): JSX.Element => {
             isNewEntity,
             setError,
             token,
-            user
+            user,
+            settings
           )
         }
       >

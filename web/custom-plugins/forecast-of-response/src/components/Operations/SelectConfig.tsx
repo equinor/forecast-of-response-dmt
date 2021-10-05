@@ -25,9 +25,7 @@ const SelectOperationConfig = (props: {
   isLoading: boolean
   setIsLoading: Function
 }): JSX.Element => {
-  const [operationConfigs, setOperationConfigs] = useState<TConfig[]>(
-    []
-  )
+  const [operationConfigs, setOperationConfigs] = useState<TConfig[]>([])
   const [searchResult, isLoadingSearch, hasError] = useSearch(
     'ForecastDS/ForecastOfResponse/Blueprints/Config'
   )
@@ -41,6 +39,7 @@ const SelectOperationConfig = (props: {
    * Set operation configs when the search has completed
    */
   useEffect(() => {
+    console.log(searchResult)
     if (searchResult) {
       setOperationConfigs(searchResult)
     }

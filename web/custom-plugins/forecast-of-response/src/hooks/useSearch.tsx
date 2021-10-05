@@ -1,7 +1,6 @@
 import { useEffect, useState, useContext } from 'react'
 import { DmssAPI, AuthContext } from '@dmt/common'
-
-const DEFAULT_DATASOURCE_ID = 'ForecastDS'
+import { DEFAULT_DATASOURCE_ID } from '../const'
 
 const useSearch = (
   type: string,
