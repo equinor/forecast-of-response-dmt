@@ -91,4 +91,4 @@ docker-compose run dmss reset-app
 docker-compose run api reset-app
 ```
 
-6. Remember to delete the passwords in all json files after you are finished!
+6. Remember to delete the passwords in all json files after you are finished! Also, you probably want to revert the changes made to the docker-compose and docker files
