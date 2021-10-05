@@ -1,15 +1,15 @@
 {
-  "name": "ForecastDS",
+  "name": "DMT-DS",
   "repositories": {
-    "forecastDB": {
+    "a": {
       "type": "mongo-db",
       "host": "forecast-of-response.mongo.cosmos.azure.com",
       "port": 10255,
       "username": "forecast-of-response",
-      "password": "",
+      "password": "3g3UaQJgvaAKGypbElQluQFPfNZ4j3EOgcstYxfItobiZWov1pNmNosD7yrRpLOZjncBka1ZBbxLRvQ3eJ44BA==",
       "tls": true,
-      "database": "forecast",
-      "collection": "default"
+      "database": "DMT-DS",
+      "collection": "DMT-DS"
     }
   }
 }
