@@ -6,24 +6,26 @@ import {
   Progress,
   SingleSelect,
 } from '@equinor/eds-core-react'
-import { OperationsTable } from './OperationsTable'
+import OperationsTable from './OperationsTable'
 import { DmtSettings, TOperation } from '../../Types'
 import { OperationStatus } from '../../Enums'
-import { SearchInput } from '../SearchInput'
+import SearchInput from '../SearchInput'
 import Grid from '../App/Grid'
-import { DateRangePicker } from '../DateRangePicker'
-import { useSearch } from '../../hooks/useSearch'
+import DateRangePicker from '../DateRangePicker'
+import useSearch from '../../hooks/useSearch'
 
-export const OperationOverview = (props: DmtSettings): JSX.Element => {
+const OperationOverview = (props: DmtSettings): JSX.Element => {
   const { settings } = props
-  const [operations, setOperations] = useState<Array<TOperation>>([])
+  const [operations, setOperations] = useState<TOperation[]>([])
+  const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [dateRange, setDateRange] = useState<Date[]>()
   const documentHash = document.location.hash.split('#')[1]
-  const [searchResult, isLoading, setSearchResult, hasError] = useSearch(
+  const [searchResult, isLoadingSearch, hasError]  = useSearch(
     'ForecastDS/ForecastOfResponse/Blueprints/Operation'
   )
   const scopedOperations = searchResult?.filter((operation: TOperation) =>
     documentHash
-      ? operation.status.toLowerCase().replace(/ /g, '') === documentHash
+      ? operation.status && operation.status.toLowerCase().replace(/ /g, '') === documentHash
       : true
   )
 
@@ -31,8 +33,21 @@ export const OperationOverview = (props: DmtSettings): JSX.Element => {
    * Set operations when the search has completed
    */
   useEffect(() => {
-    setOperations(searchResult)
-  }, [!isLoading, searchResult, !hasError])
+    if (searchResult) {
+      setOperations(searchResult)
+      setIsLoading(false)
+    }
+  }, [searchResult])
+
+  useEffect(() => {
+    if (isLoadingSearch) {
+      setIsLoading(isLoadingSearch)
+    }
+  }, [isLoadingSearch])
+
+  useEffect(() => {
+    if (hasError) { setIsLoading(false) }
+  }, [hasError])
 
   /**
    * Set operations when the document hash changes
@@ -41,7 +56,7 @@ export const OperationOverview = (props: DmtSettings): JSX.Element => {
     setOperations(
       searchResult?.filter((operation: TOperation) =>
         documentHash
-          ? operation.status.toLowerCase().replace(/ /g, '') === documentHash
+          ? operation.status && operation.status.toLowerCase().replace(/ /g, '') === documentHash
           : true
       )
     )
@@ -68,17 +83,19 @@ export const OperationOverview = (props: DmtSettings): JSX.Element => {
     <>
       <Grid>
         <SearchInput onChange={handleSearch} />
-        <DateRangePicker />
+        <DateRangePicker setDateRange={setDateRange} />
         <SingleSelect label="Status" items={Object.values(OperationStatus)} />
-        <div style={{ 'padding-top': '16px' }}>
-          <Link to={`/${settings.name}/operations/new`}>
+        <div style={{ paddingTop: '16px' }}>
+          <Link to={`/${settings.name}/operation/new`}>
             <Button>Create new operation</Button>
           </Link>
         </div>
       </Grid>
       <Divider variant="medium" />
       {isLoading && <Progress.Linear />}
-      <OperationsTable operations={operations} />
+      <OperationsTable operations={operations} settings={settings} />
     </>
   )
 }
+
+export default OperationOverview

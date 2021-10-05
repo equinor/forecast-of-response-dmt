@@ -5,6 +5,11 @@
   "description": "A phase belonging to an Operation",
   "attributes": [
     {
+      "name": "name",
+      "type": "system/SIMOS/BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
       "name": "simulations",
       "type": "system/SIMOS/BlueprintAttribute",
       "attributeType": "/Blueprints/Simulation",
@@ -29,6 +34,14 @@
       "type": "system/SIMOS/BlueprintAttribute",
       "attributeType": "string",
       "optional": true
+    },
+    {
+      "name": "defaultVariables",
+      "type": "system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true,
+      "contained": true,
+      "dimensions": "*"
     }
   ]
 }

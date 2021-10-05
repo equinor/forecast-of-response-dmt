@@ -29,7 +29,15 @@ export type TLayout = {
 export type TLocation = {
   UTM: string
   name: string
-  _id: string
+  _id?: string
+  type?: string
+}
+
+export type TConfig = {
+  name: string
+  simaVersion: string
+  _id?: string
+  type?: string
 }
 
 export type StringMap = {
@@ -37,34 +45,40 @@ export type StringMap = {
 }
 
 export type TAcl = {
-owner: ACLEnum
-roles: StringMap
-users: StringMap
-others: ACLEnum
+  owner: ACLEnum
+  roles: StringMap
+  users: StringMap
+  others: ACLEnum
 }
 
 export type TSimulation = {
   weatherDataId?: string
-  progress: string
-  started: Date
-  ended: Date
+  progress?: string
+  started?: Date
+  ended?: Date
+  result?: any
+  variables?: StringMap
 }
 
 export type TPhase = {
-  simulations: TSimulation[]
+  simulations?: TSimulation[]
   name: string
-  start: Date
-  end: Date
-  status: OperationStatus
+  start?: Date
+  end?: Date
+  status?: OperationStatus
+  defaultVariables?: StringMap
 }
 
 export type TOperation = {
-  _id: string
+  _id?: string
+  type?: string
   name: string
+  description?: string
   creator: string
-  start: Date
-  end: Date
-  status: OperationStatus
+  start?: Date
+  end?: Date
+  status?: OperationStatus
   location: TLocation
   phases: TPhase[]
+  config?: TConfig
 }

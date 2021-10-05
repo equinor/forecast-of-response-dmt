@@ -12,16 +12,21 @@
       "dimensions": "*"
     },
     {
+      "name" : "config",
+      "type": "system/SIMOS/BlueprintAttribute",
+      "attributeType": "/Blueprints/Config",
+      "optional": true,
+      "contained": false
+    },
+    {
       "name": "creator",
       "type": "system/SIMOS/BlueprintAttribute",
-      "attributeType": "string",
-      "optional": true
+      "attributeType": "string"
     },
     {
       "name": "location",
       "type": "system/SIMOS/BlueprintAttribute",
       "attributeType": "/Blueprints/Location",
-      "optional": true,
       "contained": false
     },
     {

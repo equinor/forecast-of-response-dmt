@@ -12,16 +12,17 @@ const prepareColumns = (columns: Array<string>): Array<Column> => {
   return prepared
 }
 
-export const DynamicTable = (props: {
+const DynamicTable = (props: {
   columns: Array<string>
   rows: Array<any>
+  onRowClicked?: Function
 }): JSX.Element => {
-  const { columns, rows } = props
+  const { columns, rows, onRowClicked } = props
   const cols = prepareColumns(columns)
 
   return (
     <>
-      <Table style={{ width: '100%' }}>
+      <Table style={{ width: '100%' }} onClick={onRowClicked}>
         <Table.Head sticky>
           <Table.Row>
             {cols.map((col) => (
@@ -31,8 +32,8 @@ export const DynamicTable = (props: {
         </Table.Head>
         <Table.Body>
           {rows?.map((row) => (
-            <Table.Row key={row.name}>
-              {Object.keys(row).map((attrKey: string) => (
+            <Table.Row key={row._id} accessKey={row._id}>
+              {Object.keys(row).filter(key => key !== '_id').map((attrKey: string) => (
                 <Table.Cell key={attrKey}>{row[attrKey]}</Table.Cell>
               ))}
             </Table.Row>
@@ -42,3 +43,5 @@ export const DynamicTable = (props: {
     </>
   )
 }
+
+export default DynamicTable
