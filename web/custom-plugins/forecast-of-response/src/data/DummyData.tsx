@@ -40,7 +40,7 @@ export const operations: Array<TOperation> = [
     creator: 'moamu',
     start: new Date(),
     end: undefined,
-    status: OperationStatus.IN_PROGRESS,
+    status: OperationStatus.ONGOING,
     location: operationLocations[0],
     phases: [
       {
@@ -56,7 +56,7 @@ export const operations: Array<TOperation> = [
         name: 'Phase 1',
         start: new Date(),
         end: undefined,
-        status: OperationStatus.IN_PROGRESS,
+        status: OperationStatus.ONGOING,
         defaultVariables: {
           someValue: '0.001',
           anotherVal: 'fifteen',

@@ -6,13 +6,13 @@ import {
   Progress,
   SingleSelect,
 } from '@equinor/eds-core-react'
-import OperationsTable from './OperationsTable'
-import { DmtSettings, TOperation } from '../../Types'
-import { OperationStatus } from '../../Enums'
-import SearchInput from '../SearchInput'
-import Grid from '../App/Grid'
-import DateRangePicker from '../DateRangePicker'
-import useSearch from '../../hooks/useSearch'
+import OperationsTable from '../components/Operations/OperationsTable'
+import useSearch from '../hooks/useSearch'
+import { DmtSettings, TOperation } from '../Types'
+import SearchInput from '../components/SearchInput'
+import DateRangePicker from '../components/DateRangePicker'
+import Grid from '../components/App/Grid'
+import { OperationStatus } from '../Enums'
 
 const OperationOverview = (props: DmtSettings): JSX.Element => {
   const { settings } = props

@@ -1,13 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { MapContainer, Marker, Popup, TileLayer, Tooltip } from 'react-leaflet'
+import { Marker, Popup, TileLayer, Tooltip } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
 import styled from 'styled-components'
-import { CompactCommentView } from './Comments'
+import { CompactCommentView } from '../components/Comments'
 import useSearch from '../hooks/useSearch'
 import { Blueprints } from '../Enums'
 import { TComment, TOperation } from '../Types'
 import { AuthContext, DmssAPI } from '@dmt/common'
+import { StyledMapContainer } from '../components/Map'
 
 delete L.Icon.Default.prototype._getIconUrl
 
@@ -25,11 +26,6 @@ const CardWrapper = styled.div`
   box-shadow: darkgrey 0 2px 8px 2px;
 `
 
-const StyledMapContainer = styled(MapContainer)`
-  height: 100%;
-  width: 100%;
-  border-top: darkgrey 1px solid;
-`
 type CoordinateTuple = [number, number, string]
 
 function calculateUTMCenter(

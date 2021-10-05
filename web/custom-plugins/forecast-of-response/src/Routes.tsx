@@ -1,11 +1,11 @@
-import { TRoute } from '../../Types'
-import Dashboard from '../Dashboard'
-import Library from '../Library'
-import OperationDetails from '../Operations/OperationDetails'
-import OperationCreate from '../Operations/OperationCreate'
-import OperationOverview from '../Operations/OperationOverview'
-
 // Temporary basic routes while developing UI
+import { TRoute } from './Types'
+import Dashboard from './Pages/Dashboard'
+import Library from './components/Library'
+import OperationView from './Pages/OperationView'
+import OperationCreate from './components/Operations/OperationCreate'
+import OperationOverview from './Pages/OperationOverview'
+
 const Routes: Array<TRoute> = [
   { path: '', heading: 'Dashboard', content: Dashboard },
   {
@@ -16,7 +16,7 @@ const Routes: Array<TRoute> = [
   {
     path: '/operation/:data_source/:entity_id',
     heading: 'Operation details',
-    content: OperationDetails,
+    content: OperationView,
   },
   {
     path: '/operation/new',

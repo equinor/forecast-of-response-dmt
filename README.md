@@ -10,10 +10,13 @@ Built with the Data Modelling Tool
 ## Running 
 
 ```bash
-# Set environment variables
-export DMSS_VERSION=latest DMT_VERSION=latest
-# Run
-docker-compose up --build
+docker-compose build
+# Repository secrets are encrypted at rest. Therefore, an encryption key is needed.
+KEY=$(docker-compose run --rm dmss create-key)
+echo $KEY
+cp .env-template .env 
+echo "SECRET_KEY=$KEY" >> .env
+docker-compose up
 ```
 
 Visit [http://localhost:9000] in your web browser.

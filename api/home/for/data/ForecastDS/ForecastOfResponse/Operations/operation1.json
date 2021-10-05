@@ -29,6 +29,11 @@
       "_id": "comment4",
       "name": "comment4",
       "type": "/Blueprints/Comment"
+    },
+    {
+      "_id": "comment5",
+      "name": "comment5",
+      "type": "/Blueprints/Comment"
     }
   ],
   "phases": [
@@ -48,24 +53,133 @@
         "started": "2021-06-27 13:45:37.352574",
         "ended": "2021-06-27 13:45:37.352574"
       },
-      "simulations": [
+      "defaultVariables": [
+        "WaveHeight=1.12",
+        "WaveDirection=90",
+        "Thrusters=5"
+      ],
+      "simulationConfigs": [
         {
           "name": "test1",
-          "type": "/Blueprints/Simulation",
-          "description": "",
-          "weatherDataId": "25.6,19:15",
-          "progress": "Running",
-          "started": "2021-06-27 13:45:37.352574",
-          "ended": "2021-06-27 13:45:37.352574"
+          "type": "/Blueprints/SimulationConfig",
+          "simulations": [
+            {
+              "type": "/Blueprints/Simulation",
+              "name": "removeLater",
+              "started": "2020-02-7 9:20:00",
+              "progress": "80%",
+              "ended": "",
+              "results": [
+                {
+                  "name": "removeLater",
+                  "type": "/Blueprints/Result",
+                  "responses": [
+                    "oneResponse",
+                    "anotherResponse"
+                  ]
+                },
+                {
+                  "name": "removeLater",
+                  "type": "/Blueprints/Result",
+                  "responses": [
+                    "oneResponse",
+                    "anotherResponse"
+                  ]
+                }
+              ]
+            }, {
+              "type": "/Blueprints/Simulation",
+              "name": "removeLater",
+              "started": "2021-06-25 13:45:37.352574",
+              "progress": "0%",
+              "ended": "",
+              "results": [
+                {
+                  "name": "removeLater",
+                  "type": "/Blueprints/Result",
+                  "responses": [
+                    "oneResponse",
+                    "anotherResponse"
+                  ]
+                },
+                {
+                  "name": "removeLater",
+                  "type": "/Blueprints/Result",
+                  "responses": [
+                    "oneResponse",
+                    "anotherResponse"
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "/Blueprints/Simulation",
+              "name": "removeLater",
+              "started": "2021-02-2 13:45:37",
+              "progress": "20%",
+              "ended": "",
+              "results": [
+                {
+                  "name": "removeLater",
+                  "type": "/Blueprints/Result",
+                  "responses": [
+                    "oneResponse",
+                    "anotherResponse"
+                  ]
+                },
+                {
+                  "name": "removeLater",
+                  "type": "/Blueprints/Result",
+                  "responses": [
+                    "oneResponse",
+                    "anotherResponse"
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "/Blueprints/Simulation",
+              "name": "removeLater",
+              "started": "2021-06-25 13:45:37.352574",
+              "progress": "100%",
+              "ended": "",
+              "results": [
+                {
+                  "name": "removeLater",
+                  "type": "/Blueprints/Result",
+                  "responses": [
+                    "oneResponse",
+                    "anotherResponse"
+                  ]
+                },
+                {
+                  "name": "removeLater",
+                  "type": "/Blueprints/Result",
+                  "responses": [
+                    "oneResponse",
+                    "anotherResponse"
+                  ]
+                }
+              ]
+            }
+          ],
+          "variables": [
+            "WaveHeight=1.12",
+            "WaveHeight=1.12",
+            "WaveHeight=1.12",
+            "WaveDirection=90",
+            "WaveDirection=90",
+            "WaveDirection=90"
+          ]
         },
         {
-          "name": "test2",
-          "type": "/Blueprints/Simulation",
-          "description": "",
-          "weatherDataId": "1235",
-          "progress": "Running",
-          "started": "2021-06-27 13:45:37.352574",
-          "ended": "2021-06-27 13:45:37.352574"
+          "name": "twoThrusters",
+          "type": "/Blueprints/SimulationConfig",
+          "simulations": [],
+          "variables": [
+            "Thrusters=2",
+            "WaveDirection=90"
+          ]
         }
       ]
     }

@@ -5,12 +5,6 @@
   "description": "",
   "attributes": [
     {
-      "name": "weatherDataId",
-      "type": "system/SIMOS/BlueprintAttribute",
-      "attributeType": "string",
-      "optional": true
-    },
-    {
       "name": "progress",
       "type": "system/SIMOS/BlueprintAttribute",
       "attributeType": "string",
@@ -23,25 +17,18 @@
       "optional": true
     },
     {
-      "name": "result",
+      "name": "results",
       "type": "system/SIMOS/BlueprintAttribute",
       "attributeType": "/Blueprints/Result",
       "optional": true,
-      "contained": false
+      "contained": false,
+      "dimensions": "*"
     },
     {
       "name": "ended",
       "type": "system/SIMOS/BlueprintAttribute",
       "attributeType": "string",
       "optional": true
-    },
-    {
-      "name": "variables",
-      "type": "system/SIMOS/BlueprintAttribute",
-      "attributeType": "string",
-      "optional": true,
-      "contained": true,
-      "dimensions": "*"
     }
   ]
 }

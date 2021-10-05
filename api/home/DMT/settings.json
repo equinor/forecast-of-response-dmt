@@ -4,14 +4,10 @@
   "label": "Data Modeling",
   "tabIndex": 1,
   "hidden": false,
-  "visibleDataSources": ["DMT-DS"],
-  "description": "",
+  "visibleDataSources": ["DMT-DS", "ForecastDS"],
+  "description": "The default Data Modelling Web app. Provides many extra features for exploring the data",
   "packages": ["DMT-DS/DMT"],
   "extraDataSources": [],
-  "models": [
-    "system/SIMOS/Blueprint",
-    "system/SIMOS/Application",
-    "system/SIMOS/Enum"
-  ],
+  "models": [],
   "actions": []
 }

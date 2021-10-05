@@ -1,7 +1,15 @@
 export enum OperationStatus {
   UPCOMING = 'Upcoming',
-  IN_PROGRESS = 'In progress',
+  ONGOING = 'Ongoing',
   CONCLUDED = 'Concluded',
+}
+
+export enum SimulationStatus {
+  STARTING = 'starting',
+  RUNNING = 'running',
+  FAILED = 'failed',
+  COMPLETED = 'completed',
+  UNKNOWN = 'unknown',
 }
 
 export enum ACLEnum {
