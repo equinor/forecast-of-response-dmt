@@ -68,7 +68,7 @@ const Dashboard = (): JSX.Element => {
   return (
     <div style={{ display: "flex", minHeight: "500px", maxHeight: "900px"}}>
       <CardWrapper style={{ width: "70%" }}>
-        <h3 style={{ margin: "5px" }}>Ongoing operations (3)</h3>
+        <h3 style={{ margin: "5px" }}>Ongoing operations ({operations.length})</h3>
         <StyledMapContainer center={calculateUTMCenter(coordinates)} zoom={5} scrollWheelZoom={true}>
           <TileLayer
             attribution='<a href="https://openstreetmap.org/copyright">OpenStreetMap</a>'
