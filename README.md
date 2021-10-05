@@ -63,26 +63,15 @@ The Forecast of Response application is deployed to Radix, using the config defi
 This deployment is connected to an Azure mongo database in Azure called forecast-of-response
  in the MSARGDev resource group, and also an azure storage account called forecastofresponse in the same resource group
 ## How to reset database used in the forecast app
-You must clone the repositories DMSS, DMT and FoR locally and make the following changes (updated 05.10.21)
+Make the following changes to the FoR repo (updated 05.10.21)
 
-### DMSS
-1. Add the mongodb password to home/system/data_source/azure.json
-  (NB! azure.json and system.json must have same names for "name", database and collection, etc. the only difference should be the connection info to the mongodb)
-2. Update the file used in context.invoke() inside app.py/reset_app() to be azure.json instead of system.json
-3. build the dmss image locally (call it for example dmss_api_local)
 
-### DMT
-1. In api/src/home/DMT/data_source/Demo.json and api/src/home/DMT/data_source/DMT.json, change values for "host", "port", "username", "password" and "tls" to connect to the azure mongodb 
-(see example of correct values in Demo-azure.json / DMT-azure.json)
-Also, remember to update: account_name=forecastofresponse, account_key (found in azure portal) and container=for in the azure_blob repository in Demo.json.
-2. After updating Demo.json and DMT.json, you can delete Demo-azure.json and DMT-azure.json locally.
-3. Build the DMT api docker image locally (call it for example dmt_api_local)
-
-### FoR
 1. Delete api/home/DMT/data_sources/DMT-DS.json and api/home/for/data_sources/ForecastDS.json. 
 2. Add database password to DMT-DS-azure.json and ForecastDS-azure.json
-3. in the api/Dockerfile, use the locally build api docker image
-4. in docker-compose, update the dmss service to use the locally build dmss image and update env variable ENVIRONMENT to be production
+3. Add database password to dmss-system.radix.json
+4. in docker-compose, make the following changes:
+* for dmss service, set environment variable ENVIRONMENT to be production
+* for dmss service, update the volumes file to be dmss-system.radix.json instead of dmss-system.local.json
 
 5. Run commands from the main FoR folder:
 ```bash

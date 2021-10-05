@@ -23,7 +23,7 @@ services:
       args:
         DMT_VERSION:-latest: ${DMT_VERSION:-latest}
         REDIRECT_URI: http://localhost:9000/
-        AUTH_ENABLED: 1
+        AUTH_ENABLED: 0
         AUTH_SCOPE: api://ee7dbf49-e358-4c9c-a7e4-fb6d56c02205/FoR_test_scope
         CLIENT_ID: ee7dbf49-e358-4c9c-a7e4-fb6d56c02205
     stdin_open: true
@@ -45,14 +45,16 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: maf
 
   dmss:
-    image: mariner.azurecr.io/dmss-for-azure:${DMSS_VERSION:-latest}
+    image: mariner.azurecr.io/dmss:${DMSS_VERSION:-latest}
     restart: unless-stopped
+    volumes:
+      - ./dmss-system.local.json:/code/home/system/data_sources/system.json
     environment:
       MONGO_AZURE_URI: ${MONGO_AZURE_URI}
       SECRET_KEY: ${SECRET_KEY}
-      ENVIRONMENT: production
-      AUTH_ENABLED: "True"
-#      AUTH_ENABLED: "False"
+      ENVIRONMENT: local
+#      AUTH_ENABLED: "True"
+      AUTH_ENABLED: "False"
       OAUTH_TOKEN_ENDPOINT: https://login.microsoftonline.com/3aa4a235-b6e2-48d5-9195-7fcf05b459b0/oauth2/v2.0/token #http://localhost:8080/auth/realms/dmss/protocol/openid-connect/token
       OAUTH_AUTH_ENDPOINT: https://login.microsoftonline.com/3aa4a235-b6e2-48d5-9195-7fcf05b459b0/oauth2/v2.0/authorize # http://localhost:8080/auth/realms/dmss/protocol/openid-connect/auth
       OAUTH_WELL_KNOWN: https://login.microsoftonline.com/3aa4a235-b6e2-48d5-9195-7fcf05b459b0/v2.0/.well-known/openid-configuration # http://localhost:8080/auth/realms/dmss/.well-known/openid-configuration
