@@ -7,10 +7,10 @@ export enum OperationStatus {
 export enum ACLEnum {
   READ = 'READ',
   WRITE = 'WRITE',
-  NONE = 'NONE'
+  NONE = 'NONE',
 }
 
 export enum Blueprints {
-  OPERATION = "ForecastDS/ForecastOfResponse/Blueprints/Operation",
-  Comment = "ForecastDS/ForecastOfResponse/Blueprints/Comment"
+  OPERATION = 'ForecastDS/ForecastOfResponse/Blueprints/Operation',
+  Comment = 'ForecastDS/ForecastOfResponse/Blueprints/Comment',
 }

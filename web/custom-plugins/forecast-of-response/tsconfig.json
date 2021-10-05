@@ -1,7 +1,7 @@
 {
   "extends": "../../tsconfig.json",
-    "compilerOptions": {
-      "lib": ["dom","es2017"],
+  "compilerOptions": {
+    "lib": ["dom", "es2017"],
     "outDir": "dist",
     "rootDir": "src",
     "jsx": "react"

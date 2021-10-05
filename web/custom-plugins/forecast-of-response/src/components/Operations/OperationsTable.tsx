@@ -49,7 +49,7 @@ const OperationsTable = (props: {
 
   return (
     <>
-      <DynamicTable columns={columns} rows={rows} onRowClicked={onRowClicked}/>
+      <DynamicTable columns={columns} rows={rows} onRowClicked={onRowClicked} />
     </>
   )
 }

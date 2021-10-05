@@ -33,9 +33,11 @@ const DynamicTable = (props: {
         <Table.Body>
           {rows?.map((row) => (
             <Table.Row key={row._id} accessKey={row._id}>
-              {Object.keys(row).filter(key => key !== '_id').map((attrKey: string) => (
-                <Table.Cell key={attrKey}>{row[attrKey]}</Table.Cell>
-              ))}
+              {Object.keys(row)
+                .filter((key) => key !== '_id')
+                .map((attrKey: string) => (
+                  <Table.Cell key={attrKey}>{row[attrKey]}</Table.Cell>
+                ))}
             </Table.Row>
           ))}
         </Table.Body>

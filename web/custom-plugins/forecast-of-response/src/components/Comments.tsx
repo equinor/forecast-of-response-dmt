@@ -1,6 +1,6 @@
 import React from 'react'
-import styled from "styled-components"
-import { TComment } from "../Types"
+import styled from 'styled-components'
+import { TComment } from '../Types'
 
 const IconWrapper = styled.div`
   width: 22px;
@@ -29,24 +29,27 @@ const MessageWrapper = styled.div`
   max-height: 100px;
   overflow-y: scroll;
   &::-webkit-scrollbar {
-        display: none;
-    }
+    display: none;
+  }
 `
 interface ICompactCommentView {
   comment: TComment
 }
 
-export const CompactCommentView = ({comment}: ICompactCommentView) => {
+export const CompactCommentView = ({ comment }: ICompactCommentView) => {
   return (
     <CommentWrapper>
       <CommentHeaderWrapper>
-      <IconWrapper color={'grey'}>&#9679;</IconWrapper>
-      <b>{comment.author}</b>
-    </CommentHeaderWrapper>
-      <b style={{width: "fit-content"}}>{new Date(comment.date).toLocaleString()}</b>
-      <div style={{borderBottom: "black 1px solid", width: "fit-content"}}>{comment.operation}</div>
+        <IconWrapper color={'grey'}>&#9679;</IconWrapper>
+        <b>{comment.author}</b>
+      </CommentHeaderWrapper>
+      <b style={{ width: 'fit-content' }}>
+        {new Date(comment.date).toLocaleString()}
+      </b>
+      <div style={{ borderBottom: 'black 1px solid', width: 'fit-content' }}>
+        {comment.operation}
+      </div>
       <MessageWrapper>{comment.message}</MessageWrapper>
     </CommentWrapper>
-
   )
 }
