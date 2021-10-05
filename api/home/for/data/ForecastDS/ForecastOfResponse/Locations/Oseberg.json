@@ -2,5 +2,6 @@
   "_id": "oseberg-location",
   "name": "Oseberg",
   "type": "/Blueprints/Location",
-  "UTM": "10 S 055974, 4282182"
+  "lat": 59.4388664,
+  "long": 3.775676
 }

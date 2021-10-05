@@ -27,7 +27,8 @@ export type TLayout = {
 }
 
 export type TLocation = {
-  UTM: string
+  lat: number
+  long: number
   name: string
   _id?: string
   type?: string
@@ -81,4 +82,13 @@ export type TOperation = {
   location: TLocation
   phases: TPhase[]
   config?: TConfig
+  comments?: TComment
+}
+
+export type TComment = {
+  _id?: string
+  author: string
+  date: Date
+  message: string
+  operation: string
 }
