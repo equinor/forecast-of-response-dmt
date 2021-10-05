@@ -56,7 +56,8 @@ export default (props: DmtUIPlugin): JSX.Element => {
         </FlexWrapper>
         <FlexWrapper>
           <Label label="Location:" /> {operation.location.name}
-          <Label label={`(UTM: ${operation.location.UTM})`} />
+          <Label label={`(Latitude: ${operation.location.lat})`} />
+          <Label label={`(Longitude: ${operation.location.long})`} />
         </FlexWrapper>
 
         <Card.Actions>

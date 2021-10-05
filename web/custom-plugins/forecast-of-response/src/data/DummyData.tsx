@@ -25,13 +25,15 @@ export const operationLocations: TLocation[] = [
     _id: 'njord',
     name: 'Njord',
     type: 'ForecastDS/ForecastOfResponse/Blueprints/Location',
-    UTM: '10 S 055974, 4282182',
+    lat: 50.3,
+    long: 5.3
   },
   {
     _id: 'gullfaks',
     name: 'Gullfaks',
     type: 'ForecastDS/ForecastOfResponse/Blueprints/Location',
-    UTM: '10 S 055974, 4282182',
+    lat: 50.3,
+    long: 5.3
   },
 ]
 
