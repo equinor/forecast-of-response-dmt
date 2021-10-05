@@ -46,6 +46,12 @@
       "type": "system/SIMOS/BlueprintAttribute",
       "attributeType": "string",
       "optional": true
+    },{
+      "name": "comments",
+      "type": "system/SIMOS/BlueprintAttribute",
+      "attributeType": "/Blueprints/Comment",
+      "optional": true,
+      "contained": false
     }
   ],
   "uiRecipes": [

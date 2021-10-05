@@ -5,10 +5,14 @@
   "description": "Coordinates for a geographical location",
   "attributes": [
     {
-      "name": "UTM",
+      "name": "lat",
       "type": "system/SIMOS/BlueprintAttribute",
-      "attributeType": "string"
+      "attributeType": "number"
+    },
+    {
+      "name": "long",
+      "type": "system/SIMOS/BlueprintAttribute",
+      "attributeType": "number"
     }
-  ],
-    "uiRecipes": []
+  ]
 }

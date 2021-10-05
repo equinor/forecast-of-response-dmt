@@ -12,6 +12,25 @@
   "start": "2021-06-25 13:45:37.352574",
   "end": "2021-06-27 13:45:37.352574",
   "status": "Ongoing",
+  "comments": [
+    {
+      "_id": "comment1",
+      "name": "comment1",
+      "type": "/Blueprints/Comment"
+    }, {
+      "_id": "comment2",
+      "name": "comment2",
+      "type": "/Blueprints/Comment"
+    }, {
+      "_id": "comment3",
+      "name": "comment3",
+      "type": "/Blueprints/Comment"
+    }, {
+      "_id": "comment4",
+      "name": "comment4",
+      "type": "/Blueprints/Comment"
+    }
+  ],
   "phases": [
     {
       "name": "the-first_phase",

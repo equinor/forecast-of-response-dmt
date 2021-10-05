@@ -9,3 +9,8 @@ export enum ACLEnum {
   WRITE = 'WRITE',
   NONE = 'NONE'
 }
+
+export enum Blueprints {
+  OPERATION = "ForecastDS/ForecastOfResponse/Blueprints/Operation",
+  Comment = "ForecastDS/ForecastOfResponse/Blueprints/Comment"
+}
