@@ -9,6 +9,7 @@ import SelectOperationLocation from './SelectLocation'
 import SelectOperationConfig from './SelectConfig'
 import DateRangePicker from '../DateRangePicker'
 import { addToPath } from '../../utils/insertDocument'
+import { DEFAULT_DATASOURCE_ID } from '../../const'
 
 const SelectOperationName = (props: {
   setOperationName: Function
@@ -91,7 +92,6 @@ const onClickCreate = (
   setError: Function,
   token: string,
   user: string,
-  settings: DmtSettings
 ) => {
   const getIds = []
   // Prepare the uncontained entities for the Operation
@@ -119,7 +119,8 @@ const onClickCreate = (
         .then((documentId) => {
           // todo redirect to operation view
           console.log(`New operation ${documentId}`)
-          document.location = `/${settings.name}/operation/${DEFAULT_DATASOURCE_ID}/${documentId}`
+          const newLocation = document.location.pathname.replace('new', `${DEFAULT_DATASOURCE_ID}/${documentId}`)
+          document.location = newLocation
         })
         .catch((err: any) => {
           if (err.json) {
@@ -128,10 +129,11 @@ const onClickCreate = (
                 setError(jsonErr.message)
                 console.error(jsonErr)
               })
-              .catch((err: any) => {
-                console.log(err)
+              .catch((nestedErr: any) => {
+                console.log(nestedErr)
               })
           } else {
+            console.error(err)
             setError('An error occurred')
           }
         })
@@ -208,7 +210,6 @@ const OperationCreate = (props: DmtSettings): JSX.Element => {
             setError,
             token,
             user,
-            settings
           )
         }
       >

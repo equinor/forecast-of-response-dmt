@@ -26,7 +26,6 @@ type TOperationRow = {
 const onRowClicked = (event: any) => {
   const documentId = event.target.parentElement.accessKey
   document.location = `${document.location.pathname}/${DEFAULT_DATASOURCE_ID}/${documentId}`
-
 }
 
 const OperationsTable = (props: {
