@@ -49,3 +49,22 @@ jobs:
           docker login -u mariner -p ${{ secrets.ACR_SECRET }} $IMAGE_REGISTRY
           docker pull $WEB_IMAGE
           docker build --cache-from $WEB_IMAGE --target development --tag web-development ./web
+
+  testradix:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy on Radix
+        uses: equinor/radix-github-actions@master
+        env:
+          APP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.APP_SERVICE_ACCOUNT_TOKEN }}
+        with:
+          args: >
+            create job
+            deploy
+            --application forecast-of-response
+            --environment test
+            --user stoo@equinor.com
+            --context production
+            --from-config
+            --token-environment
+            --follow
