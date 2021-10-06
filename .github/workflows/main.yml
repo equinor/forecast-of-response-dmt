@@ -3,34 +3,9 @@ name: CI
 on: push
 
 env:
-
-  IMAGE_REGISTRY: mariner.azurecr.io
-  API_IMAGE: mariner.azurecr.io/for/api:latest
   WEB_IMAGE: mariner.azurecr.io/for/web:latest
-  NGINX_IMAGE: mariner.azurecr.io/dmt/nginx
-  DMT_API_CONTAINER_NAME: /data-modelling-tool_api_1
 
 jobs:
-  api:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@master
-
-      - name: "Docker Login"
-        run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login mariner.azurecr.io --password-stdin --username ${{ secrets.DOCKER_USERNAME }}
-
-      - name: "Build API test image"
-        run: docker build --tag ${API_IMAGE} api
-
-      - name: "Black Linting"
-        run: docker run --rm api black --check --diff --exclude dmss .
-
-      - name: "Bandit Static Code Security Analyzis"
-        run: docker run --rm api bandit --recursive . --exclude ./tests,./dmss
-
-      - name: "Safety - Dependencies CVE Check"
-        run: docker run --rm api safety check
-
   web:
     runs-on: ubuntu-latest
     steps:
