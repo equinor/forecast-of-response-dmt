@@ -5,9 +5,8 @@ on: push
 env:
 
   IMAGE_REGISTRY: mariner.azurecr.io
-  FULL_IMAGE_REPO: mariner.azurecr.io/dmt
-  API_IMAGE: mariner.azurecr.io/dmt/api
-  WEB_IMAGE: mariner.azurecr.io/dmt/web
+  API_IMAGE: mariner.azurecr.io/for/api:latest
+  WEB_IMAGE: mariner.azurecr.io/for/web:latest
   NGINX_IMAGE: mariner.azurecr.io/dmt/nginx
   DMT_API_CONTAINER_NAME: /data-modelling-tool_api_1
 
