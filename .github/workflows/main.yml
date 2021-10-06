@@ -62,10 +62,6 @@ jobs:
           args: >
             create job
             deploy
-            --application forecast-of-response
-            --environment test
-            --user stoo@equinor.com
-            --context production
             --from-config
-            --token-environment
+            --environment test
             --follow
