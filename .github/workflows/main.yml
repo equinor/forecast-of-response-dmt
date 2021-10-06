@@ -53,6 +53,7 @@ jobs:
   testradix:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@master
       - name: Deploy on Radix
         uses: equinor/radix-github-actions@master
         env:
