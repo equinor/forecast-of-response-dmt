@@ -56,3 +56,28 @@ pre-commit install
 ```bash
 pre-commit run -a
 ```
+
+
+## Deployment
+The Forecast of Response application is deployed to Radix, using the config defined in radixconfig.yaml.
+This deployment is connected to an Azure mongo database in Azure called forecast-of-response
+ in the MSARGDev resource group, and also an azure storage account called forecastofresponse in the same resource group
+## How to reset database used in the forecast app
+Make the following changes to the FoR repo (updated 05.10.21)
+
+
+1. Delete api/home/DMT/data_sources/DMT-DS.json and api/home/for/data_sources/ForecastDS.json. 
+2. Add database password to DMT-DS-azure.json and ForecastDS-azure.json
+3. Add database password to dmss-system.radix.json
+4. in docker-compose, make the following changes:
+* for dmss service, set environment variable ENVIRONMENT to be production
+* for dmss service, update the volumes file to be dmss-system.radix.json instead of dmss-system.local.json
+
+5. Run commands from the main FoR folder:
+```bash
+docker-compose up --build
+docker-compose run dmss reset-app
+docker-compose run api reset-app
+```
+
+6. Remember to delete the passwords in all json files after you are finished! Also, you probably want to revert the changes made to the docker-compose and docker files

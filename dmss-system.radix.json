@@ -1,15 +1,16 @@
 {
-  "name": "ForecastDS",
+  "name": "system",
   "repositories": {
-    "forecastDB": {
+    "a": {
       "type": "mongo-db",
       "host": "forecast-of-response.mongo.cosmos.azure.com",
       "port": 10255,
       "username": "forecast-of-response",
       "password": "",
       "tls": true,
-      "database": "forecast",
-      "collection": "default"
+      "database": "DMSS-core",
+      "collection": "DMSS-core"
     }
   }
 }
+

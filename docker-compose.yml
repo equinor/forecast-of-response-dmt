@@ -47,6 +47,8 @@ services:
   dmss:
     image: mariner.azurecr.io/dmss:${DMSS_VERSION:-latest}
     restart: unless-stopped
+    volumes:
+      - ./dmss-system.local.json:/code/home/system/data_sources/system.json
     environment:
       MONGO_AZURE_URI: ${MONGO_AZURE_URI}
       SECRET_KEY: ${SECRET_KEY}

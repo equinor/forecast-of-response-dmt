@@ -1,15 +1,15 @@
 {
-  "name": "ForecastDS",
+  "name": "system",
   "repositories": {
-    "forecastDB": {
+    "a": {
       "type": "mongo-db",
       "host": "db",
       "port": 27017,
       "username": "maf",
       "password": "maf",
       "tls": false,
-      "database": "forecast",
-      "collection": "default"
+      "database": "DMSS-core",
+      "collection": "DMSS-core"
     }
   }
 }
