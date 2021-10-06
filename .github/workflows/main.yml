@@ -17,7 +17,7 @@ jobs:
       - uses: actions/checkout@master
 
       - name: "Docker Login"
-        run: docker login -u mariner -p ${{ secrets.ACR_SECRET }} $IMAGE_REGISTRY
+        run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login mariner.azurecr.io --password-stdin --username ${{ secrets.DOCKER_USERNAME }}
 
       - name: "Pull latest"
         run: docker pull $API_IMAGE
