@@ -19,20 +19,17 @@ jobs:
       - name: "Docker Login"
         run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login mariner.azurecr.io --password-stdin --username ${{ secrets.DOCKER_USERNAME }}
 
-      - name: "Pull latest"
-        run: docker pull $API_IMAGE
-
       - name: "Build API test image"
-        run: docker build --cache-from $API_IMAGE --target development --tag api-development ./api
+        run: docker build --tag ${API_IMAGE} api
 
       - name: "Black Linting"
-        run: docker run --rm api-development black --check --diff --exclude dmss .
+        run: docker run --rm api black --check --diff --exclude dmss .
 
       - name: "Bandit Static Code Security Analyzis"
-        run: docker run --rm api-development bandit --recursive . --exclude ./tests,./dmss
+        run: docker run --rm api bandit --recursive . --exclude ./tests,./dmss
 
       - name: "Safety - Dependencies CVE Check"
-        run: docker run --rm api-development safety check
+        run: docker run --rm api safety check
 
   web:
     runs-on: ubuntu-latest
@@ -44,24 +41,9 @@ jobs:
       - name: Run prettier formatting
         run: pre-commit run prettier --all-files
 
-      - name: "Build Web Image"
-        run: |
-          docker login -u mariner -p ${{ secrets.ACR_SECRET }} $IMAGE_REGISTRY
-          docker pull $WEB_IMAGE
-          docker build --cache-from $WEB_IMAGE --target development --tag web-development ./web
+      - name: "Docker Login"
+        run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login mariner.azurecr.io --password-stdin --username ${{ secrets.DOCKER_USERNAME }}
 
-  testradix:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@master
-      - name: Deploy on Radix
-        uses: equinor/radix-github-actions@master
-        env:
-          APP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.APP_SERVICE_ACCOUNT_TOKEN }}
-        with:
-          args: >
-            create job
-            deploy
-            --from-config
-            --environment test
-            --follow
+      - name: "Build Web Image"
+        run: docker build --tag ${WEB_IMAGE} web
+
