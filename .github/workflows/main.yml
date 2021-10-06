@@ -1,52 +1,17 @@
-name: CI
+name: Hello World
 
-on: push
 
-env:
 
-  IMAGE_REGISTRY: mariner.azurecr.io
-  FULL_IMAGE_REPO: mariner.azurecr.io/dmt
-  API_IMAGE: mariner.azurecr.io/dmt/api
-  WEB_IMAGE: mariner.azurecr.io/dmt/web
-  NGINX_IMAGE: mariner.azurecr.io/dmt/nginx
-  DMT_API_CONTAINER_NAME: /data-modelling-tool_api_1
+on:
+  push:
+    branches:
+      - "add-ci"
+
+
 
 jobs:
-  api:
+  one:
+    name: Hello
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-
-      - name: "Docker Login"
-        run: docker login -u mariner -p ${{ secrets.ACR_SECRET }} $IMAGE_REGISTRY
-
-      - name: "Pull latest"
-        run: docker pull $API_IMAGE
-
-      - name: "Build API test image"
-        run: docker build --cache-from $API_IMAGE --target development --tag api-development ./api
-
-      - name: "Black Linting"
-        run: docker run --rm api-development black --check --diff --exclude dmss .
-
-      - name: "Bandit Static Code Security Analyzis"
-        run: docker run --rm api-development bandit --recursive . --exclude ./tests,./dmss
-
-      - name: "Safety - Dependencies CVE Check"
-        run: docker run --rm api-development safety check
-
-  web:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@master
-
-      - name: Install Precommit
-        run: pip install pre-commit
-      - name: Run prettier formatting
-        run: pre-commit run prettier --all-files
-
-      - name: "Build Web Image"
-        run: |
-          docker login -u mariner -p ${{ secrets.ACR_SECRET }} $IMAGE_REGISTRY
-          docker pull $WEB_IMAGE
-          docker build --cache-from $WEB_IMAGE --target development --tag web-development ./web
+      - run: echo "hello world"
