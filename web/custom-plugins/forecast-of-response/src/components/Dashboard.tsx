@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { MapContainer, Marker, Popup, TileLayer, Tooltip } from "react-leaflet"
+import { MapContainer, Marker, Popup, TileLayer, Tooltip } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
-import styled from "styled-components"
-import { CompactCommentView } from "./Comments"
-import useSearch from "../hooks/useSearch"
-import { Blueprints } from "../Enums"
-import { TComment, TOperation } from "../Types"
+import styled from 'styled-components'
+import { CompactCommentView } from './Comments'
+import useSearch from '../hooks/useSearch'
+import { Blueprints } from '../Enums'
+import { TComment, TOperation } from '../Types'
 import { AuthContext, DmssAPI } from '@dmt/common'
 
 delete L.Icon.Default.prototype._getIconUrl
@@ -22,7 +22,7 @@ const CardWrapper = styled.div`
   border-radius: 4px;
   display: flex;
   flex-direction: column;
-  box-shadow: darkgrey 0 2px 8px 2px ;
+  box-shadow: darkgrey 0 2px 8px 2px;
 `
 
 const StyledMapContainer = styled(MapContainer)`
@@ -32,8 +32,10 @@ const StyledMapContainer = styled(MapContainer)`
 `
 type CoordinateTuple = [number, number, string]
 
-function calculateUTMCenter(coordinates: CoordinateTuple[]|undefined): [number, number] {
-  if(!coordinates) return [57.4, 4.4]  // Default value somewhere in the Northsea
+function calculateUTMCenter(
+  coordinates: CoordinateTuple[] | undefined
+): [number, number] {
+  if (!coordinates) return [57.4, 4.4] // Default value somewhere in the Northsea
   const xSum = coordinates.reduce((accum, b) => accum + b[0], 0)
   const ySum = coordinates.reduce((accum, b) => accum + b[1], 0)
   return [xSum / coordinates.length, ySum / coordinates.length]
@@ -47,50 +49,78 @@ const Dashboard = (): JSX.Element => {
   const [comments, commentsLoading] = useSearch(Blueprints.Comment)
   const [operations] = useSearch(Blueprints.OPERATION)
 
-  useEffect(()=>{
+  useEffect(() => {
     setLoading(true)
-    if(!operations) return
-    Promise.all(operations.map((operation: TOperation): CoordinateTuple =>{
-      return dmssAPI
-      .getDocumentById({ dataSourceId: "ForecastDS", documentId: operation.location._id})
-      .then((document): any => {
-        const location = document.document
-        return [location.lat, location.long, operation.name]
-      })
-  })).then((coordinates: CoordinateTuple[])=> {
+    if (!operations) return
+    Promise.all(
+      operations.map(
+        (operation: TOperation): CoordinateTuple => {
+          return dmssAPI
+            .getDocumentById({
+              dataSourceId: 'ForecastDS',
+              documentId: operation.location._id,
+            })
+            .then((document): any => {
+              const location = document.document
+              return [location.lat, location.long, operation.name]
+            })
+        }
+      )
+    ).then((coordinates: CoordinateTuple[]) => {
       setCoordinates(coordinates)
       setLoading(false)
     })
-  },[operations])
+  }, [operations])
 
-  if(loading) return <>Loading...</>
+  if (loading) return <>Loading...</>
 
   return (
-    <div style={{ display: "flex", minHeight: "500px", maxHeight: "900px"}}>
-      <CardWrapper style={{ width: "70%" }}>
-        <h3 style={{ margin: "5px" }}>Ongoing operations ({operations.length})</h3>
-        <StyledMapContainer center={calculateUTMCenter(coordinates)} zoom={5} scrollWheelZoom={true}>
+    <div style={{ display: 'flex', minHeight: '500px', maxHeight: '900px' }}>
+      <CardWrapper style={{ width: '70%' }}>
+        <h3 style={{ margin: '5px' }}>
+          Ongoing operations ({operations.length})
+        </h3>
+        <StyledMapContainer
+          center={calculateUTMCenter(coordinates)}
+          zoom={5}
+          scrollWheelZoom={true}
+        >
           <TileLayer
             attribution='<a href="https://openstreetmap.org/copyright">OpenStreetMap</a>'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          {coordinates ? coordinates.map((gridTuple: any) => {
-            return <Marker key={gridTuple[2]} position={[gridTuple[0], gridTuple[1]]}>
-              <Popup>{gridTuple[2]}</Popup>
-              <Tooltip>{gridTuple[2]}</Tooltip>
-            </Marker>
-          }) : null}
+          {coordinates
+            ? coordinates.map((gridTuple: any) => {
+                return (
+                  <Marker
+                    key={gridTuple[2]}
+                    position={[gridTuple[0], gridTuple[1]]}
+                  >
+                    <Popup>{gridTuple[2]}</Popup>
+                    <Tooltip>{gridTuple[2]}</Tooltip>
+                  </Marker>
+                )
+              })
+            : null}
         </StyledMapContainer>
       </CardWrapper>
-      <CardWrapper style={{ margin: "0 20px", width: "30%", overflow: "auto" }}>
-        <h3 style={{ margin: "5px" }}>Comments</h3>
-        {commentsLoading ? <>Loading comments...</> :
+      <CardWrapper style={{ margin: '0 20px', width: '30%', overflow: 'auto' }}>
+        <h3 style={{ margin: '5px' }}>Comments</h3>
+        {commentsLoading ? (
+          <>Loading comments...</>
+        ) : (
           <>
-            {comments ? comments.map((comment: TComment) => {
-              return <CompactCommentView key={comment._id} comment={comment}/>
-            }) : <>No comments yet</>}
-        </>
-        }
+            {comments ? (
+              comments.map((comment: TComment) => {
+                return (
+                  <CompactCommentView key={comment._id} comment={comment} />
+                )
+              })
+            ) : (
+              <>No comments yet</>
+            )}
+          </>
+        )}
       </CardWrapper>
     </div>
   )

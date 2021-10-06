@@ -1,10 +1,4 @@
-import {
-  TLocation,
-  TOperation,
-  TConfig,
-  TPhase,
-  TSimulation,
-} from '../Types'
+import { TLocation, TOperation, TConfig, TPhase, TSimulation } from '../Types'
 import { OperationStatus } from '../Enums'
 
 export const operationConfigs: TConfig[] = [
@@ -26,14 +20,14 @@ export const operationLocations: TLocation[] = [
     name: 'Njord',
     type: 'ForecastDS/ForecastOfResponse/Blueprints/Location',
     lat: 50.3,
-    long: 5.3
+    long: 5.3,
   },
   {
     _id: 'gullfaks',
     name: 'Gullfaks',
     type: 'ForecastDS/ForecastOfResponse/Blueprints/Location',
     lat: 50.3,
-    long: 5.3
+    long: 5.3,
   },
 ]
 
@@ -65,7 +59,7 @@ export const operations: Array<TOperation> = [
         status: OperationStatus.IN_PROGRESS,
         defaultVariables: {
           someValue: '0.001',
-          anotherVal: 'fifteen'
+          anotherVal: 'fifteen',
         },
       },
     ],
@@ -88,5 +82,5 @@ export const operations: Array<TOperation> = [
       },
     ],
     config: operationConfigs[0],
-  }
+  },
 ]

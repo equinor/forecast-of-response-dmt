@@ -4,9 +4,9 @@ import { DmtUIPlugin } from '@dmt/core-plugins'
 import { useDocument } from '@dmt/common'
 import { TOperation } from '../Types'
 import { Button, Card, Label, Table, Typography } from '@equinor/eds-core-react'
-import { StatusDot } from "../Other"
-import { OperationStatus } from "../../Enums"
-import styled from "styled-components"
+import { StatusDot } from '../Other'
+import { OperationStatus } from '../../Enums'
+import styled from 'styled-components'
 
 export const FlexWrapper = styled.div`
   display: flex;
@@ -16,16 +16,19 @@ export const FlexWrapper = styled.div`
 
 export default (props: DmtUIPlugin): JSX.Element => {
   const { data_source, entity_id } = useParams()
-  const [document, isLoading, updateDocument, error] = useDocument(data_source, entity_id)
+  const [document, isLoading, updateDocument, error] = useDocument(
+    data_source,
+    entity_id
+  )
   const local = 'en-GB'
 
-  if(isLoading) return <>Loading...</>
+  if (isLoading) return <>Loading...</>
 
-  if(error) return <>Something went wrong. Sorry...</>
+  if (error) return <>Something went wrong. Sorry...</>
 
   const operation: TOperation = document
 
-  if(!operation) return <>The document is empty...</>
+  if (!operation) return <>The document is empty...</>
 
   return (
     <>

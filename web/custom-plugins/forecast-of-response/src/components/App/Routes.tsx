@@ -43,7 +43,6 @@ const Routes: Array<TRoute> = [
     heading: 'Completed operations',
     content: OperationOverview,
   },
-
 ]
 
 export default Routes

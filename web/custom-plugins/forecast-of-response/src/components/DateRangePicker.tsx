@@ -4,9 +4,7 @@ import { Label } from '@equinor/eds-core-react'
 
 const { RangePicker } = DatePicker
 
-const DateRangePicker = (props: {
-  setDateRange: Function
-}): JSX.Element => {
+const DateRangePicker = (props: { setDateRange: Function }): JSX.Element => {
   const { setDateRange } = props
   // onChange returns (date: Moment[], dateString: string[]) with start at [0] and end at [1]
   return (

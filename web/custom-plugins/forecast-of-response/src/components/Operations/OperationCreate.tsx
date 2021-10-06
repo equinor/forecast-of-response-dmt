@@ -91,7 +91,7 @@ const onClickCreate = (
   isNewEntity: { location: boolean; config: boolean },
   setError: Function,
   token: string,
-  user: string,
+  user: string
 ) => {
   const getIds = []
   // Prepare the uncontained entities for the Operation
@@ -99,8 +99,7 @@ const onClickCreate = (
   getIds.push(getEntityId(operationLocation, token, isNewEntity.location))
   if (operationConfig) {
     // Optional
-    operationConfig.type =
-      'ForecastDS/ForecastOfResponse/Blueprints/Config'
+    operationConfig.type = 'ForecastDS/ForecastOfResponse/Blueprints/Config'
     getIds.push(getEntityId(operationConfig, token, isNewEntity.config))
   }
 
@@ -119,12 +118,16 @@ const onClickCreate = (
         .then((documentId) => {
           // todo redirect to operation view
           console.log(`New operation ${documentId}`)
-          const newLocation = document.location.pathname.replace('new', `${DEFAULT_DATASOURCE_ID}/${documentId}`)
+          const newLocation = document.location.pathname.replace(
+            'new',
+            `${DEFAULT_DATASOURCE_ID}/${documentId}`
+          )
           document.location = newLocation
         })
         .catch((err: any) => {
           if (err.json) {
-            err.json()
+            err
+              .json()
               .then((jsonErr: any) => {
                 setError(jsonErr.message)
                 console.error(jsonErr)
@@ -209,7 +212,7 @@ const OperationCreate = (props: DmtSettings): JSX.Element => {
             isNewEntity,
             setError,
             token,
-            user,
+            user
           )
         }
       >

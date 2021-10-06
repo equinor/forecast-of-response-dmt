@@ -20,12 +20,13 @@ const OperationOverview = (props: DmtSettings): JSX.Element => {
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [dateRange, setDateRange] = useState<Date[]>()
   const documentHash = document.location.hash.split('#')[1]
-  const [searchResult, isLoadingSearch, hasError]  = useSearch(
+  const [searchResult, isLoadingSearch, hasError] = useSearch(
     'ForecastDS/ForecastOfResponse/Blueprints/Operation'
   )
   const scopedOperations = searchResult?.filter((operation: TOperation) =>
     documentHash
-      ? operation.status && operation.status.toLowerCase().replace(/ /g, '') === documentHash
+      ? operation.status &&
+        operation.status.toLowerCase().replace(/ /g, '') === documentHash
       : true
   )
 
@@ -46,7 +47,9 @@ const OperationOverview = (props: DmtSettings): JSX.Element => {
   }, [isLoadingSearch])
 
   useEffect(() => {
-    if (hasError) { setIsLoading(false) }
+    if (hasError) {
+      setIsLoading(false)
+    }
   }, [hasError])
 
   /**
@@ -56,7 +59,8 @@ const OperationOverview = (props: DmtSettings): JSX.Element => {
     setOperations(
       searchResult?.filter((operation: TOperation) =>
         documentHash
-          ? operation.status && operation.status.toLowerCase().replace(/ /g, '') === documentHash
+          ? operation.status &&
+            operation.status.toLowerCase().replace(/ /g, '') === documentHash
           : true
       )
     )

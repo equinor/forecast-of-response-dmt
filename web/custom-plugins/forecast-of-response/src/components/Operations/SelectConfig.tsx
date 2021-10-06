@@ -52,9 +52,7 @@ const SelectOperationConfig = (props: {
         <SingleSelect
           id="operationConfigSelector"
           label="Select operation config from library"
-          items={operationConfigs?.map(
-            (opConfig: TConfig) => opConfig.name
-          )}
+          items={operationConfigs?.map((opConfig: TConfig) => opConfig.name)}
           handleSelectedItemChange={(event: any) => {
             setIsNewConfig(false)
             setOperationConfig(
@@ -88,7 +86,9 @@ const SelectOperationConfig = (props: {
                       setIsLoading(false)
                     })
                 } else {
-                  console.error('Specified file is not in the required format (JSON).')
+                  console.error(
+                    'Specified file is not in the required format (JSON).'
+                  )
                 }
               }
             }}

@@ -4,7 +4,7 @@ import { Button, SingleSelect, TextField } from '@equinor/eds-core-react'
 import { TLocation } from '../../Types'
 import useSearch from '../../hooks/useSearch'
 import { Heading } from '../Design/Fonts'
-import { MapContainer, Marker, TileLayer } from "react-leaflet"
+import { MapContainer, Marker, TileLayer } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
 
@@ -29,7 +29,6 @@ const SelectLocationWrapper = styled.div`
 
 const StyledTextField = styled(TextField)`
   margin: 10px 0;
-
 `
 
 const OperationLocationMap = (props: { location: TLocation }): JSX.Element => {
@@ -41,8 +40,7 @@ const OperationLocationMap = (props: { location: TLocation }): JSX.Element => {
         attribution='<a href="https://openstreetmap.org/copyright">OpenStreetMap</a>'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <Marker position={marker}>
-      </Marker>
+      <Marker position={marker}></Marker>
     </MapContainer>
   )
 }
@@ -53,7 +51,9 @@ const SelectLocation = (props: {
 }): JSX.Element => {
   const { setLocation, setIsNewLocation } = props
   const [locations, setLocations] = useState<TLocation[]>([])
-  const [searchResult] = useSearch('ForecastDS/ForecastOfResponse/Blueprints/Location')
+  const [searchResult] = useSearch(
+    'ForecastDS/ForecastOfResponse/Blueprints/Location'
+  )
 
   /**
    * Set locations when the search has completed
@@ -69,14 +69,15 @@ const SelectLocation = (props: {
       <SingleSelect
         id="operationLocationSelector"
         label="Select location"
-        items={locations?.map((loc: TLocation) => `${loc.name} - ${loc.lat},${loc.long}`)}
-
+        items={locations?.map(
+          (loc: TLocation) => `${loc.name} - ${loc.lat},${loc.long}`
+        )}
         handleSelectedItemChange={(event: any) => {
           // Parse formatted location string to identify actual loc
           const [locationName] = event.selectedItem.split(' - ')
           setIsNewLocation(false)
           setLocation(
-            locations.find((loc: TLocation) => loc.name === locationName),
+            locations.find((loc: TLocation) => loc.name === locationName)
           )
         }}
       />
@@ -132,7 +133,7 @@ const SelectOperationLocation = (props: {
   return (
     <>
       <SelectLocationWrapper>
-        <Heading text="Enter location" variant="h4"/>
+        <Heading text="Enter location" variant="h4" />
         <div>
           <LocationButtonsGrid>
             <Button
@@ -153,7 +154,7 @@ const SelectOperationLocation = (props: {
             </Button>
           </LocationButtonsGrid>
         </div>
-        <br/>
+        <br />
         {selectLocationType === 'select' ? (
           <SelectLocation
             setLocation={setLocation}
@@ -167,7 +168,7 @@ const SelectOperationLocation = (props: {
           />
         )}
       </SelectLocationWrapper>
-      <OperationLocationMap location={location}/>
+      <OperationLocationMap location={location} />
     </>
   )
 }

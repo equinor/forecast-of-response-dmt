@@ -9,7 +9,7 @@ import {
   edit_text,
   delete_forever,
   delete_to_trash,
-  save
+  save,
 } from '@equinor/eds-icons'
 
 Icon.add({
@@ -22,7 +22,7 @@ Icon.add({
   edit_text,
   delete_forever,
   delete_to_trash,
-  save
+  save,
 })
 export default Icon
 // Usage example:

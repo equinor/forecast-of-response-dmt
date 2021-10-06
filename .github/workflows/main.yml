@@ -1,0 +1,24 @@
+name: CI
+
+on: push
+
+env:
+  WEB_IMAGE: mariner.azurecr.io/for/web:latest
+
+jobs:
+  web:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Install Precommit
+        run: pip install pre-commit
+      - name: Run prettier formatting
+        run: pre-commit run prettier --all-files
+
+      - name: "Docker Login"
+        run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login mariner.azurecr.io --password-stdin --username ${{ secrets.DOCKER_USERNAME }}
+
+      - name: "Build Web Image"
+        run: docker build --tag ${WEB_IMAGE} web
+
