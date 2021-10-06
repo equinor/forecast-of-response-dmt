@@ -2,11 +2,7 @@ name: Hello World
 
 
 
-on:
-  push:
-    branches:
-      - "add-ci"
-
+on: push
 
 
 jobs:
