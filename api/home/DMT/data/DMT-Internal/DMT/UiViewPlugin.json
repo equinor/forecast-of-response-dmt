@@ -25,7 +25,7 @@
       "name": "type",
       "attributeType": "string",
       "type": "system/SIMOS/BlueprintAttribute",
-      "default": "DMT-DS/DMT/UiViewPlugin"
+      "default": "/UiViewPlugin"
     },
     {
       "name": "required",

@@ -1,5 +1,5 @@
 {
-  "name": "TestDMT-DS",
+  "name": "TestDMT-Internal",
   "repositories": {
     "a": {
       "type": "mongo-db",

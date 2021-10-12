@@ -19,6 +19,12 @@
       "optional": true
     },
     {
+      "name": "workflowTask",
+      "type": "system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    },
+    {
       "name": "end",
       "type": "system/SIMOS/BlueprintAttribute",
       "attributeType": "string",

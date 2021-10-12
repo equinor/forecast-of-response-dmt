@@ -62,10 +62,11 @@ const Dashboard = (): JSX.Element => {
             })
         }
       )
-    ).then((coordinates: CoordinateTuple[]) => {
-      setCoordinates(coordinates)
-      setLoading(false)
-    })
+    )
+      .then((coordinates: CoordinateTuple[]) => {
+        setCoordinates(coordinates)
+      })
+      .finally(() => setLoading(false))
   }, [operations])
 
   if (loading) return <>Loading...</>

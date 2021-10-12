@@ -56,13 +56,14 @@ export type TSimulation = {
   progress?: string
   started?: Date
   ended?: Date
-  results?: any
+  results?: any[]
 }
 
 export type TSimulationConfig = {
   name: string
   simulations: TSimulation[]
   variables: string[]
+  simaJob: any
 }
 
 export type TPhase = {
@@ -74,10 +75,21 @@ export type TPhase = {
   defaultVariables?: StringMap
 }
 
+export type TBlob = {
+  _id: string
+  name: string
+  type: string
+}
+export type TStask = {
+  workflowTask: string
+  blob: TBlob
+}
+
 export type TOperation = {
   _id?: string
   type?: string
   name: string
+  stask: TStask
   description?: string
   creator: string
   start?: Date

@@ -18,9 +18,18 @@ spec:
     - name: api
       image: mariner.azurecr.io/for/api:latest
       alwaysPullImageOnDeploy: true
+      secrets:
+        - AZURE_SP_SECRET
       environmentConfig:
         - environment: test
           variables:
+            SCHEDULER_REDIS_HOST: dmt-scheduler.redis.cache.windows.net
+            SCHEDULER_REDIS_PORT: 6380
+            SCHEDULER_REDIS_SSL: "true"
+            AZURE_JOB_SUBSCRIPTION: 1d249b90-3592-49bd-b14e-446340a5cf6b
+            AZURE_JOB_RESOURCE_GROUP: MSARGDev
+            AZURE_JOB_SP_TENANT_ID: 3aa4a235-b6e2-48d5-9195-7fcf05b459b0
+            AZURE_JOB_SP_CLIENT_ID: 97a6b5bd-63fb-42c6-bb75-7e5de2394ba0
             DMSS_API: http://dmss:5000
             ENVIRONMENT: production
       ports:

@@ -5,6 +5,11 @@
   "description": "",
   "attributes": [
     {
+      "name": "stask",
+      "attributeType": "/Blueprints/STask",
+      "type": "system/SIMOS/BlueprintAttribute"
+    },
+    {
       "name": "phases",
       "type": "system/SIMOS/BlueprintAttribute",
       "attributeType": "/Blueprints/Phase",
