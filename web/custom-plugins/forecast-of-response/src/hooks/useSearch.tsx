@@ -24,13 +24,12 @@ const useSearch = (
       .then((result: any) => {
         // @ts-ignore-line
         setSearchResult(Object.values(result))
-        setIsLoading(false)
       })
       .catch((err: any) => {
         console.error(err)
         setHasError(true)
-        setIsLoading(false)
       })
+      .finally(() => setIsLoading(false))
   }, [dataSourceId, type])
 
   return [searchResult, isLoading, hasError]

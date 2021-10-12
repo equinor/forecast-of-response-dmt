@@ -1,13 +1,19 @@
-import React, { useState } from 'react'
-import { TPhase, TSimulation, TSimulationConfig } from '../../Types'
+import React, { useContext, useState } from 'react'
+import { TPhase, TSimulation, TSimulationConfig, TStask } from '../../Types'
 import {
   Button,
   Divider,
   Input,
   Table,
   TextField,
+  Progress,
 } from '@equinor/eds-core-react'
+import { NotificationManager } from 'react-notifications'
 import styled from 'styled-components'
+import JobApi from '../../utils/JobApi'
+import { AuthContext, DmssAPI } from '@dmt/common'
+import { DEFAULT_DATASOURCE_ID } from '../../const'
+import { Blueprints } from '../../Enums'
 
 const Wrapper = styled.div`
   border: darkgrey 1px solid;
@@ -31,6 +37,7 @@ const SimulationRow = styled.div`
   cursor: pointer;
   display: flex;
   flex-direction: row;
+
   &:hover {
     background-color: lightsteelblue;
   }
@@ -114,9 +121,99 @@ function Result(props: { result: any }) {
 
 function SingleSimulationConfig(props: {
   simulationConfig: TSimulationConfig
+  dottedId: string
+  stask: TStask
 }) {
-  const { simulationConfig } = props
+  const { simulationConfig, dottedId, stask } = props
   const [selectedSim, setSelectedSim] = useState<number>(1)
+  const [loadingJob, setLoadingJob] = useState<boolean>(false)
+  const { token } = useContext(AuthContext)
+  const jobAPI = new JobApi(token)
+  const dmssAPI = new DmssAPI(token)
+
+  function startJob() {
+    setLoadingJob(true)
+    const simName = crypto.randomUUID()
+    // Create the simulation entity
+    dmssAPI.generatedDmssApi
+      // TODO: Remove this when testing ok
+      //   .explorerAdd({
+      //     dataSourceId: DEFAULT_DATASOURCE_ID,
+      //     dottedId: `${dottedId}.simulations`,
+      //     body: {
+      //       type: 'ForecastDS/ForecastOfResponse/Blueprints/Simulation',
+      //       name: simName,
+      //       simaJob: {
+      //         name: simName,
+      //         type: 'DMT-Internal/DMT/AzureContainerInstanceJob',
+      //         description: 'Test',
+      //         image: 'alpine',
+      //         command: ['echo', 'Hello world!'],
+      //         environmentVariables: [
+      //           'var1=a',
+      //           'var2=b',
+      //           'var3=_01863nv8||8374(/)&)(#!?=__Ba12|2',
+      //         ],
+      //       },
+      //       started: new Date().toISOString(),
+      //       progress: '0%',
+      //       ended: '',
+      //       results: [],
+      //     },
+      //   })
+      .explorerAdd({
+        dataSourceId: DEFAULT_DATASOURCE_ID,
+        dottedId: `${dottedId}.simulations`,
+        body: {
+          type: Blueprints.SIMULATION,
+          name: simName,
+          simaJob: {
+            name: simName,
+            type: Blueprints.AZ_CONTAINER_JOB,
+            image: 'aPublibRepo/SRSWrapper:v1.2.3',
+            command: [
+              `--stask=${DEFAULT_DATASOURCE_ID}/${stask.blob._id}`,
+              `--workflow=${stask.workflowTask}`,
+              '--input=waveDir=180',
+              `--target=${DEFAULT_DATASOURCE_ID}/${dottedId}.simulations.${simulationConfig.simulations.length}.results`,
+            ],
+          },
+          started: new Date().toISOString(),
+          progress: '0%',
+          ended: '',
+          results: [],
+        },
+      })
+      .then((res: any) => {
+        // Start a job from the created simulation
+        const newSimUID = JSON.parse(res).uid
+        jobAPI
+          .startJob(`${DEFAULT_DATASOURCE_ID}/${newSimUID}.simaJob`)
+          .then((result: any) => {
+            NotificationManager.success(
+              JSON.stringify(result),
+              'Simulation job started'
+            )
+          })
+          .catch((error: Error) => {
+            console.error(error)
+            NotificationManager.error(
+              error?.response?.data?.message,
+              'Failed to start job'
+            )
+          })
+          .finally(() => setLoadingJob(false))
+      })
+      .catch((error: Error) => {
+        console.error(error)
+        NotificationManager.error(
+          error?.response?.data?.message,
+          'Failed to start job'
+        )
+        setLoadingJob(false)
+      })
+  }
+
   return (
     <div>
       <Wrapper>
@@ -161,7 +258,6 @@ function SingleSimulationConfig(props: {
                     )}
                   </div>
                   <b style={{ marginLeft: '10px' }}>{simulation.progress}</b>
-                  {simulation.results.length === 0 && <>No results yet...</>}
                 </SimulationRow>
               )
             )}
@@ -170,6 +266,10 @@ function SingleSimulationConfig(props: {
             <Result result={simulationConfig.simulations[selectedSim]} />
           </ResultWrapper>
         </div>
+        <div>
+          <Button onClick={() => startJob()}>Run test sim</Button>
+          {loadingJob && <Progress.Linear />}
+        </div>
       </Wrapper>
     </div>
   )
@@ -177,15 +277,19 @@ function SingleSimulationConfig(props: {
 
 function SimulationConfigList(props: {
   simulationConfigs: TSimulationConfig[]
+  dottedId: string
+  stask: TStask
 }) {
-  const { simulationConfigs } = props
+  const { simulationConfigs, dottedId, stask } = props
   return (
     <div>
       {Object.values(simulationConfigs).map(
-        (simulationConfig: TSimulationConfig) => (
+        (simulationConfig: TSimulationConfig, index: number) => (
           <SingleSimulationConfig
             key={simulationConfig.name}
             simulationConfig={simulationConfig}
+            dottedId={`${dottedId}.${index}`}
+            stask={stask}
           />
         )
       )}
@@ -193,15 +297,23 @@ function SimulationConfigList(props: {
   )
 }
 
-export default (props: { phase: TPhase }): JSX.Element => {
-  const { phase } = props
+export default (props: {
+  phase: TPhase
+  dottedId: string
+  stask: TStask
+}): JSX.Element => {
+  const { phase, dottedId, stask } = props
   return (
     <>
       <NewSimulationConfig
         defaultVars={{ WaveHeight: 1.12, WaveDirection: 90 }}
       />
       <Divider />
-      <SimulationConfigList simulationConfigs={phase.simulationConfigs} />
+      <SimulationConfigList
+        simulationConfigs={phase.simulationConfigs}
+        dottedId={`${dottedId}.simulationConfigs`}
+        stask={stask}
+      />
     </>
   )
 }

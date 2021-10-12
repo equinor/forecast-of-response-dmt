@@ -1,13 +1,19 @@
 {
   "name": "Simulation",
   "type": "system/SIMOS/Blueprint",
-  "extends": ["system/SIMOS/DefaultUiRecipes","system/SIMOS/NamedEntity"],
+  "extends": ["system/SIMOS/DefaultUiRecipes", "system/SIMOS/NamedEntity"],
   "description": "",
   "attributes": [
     {
       "name": "progress",
       "type": "system/SIMOS/BlueprintAttribute",
       "attributeType": "string",
+      "optional": true
+    },
+    {
+      "name": "simaJob",
+      "attributeType": "DMT-Internal/DMT/AzureContainerInstanceJob",
+      "type": "system/SIMOS/BlueprintAttribute",
       "optional": true
     },
     {

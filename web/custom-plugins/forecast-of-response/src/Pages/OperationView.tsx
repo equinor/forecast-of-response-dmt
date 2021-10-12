@@ -44,9 +44,13 @@ export default (): JSX.Element => {
             <OperationDetails operation={operation} />
           </Tabs.Panel>
           {phases.length &&
-            phases.map((phase: TPhase) => (
+            phases.map((phase: TPhase, index: number) => (
               <Tabs.Panel key={phase.name}>
-                <PhaseView phase={phase} />
+                <PhaseView
+                  phase={phase}
+                  dottedId={`${operation._id}.phases.${index}`}
+                  stask={operation.stask}
+                />
               </Tabs.Panel>
             ))}
         </Tabs.Panels>

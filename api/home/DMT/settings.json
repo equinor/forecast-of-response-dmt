@@ -4,9 +4,9 @@
   "label": "Data Modeling",
   "tabIndex": 1,
   "hidden": false,
-  "visibleDataSources": ["DMT-DS", "ForecastDS"],
+  "visibleDataSources": ["DMT-Internal", "ForecastDS"],
   "description": "The default Data Modelling Web app. Provides many extra features for exploring the data",
-  "packages": ["DMT-DS/DMT"],
+  "packages": ["DMT-Internal/DMT"],
   "extraDataSources": [],
   "models": [],
   "actions": []

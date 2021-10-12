@@ -3,6 +3,16 @@
   "name": "SverdrupAnchorReplace2021",
   "type": "/Blueprints/Operation",
   "description": "Bridge forecast",
+  "stask": {
+    "name": "someSTask",
+    "type": "/Blueprints/STask",
+    "workflowTask": "WorkflowTask",
+    "blob": {
+      "_id": "26a4d888-3ab4-4ad2-9bd9-9614dcb066d5",
+      "name": "/STasks/mymodel_2_lbje.stask",
+      "type": "system/SIMOS/Blob"
+    }
+  },
   "creator": "eaks",
   "location": {
     "_id": "gullfaks-location",
@@ -63,105 +73,6 @@
           "name": "test1",
           "type": "/Blueprints/SimulationConfig",
           "simulations": [
-            {
-              "type": "/Blueprints/Simulation",
-              "name": "removeLater",
-              "started": "2020-02-7 9:20:00",
-              "progress": "80%",
-              "ended": "",
-              "results": [
-                {
-                  "name": "removeLater",
-                  "type": "/Blueprints/Result",
-                  "responses": [
-                    "oneResponse",
-                    "anotherResponse"
-                  ]
-                },
-                {
-                  "name": "removeLater",
-                  "type": "/Blueprints/Result",
-                  "responses": [
-                    "oneResponse",
-                    "anotherResponse"
-                  ]
-                }
-              ]
-            }, {
-              "type": "/Blueprints/Simulation",
-              "name": "removeLater",
-              "started": "2021-06-25 13:45:37.352574",
-              "progress": "0%",
-              "ended": "",
-              "results": [
-                {
-                  "name": "removeLater",
-                  "type": "/Blueprints/Result",
-                  "responses": [
-                    "oneResponse",
-                    "anotherResponse"
-                  ]
-                },
-                {
-                  "name": "removeLater",
-                  "type": "/Blueprints/Result",
-                  "responses": [
-                    "oneResponse",
-                    "anotherResponse"
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "/Blueprints/Simulation",
-              "name": "removeLater",
-              "started": "2021-02-2 13:45:37",
-              "progress": "20%",
-              "ended": "",
-              "results": [
-                {
-                  "name": "removeLater",
-                  "type": "/Blueprints/Result",
-                  "responses": [
-                    "oneResponse",
-                    "anotherResponse"
-                  ]
-                },
-                {
-                  "name": "removeLater",
-                  "type": "/Blueprints/Result",
-                  "responses": [
-                    "oneResponse",
-                    "anotherResponse"
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "/Blueprints/Simulation",
-              "name": "removeLater",
-              "started": "2021-06-25 13:45:37.352574",
-              "progress": "100%",
-              "ended": "",
-              "results": [
-                {
-                  "name": "removeLater",
-                  "type": "/Blueprints/Result",
-                  "responses": [
-                    "oneResponse",
-                    "anotherResponse"
-                  ]
-                },
-                {
-                  "name": "removeLater",
-                  "type": "/Blueprints/Result",
-                  "responses": [
-                    "oneResponse",
-                    "anotherResponse"
-                  ]
-                }
-              ]
-            }
           ],
           "variables": [
             "WaveHeight=1.12",
@@ -169,15 +80,6 @@
             "WaveHeight=1.12",
             "WaveDirection=90",
             "WaveDirection=90",
-            "WaveDirection=90"
-          ]
-        },
-        {
-          "name": "twoThrusters",
-          "type": "/Blueprints/SimulationConfig",
-          "simulations": [],
-          "variables": [
-            "Thrusters=2",
             "WaveDirection=90"
           ]
         }
