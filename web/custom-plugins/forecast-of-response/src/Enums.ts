@@ -21,4 +21,6 @@ export enum ACLEnum {
 export enum Blueprints {
   OPERATION = 'ForecastDS/ForecastOfResponse/Blueprints/Operation',
   Comment = 'ForecastDS/ForecastOfResponse/Blueprints/Comment',
+  LOCATION = 'ForecastDS/ForecastOfResponse/Blueprints/Location',
+  STASK = 'ForecastDS/ForecastOfResponse/Blueprints/STask',
 }

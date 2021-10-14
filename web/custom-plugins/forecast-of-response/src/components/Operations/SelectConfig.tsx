@@ -39,7 +39,6 @@ const SelectOperationConfig = (props: {
    * Set operation configs when the search has completed
    */
   useEffect(() => {
-    console.log(searchResult)
     if (searchResult) {
       setOperationConfigs(searchResult)
     }
@@ -47,7 +46,7 @@ const SelectOperationConfig = (props: {
 
   return (
     <>
-      <Heading text="Pick or upload the operation config" variant="h4" />
+      <Heading text="Configuration file" variant="h4" />
       <Grid>
         <SingleSelect
           id="operationConfigSelector"

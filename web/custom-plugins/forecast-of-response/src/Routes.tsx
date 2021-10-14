@@ -3,8 +3,8 @@ import { TRoute } from './Types'
 import Dashboard from './Pages/Dashboard'
 import Library from './components/Library'
 import OperationView from './Pages/OperationView'
-import OperationCreate from './components/Operations/OperationCreate'
 import OperationOverview from './Pages/OperationOverview'
+import OperationCreate from './Pages/OperationCreate'
 
 const Routes: Array<TRoute> = [
   { path: '', heading: 'Dashboard', content: Dashboard },
