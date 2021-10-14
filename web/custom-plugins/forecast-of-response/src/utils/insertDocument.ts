@@ -4,6 +4,7 @@ import { DEFAULT_DATASOURCE_ID, DEFAULT_DIRECTORY } from '../const'
 export const addToPath = (
   body: any,
   token: string,
+  files: Blob[] = [],
   dataSourceId: string = DEFAULT_DATASOURCE_ID,
   directory: string = DEFAULT_DIRECTORY
 ): Promise<string> => {
@@ -15,6 +16,7 @@ export const addToPath = (
         dataSourceId: dataSourceId,
         document: JSON.stringify(body),
         directory: directory,
+        files: files,
       })
       .then((response: string) => {
         const data = JSON.parse(response)

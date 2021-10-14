@@ -4,17 +4,7 @@ import { Button, SingleSelect, TextField } from '@equinor/eds-core-react'
 import { TLocation } from '../../Types'
 import useSearch from '../../hooks/useSearch'
 import { Heading } from '../Design/Fonts'
-import 'leaflet/dist/leaflet.css'
-import L from 'leaflet'
-import { LocationOnMap } from '../Map'
-
-delete L.Icon.Default.prototype._getIconUrl
-
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
-  iconUrl: require('leaflet/dist/images/marker-icon.png'),
-  shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
-})
+import { Blueprints } from '../../Enums'
 
 const LocationButtonsGrid = styled.div`
   display: grid;
@@ -24,7 +14,6 @@ const LocationButtonsGrid = styled.div`
 const SelectLocationWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 30px;
 `
 
 const StyledTextField = styled(TextField)`
@@ -37,9 +26,7 @@ const SelectLocation = (props: {
 }): JSX.Element => {
   const { setLocation, setIsNewLocation } = props
   const [locations, setLocations] = useState<TLocation[]>([])
-  const [searchResult] = useSearch(
-    'ForecastDS/ForecastOfResponse/Blueprints/Location'
-  )
+  const [searchResult] = useSearch(Blueprints.LOCATION)
 
   /**
    * Set locations when the search has completed
@@ -119,7 +106,7 @@ const SelectOperationLocation = (props: {
   return (
     <>
       <SelectLocationWrapper>
-        <Heading text="Enter location" variant="h4" />
+        <Heading text="Location" variant="h4" />
         <div>
           <LocationButtonsGrid>
             <Button
@@ -128,7 +115,7 @@ const SelectOperationLocation = (props: {
               }
               onClick={() => setSelectLocationType('select')}
             >
-              Select existing location
+              Select existing
             </Button>
             <Button
               variant={selectLocationType === 'add' ? 'contained' : 'outlined'}
@@ -136,7 +123,7 @@ const SelectOperationLocation = (props: {
                 setSelectLocationType('add')
               }}
             >
-              Enter UTM coordinates
+              New
             </Button>
           </LocationButtonsGrid>
         </div>
@@ -154,7 +141,6 @@ const SelectOperationLocation = (props: {
           />
         )}
       </SelectLocationWrapper>
-      <LocationOnMap location={location} zoom={5} />
     </>
   )
 }

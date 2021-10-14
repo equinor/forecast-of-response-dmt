@@ -1,4 +1,3 @@
-// from https://raw.githubusercontent.com/equinor/design-system/1aa1614a389df118018e8d6589c54c7289b1d2dd/apps/storefront/src/components/Grid.jsx
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'

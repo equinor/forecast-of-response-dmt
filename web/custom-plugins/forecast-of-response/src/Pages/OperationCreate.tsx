@@ -1,15 +1,31 @@
-import React, { useState, useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { Button, Progress, TextField } from '@equinor/eds-core-react'
 import { AuthContext } from '@dmt/common'
-import Grid from '../App/Grid'
-import { Heading } from '../Design/Fonts'
-import { DmtSettings, TLocation, TConfig } from '../../Types'
-import { OperationStatus } from '../../Enums'
-import SelectOperationLocation from './SelectLocation'
-import SelectOperationConfig from './SelectConfig'
-import DateRangePicker from '../DateRangePicker'
-import { addToPath } from '../../utils/insertDocument'
-import { DEFAULT_DATASOURCE_ID } from '../../const'
+import { Blueprints, OperationStatus } from '../Enums'
+import { addToPath } from '../utils/insertDocument'
+import { DEFAULT_DATASOURCE_ID } from '../const'
+import DateRangePicker from '../components/DateRangePicker'
+import { Heading } from '../components/Design/Fonts'
+import { TConfig, TLocation } from '../Types'
+import SelectOperationConfig from '../components/Operations/SelectConfig'
+import SelectOperationLocation from '../components/Operations/SelectLocation'
+import { LocationOnMap } from '../components/Map'
+import SelectSTask from '../components/Operations/SelectSTask'
+import styled from 'styled-components'
+
+const CreateOperationWrapper = styled.div`
+  min-width: min-content;
+  max-width: 900px;
+  display: flex;
+`
+
+const MapWrapper = styled.div`
+  display: flex;
+  margin: 0 50px;
+  width: 60%;
+  max-width: 500px;
+  height: 300px;
+`
 
 const SelectOperationName = (props: {
   setOperationName: Function
@@ -17,7 +33,7 @@ const SelectOperationName = (props: {
   const { setOperationName } = props
   return (
     <>
-      <Heading text="Name your operation" variant="h4" />
+      <Heading text="Name" variant="h4" />
       <TextField
         id="operationName"
         placeholder="OperationName"
@@ -62,6 +78,7 @@ const getEntityId = (
  */
 const createOperationEntity = (
   operationName: string,
+  stask: File,
   dateRange: Date[],
   location: TLocation,
   config: TConfig,
@@ -71,8 +88,15 @@ const createOperationEntity = (
   return addToPath(
     {
       name: operationName,
-      type: 'ForecastDS/ForecastOfResponse/Blueprints/Operation',
-      description: '', // TODO: Add description input?
+      type: Blueprints.OPERATION,
+      stask: {
+        type: Blueprints.STASK,
+        name: stask.name,
+        blob: {
+          name: stask.name,
+          type: 'system/SIMOS/Blob',
+        },
+      },
       creator: user,
       location: location,
       start: dateRange && dateRange[0] ? dateRange[0].toISOString() : undefined,
@@ -80,7 +104,8 @@ const createOperationEntity = (
       status: OperationStatus.UPCOMING, // TODO: decide based on start attr? allow user to select?
       config: config,
     },
-    token
+    token,
+    [stask]
   )
 }
 
@@ -88,6 +113,7 @@ const onClickCreate = (
   operationMeta: { name: string; dateRange: Date[] },
   operationLocation: TLocation,
   operationConfig: TConfig,
+  stask: Blob,
   isNewEntity: { location: boolean; config: boolean },
   setError: Function,
   token: string,
@@ -95,7 +121,7 @@ const onClickCreate = (
 ) => {
   const getIds = []
   // Prepare the uncontained entities for the Operation
-  operationLocation.type = 'ForecastDS/ForecastOfResponse/Blueprints/Location'
+  operationLocation.type = Blueprints.LOCATION
   getIds.push(getEntityId(operationLocation, token, isNewEntity.location))
   if (operationConfig) {
     // Optional
@@ -109,6 +135,7 @@ const onClickCreate = (
       if (isNewEntity.config) operationConfig._id = documentIds[1]
       createOperationEntity(
         operationMeta.name,
+        stask,
         operationMeta.dateRange,
         operationLocation,
         operationConfig,
@@ -147,8 +174,7 @@ const onClickCreate = (
     })
 }
 
-const OperationCreate = (props: DmtSettings): JSX.Element => {
-  const { settings } = props
+const OperationCreate = (): JSX.Element => {
   const { userData, token } = useContext(AuthContext)
   const user = userData.loggedIn ? userData.name : 'Anonymous'
   const [error, setError] = useState<string>()
@@ -161,6 +187,7 @@ const OperationCreate = (props: DmtSettings): JSX.Element => {
     config: boolean
   }>({ location: false, config: false })
   const [operationConfig, setOperationConfig] = useState<TConfig>()
+  const [sTask, setSTask] = useState<Blob>()
   const [operationLocation, setOperationLocation] = useState<TLocation>({})
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
@@ -171,15 +198,15 @@ const OperationCreate = (props: DmtSettings): JSX.Element => {
   return (
     <>
       {isLoading && <Progress.Linear />}
-      <Grid>
-        <div>
+      <CreateOperationWrapper>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
           <SelectOperationName
             setOperationName={(operationName: string) => {
               setOperationMeta({ ...operationMeta, name: operationName })
             }}
           />
           <br />
-          <Heading text="Select start and end date" variant="h4" />
+          <Heading text="Time periode" variant="h4" />
           <DateRangePicker
             setDateRange={(dateRange: Date[]) => {
               setOperationMeta({ ...operationMeta, dateRange: dateRange })
@@ -194,31 +221,45 @@ const OperationCreate = (props: DmtSettings): JSX.Element => {
             isLoading={isLoading}
             setIsLoading={setIsLoading}
           />
+          <SelectSTask setSTask={setSTask} isLoading={isLoading} />
+
+          <SelectOperationLocation
+            location={operationLocation}
+            setLocation={setOperationLocation}
+            setIsNewLocation={(isNew: boolean) => {
+              setIsNewEntity({ ...isNewEntity, location: isNew })
+            }}
+          />
         </div>
-        <SelectOperationLocation
-          location={operationLocation}
-          setLocation={setOperationLocation}
-          setIsNewLocation={(isNew: boolean) => {
-            setIsNewEntity({ ...isNewEntity, location: isNew })
-          }}
-        />
-      </Grid>
-      <Button
-        onClick={() =>
-          onClickCreate(
-            operationMeta,
-            operationLocation,
-            operationConfig,
-            isNewEntity,
-            setError,
-            token,
-            user
-          )
-        }
+        <MapWrapper>
+          <LocationOnMap location={operationLocation} zoom={5} />
+        </MapWrapper>
+      </CreateOperationWrapper>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          flexDirection: 'row',
+          marginTop: '30px',
+        }}
       >
-        Create operation
-      </Button>
-      <Button color="secondary">Cancel</Button>
+        <Button
+          onClick={() =>
+            onClickCreate(
+              operationMeta,
+              operationLocation,
+              operationConfig,
+              sTask,
+              isNewEntity,
+              setError,
+              token,
+              user
+            )
+          }
+        >
+          Create operation
+        </Button>
+      </div>
       {error && <p style={{ color: 'red' }}>{error}</p>}
     </>
   )
