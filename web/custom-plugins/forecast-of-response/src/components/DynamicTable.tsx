@@ -30,7 +30,7 @@ const DynamicTable = (props: {
             ))}
           </Table.Row>
         </Table.Head>
-        <Table.Body>
+        <Table.Body style={{ cursor: 'pointer' }}>
           {rows?.map((row) => (
             <Table.Row key={row._id} accessKey={row._id}>
               {Object.keys(row)
