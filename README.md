@@ -92,6 +92,7 @@ Make the following changes to the FoR repo (updated 05.10.21)
 
     ```bash
     docker-compose up --build
+    # Note: Make sure the "SECRET_KEY" string is the same locally as in Radix
     docker-compose run dmss reset-app
     docker-compose run --rm -e DMSS_API=https://dmss-forecast-of-response-test.radix.equinor.com api --token="eyXXXX" reset-app
     ```
