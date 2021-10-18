@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Button, Input, Tabs } from '@equinor/eds-core-react'
 import styled from 'styled-components'
 import { ACLEnum } from '../../Enums'
 import Icons from '../../Icons'
 import { StringMap, TAcl } from '../../Types'
+import { ACL, AuthContext, DmssAPI } from '@dmt/common'
+import { NotificationManager } from 'react-notifications'
 
 const ACLWrapper = styled.div`
   border: teal 2px solid;
@@ -181,8 +183,16 @@ const ACLUserRolesPanel = ({
   )
 }
 
-export default (documentId: any): JSX.Element => {
+export default (props: {
+  documentId: string
+  dataSourceId: string
+}): JSX.Element => {
+  const documentId = props.documentId
+  const dataSourceId = props.dataSourceId
   const [activeTab, setActiveTab] = useState<number>(0)
+  const { token } = useContext(AuthContext)
+  const dmssAPI = new DmssAPI(token)
+
   const [documentACL, setDocumentACL] = useState<TAcl | null>({
     owner: 'stoo',
     roles: {
@@ -201,15 +211,39 @@ export default (documentId: any): JSX.Element => {
       aDude: 'WRITE',
       aFellow: 'READ',
     },
-    others: 'READ',
+    others: ACLEnum.READ,
   })
 
   // TODO: Some stuff that fetches the ACL for the given document
-  useEffect(() => {}, [documentId])
+  useEffect(() => {
+    dmssAPI
+      .getDocumentAcl({ dataSourceId: dataSourceId, documentId: documentId })
+      .then((response: ACL) => {
+        setDocumentACL(response)
+      })
+      .catch((error: any) => {
+        NotificationManager.error(
+          `Could not fetch ACL for this document (${error})`
+        )
+      })
+  }, [documentId])
 
   function saveACL(acl: TAcl) {
-    //  TODO: Some code to set the edited ACL
+    dmssAPI
+      .setDocumentAcl({
+        dataSourceId: dataSourceId,
+        documentId: documentId,
+        aCL: acl,
+      })
+      .then((response: string) => {
+        NotificationManager.success('ACL saved!')
+      })
+      .catch((error: any) => {
+        NotificationManager.error(`Could not save ACL ${error}`)
+      })
   }
+
+  //resolve id to brkernavn??
 
   function handleChange(value: Object) {
     setDocumentACL({ ...documentACL, ...value })
@@ -219,7 +253,7 @@ export default (documentId: any): JSX.Element => {
 
   return (
     <ACLWrapper>
-      <h4>Access Control</h4>
+      <h4>{`Access Control for ${documentId}`}</h4>
       <Tabs
         activeTab={activeTab}
         onChange={(index: number) => setActiveTab(index)}
@@ -254,7 +288,7 @@ export default (documentId: any): JSX.Element => {
         <Button variant="outlined" color="danger">
           Cancel
         </Button>
-        <Button>
+        <Button onClick={() => saveACL(documentACL)}>
           Save
           <Icons name="save" title="save" size={24} />
         </Button>

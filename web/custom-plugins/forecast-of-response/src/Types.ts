@@ -46,7 +46,7 @@ export type StringMap = {
 }
 
 export type TAcl = {
-  owner: ACLEnum
+  owner: string
   roles: StringMap
   users: StringMap
   others: ACLEnum

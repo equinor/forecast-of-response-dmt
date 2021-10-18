@@ -6,6 +6,8 @@ import styled from 'styled-components'
 import { LocationOnMap } from '../Map'
 import { TComment } from '../../Types'
 import { CommentInput, CommentView } from '../Comments'
+import AccessControlList from '../AccessControl/AccessControlList'
+import { DEFAULT_DATASOURCE_ID } from '../../const'
 
 const FlexWrapper = styled.div`
   display: flex;
@@ -34,7 +36,7 @@ const CommentsWrapper = styled.div`
 
 export default (props: { operation: TOperation }): JSX.Element => {
   const { operation } = props
-
+  const dataSourceId: string = DEFAULT_DATASOURCE_ID
   return (
     <Card style={{ border: 'solid 1px', maxWidth: '1200px' }}>
       <Card.Header>
@@ -125,6 +127,10 @@ export default (props: { operation: TOperation }): JSX.Element => {
         ))}
       </CommentsWrapper>
       <CommentInput operationId={operation._id} />
+      <AccessControlList
+        documentId={operation._id}
+        dataSourceId={dataSourceId}
+      ></AccessControlList>
     </Card>
   )
 }
