@@ -3,13 +3,17 @@ import styled, { keyframes } from 'styled-components'
 import React from 'react'
 
 interface StatusDotProps {
-  status: OperationStatus
+  status: OperationStatus | undefined
 }
 
-const IconWrapper = styled.div`
+type IconWrapperProps = {
+  color: any
+}
+
+const IconWrapper = styled.div<IconWrapperProps>`
   width: 22px;
   height: 22px;
-  color: ${(props) => props?.color};
+  color: ${(props: IconWrapperProps) => props?.color};
   font-size: x-large;
   padding: 0 3px;
   display: flex;

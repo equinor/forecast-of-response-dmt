@@ -45,13 +45,6 @@ export type StringMap = {
   [key: string]: string
 }
 
-export type TAcl = {
-  owner: string
-  roles: StringMap
-  users: StringMap
-  others: ACLEnum
-}
-
 export type TSimulation = {
   progress?: string
   started?: Date

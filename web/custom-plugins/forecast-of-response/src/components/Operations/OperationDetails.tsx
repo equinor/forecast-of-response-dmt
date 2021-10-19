@@ -1,12 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { TOperation } from '../Types'
 import { Button, Card, Label, Table, Typography } from '@equinor/eds-core-react'
 import { StatusDot } from '../Other'
 import styled from 'styled-components'
 import { LocationOnMap } from '../Map'
-import { TComment } from '../../Types'
+import { TComment, TPhase } from '../../Types'
 import { CommentInput, CommentView } from '../Comments'
-import AccessControlList from '../AccessControl/AccessControlList'
+import { AccessControlList } from '@dmt/common'
 import { DEFAULT_DATASOURCE_ID } from '../../const'
 
 const FlexWrapper = styled.div`
@@ -36,7 +36,7 @@ const CommentsWrapper = styled.div`
 
 export default (props: { operation: TOperation }): JSX.Element => {
   const { operation } = props
-  const dataSourceId: string = DEFAULT_DATASOURCE_ID
+  const [viewACL, setViewACL] = useState<boolean>(false)
   return (
     <Card style={{ border: 'solid 1px', maxWidth: '1200px' }}>
       <Card.Header>
@@ -83,6 +83,21 @@ export default (props: { operation: TOperation }): JSX.Element => {
         <Button>Cancel</Button>
         <Button>OK</Button>
       </Card.Actions>
+      <Card.Actions>
+        <Button
+          onClick={() => {
+            setViewACL(!viewACL)
+          }}
+        >
+          {viewACL ? 'Hide access panel' : 'Open access panel'}
+        </Button>
+      </Card.Actions>
+      {viewACL && (
+        <AccessControlList
+          documentId={operation._id}
+          dataSourceId={DEFAULT_DATASOURCE_ID}
+        ></AccessControlList>
+      )}
       <Table density="comfortable" style={{ width: '100%' }}>
         <Table.Caption>
           <Typography variant="h3">Phases in operation</Typography>
@@ -97,14 +112,18 @@ export default (props: { operation: TOperation }): JSX.Element => {
         </Table.Head>
         <Table.Body>
           {operation.phases.length &&
-            operation.phases.map((phase, index) => (
+            operation.phases.map((phase: TPhase, index: number) => (
               <Table.Row key={index}>
                 <Table.Cell>{phase.name}</Table.Cell>
                 <Table.Cell>
-                  {new Date(phase.start).toLocaleString(navigator.language)}
+                  {phase.start
+                    ? new Date(phase.start).toLocaleString(navigator.language)
+                    : 'No start date'}
                 </Table.Cell>
                 <Table.Cell>
-                  {new Date(phase.end).toLocaleString(navigator.language)}
+                  {phase.end
+                    ? new Date(phase.end).toLocaleString(navigator.language)
+                    : 'No end date'}
                 </Table.Cell>
                 <Table.Cell>
                   <FlexWrapper>
@@ -127,10 +146,6 @@ export default (props: { operation: TOperation }): JSX.Element => {
         ))}
       </CommentsWrapper>
       <CommentInput operationId={operation._id} />
-      <AccessControlList
-        documentId={operation._id}
-        dataSourceId={dataSourceId}
-      ></AccessControlList>
     </Card>
   )
 }
