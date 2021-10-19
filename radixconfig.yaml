@@ -20,6 +20,7 @@ spec:
       alwaysPullImageOnDeploy: true
       secrets:
         - AZURE_SP_SECRET
+        - SCHEDULER_REDIS_PASSWORD
       environmentConfig:
         - environment: test
           variables:
