@@ -9,22 +9,42 @@ import { Heading } from '../components/Design/Fonts'
 import { TConfig, TLocation } from '../Types'
 import SelectOperationConfig from '../components/Operations/SelectConfig'
 import SelectOperationLocation from '../components/Operations/SelectLocation'
-import { LocationOnMap } from '../components/Map'
+import { ClickableMap } from '../components/Map'
 import SelectSTask from '../components/Operations/SelectSTask'
 import styled from 'styled-components'
 
 const CreateOperationWrapper = styled.div`
-  min-width: min-content;
-  max-width: 900px;
+  justify-content: space-between;
   display: flex;
+  height: 700px;
 `
 
 const MapWrapper = styled.div`
   display: flex;
+  flex-direction: column;
+  align-items: flex-end;
   margin: 0 50px;
-  width: 60%;
-  max-width: 500px;
-  height: 300px;
+  width: 80%;
+  max-width: 900px;
+  height: available;
+`
+
+const InputGroupWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: available;
+  max-height: 700px;
+  margin: 0 50px;
+  width: 80%;
+`
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: min-content;
+  min-width: fit-content;
+  max-width: 400px;
 `
 
 const SelectOperationName = (props: {
@@ -32,7 +52,7 @@ const SelectOperationName = (props: {
 }): JSX.Element => {
   const { setOperationName } = props
   return (
-    <>
+    <Wrapper>
       <Heading text="Name" variant="h4" />
       <TextField
         id="operationName"
@@ -43,7 +63,7 @@ const SelectOperationName = (props: {
           setOperationName(event.target.value)
         }}
       />
-    </>
+    </Wrapper>
   )
 }
 
@@ -190,6 +210,7 @@ const OperationCreate = (): JSX.Element => {
   const [sTask, setSTask] = useState<Blob>()
   const [operationLocation, setOperationLocation] = useState<TLocation>({})
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [mapClickPos, setMapClickPos] = useState<[number, number]>()
 
   // TODO: redirect to operation view upon creation
   // TODO: Upon clicking cancel, ask for confirmation and whether it should be saved as a draft
@@ -199,20 +220,20 @@ const OperationCreate = (): JSX.Element => {
     <>
       {isLoading && <Progress.Linear />}
       <CreateOperationWrapper>
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <InputGroupWrapper>
           <SelectOperationName
             setOperationName={(operationName: string) => {
               setOperationMeta({ ...operationMeta, name: operationName })
             }}
           />
-          <br />
-          <Heading text="Time periode" variant="h4" />
-          <DateRangePicker
-            setDateRange={(dateRange: Date[]) => {
-              setOperationMeta({ ...operationMeta, dateRange: dateRange })
-            }}
-          />
-          <br />
+          <Wrapper>
+            <Heading text="Time periode" variant="h4" />
+            <DateRangePicker
+              setDateRange={(dateRange: Date[]) => {
+                setOperationMeta({ ...operationMeta, dateRange: dateRange })
+              }}
+            />
+          </Wrapper>
           <SelectOperationConfig
             setOperationConfig={setOperationConfig}
             setIsNewConfig={(isNew: boolean) => {
@@ -229,10 +250,15 @@ const OperationCreate = (): JSX.Element => {
             setIsNewLocation={(isNew: boolean) => {
               setIsNewEntity({ ...isNewEntity, location: isNew })
             }}
+            mapClickPos={mapClickPos}
           />
-        </div>
+        </InputGroupWrapper>
         <MapWrapper>
-          <LocationOnMap location={operationLocation} zoom={5} />
+          <ClickableMap
+            location={operationLocation}
+            zoom={5}
+            setClickPos={setMapClickPos}
+          />
         </MapWrapper>
       </CreateOperationWrapper>
       <div
@@ -255,6 +281,9 @@ const OperationCreate = (): JSX.Element => {
               token,
               user
             )
+          }
+          disabled={
+            !(sTask && operationLocation && operationMeta && operationConfig)
           }
         >
           Create operation

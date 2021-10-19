@@ -1,6 +1,13 @@
 import React, { useState } from 'react'
 import { Button, Progress } from '@equinor/eds-core-react'
 import { Heading } from '../Design/Fonts'
+import styled from 'styled-components'
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: min-content;
+`
 
 const SelectSTask = (props: {
   setSTask: Function
@@ -10,7 +17,7 @@ const SelectSTask = (props: {
   const { setSTask, isLoading } = props
 
   return (
-    <>
+    <Wrapper>
       <Heading text="SIMA STask" variant="h4" />
       <div>
         <input
@@ -31,14 +38,17 @@ const SelectSTask = (props: {
                 'Upload STask'}
             </Button>
           </label>
-          {staskFileName && (
-            <div style={{ alignSelf: 'self-end', marginLeft: '20px' }}>
-              Uploaded: {staskFileName}
-            </div>
-          )}
+          <div
+            style={{
+              marginLeft: '5px',
+              alignSelf: 'flex-end',
+            }}
+          >
+            Selected: <i>{staskFileName || 'None...'}</i>
+          </div>
         </div>
       </div>
-    </>
+    </Wrapper>
   )
 }
 

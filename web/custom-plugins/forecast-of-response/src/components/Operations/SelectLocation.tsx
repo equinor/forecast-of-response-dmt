@@ -9,15 +9,13 @@ import { Blueprints } from '../../Enums'
 const LocationButtonsGrid = styled.div`
   display: grid;
   grid-template-columns: auto auto;
+  max-width: 300px;
 `
 
 const SelectLocationWrapper = styled.div`
   display: flex;
   flex-direction: column;
-`
-
-const StyledTextField = styled(TextField)`
-  margin: 10px 0;
+  max-width: 400px;
 `
 
 const SelectLocation = (props: {
@@ -34,14 +32,19 @@ const SelectLocation = (props: {
   useEffect(() => {
     if (searchResult) {
       setLocations(searchResult)
+      setLocation(searchResult.length && searchResult[0])
     }
   }, [searchResult, locations])
 
   return (
-    <div>
+    <div style={{ maxWidth: '400px', paddingTop: '10px' }}>
       <SingleSelect
         id="operationLocationSelector"
         label="Select location"
+        value={
+          locations.length &&
+          `${locations[0].name} - ${locations[0].lat},${locations[0].long}`
+        }
         items={locations?.map(
           (loc: TLocation) => `${loc.name} - ${loc.lat},${loc.long}`
         )}
@@ -58,90 +61,81 @@ const SelectLocation = (props: {
   )
 }
 
-const CreateLocation = (props: {
-  location: TLocation
-  setLocation: Function
-  setIsNewLocation: Function
-}): JSX.Element => {
-  const { location, setLocation, setIsNewLocation } = props
-  return (
-    <>
-      <StyledTextField
-        id="operationLocationName"
-        placeholder="Location name"
-        label="Location name"
-        onChange={(event: any) => {
-          setIsNewLocation(true)
-          setLocation({ ...location, name: event.target.value })
-        }}
-      />
-      <StyledTextField
-        id="operationLocationUTM"
-        placeholder="Latitude (xx.xxx)"
-        label="Latitude"
-        onChange={(event: any) => {
-          setLocation({ ...location, lat: parseFloat(event.target.value) })
-        }}
-      />
-      <StyledTextField
-        id="operationLocationUTM"
-        placeholder="Longitude (xx.xxx)"
-        label="Longitude"
-        onChange={(event: any) => {
-          setLocation({ ...location, long: parseFloat(event.target.value) })
-        }}
-      />
-    </>
-  )
-}
-
 const SelectOperationLocation = (props: {
   location: TLocation
   setLocation: Function
   setIsNewLocation: Function
+  mapClickPos: [number, number]
 }): JSX.Element => {
   const [selectLocationType, setSelectLocationType] = useState<string>('select')
-  const { location, setLocation, setIsNewLocation } = props
+  const { location, setLocation, setIsNewLocation, mapClickPos } = props
 
   return (
-    <>
-      <SelectLocationWrapper>
-        <Heading text="Location" variant="h4" />
-        <div>
-          <LocationButtonsGrid>
+    <SelectLocationWrapper>
+      <Heading text="Location" variant="h4" />
+      <LocationButtonsGrid>
+        <Button
+          variant={selectLocationType === 'select' ? 'contained' : 'outlined'}
+          onClick={() => setSelectLocationType('select')}
+        >
+          Select existing
+        </Button>
+        <Button
+          variant={selectLocationType === 'add' ? 'contained' : 'outlined'}
+          onClick={() => setSelectLocationType('add')}
+        >
+          New
+        </Button>
+      </LocationButtonsGrid>
+      {selectLocationType === 'select' ? (
+        <SelectLocation
+          setLocation={setLocation}
+          setIsNewLocation={setIsNewLocation}
+        />
+      ) : (
+        <>
+          <TextField
+            id="operationLocationName"
+            placeholder="Location name"
+            label="Location name"
+            onChange={(event: any) => {
+              setIsNewLocation(true)
+              setLocation({ ...location, name: event.target.value })
+            }}
+          />
+          <TextField
+            id="lat-input"
+            label="Latitude"
+            onChange={(event: any) =>
+              setLocation({ ...location, lat: event.target.value })
+            }
+            value={location.lat || ''}
+          />
+          <TextField
+            id="long-input"
+            label="Longitude"
+            onChange={(event: any) => {
+              setLocation({ ...location, long: parseFloat(event.target.value) })
+            }}
+            value={location.long || ''}
+          />
+          <div style={{ width: '150px', marginTop: '10px' }}>
             <Button
-              variant={
-                selectLocationType === 'select' ? 'contained' : 'outlined'
+              disabled={!mapClickPos}
+              onClick={() =>
+                setLocation({
+                  ...location,
+                  lat: mapClickPos[0],
+                  long: mapClickPos[1],
+                })
               }
-              onClick={() => setSelectLocationType('select')}
             >
-              Select existing
+              Use map pin
             </Button>
-            <Button
-              variant={selectLocationType === 'add' ? 'contained' : 'outlined'}
-              onClick={() => {
-                setSelectLocationType('add')
-              }}
-            >
-              New
-            </Button>
-          </LocationButtonsGrid>
-        </div>
-        <br />
-        {selectLocationType === 'select' ? (
-          <SelectLocation
-            setLocation={setLocation}
-            setIsNewLocation={setIsNewLocation}
-          />
-        ) : (
-          <CreateLocation
-            location={location}
-            setLocation={setLocation}
-            setIsNewLocation={setIsNewLocation}
-          />
-        )}
-      </SelectLocationWrapper>
-    </>
+          </div>
+        </>
+      )}
+    </SelectLocationWrapper>
   )
 }
 

@@ -23,7 +23,6 @@ export default (): JSX.Element => {
 
   if (!document) return <>Loading...</>
   if (error) return <>Something went wrong. Sorry...</>
-  if (!phases.length) return <>No phases in operation</>
 
   return (
     <>
@@ -34,16 +33,19 @@ export default (): JSX.Element => {
       >
         <Tabs.List>
           <Tabs.Tab>Information</Tabs.Tab>
-          {phases.length &&
+          {phases.length ? (
             phases.map((phase: TPhase) => (
               <Tabs.Tab key={phase.name}>{phase.name}</Tabs.Tab>
-            ))}
+            ))
+          ) : (
+            <div />
+          )}
         </Tabs.List>
         <Tabs.Panels>
           <Tabs.Panel>
             <OperationDetails operation={operation} />
           </Tabs.Panel>
-          {phases.length &&
+          {phases.length ? (
             phases.map((phase: TPhase, index: number) => (
               <Tabs.Panel key={phase.name}>
                 <PhaseView
@@ -52,7 +54,10 @@ export default (): JSX.Element => {
                   stask={operation.stask}
                 />
               </Tabs.Panel>
-            ))}
+            ))
+          ) : (
+            <div />
+          )}
         </Tabs.Panels>
       </Tabs>
     </>
