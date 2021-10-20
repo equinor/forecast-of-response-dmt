@@ -41,19 +41,19 @@ export default (props: { appRootPath: string }): JSX.Element => {
         {/*  icon={<Icon name="person" size={24} />}*/}
         {/*  title="My operations"*/}
         {/*>*/}
-        <Menu.Item key="6">
-          <Link to={`/${appRootPath}/operation#ongoing`}>
-            Active operations
-          </Link>
-        </Menu.Item>
-        <Menu.Item key="5">
-          <Link to={`/${appRootPath}/operation#draft`}>Operation drafts</Link>
-        </Menu.Item>
-        <Menu.Item key="7">
-          <Link to={`/${appRootPath}/operation#concluded`}>
-            Completed operation
-          </Link>
-        </Menu.Item>
+        {/*<Menu.Item key="6">*/}
+        {/*  <Link to={`/${appRootPath}/operation#ongoing`}>*/}
+        {/*    Active operations*/}
+        {/*  </Link>*/}
+        {/*</Menu.Item>*/}
+        {/*<Menu.Item key="5">*/}
+        {/*  <Link to={`/${appRootPath}/operation#draft`}>Operation drafts</Link>*/}
+        {/*</Menu.Item>*/}
+        {/*<Menu.Item key="7">*/}
+        {/*  <Link to={`/${appRootPath}/operation#concluded`}>*/}
+        {/*    Completed operation*/}
+        {/*  </Link>*/}
+        {/*</Menu.Item>*/}
         <Menu.Item key="8">
           <Link to={`/${appRootPath}/operation/new`}>
             <Button>Create new operation</Button>
