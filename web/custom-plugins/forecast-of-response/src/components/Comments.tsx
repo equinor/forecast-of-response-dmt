@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { ChangeEvent, useContext, useState } from 'react'
 import styled from 'styled-components'
 import { TComment } from '../Types'
 import { colorFromString } from '../utils/colorFromString'
@@ -7,10 +7,14 @@ import { DmssAPI, AuthContext } from '@dmt/common'
 import { DEFAULT_DATASOURCE_ID } from '../const'
 import { Blueprints } from '../Enums'
 
-const IconWrapper = styled.div`
+type IconWrapperProps = {
+  color?: any
+}
+
+const IconWrapper = styled.div<IconWrapperProps>`
   width: 22px;
   height: 22px;
-  color: ${(props) => props?.color};
+  color: ${(props: IconWrapperProps) => props?.color};
   font-size: x-large;
   padding: 0 3px;
   display: flex;
@@ -21,7 +25,13 @@ const CommentHeaderWrapper = styled.div`
   display: flex;
   flex-direction: row;
 `
-const CommentWrapper = styled.div`
+
+type CommentWrapperProps = {
+  color?: any
+  even?: any
+}
+
+const CommentWrapper = styled.div<CommentWrapperProps>`
   display: flex;
   width: fit-content;
   min-width: 150px;
@@ -31,10 +41,10 @@ const CommentWrapper = styled.div`
   flex-direction: column;
   padding: 7px;
 
-  border: ${(props) => props.color} 1px solid;
+  border: ${(props: CommentWrapperProps) => props.color} 1px solid;
   border-radius: 5px;
   margin: 5px 10px;
-  align-self: ${(props) => {
+  align-self: ${(props: CommentWrapperProps) => {
     if (props.even) return 'flex-start'
     return 'flex-end'
   }};
@@ -132,7 +142,9 @@ export const CommentInput = (props: { operationId: string }) => {
           multiline
           style={{ borderRadius: '5px' }}
           rows={5}
-          onChange={(event): Event => setMessage(event.target.value)}
+          onChange={(event: ChangeEvent<HTMLInputElement>) =>
+            setMessage(event.target.value)
+          }
         />
         <div style={{ justifyContent: 'space-around', display: 'flex' }}>
           <Button color="danger">Cancel</Button>
