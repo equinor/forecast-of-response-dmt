@@ -24,23 +24,8 @@ const Routes: Array<TRoute> = [
     content: OperationCreate,
   },
   {
-    path: '/operation',
+    path: '/operations',
     heading: 'Operations',
-    content: OperationOverview,
-  },
-  {
-    path: '/operation#draft',
-    heading: 'Operation drafts',
-    content: OperationOverview,
-  },
-  {
-    path: '/operation#ongoing',
-    heading: 'Ongoing operations',
-    content: OperationOverview,
-  },
-  {
-    path: '/operation#concluded',
-    heading: 'Completed operations',
     content: OperationOverview,
   },
 ]

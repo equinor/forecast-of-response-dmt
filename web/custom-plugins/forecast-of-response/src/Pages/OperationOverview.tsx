@@ -1,16 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import {
-  Button,
-  Divider,
-  Progress,
-  Search,
-  SingleSelect,
-  Tabs,
-} from '@equinor/eds-core-react'
+import { Button, Divider, Progress, Tabs } from '@equinor/eds-core-react'
 import OperationsTable from '../components/Operations/OperationsTable'
 import useSearch from '../hooks/useSearch'
-import { DmtSettings, TOperation, TPhase } from '../Types'
+import { DmtSettings, TOperation, TOperationStatus } from '../Types'
 import SearchInput from '../components/SearchInput'
 import styled from 'styled-components'
 import DateRangePicker from '../components/DateRangePicker'
@@ -35,11 +28,11 @@ const OperationOverview = (props: DmtSettings): JSX.Element => {
   const [dateRange, setDateRange] = useState<Date[]>()
   const [activeTab, setActiveTab] = useState<number>(0)
   const [searchQuery, setSearchQuery] = useState<string>('')
-  const operationStatus: string[] = [
+  const operationStatus: TOperationStatus[] = [
     'All operations',
-    'Ongoing',
-    'Upcoming',
-    'Concluded',
+    OperationStatus.ONGOING,
+    OperationStatus.UPCOMING,
+    OperationStatus.CONCLUDED,
     'My operations',
   ]
   const [searchResult, isLoadingSearch, hasError] = useSearch(
@@ -53,40 +46,37 @@ const OperationOverview = (props: DmtSettings): JSX.Element => {
 
   const filterOperationsByTab = (tabIndex: number) => {
     //todo add types to improve checking
-    if (tabIndex === 0) {
-      //all operations
+    if (operationStatus[tabIndex] === 'All operations') {
       setOperationsFromTabFilter(allOperations)
-    } else if (tabIndex === 1) {
-      //Ongoing
+    } else if (operationStatus[tabIndex] === OperationStatus.ONGOING) {
       setOperationsFromTabFilter(
         allOperations.filter(
-          (operation: TOperation) => operation.status === 'Ongoing'
+          (operation: TOperation) =>
+            operation.status === OperationStatus.ONGOING
         )
       )
-    } else if (tabIndex === 2) {
-      //Upcoming
+    } else if (operationStatus[tabIndex] === OperationStatus.UPCOMING) {
       setOperationsFromTabFilter(
         allOperations.filter(
-          (operation: TOperation) => operation.status === 'Upcoming'
+          (operation: TOperation) =>
+            operation.status === OperationStatus.UPCOMING
         )
       )
-    } else if (tabIndex === 3) {
-      //Concluded
+    } else if (operationStatus[tabIndex] === OperationStatus.CONCLUDED) {
       setOperationsFromTabFilter(
         allOperations.filter(
-          (operation: TOperation) => operation.status === 'Concluded'
+          (operation: TOperation) =>
+            operation.status === OperationStatus.CONCLUDED
         )
       )
-    } else if (tabIndex === 4) {
-      //my operations
+    } else if (operationStatus[tabIndex] === 'My operations') {
       setOperationsFromTabFilter(allOperations)
       NotificationManager.warning(
         'filtering on my operations is not implemented. Now showing all operations.'
       )
-      //todo
+      //todo - implement
     }
   }
-  console.log('all op', allOperations)
   /**
    * Set all operations when the search has completed
    */
@@ -130,7 +120,7 @@ const OperationOverview = (props: DmtSettings): JSX.Element => {
   }
 
   const getVisibleOperations = () => {
-    //intersection of search and tab (operation status) filters
+    //intersection of search filter and tab (operation status) filter
     return operationsFromSearch.filter((operation) => {
       return operationsFromTabFilter.indexOf(operation) !== -1
     })
@@ -154,13 +144,8 @@ const OperationOverview = (props: DmtSettings): JSX.Element => {
         </Tabs.List>
         <GridContainer>
           <Grid>
-            {/*<Search onChange={(event: any) => handleSearch(event.target.value)} aria-label="operations"*/}
-            {/*   id="search-operations"*/}
-            {/*placeholder={'Search'}*/}
-            {/*value={searchQuery}/>*/}
             <SearchInput onChange={handleSearch} />
             <DateRangePicker setDateRange={setDateRange} />
-            {/*<SingleSelect label="Status" items={Object.values(OperationStatus)} />*/}
             <div style={{ paddingTop: '16px' }}>
               <Link to={`/${settings.name}/operation/new`}>
                 <Button>Create new operation</Button>

@@ -101,6 +101,13 @@ export type TOperation = {
   comments?: TComment
 }
 
+export type TOperationStatus =
+  | 'All operations'
+  | 'My operations'
+  | OperationStatus.ONGOING
+  | OperationStatus.CONCLUDED
+  | OperationStatus.UPCOMING
+
 export type TComment = {
   _id?: string
   author: string
