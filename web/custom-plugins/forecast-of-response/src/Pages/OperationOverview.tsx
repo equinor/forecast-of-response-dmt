@@ -38,10 +38,10 @@ const OperationOverview = (props: DmtSettings): JSX.Element => {
 
   const updateTab = (tabIndex: number) => {
     setActiveTab(tabIndex)
-    filterOperationsByTab(tabIndex)
+    filterOperationsByStatus(tabIndex)
   }
 
-  const filterOperationsByTab = (tabIndex: number) => {
+  const filterOperationsByStatus = (tabIndex: number) => {
     if (operationStatus[tabIndex] === 'All operations') {
       return allOperations
     } else if (operationStatus[tabIndex] === OperationStatus.ONGOING) {
@@ -109,12 +109,39 @@ const OperationOverview = (props: DmtSettings): JSX.Element => {
     }
   }
 
-  const getVisibleOperations = () => {
-    //intersection of search filter and tab (operation status) filter
-    const operationsFilteredByStatus = filterOperationsByTab(activeTab)
+  const filerOperationsByDateRange = () => {
+    const START_INDEX: number = 0
+    const END_INDEX: number = 1
+    const operationsFilteredByDateRange: TOperation[] = allOperations.filter(
+      (operation: TOperation) => {
+        if (dateRange) {
+          return (
+            operation.start &&
+            new Date(operation.start).setHours(0, 0, 0, 0) >=
+              dateRange[START_INDEX].setHours(0, 0, 0, 0).valueOf() &&
+            operation.end &&
+            new Date(operation.end).setHours(0, 0, 0, 0) <=
+              dateRange[END_INDEX].setHours(0, 0, 0, 0).valueOf()
+          )
+        } else {
+          return allOperations
+        }
+      }
+    )
+    return operationsFilteredByDateRange
+  }
 
+  const getVisibleOperations = () => {
+    //Only the intersection of different filters will be visible.
+    const operationsFilteredByStatus: TOperation[] = filterOperationsByStatus(
+      activeTab
+    )
+    const operationsFilteredByDateRange: TOperation[] = filerOperationsByDateRange()
     return operationsFromSearch.filter((operation) => {
-      return operationsFilteredByStatus.indexOf(operation) !== -1
+      return (
+        operationsFilteredByStatus.indexOf(operation) !== -1 &&
+        operationsFilteredByDateRange.indexOf(operation) !== -1
+      )
     })
   }
 
