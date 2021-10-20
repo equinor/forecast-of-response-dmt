@@ -21,9 +21,6 @@ const OperationOverview = (props: DmtSettings): JSX.Element => {
   const [operationsFromSearch, setOperationsFromSearch] = useState<
     TOperation[]
   >([])
-  const [operationsFromTabFilter, setOperationsFromTabFilter] = useState<
-    TOperation[]
-  >([])
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [dateRange, setDateRange] = useState<Date[]>()
   const [activeTab, setActiveTab] = useState<number>(0)
@@ -45,38 +42,32 @@ const OperationOverview = (props: DmtSettings): JSX.Element => {
   }
 
   const filterOperationsByTab = (tabIndex: number) => {
-    //todo add types to improve checking
     if (operationStatus[tabIndex] === 'All operations') {
-      setOperationsFromTabFilter(allOperations)
+      return allOperations
     } else if (operationStatus[tabIndex] === OperationStatus.ONGOING) {
-      setOperationsFromTabFilter(
-        allOperations.filter(
-          (operation: TOperation) =>
-            operation.status === OperationStatus.ONGOING
-        )
+      return allOperations.filter(
+        (operation: TOperation) => operation.status === OperationStatus.ONGOING
       )
     } else if (operationStatus[tabIndex] === OperationStatus.UPCOMING) {
-      setOperationsFromTabFilter(
-        allOperations.filter(
-          (operation: TOperation) =>
-            operation.status === OperationStatus.UPCOMING
-        )
+      return allOperations.filter(
+        (operation: TOperation) => operation.status === OperationStatus.UPCOMING
       )
     } else if (operationStatus[tabIndex] === OperationStatus.CONCLUDED) {
-      setOperationsFromTabFilter(
-        allOperations.filter(
-          (operation: TOperation) =>
-            operation.status === OperationStatus.CONCLUDED
-        )
+      return allOperations.filter(
+        (operation: TOperation) =>
+          operation.status === OperationStatus.CONCLUDED
       )
     } else if (operationStatus[tabIndex] === 'My operations') {
-      setOperationsFromTabFilter(allOperations)
       NotificationManager.warning(
         'filtering on my operations is not implemented. Now showing all operations.'
       )
       //todo - implement
+      return allOperations
+    } else {
+      return []
     }
   }
+
   /**
    * Set all operations when the search has completed
    */
@@ -84,7 +75,6 @@ const OperationOverview = (props: DmtSettings): JSX.Element => {
     if (searchResult) {
       setAllOperations(searchResult)
       setOperationsFromSearch(searchResult)
-      setOperationsFromTabFilter(searchResult)
       setIsLoading(false)
     }
   }, [searchResult])
@@ -121,8 +111,10 @@ const OperationOverview = (props: DmtSettings): JSX.Element => {
 
   const getVisibleOperations = () => {
     //intersection of search filter and tab (operation status) filter
+    const operationsFilteredByStatus = filterOperationsByTab(activeTab)
+
     return operationsFromSearch.filter((operation) => {
-      return operationsFromTabFilter.indexOf(operation) !== -1
+      return operationsFilteredByStatus.indexOf(operation) !== -1
     })
   }
 
