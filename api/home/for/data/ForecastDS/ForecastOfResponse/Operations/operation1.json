@@ -73,6 +73,89 @@
           "name": "test1",
           "type": "/Blueprints/SimulationConfig",
           "simulations": [
+            {
+            "type": "/Blueprints/Simulation",
+            "name": "ShouldBeRemoved",
+            "progress": "100%",
+            "simaJob": {},
+            "started": "2021-06-25 13:45:37.352574",
+            "ended": "2021-06-25 16:22:10",
+            "results": []
+          },
+            {
+            "type": "/Blueprints/Simulation",
+            "name": "ShouldBeRemoved",
+            "progress": "100%",
+            "simaJob": {},
+            "started": "2021-07-18 13:45:37.352574",
+            "ended": "2021-08-2 16:22:10",
+            "results": []
+          }
+          ],
+          "variables": [
+            "WaveHeight=1.12",
+            "WaveHeight=1.12",
+            "WaveHeight=1.12",
+            "WaveDirection=90",
+            "WaveDirection=90",
+            "WaveDirection=90"
+          ]
+        },
+        {
+          "name": "APublishedSimConfig",
+          "type": "/Blueprints/SimulationConfig",
+          "published": true,
+          "simulations": [
+            {
+            "type": "/Blueprints/Simulation",
+            "name": "ShouldBeRemoved",
+            "progress": "100%",
+            "simaJob": {},
+            "started": "2021-06-25 13:45:37.352574",
+            "ended": "2021-06-25 16:22:10",
+            "results": []
+          },
+            {
+            "type": "/Blueprints/Simulation",
+            "name": "ShouldBeRemoved",
+            "progress": "100%",
+            "simaJob": {},
+            "started": "2021-07-18 13:45:37.352574",
+            "ended": "2021-08-2 16:22:10",
+            "results": []
+          }
+          ],
+          "variables": [
+            "WaveHeight=1.12",
+            "WaveHeight=1.12",
+            "WaveHeight=1.12",
+            "WaveDirection=90",
+            "WaveDirection=90",
+            "WaveDirection=90"
+          ]
+        },
+        {
+          "name": "YetAnother",
+          "type": "/Blueprints/SimulationConfig",
+          "simulations": [
+            {
+            "type": "/Blueprints/Simulation",
+            "name": "ShouldBeRemoved",
+            "progress": "100%",
+            "simaJob": {},
+            "started": "2021-06-25 13:45:37.352574",
+            "ended": "2021-06-25 16:22:10",
+            "results": []
+          },
+            {
+            "type": "/Blueprints/Simulation",
+            "name": "ShouldBeRemoved",
+            "progress": "100%",
+            "simaJob": {},
+            "started": "2021-07-18 13:45:37.352574",
+            "ended": "2021-08-2 16:22:10",
+            "results": []
+          }
           ],
           "variables": [
             "WaveHeight=1.12",

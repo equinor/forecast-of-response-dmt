@@ -1,7 +1,7 @@
 {
   "name": "SimulationConfig",
   "type": "system/SIMOS/Blueprint",
-  "extends": ["system/SIMOS/DefaultUiRecipes","system/SIMOS/NamedEntity"],
+  "extends": ["system/SIMOS/DefaultUiRecipes", "system/SIMOS/NamedEntity"],
   "description": "",
   "attributes": [
     {
@@ -9,7 +9,6 @@
       "type": "system/SIMOS/BlueprintAttribute",
       "attributeType": "string",
       "optional": true,
-      "contained": true,
       "dimensions": "*"
     },
     {
@@ -17,8 +16,13 @@
       "type": "system/SIMOS/BlueprintAttribute",
       "attributeType": "/Blueprints/Simulation",
       "optional": true,
-      "contained": true,
       "dimensions": "*"
+    },
+    {
+      "name": "published",
+      "type": "system/SIMOS/BlueprintAttribute",
+      "attributeType": "boolean",
+      "default": false
     }
   ]
 }
