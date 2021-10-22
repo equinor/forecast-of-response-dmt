@@ -9,6 +9,8 @@ import { Blueprints } from '../Enums'
 import { TComment, TOperation } from '../Types'
 import { AuthContext, DmssAPI } from '@dmt/common'
 import { StyledMapContainer } from '../components/Map'
+import { Link } from 'react-router-dom'
+import { DEFAULT_DATASOURCE_ID } from '../const'
 
 delete L.Icon.Default.prototype._getIconUrl
 
@@ -26,7 +28,7 @@ const CardWrapper = styled.div`
   box-shadow: darkgrey 0 2px 8px 2px;
 `
 
-type CoordinateTuple = [number, number, string]
+type CoordinateTuple = [number, number, string, string] // [lat, long, operationName, operationId]
 
 function calculateUTMCenter(
   coordinates: CoordinateTuple[] | undefined
@@ -58,7 +60,12 @@ const Dashboard = (): JSX.Element => {
             })
             .then((document): any => {
               const location = document.document
-              return [location.lat, location.long, operation.name]
+              return [
+                location.lat,
+                location.long,
+                operation.name,
+                operation._id,
+              ]
             })
         }
       )
@@ -93,7 +100,13 @@ const Dashboard = (): JSX.Element => {
                     key={gridTuple[2]}
                     position={[gridTuple[0], gridTuple[1]]}
                   >
-                    <Popup>{gridTuple[2]}</Popup>
+                    <Popup>
+                      <Link
+                        to={`/for/operation/${DEFAULT_DATASOURCE_ID}/${gridTuple[3]}`}
+                      >
+                        {gridTuple[2]}
+                      </Link>
+                    </Popup>
                     <Tooltip>{gridTuple[2]}</Tooltip>
                   </Marker>
                 )
