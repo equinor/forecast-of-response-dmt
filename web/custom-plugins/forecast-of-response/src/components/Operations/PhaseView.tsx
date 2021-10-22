@@ -1,12 +1,15 @@
 import React, { useContext, useState } from 'react'
 import { TPhase, TSimulation, TSimulationConfig, TStask } from '../../Types'
 import {
+  Accordion,
   Button,
+  Chip,
   Divider,
   Input,
+  Progress,
+  Scrim,
   Table,
   TextField,
-  Progress,
 } from '@equinor/eds-core-react'
 import { NotificationManager } from 'react-notifications'
 import styled from 'styled-components'
@@ -14,39 +17,28 @@ import JobApi from '../../utils/JobApi'
 import { AuthContext, DmssAPI } from '@dmt/common'
 import { DEFAULT_DATASOURCE_ID } from '../../const'
 import { Blueprints } from '../../Enums'
+import { primaryGray } from '../Design/Colors'
+import { StyledSelect } from '../Input'
+import Mock from '../Plots/Mock'
 
-const Wrapper = styled.div`
-  border: darkgrey 1px solid;
-  border-radius: 4px;
+const SimHeaderWrapper = styled.div`
   display: flex;
-  flex-direction: column;
-  box-shadow: darkgrey 0 2px 8px 2px;
-  margin: 20px;
+  background-color: ${primaryGray};
+  padding: 15px 30px;
+  margin-bottom: 20px;
+  justify-content: flex-start;
+  align-items: center;
 `
+
+const StyledHeaderButton = styled(Button)`
+  margin: 0 20px;
+`
+
 const ResultWrapper = styled.div`
   border: darkgrey 1px solid;
   display: flex;
   flex-direction: column;
-  margin-left: 20px;
-`
-
-const SimulationRow = styled.div`
-  font-size: 18px;
-  padding: 5px;
-  border: darkgrey 1px solid;
-  cursor: pointer;
-  display: flex;
-  flex-direction: row;
-
-  &:hover {
-    background-color: lightsteelblue;
-  }
-
-  background-color: ${(props) => {
-    if (props.selected) return 'lightsteelblue'
-    if (props.even) return '#F7F7F7'
-    return 'inherit'
-  }};
+  margin: 20px 0;
 `
 
 function NewSimulationConfig(props: { defaultVars: any }) {
@@ -55,68 +47,69 @@ function NewSimulationConfig(props: { defaultVars: any }) {
   const [simConfigName, setSimConfigName] = useState<string>('New Simulation')
   return (
     <>
-      <h3>New simulation configuration</h3>
-      <Wrapper>
-        <TextField
-          id="simulation-name"
-          placeholder="Label your simulation config"
-          style={{ borderRadius: '5px', margin: '10px', width: 'inherit' }}
-          onChange={(event): Event => setSimConfigName(event.target.value)}
-        />
-        <Table>
-          <Table.Head sticky>
-            <Table.Row>
-              <Table.Cell>SIMA Variable</Table.Cell>
-              <Table.Cell>Default value</Table.Cell>
-              <Table.Cell>New value</Table.Cell>
+      <TextField
+        id="simulation-name"
+        placeholder="Label your simulation config"
+        style={{ borderRadius: '5px', margin: '10px', width: 'inherit' }}
+        onChange={(event): Event => setSimConfigName(event.target.value)}
+      />
+      <Table>
+        <Table.Head sticky>
+          <Table.Row>
+            <Table.Cell>SIMA Variable</Table.Cell>
+            <Table.Cell>Default value</Table.Cell>
+            <Table.Cell>New value</Table.Cell>
+          </Table.Row>
+        </Table.Head>
+        <Table.Body>
+          {Object.entries(defaultVars).map(([key, defaultVal]) => (
+            <Table.Row key={key}>
+              <Table.Cell>{key}</Table.Cell>
+              <Table.Cell>{defaultVal}</Table.Cell>
+              <Table.Cell>
+                <Input
+                  placeholder={defaultVal}
+                  value={variables[key]}
+                  onChange={(event: Event) =>
+                    setVariables({
+                      ...variables,
+                      [key]: event.target.value,
+                    })
+                  }
+                />
+              </Table.Cell>
             </Table.Row>
-          </Table.Head>
-          <Table.Body>
-            {Object.entries(defaultVars).map(([key, defaultVal]) => (
-              <Table.Row key={key}>
-                <Table.Cell>{key}</Table.Cell>
-                <Table.Cell>{defaultVal}</Table.Cell>
-                <Table.Cell>
-                  <Input
-                    placeholder={defaultVal}
-                    value={variables[key]}
-                    onChange={(event: Event) =>
-                      setVariables({
-                        ...variables,
-                        [key]: event.target.value,
-                      })
-                    }
-                  />
-                </Table.Cell>
-              </Table.Row>
-            ))}
-          </Table.Body>
-        </Table>
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-around',
-            margin: '10px',
-          }}
+          ))}
+        </Table.Body>
+      </Table>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-around',
+          margin: '10px',
+        }}
+      >
+        <Button
+          variant="outlined"
+          color="danger"
+          onClick={() => setVariables(defaultVars)}
         >
-          <Button
-            variant="outlined"
-            color="danger"
-            onClick={() => setVariables(defaultVars)}
-          >
-            Reset
-          </Button>
-          {/*TODO: Do something*/}
-          <Button>Create (does nothing)</Button>
-        </div>
-      </Wrapper>
+          Reset
+        </Button>
+        {/*TODO: Do something*/}
+        <Button disabled>Create (Not implemented)</Button>
+      </div>
     </>
   )
 }
 
 function Result(props: { result: any }) {
   const { result } = props
-  return <pre>{JSON.stringify(result, null, 2)}</pre>
+  return (
+    <ResultWrapper>
+      <Mock />
+    </ResultWrapper>
+  )
 }
 
 function SingleSimulationConfig(props: {
@@ -216,61 +209,38 @@ function SingleSimulationConfig(props: {
 
   return (
     <div>
-      <Wrapper>
-        <h3 style={{ margin: '10px' }}>{simulationConfig.name}</h3>
-        <div style={{ display: 'flex' }}>
-          <Table>
-            <Table.Head sticky>
-              <Table.Row>
-                <Table.Cell>SIMA Variable</Table.Cell>
-                <Table.Cell>Value</Table.Cell>
-              </Table.Row>
-            </Table.Head>
-            <Table.Body>
-              {simulationConfig.variables.map(
-                (variableString: string, index) => {
-                  const [key, value] = variableString.split('=')
-                  return (
-                    <Table.Row key={index}>
-                      <Table.Cell>{key}</Table.Cell>
-                      <Table.Cell>{value}</Table.Cell>
-                    </Table.Row>
-                  )
-                }
-              )}
-            </Table.Body>
-          </Table>
-          <ResultWrapper>
-            {!simulationConfig.simulations.length && (
-              <>No simulations has been run</>
-            )}
-            {simulationConfig.simulations.map(
-              (simulation: TSimulation, index: number) => (
-                <SimulationRow
-                  key={index}
-                  even={index % 2 === 0}
-                  selected={index === selectedSim}
-                  onClick={() => setSelectedSim(index)}
-                >
-                  <div>
-                    {new Date(simulation.started).toLocaleString(
-                      navigator.language
-                    )}
-                  </div>
-                  <b style={{ marginLeft: '10px' }}>{simulation.progress}</b>
-                </SimulationRow>
-              )
-            )}
-          </ResultWrapper>
-          <ResultWrapper>
-            <Result result={simulationConfig.simulations[selectedSim]} />
-          </ResultWrapper>
-        </div>
-        <div>
-          <Button onClick={() => startJob()}>Run test sim</Button>
-          {loadingJob && <Progress.Linear />}
-        </div>
-      </Wrapper>
+      <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <SimHeaderWrapper>
+          <StyledHeaderButton onClick={() => startJob()}>
+            Run simulation
+          </StyledHeaderButton>
+          <StyledHeaderButton disabled>
+            Define reoccurring job (Not implemented)
+          </StyledHeaderButton>
+          {/* The Buttons loses margin prop when they are disabled...*/}
+          <div style={{ width: '20px' }}></div>
+          <StyledHeaderButton disabled>
+            Publish this simulation (Not implemented)
+          </StyledHeaderButton>
+        </SimHeaderWrapper>
+        {loadingJob && <Progress.Linear />}
+        <label>Select which simulation to view</label>
+        <StyledSelect>
+          {simulationConfig.simulations.map(
+            (simulation: TSimulation, index) => (
+              <option
+                value={simulation.started}
+                onSelect={() => setSelectedSim(index)}
+              >
+                {new Date(simulation.started).toLocaleString(
+                  navigator.language
+                )}
+              </option>
+            )
+          )}
+        </StyledSelect>
+        <Result result={simulationConfig.simulations[selectedSim]} />
+      </div>
     </div>
   )
 }
@@ -283,16 +253,28 @@ function SimulationConfigList(props: {
   const { simulationConfigs, dottedId, stask } = props
   return (
     <div>
-      {Object.values(simulationConfigs).map(
-        (simulationConfig: TSimulationConfig, index: number) => (
-          <SingleSimulationConfig
-            key={simulationConfig.name}
-            simulationConfig={simulationConfig}
-            dottedId={`${dottedId}.${index}`}
-            stask={stask}
-          />
-        )
-      )}
+      <Accordion>
+        {Object.values(simulationConfigs).map(
+          (simulationConfig: TSimulationConfig, index: number) => (
+            <Accordion.Item isExpanded={index === 0}>
+              <Accordion.Header>
+                {simulationConfig.name}
+                {simulationConfig.published && (
+                  <Chip variant="active">Published</Chip>
+                )}
+              </Accordion.Header>
+              <Accordion.Panel>
+                <SingleSimulationConfig
+                  key={simulationConfig.name}
+                  simulationConfig={simulationConfig}
+                  dottedId={`${dottedId}.${index}`}
+                  stask={stask}
+                />
+              </Accordion.Panel>
+            </Accordion.Item>
+          )
+        )}
+      </Accordion>
     </div>
   )
 }
@@ -303,11 +285,28 @@ export default (props: {
   stask: TStask
 }): JSX.Element => {
   const { phase, dottedId, stask } = props
+  const [visibleCreateSimScrim, setVisibleCreateSimScrim] = useState(false)
   return (
     <>
-      <NewSimulationConfig
-        defaultVars={{ WaveHeight: 1.12, WaveDirection: 90 }}
-      />
+      <div style={{ display: 'flex', flexFlow: 'row-reverse' }}>
+        <Button onClick={() => setVisibleCreateSimScrim(true)}>
+          Create new simulation
+        </Button>
+      </div>
+      {visibleCreateSimScrim && (
+        <Scrim onClose={() => setVisibleCreateSimScrim(false)} isDismissable>
+          <div style={{ backgroundColor: '#fff', padding: '1rem' }}>
+            Create new simulation
+            <NewSimulationConfig
+              defaultVars={{ WaveHeight: 1.12, WaveDirection: 90 }}
+            />
+            <Button onClick={() => setVisibleCreateSimScrim(false)}>
+              Close
+            </Button>
+          </div>
+        </Scrim>
+      )}
+
       <Divider />
       <SimulationConfigList
         simulationConfigs={phase.simulationConfigs}

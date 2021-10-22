@@ -1,5 +1,5 @@
 import { DmtSettings } from '@dmt/core-plugins'
-import { ACLEnum, OperationStatus } from './Enums'
+import { OperationStatus } from './Enums'
 
 export type DmtSettings = DmtSettings
 
@@ -57,6 +57,7 @@ export type TSimulationConfig = {
   simulations: TSimulation[]
   variables: string[]
   simaJob: any
+  published: boolean
 }
 
 export type TPhase = {
