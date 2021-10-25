@@ -14,7 +14,7 @@ const Routes: Array<TRoute> = [
     content: Library,
   },
   {
-    path: '/operation/:data_source/:entity_id',
+    path: '/operations/:data_source/:entity_id',
     heading: 'Operation details',
     content: OperationView,
   },
