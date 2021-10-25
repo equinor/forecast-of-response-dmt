@@ -11,12 +11,6 @@
       "optional": true
     },
     {
-      "name": "operationCreator",
-      "type": "system/SIMOS/BlueprintAttribute",
-      "attributeType": "string",
-      "optional": true
-    },
-    {
       "name": "simaVersion",
       "type": "system/SIMOS/BlueprintAttribute",
       "attributeType": "string"

@@ -4,7 +4,6 @@
   "type": "/Blueprints/Config",
   "simaVersion": "1.2.3-rc",
   "operationDescription": "some description",
-  "operationCreator": "ABC",
   "phases": [
     {
       "name": "phase1",
