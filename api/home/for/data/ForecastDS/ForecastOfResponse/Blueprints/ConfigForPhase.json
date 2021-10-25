@@ -1,5 +1,5 @@
 {
-  "name": "PhaseTemplate",
+  "name": "ConfigForPhase",
   "type": "system/SIMOS/Blueprint",
   "extends": ["system/SIMOS/DefaultUiRecipes", "system/SIMOS/NamedEntity"],
   "description": "A phase template for configurations",
@@ -18,7 +18,7 @@
     {
       "name": "simulationConfigs",
       "type": "system/SIMOS/BlueprintAttribute",
-      "attributeType": "/Blueprints/SimulationConfigTemplate",
+      "attributeType": "/Blueprints/ConfigForSimulationConfig",
       "optional": true,
       "contained": true,
       "dimensions": "*"

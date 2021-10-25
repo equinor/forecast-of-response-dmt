@@ -10,7 +10,7 @@
   "phases": [
     {
       "phaseName": "phase1",
-      "type": "/Blueprints/PhaseTemplate",
+      "type": "/Blueprints/ConfigForPhase",
       "defaultVariables": [
         "WaveHeight=1.12",
         "WaveDirection=90",
@@ -20,7 +20,7 @@
       "workflowTask": "someTask",
       "simulationConfigs": [{
         "simulationConfigName": "test1config",
-        "type": "/Blueprints/SimulationConfigTemplate",
+        "type": "/Blueprints/ConfigForSimulationConfig",
         "variables": [
             "WaveHeight=1.12",
             "WaveHeight=0.6",

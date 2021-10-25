@@ -35,7 +35,7 @@
     {
       "name": "phases",
       "type": "system/SIMOS/BlueprintAttribute",
-      "attributeType": "/Blueprints/PhaseTemplate",
+      "attributeType": "/Blueprints/ConfigForPhase",
       "dimensions": "*"
     }
   ],
