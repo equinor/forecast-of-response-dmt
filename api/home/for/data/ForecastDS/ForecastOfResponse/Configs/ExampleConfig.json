@@ -2,5 +2,33 @@
   "_id": "example-cfg",
   "name": "ExampleConfig",
   "type": "/Blueprints/Config",
-  "simaVersion": "1.2.3-rc"
-}
+  "simaVersion": "1.2.3-rc",
+  "operationName": "testname",
+  "operationDescription": "some description",
+  "operationCreator": "ABC",
+  "locationId": "gullfaks-location",
+  "phases": [
+    {
+      "phaseName": "phase1",
+      "type": "/Blueprints/PhaseTemplate",
+      "defaultVariables": [
+        "WaveHeight=1.12",
+        "WaveDirection=90",
+        "Thrusters=5"
+      ],
+      "status": "Draft",
+      "workflowTask": "someTask",
+      "simulationConfigs": [{
+        "simulationConfigName": "test1config",
+        "type": "/Blueprints/SimulationConfigTemplate",
+        "variables": [
+            "WaveHeight=1.12",
+            "WaveHeight=0.6",
+            "WaveDirection=90",
+            "WaveDirection=60"
+          ]
+      }
+        ]
+    }
+  ]
+ }

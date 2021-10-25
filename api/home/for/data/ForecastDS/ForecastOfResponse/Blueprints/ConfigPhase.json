@@ -1,0 +1,47 @@
+{
+  "name": "PhaseTemplate",
+  "type": "system/SIMOS/Blueprint",
+  "extends": ["system/SIMOS/DefaultUiRecipes", "system/SIMOS/NamedEntity"],
+  "description": "A phase template for configurations",
+  "attributes": [
+    {
+      "name": "phaseName",
+      "type": "system/SIMOS/BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "status",
+      "type": "system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    },
+    {
+      "name": "simulationConfigs",
+      "type": "system/SIMOS/BlueprintAttribute",
+      "attributeType": "/Blueprints/SimulationConfigTemplate",
+      "optional": true,
+      "contained": true,
+      "dimensions": "*"
+    },
+    {
+      "name": "workflowTask",
+      "type": "system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    },
+    {
+      "name": "status",
+      "type": "system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    },
+    {
+      "name": "defaultVariables",
+      "type": "system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true,
+      "contained": true,
+      "dimensions": "*"
+    }
+  ]
+}

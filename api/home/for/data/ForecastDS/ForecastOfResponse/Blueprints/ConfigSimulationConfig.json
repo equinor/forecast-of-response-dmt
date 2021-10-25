@@ -1,0 +1,20 @@
+{
+  "name": "SimulationConfigTemplate",
+  "type": "system/SIMOS/Blueprint",
+  "extends": ["system/SIMOS/DefaultUiRecipes", "system/SIMOS/NamedEntity"],
+  "description": "",
+  "attributes": [
+      {
+      "name": "simulationConfigName",
+      "type": "system/SIMOS/BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "variables",
+      "type": "system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "dimensions": "*"
+    }
+
+  ]
+}
