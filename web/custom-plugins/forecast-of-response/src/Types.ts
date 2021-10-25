@@ -102,8 +102,6 @@ export type TOperation = {
 }
 
 export type TOperationStatus =
-  | 'All operations'
-  | 'My operations'
   | OperationStatus.ONGOING
   | OperationStatus.CONCLUDED
   | OperationStatus.UPCOMING

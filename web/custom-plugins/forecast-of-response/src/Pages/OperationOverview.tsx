@@ -18,14 +18,18 @@ const GridContainer = styled.div`
 const OperationOverview = (props: DmtSettings): JSX.Element => {
   const { settings } = props
   const [allOperations, setAllOperations] = useState<TOperation[]>([])
-  const [operationsFromSearch, setOperationsFromSearch] = useState<
+  const [operationsFilteredBySearch, setOperationsFilteredBySearch] = useState<
     TOperation[]
   >([])
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [dateRange, setDateRange] = useState<Date[]>()
   const [activeTab, setActiveTab] = useState<number>(0)
   const [searchQuery, setSearchQuery] = useState<string>('')
-  const operationStatus: TOperationStatus[] = [
+  const operationStatus: (
+    | TOperationStatus
+    | 'All operations'
+    | 'My operations'
+  )[] = [
     'All operations',
     OperationStatus.ONGOING,
     OperationStatus.UPCOMING,
@@ -69,12 +73,12 @@ const OperationOverview = (props: DmtSettings): JSX.Element => {
   }
 
   /**
-   * Set all operations when the search has completed
+   * Set operations when the search has completed
    */
   useEffect(() => {
     if (searchResult) {
       setAllOperations(searchResult)
-      setOperationsFromSearch(searchResult)
+      setOperationsFilteredBySearch(searchResult)
       setIsLoading(false)
     }
   }, [searchResult])
@@ -99,13 +103,13 @@ const OperationOverview = (props: DmtSettings): JSX.Element => {
     const nameSearchQuery = event.target.value
     setSearchQuery(nameSearchQuery)
     if (nameSearchQuery) {
-      setOperationsFromSearch(
+      setOperationsFilteredBySearch(
         allOperations.filter((operation: TOperation) =>
           operation.name.toLowerCase().includes(nameSearchQuery)
         )
       )
     } else {
-      setOperationsFromSearch(allOperations)
+      setOperationsFilteredBySearch(allOperations)
     }
   }
 
@@ -137,7 +141,7 @@ const OperationOverview = (props: DmtSettings): JSX.Element => {
       activeTab
     )
     const operationsFilteredByDateRange: TOperation[] = filerOperationsByDateRange()
-    return operationsFromSearch.filter((operation) => {
+    return operationsFilteredBySearch.filter((operation) => {
       return (
         operationsFilteredByStatus.indexOf(operation) !== -1 &&
         operationsFilteredByDateRange.indexOf(operation) !== -1
