@@ -16,12 +16,6 @@
       "optional": true
     },
     {
-      "name": "locationId",
-      "type": "system/SIMOS/BlueprintAttribute",
-      "attributeType": "string",
-      "optional": true
-    },
-    {
       "name": "operationCreator",
       "type": "system/SIMOS/BlueprintAttribute",
       "attributeType": "string",

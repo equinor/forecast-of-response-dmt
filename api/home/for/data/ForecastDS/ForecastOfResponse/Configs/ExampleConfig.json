@@ -6,7 +6,6 @@
   "operationName": "testname",
   "operationDescription": "some description",
   "operationCreator": "ABC",
-  "locationId": "gullfaks-location",
   "phases": [
     {
       "name": "phase1",
