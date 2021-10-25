@@ -9,8 +9,8 @@
   "locationId": "gullfaks-location",
   "phases": [
     {
-      "phaseName": "phase1",
-      "type": "/Blueprints/ConfigForPhase",
+      "name": "phase1",
+      "type": "/Blueprints/Phase",
       "defaultVariables": [
         "WaveHeight=1.12",
         "WaveDirection=90",
@@ -19,8 +19,8 @@
       "status": "Draft",
       "workflowTask": "someTask",
       "simulationConfigs": [{
-        "simulationConfigName": "test1config",
-        "type": "/Blueprints/ConfigForSimulationConfig",
+        "name": "test1config",
+        "type": "/Blueprints/SimulationConfig",
         "variables": [
             "WaveHeight=1.12",
             "WaveHeight=0.6",
