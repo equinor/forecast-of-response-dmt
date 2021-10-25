@@ -3,7 +3,6 @@
   "name": "ExampleConfig",
   "type": "/Blueprints/Config",
   "simaVersion": "1.2.3-rc",
-  "operationName": "testname",
   "operationDescription": "some description",
   "operationCreator": "ABC",
   "phases": [

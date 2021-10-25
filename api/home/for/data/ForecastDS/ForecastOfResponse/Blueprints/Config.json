@@ -5,11 +5,6 @@
   "description": "Configuration for operations",
   "attributes": [
     {
-      "name": "operationName",
-      "type": "system/SIMOS/BlueprintAttribute",
-      "attributeType": "string"
-    },
-    {
       "name": "operationDescription",
       "type": "system/SIMOS/BlueprintAttribute",
       "attributeType": "string",
