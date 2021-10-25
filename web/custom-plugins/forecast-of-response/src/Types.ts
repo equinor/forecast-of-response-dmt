@@ -34,9 +34,13 @@ export type TLocation = {
   type?: string
 }
 
+export type TOperationMeta = { name: string; label: string; dateRange: Date[] }
+
 export type TConfig = {
   name: string
   simaVersion: string
+  phases: TPhase[]
+  operationDescription?: string
   _id?: string
   type?: string
 }
@@ -65,6 +69,7 @@ export type TPhase = {
   name: string
   start?: Date
   end?: Date
+  activeForecast?: TSimulation
   status?: OperationStatus
   defaultVariables?: StringMap
 }
@@ -83,6 +88,7 @@ export type TOperation = {
   _id?: string
   type?: string
   name: string
+  label: string
   stask: TStask
   description?: string
   creator: string
@@ -91,7 +97,6 @@ export type TOperation = {
   status?: OperationStatus
   location: TLocation
   phases: TPhase[]
-  config?: TConfig
   comments?: TComment
 }
 

@@ -5,9 +5,21 @@
   "description": "Configuration for operations",
   "attributes": [
     {
+      "name": "operationDescription",
+      "type": "system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    },
+    {
       "name": "simaVersion",
       "type": "system/SIMOS/BlueprintAttribute",
       "attributeType": "string"
+    },
+    {
+      "name": "phases",
+      "type": "system/SIMOS/BlueprintAttribute",
+      "attributeType": "/Blueprints/Phase",
+      "dimensions": "*"
     }
   ],
     "uiRecipes": []

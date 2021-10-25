@@ -37,11 +37,21 @@ const CommentsWrapper = styled.div`
 export default (props: { operation: TOperation }): JSX.Element => {
   const { operation } = props
   const [viewACL, setViewACL] = useState<boolean>(false)
+  const [comments, setComments] = useState<TComment[]>(operation.comments)
+
+  const updateComments = (newComment: TComment) => {
+    let newCommentList: TComment[] = comments.slice()
+    newCommentList.push(newComment)
+    setComments(newCommentList)
+  }
+
   return (
     <Card style={{ border: 'solid 1px', maxWidth: '1200px' }}>
       <Card.Header>
         <Card.HeaderTitle>
-          <Typography variant="h5">{operation.name}</Typography>
+          <Typography variant="h5">
+            {operation.label || operation.name}
+          </Typography>
           <Typography variant="body_short">
             {operation.location.name}
           </Typography>
@@ -80,8 +90,8 @@ export default (props: { operation: TOperation }): JSX.Element => {
         </LocationWrapper>
       </div>
       <Card.Actions>
-        <Button>Cancel</Button>
-        <Button>OK</Button>
+        <Button disabled={true}>Cancel</Button>
+        <Button disabled={true}>OK</Button>
       </Card.Actions>
       <Card.Actions>
         <Button
@@ -96,7 +106,7 @@ export default (props: { operation: TOperation }): JSX.Element => {
         <AccessControlList
           documentId={operation._id}
           dataSourceId={DEFAULT_DATASOURCE_ID}
-        ></AccessControlList>
+        />
       )}
       <Table density="comfortable" style={{ width: '100%' }}>
         <Table.Caption>
@@ -137,7 +147,7 @@ export default (props: { operation: TOperation }): JSX.Element => {
       </Table>
       <h4>Comments</h4>
       <CommentsWrapper>
-        {operation.comments.map((comment: TComment, index: number) => (
+        {comments.map((comment: TComment, index: number) => (
           <CommentView
             key={comment._id}
             comment={comment}
@@ -145,7 +155,10 @@ export default (props: { operation: TOperation }): JSX.Element => {
           />
         ))}
       </CommentsWrapper>
-      <CommentInput operationId={operation._id} />
+      <CommentInput
+        operationId={operation._id}
+        handleNewComment={updateComments}
+      />
     </Card>
   )
 }

@@ -46,7 +46,7 @@ const OperationsTable = (props: {
 
     let row: TOperationRow = {
       _id: operation._id,
-      name: operation.name,
+      name: operation.label || operation.name,
       start: startDate,
       end: endDate,
       location: operation.location.name,

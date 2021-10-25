@@ -61,10 +61,10 @@ const SelectLocation = (props: {
 }
 
 const SelectOperationLocation = (props: {
-  location: TLocation
+  location: TLocation | undefined
   setLocation: Function
   setIsNewLocation: Function
-  mapClickPos: [number, number]
+  mapClickPos: [number, number] | undefined
 }): JSX.Element => {
   const [selectLocationType, setSelectLocationType] = useState<string>('select')
   const { location, setLocation, setIsNewLocation, mapClickPos } = props
@@ -86,6 +86,7 @@ const SelectOperationLocation = (props: {
           New
         </Button>
       </LocationButtonsGrid>
+
       {selectLocationType === 'select' ? (
         <SelectLocation
           setLocation={setLocation}
@@ -108,15 +109,18 @@ const SelectOperationLocation = (props: {
             onChange={(event: any) =>
               setLocation({ ...location, lat: event.target.value })
             }
-            value={location.lat || ''}
+            value={location?.lat || ''}
           />
           <TextField
             id="long-input"
             label="Longitude"
             onChange={(event: any) => {
-              setLocation({ ...location, long: parseFloat(event.target.value) })
+              setLocation({
+                ...location,
+                long: parseFloat(event.target.value),
+              })
             }}
-            value={location.long || ''}
+            value={location?.long || ''}
           />
           <div style={{ width: '150px', marginTop: '10px' }}>
             <Button

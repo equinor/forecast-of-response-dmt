@@ -1,6 +1,7 @@
 {
   "_id": "26a4d888-3ab4-4ad2-9bd9-9614dcb066d3",
   "name": "ChangeMotor2021",
+  "label": "Change motor 2021",
   "type": "/Blueprints/Operation",
   "description": "an example operation",
   "stask": {

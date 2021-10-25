@@ -1,6 +1,43 @@
  {
   "_id": "example-cfg",
   "name": "ExampleConfig",
-  "type": "/Blueprints/Config",
-  "simaVersion": "1.2.3-rc"
-}
+  "type": "ForecastDS/ForecastOfResponse/Blueprints/Config",
+  "simaVersion": "1.2.3-rc",
+  "operationDescription": "some description",
+  "phases": [
+    {
+      "name": "phase1",
+      "type": "ForecastDS/ForecastOfResponse/Blueprints/Phase",
+      "start": "2021-06-25 13:45:37.352574",
+      "end": "2021-06-27 13:45:37.352574",
+      "defaultVariables": [
+        "WaveHeight=0.12",
+        "WaveDirection=30",
+        "Thrusters=2"
+      ],
+      "status": "Ongoing",
+      "activeForecast": {
+        "name": "test1",
+        "type": "ForecastDS/ForecastOfResponse/Blueprints/Simulation",
+        "description": "",
+        "weatherDataId": "25.6,19:15",
+        "progress": "Running",
+        "result": {},
+        "started": "2021-06-27 13:45:37.352574",
+        "ended": "2021-06-27 13:45:37.352574"
+      },
+      "workflowTask": "someTask",
+      "simulationConfigs": [{
+        "name": "test1config",
+        "type": "ForecastDS/ForecastOfResponse/Blueprints/SimulationConfig",
+        "variables": [
+            "WaveHeight=1.12",
+            "WaveHeight=0.6",
+            "WaveDirection=90",
+            "WaveDirection=60"
+          ]
+      }
+        ]
+    }
+  ]
+ }
