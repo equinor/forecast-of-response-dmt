@@ -7,10 +7,10 @@ interface StatusDotProps {
 }
 
 type IconWrapperProps = {
-  color: any
+  color?: any
 }
 
-const IconWrapper = styled.div<IconWrapperProps>`
+export const IconWrapper = styled.div<IconWrapperProps>`
   width: 22px;
   height: 22px;
   color: ${(props: IconWrapperProps) => props?.color};

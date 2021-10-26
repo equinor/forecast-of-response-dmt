@@ -19,7 +19,7 @@ import { DEFAULT_DATASOURCE_ID } from '../../const'
 import { Blueprints } from '../../Enums'
 import { lightGray, primaryGray } from '../Design/Colors'
 import { StyledSelect } from '../Input'
-import Mock from '../Plots/Mock'
+import Result from '../Result'
 import Icon from '../Design/Icons'
 
 const SimHeaderWrapper = styled.div`
@@ -33,13 +33,6 @@ const SimHeaderWrapper = styled.div`
 
 const StyledHeaderButton = styled(Button)`
   margin: 0 20px;
-`
-
-const ResultWrapper = styled.div`
-  border: darkgrey 1px solid;
-  display: flex;
-  flex-direction: column;
-  margin: 20px 0;
 `
 
 const SummaryButton = styled.div`
@@ -141,22 +134,13 @@ function NewSimulationConfig(props: { defaultVars: any }) {
   )
 }
 
-function Result(props: { result: any }) {
-  const { result } = props
-  return (
-    <ResultWrapper>
-      <Mock />
-    </ResultWrapper>
-  )
-}
-
 function SingleSimulationConfig(props: {
   simulationConfig: TSimulationConfig
   dottedId: string
   stask: TStask
 }) {
   const { simulationConfig, dottedId, stask } = props
-  const [selectedSim, setSelectedSim] = useState<number>(1)
+  const [selectedSim, setSelectedSim] = useState<number>(0)
   const [loadingJob, setLoadingJob] = useState<boolean>(false)
   const [showSummary, setShowSummary] = useState<boolean>(false)
   const { token } = useContext(AuthContext)
@@ -294,12 +278,16 @@ function SingleSimulationConfig(props: {
         style={{ padding: '16px', display: 'flex', flexDirection: 'column' }}
       >
         <label>Select which simulation to view</label>
-        <StyledSelect>
+        <StyledSelect
+          onChange={(e: Event) => {
+            setSelectedSim(parseInt(e.target.value))
+          }}
+        >
           {simulationConfig.simulations.map(
             (simulation: TSimulation, index) => (
               <option
                 key={index}
-                value={simulation.started}
+                value={index}
                 onSelect={() => setSelectedSim(index)}
               >
                 {new Date(simulation.started).toLocaleString(
@@ -309,7 +297,13 @@ function SingleSimulationConfig(props: {
             )
           )}
         </StyledSelect>
-        <Result result={simulationConfig.simulations[selectedSim]} />
+        {simulationConfig.simulations[selectedSim]?.result._id ? (
+          <Result result={simulationConfig.simulations[selectedSim]?.result} />
+        ) : (
+          <div style={{ alignSelf: 'center' }}>
+            <label>No result for this simulation...</label>
+          </div>
+        )}
       </div>
     </div>
   )

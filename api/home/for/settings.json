@@ -6,7 +6,7 @@
   "visibleDataSources": ["ForecastDS"],
   "type": "system/SIMOS/Application",
   "description": "Forecast of Response app",
-  "packages": ["ForecastDS/ForecastOfResponse"],
+  "packages": ["ForecastDS/ForecastOfResponse", "ForecastDS/FoR-Entities"],
   "models": [
     "ForecastDS/ForecastOfResponse/Blueprints/Operation",
     "ForecastDS/ForecastOfResponse/Blueprints/Location",

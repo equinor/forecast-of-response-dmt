@@ -53,7 +53,7 @@ export type TSimulation = {
   progress?: string
   started?: Date
   ended?: Date
-  results?: any[]
+  result?: any
 }
 
 export type TSimulationConfig = {

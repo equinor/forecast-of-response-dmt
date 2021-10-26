@@ -23,12 +23,11 @@
       "optional": true
     },
     {
-      "name": "results",
+      "name": "result",
       "type": "system/SIMOS/BlueprintAttribute",
-      "attributeType": "/Blueprints/Result",
+      "attributeType": "/Blueprints/ResultFile",
       "optional": true,
-      "contained": false,
-      "dimensions": "*"
+      "contained": false
     },
     {
       "name": "ended",
