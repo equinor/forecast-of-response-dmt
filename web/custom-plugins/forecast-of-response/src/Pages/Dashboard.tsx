@@ -102,7 +102,7 @@ const Dashboard = (): JSX.Element => {
                   >
                     <Popup>
                       <Link
-                        to={`/for/operation/${DEFAULT_DATASOURCE_ID}/${gridTuple[3]}`}
+                        to={`/for/operations/${DEFAULT_DATASOURCE_ID}/${gridTuple[3]}`}
                       >
                         {gridTuple[2]}
                       </Link>

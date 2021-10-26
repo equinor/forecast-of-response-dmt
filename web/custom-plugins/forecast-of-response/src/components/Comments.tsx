@@ -6,20 +6,7 @@ import { Button, TextField } from '@equinor/eds-core-react'
 import { DmssAPI, AuthContext } from '@dmt/common'
 import { DEFAULT_DATASOURCE_ID } from '../const'
 import { Blueprints } from '../Enums'
-
-type IconWrapperProps = {
-  color?: any
-}
-
-const IconWrapper = styled.div<IconWrapperProps>`
-  width: 22px;
-  height: 22px;
-  color: ${(props: IconWrapperProps) => props?.color};
-  font-size: x-large;
-  padding: 0 3px;
-  display: flex;
-  align-items: center;
-`
+import { IconWrapper } from './Other'
 
 const CommentHeaderWrapper = styled.div`
   display: flex;

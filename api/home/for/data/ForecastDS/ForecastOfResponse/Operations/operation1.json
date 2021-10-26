@@ -75,23 +75,26 @@
           "type": "/Blueprints/SimulationConfig",
           "simulations": [
             {
-            "type": "/Blueprints/Simulation",
-            "name": "ShouldBeRemoved",
-            "progress": "100%",
-            "simaJob": {},
-            "started": "2021-06-25 13:45:37.352574",
-            "ended": "2021-06-25 16:22:10",
-            "results": []
-          },
+              "type": "/Blueprints/Simulation",
+              "name": "ShouldBeRemoved",
+              "progress": "99%",
+              "simaJob": {},
+              "started": "2021-06-25 13:45:37.352574",
+              "ended": "2021-06-25 16:22:10",
+              "result": {
+                "type": "/Blueprints/ResultFile",
+                "_id": "be81daa9-9787-462e-b92b-104f71b80701"
+              }
+            },
             {
-            "type": "/Blueprints/Simulation",
-            "name": "ShouldBeRemoved",
-            "progress": "100%",
-            "simaJob": {},
-            "started": "2021-07-18 13:45:37.352574",
-            "ended": "2021-08-2 16:22:10",
-            "results": []
-          }
+              "type": "/Blueprints/Simulation",
+              "name": "ShouldBeRemoved",
+              "progress": "100%",
+              "simaJob": {},
+              "started": "2021-07-18 13:45:37.352574",
+              "ended": "2021-08-2 16:22:10",
+              "result": {}
+            }
           ],
           "variables": [
             "WaveHeight=1.12",
@@ -108,23 +111,21 @@
           "published": true,
           "simulations": [
             {
-            "type": "/Blueprints/Simulation",
-            "name": "ShouldBeRemoved",
-            "progress": "100%",
-            "simaJob": {},
-            "started": "2021-06-25 13:45:37.352574",
-            "ended": "2021-06-25 16:22:10",
-            "results": []
-          },
+              "type": "/Blueprints/Simulation",
+              "name": "ShouldBeRemoved",
+              "progress": "100%",
+              "simaJob": {},
+              "started": "2021-06-25 13:45:37.352574",
+              "ended": "2021-06-25 16:22:10"
+            },
             {
-            "type": "/Blueprints/Simulation",
-            "name": "ShouldBeRemoved",
-            "progress": "100%",
-            "simaJob": {},
-            "started": "2021-07-18 13:45:37.352574",
-            "ended": "2021-08-2 16:22:10",
-            "results": []
-          }
+              "type": "/Blueprints/Simulation",
+              "name": "ShouldBeRemoved",
+              "progress": "100%",
+              "simaJob": {},
+              "started": "2021-07-18 13:45:37.352574",
+              "ended": "2021-08-2 16:22:10"
+            }
           ],
           "variables": [
             "WaveHeight=1.12",
@@ -140,23 +141,21 @@
           "type": "/Blueprints/SimulationConfig",
           "simulations": [
             {
-            "type": "/Blueprints/Simulation",
-            "name": "ShouldBeRemoved",
-            "progress": "100%",
-            "simaJob": {},
-            "started": "2021-06-25 13:45:37.352574",
-            "ended": "2021-06-25 16:22:10",
-            "results": []
-          },
+              "type": "/Blueprints/Simulation",
+              "name": "ShouldBeRemoved",
+              "progress": "100%",
+              "simaJob": {},
+              "started": "2021-06-25 13:45:37.352574",
+              "ended": "2021-06-25 16:22:10"
+            },
             {
-            "type": "/Blueprints/Simulation",
-            "name": "ShouldBeRemoved",
-            "progress": "100%",
-            "simaJob": {},
-            "started": "2021-07-18 13:45:37.352574",
-            "ended": "2021-08-2 16:22:10",
-            "results": []
-          }
+              "type": "/Blueprints/Simulation",
+              "name": "ShouldBeRemoved",
+              "progress": "100%",
+              "simaJob": {},
+              "started": "2021-07-18 13:45:37.352574",
+              "ended": "2021-08-2 16:22:10"
+            }
           ],
           "variables": [
             "WaveHeight=1.12",
