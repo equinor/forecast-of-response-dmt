@@ -37,7 +37,7 @@ export default (props: { appRootPath: string }): JSX.Element => {
           <Link to={`/${appRootPath}/operations`}>Operation overview</Link>
         </Menu.Item>
         <Menu.Item key="8">
-          <Link to={`/${appRootPath}/operation/new`}>
+          <Link to={`/${appRootPath}/operations/new`}>
             <Button>Create new operation</Button>
           </Link>
         </Menu.Item>

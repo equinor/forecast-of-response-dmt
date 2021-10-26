@@ -37,10 +37,12 @@ const OperationsTable = (props: {
   operations?.forEach((operation: TOperation) => {
     let startDate: Date | string = '-'
     if (operation.start)
-      startDate = new Date(operation.start).toLocaleDateString('en-GB')
+      startDate = new Date(operation.start).toLocaleDateString(
+        navigator.language
+      )
     let endDate: Date | string = '-'
     if (operation.end)
-      endDate = new Date(operation.end).toLocaleDateString('en-GB')
+      endDate = new Date(operation.end).toLocaleDateString(navigator.language)
 
     let row: TOperationRow = {
       _id: operation._id,

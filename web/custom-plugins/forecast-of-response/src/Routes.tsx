@@ -19,7 +19,7 @@ const Routes: Array<TRoute> = [
     content: OperationView,
   },
   {
-    path: '/operation/new',
+    path: '/operations/new',
     heading: 'Create new operation',
     content: OperationCreate,
   },

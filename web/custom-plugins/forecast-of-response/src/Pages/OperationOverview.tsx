@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Button, Divider, Progress, Tabs } from '@equinor/eds-core-react'
 import OperationsTable from '../components/Operations/OperationsTable'
@@ -6,8 +6,8 @@ import useSearch from '../hooks/useSearch'
 import { DmtSettings, TOperation, TOperationStatus } from '../Types'
 import SearchInput from '../components/SearchInput'
 import styled from 'styled-components'
+import { AuthContext } from '@dmt/common'
 import DateRangePicker from '../components/DateRangePicker'
-import { NotificationManager } from 'react-notifications'
 import Grid from '../components/App/Grid'
 import { OperationStatus } from '../Enums'
 
@@ -24,7 +24,7 @@ const OperationOverview = (props: DmtSettings): JSX.Element => {
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [dateRange, setDateRange] = useState<Date[]>()
   const [activeTab, setActiveTab] = useState<number>(0)
-  const [searchQuery, setSearchQuery] = useState<string>('')
+  const { userData } = useContext(AuthContext)
   const operationStatus: (
     | TOperationStatus
     | 'All operations'
@@ -40,35 +40,36 @@ const OperationOverview = (props: DmtSettings): JSX.Element => {
     'ForecastDS/ForecastOfResponse/Blueprints/Operation'
   )
 
-  const updateTab = (tabIndex: number) => {
-    setActiveTab(tabIndex)
-    filterOperationsByStatus(tabIndex)
-  }
-
   const filterOperationsByStatus = (tabIndex: number) => {
-    if (operationStatus[tabIndex] === 'All operations') {
-      return allOperations
-    } else if (operationStatus[tabIndex] === OperationStatus.ONGOING) {
-      return allOperations.filter(
-        (operation: TOperation) => operation.status === OperationStatus.ONGOING
-      )
-    } else if (operationStatus[tabIndex] === OperationStatus.UPCOMING) {
-      return allOperations.filter(
-        (operation: TOperation) => operation.status === OperationStatus.UPCOMING
-      )
-    } else if (operationStatus[tabIndex] === OperationStatus.CONCLUDED) {
-      return allOperations.filter(
-        (operation: TOperation) =>
-          operation.status === OperationStatus.CONCLUDED
-      )
-    } else if (operationStatus[tabIndex] === 'My operations') {
-      NotificationManager.warning(
-        'filtering on my operations is not implemented. Now showing all operations.'
-      )
-      //todo - implement
-      return allOperations
-    } else {
-      return []
+    switch (operationStatus[tabIndex]) {
+      case 'All operations':
+        return allOperations
+        break
+      case OperationStatus.ONGOING:
+        return allOperations.filter(
+          (operation: TOperation) =>
+            operation.status === OperationStatus.ONGOING
+        )
+        break
+      case OperationStatus.UPCOMING:
+        return allOperations.filter(
+          (operation: TOperation) =>
+            operation.status === OperationStatus.UPCOMING
+        )
+        break
+      case OperationStatus.CONCLUDED:
+        return allOperations.filter(
+          (operation: TOperation) =>
+            operation.status === OperationStatus.CONCLUDED
+        )
+        break
+      case 'My operations':
+        return allOperations.filter((operation: TOperation) => {
+          operation.creator === userData.username
+        })
+        break
+      default:
+        return []
     }
   }
 
@@ -101,7 +102,6 @@ const OperationOverview = (props: DmtSettings): JSX.Element => {
    */
   const handleSearch = (event: any) => {
     const nameSearchQuery = event.target.value
-    setSearchQuery(nameSearchQuery)
     if (nameSearchQuery) {
       setOperationsFilteredBySearch(
         allOperations.filter((operation: TOperation) =>
@@ -141,10 +141,11 @@ const OperationOverview = (props: DmtSettings): JSX.Element => {
       activeTab
     )
     const operationsFilteredByDateRange: TOperation[] = filerOperationsByDateRange()
-    return operationsFilteredBySearch.filter((operation) => {
+    return allOperations.filter((operation) => {
       return (
-        operationsFilteredByStatus.indexOf(operation) !== -1 &&
-        operationsFilteredByDateRange.indexOf(operation) !== -1
+        operationsFilteredBySearch.includes(operation) &&
+        operationsFilteredByStatus.includes(operation) &&
+        operationsFilteredByDateRange.includes(operation)
       )
     })
   }
@@ -153,7 +154,7 @@ const OperationOverview = (props: DmtSettings): JSX.Element => {
     <>
       <Tabs
         activeTab={activeTab}
-        onChange={(index: number) => updateTab(index)}
+        onChange={(index: number) => setActiveTab(index)}
         variant={'minWidth'}
       >
         <Tabs.List>
@@ -170,7 +171,7 @@ const OperationOverview = (props: DmtSettings): JSX.Element => {
             <SearchInput onChange={handleSearch} />
             <DateRangePicker setDateRange={setDateRange} />
             <div style={{ paddingTop: '16px' }}>
-              <Link to={`/${settings.name}/operation/new`}>
+              <Link to={`/${settings.name}/operations/new`}>
                 <Button>Create new operation</Button>
               </Link>
             </div>
