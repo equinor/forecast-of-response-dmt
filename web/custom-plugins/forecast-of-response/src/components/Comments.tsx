@@ -126,7 +126,7 @@ export const CommentInput = (props: {
     const newComment = {
       name: commentName,
       type: Blueprints.Comment,
-      author: userData?.username || 'anon',
+      author: userData.username,
       date: new Date().toISOString(),
       message: message,
     }

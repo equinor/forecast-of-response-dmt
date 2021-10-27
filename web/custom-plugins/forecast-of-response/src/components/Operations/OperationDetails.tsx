@@ -40,9 +40,7 @@ export default (props: { operation: TOperation }): JSX.Element => {
   const [comments, setComments] = useState<TComment[]>(operation.comments)
 
   const updateComments = (newComment: TComment) => {
-    let newCommentList: TComment[] = comments.slice()
-    newCommentList.push(newComment)
-    setComments(newCommentList)
+    setComments([...comments, newComment])
   }
 
   return (

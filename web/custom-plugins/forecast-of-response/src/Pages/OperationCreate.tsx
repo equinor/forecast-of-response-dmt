@@ -139,7 +139,7 @@ const createOperationEntity = (
     {
       name: operationName,
       label: operationLabel,
-      description: config.operationDescription,
+      description: config.description,
       type: Blueprints.OPERATION,
       stask: {
         type: Blueprints.STASK,
@@ -228,7 +228,7 @@ const onClickCreate = (
 
 const OperationCreate = (): JSX.Element => {
   const { userData, token } = useContext(AuthContext)
-  const user = userData.loggedIn ? userData.username : 'Anonymous'
+  const user = userData.username
   const [error, setError] = useState<string>()
   const [operationMeta, setOperationMeta] = useState<TOperationMeta>({
     name: '',
@@ -252,14 +252,14 @@ const OperationCreate = (): JSX.Element => {
   // TODO: Add "Save as Draft" button?
 
   const storeAndCheckOperationConfig = (
-    newOperationConfig: any,
+    newOperationConfig: TConfig,
     filename: string
   ) => {
     //todo the type checking can be improved... required attributes is defined in the type TConfig.
     const hasRequiredAttirbutes =
-      newOperationConfig.name &&
-      newOperationConfig.simaVersion &&
-      newOperationConfig.phases
+      'name' in newOperationConfig &&
+      'simaVersion' in newOperationConfig &&
+      'phases' in newOperationConfig
     if (hasRequiredAttirbutes) {
       setOperationConfig(newOperationConfig)
     } else {
@@ -276,11 +276,19 @@ const OperationCreate = (): JSX.Element => {
         <InputGroupWrapper>
           <SelectOperationName
             setOperationName={(operationName: string) => {
-              setOperationMeta({
-                ...operationMeta,
-                label: operationName,
-                name: operationName.replace(' ', '-'),
-              })
+              const format = new RegExp('^[A-Za-z0-9-_ ]+$')
+              if (!format.test(operationName)) {
+                setError(
+                  'Invalid operation name! (you cannot use any special characters).'
+                )
+              } else {
+                setError('')
+                setOperationMeta({
+                  ...operationMeta,
+                  label: operationName,
+                  name: operationName.replace(' ', '-'),
+                })
+              }
             }}
           />
           <Wrapper>
@@ -328,23 +336,25 @@ const OperationCreate = (): JSX.Element => {
       >
         <Button
           onClick={() => {
-            if (operationLocation && operationConfig && sTask) {
-              onClickCreate(
-                operationMeta,
-                operationLocation,
-                operationConfig,
-                sTask,
-                isNewEntity,
-                setError,
-                token,
-                user
-              )
-            } else {
-              setError('All required information is not set!')
-            }
+            onClickCreate(
+              operationMeta,
+              operationLocation,
+              operationConfig,
+              sTask,
+              isNewEntity,
+              setError,
+              token,
+              user
+            )
           }}
           disabled={
-            !(sTask && operationLocation && operationMeta && operationConfig)
+            !(
+              sTask &&
+              operationLocation &&
+              operationMeta &&
+              operationConfig &&
+              !error
+            )
           }
         >
           Create operation

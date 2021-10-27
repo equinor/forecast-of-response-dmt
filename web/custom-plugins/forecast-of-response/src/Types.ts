@@ -40,7 +40,7 @@ export type TConfig = {
   name: string
   simaVersion: string
   phases: TPhase[]
-  operationDescription?: string
+  description?: string
   _id?: string
   type?: string
 }

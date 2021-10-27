@@ -67,23 +67,6 @@ const SelectOperationConfig = (props: {
     }
   }, [searchResult])
 
-  const isDuplicateConfigName = (
-    configName: string,
-    configEntitiesInDatabase: TConfig[]
-  ) => {
-    if (configEntitiesInDatabase) {
-      configEntitiesInDatabase.map((configEntity: any) => {
-        if (configEntity.name === configName) {
-          setError(
-            'A config with the same name attribute already exists! Try to change the attribute "name" inside the json file.'
-          )
-          return false
-        }
-      })
-    }
-    return true
-  }
-
   return (
     <Wrapper>
       <Heading text="Configuration file" variant="h4" />
@@ -119,19 +102,16 @@ const SelectOperationConfig = (props: {
                     readFile(file)
                       .then((contents: string) => {
                         const configJson = JSON.parse(contents)
-                        isDuplicateConfigName(
-                          configJson['name'],
-                          configEntitiesInDatabase
-                        )
                         setIsNewConfig(true)
                         setOperationConfig(configJson, file.name)
-                        setIsLoading(false)
                       })
                       .catch((err: any) => {
                         console.error(err)
                         setError(
                           `Could not read the content of ${file.name}! Content was not in correct json format.`
                         )
+                      })
+                      .finally(() => {
                         setIsLoading(false)
                       })
                   } else {

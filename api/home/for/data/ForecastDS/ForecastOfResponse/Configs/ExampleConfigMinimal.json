@@ -2,7 +2,7 @@
   "name": "ExampleConfigMinimal",
   "type": "ForecastDS/ForecastOfResponse/Blueprints/Config",
   "simaVersion": "1.2.3-rc",
-  "operationDescription": "some description",
+  "description": "some description",
   "phases": [
     {
       "name": "phase1",
