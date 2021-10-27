@@ -44,30 +44,25 @@ const OperationOverview = (props: DmtSettings): JSX.Element => {
     switch (operationStatus[tabIndex]) {
       case 'All operations':
         return allOperations
-        break
       case OperationStatus.ONGOING:
         return allOperations.filter(
           (operation: TOperation) =>
             operation.status === OperationStatus.ONGOING
         )
-        break
       case OperationStatus.UPCOMING:
         return allOperations.filter(
           (operation: TOperation) =>
             operation.status === OperationStatus.UPCOMING
         )
-        break
       case OperationStatus.CONCLUDED:
         return allOperations.filter(
           (operation: TOperation) =>
             operation.status === OperationStatus.CONCLUDED
         )
-        break
       case 'My operations':
         return allOperations.filter((operation: TOperation) => {
           operation.creator === userData.username
         })
-        break
       default:
         return []
     }
