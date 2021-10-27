@@ -25,7 +25,6 @@ const SelectLocation = (props: {
   const { setLocation, setIsNewLocation } = props
   const [locations, setLocations] = useState<TLocation[]>([])
   const [searchResult] = useSearch(Blueprints.LOCATION)
-
   /**
    * Set locations when the search has completed
    */

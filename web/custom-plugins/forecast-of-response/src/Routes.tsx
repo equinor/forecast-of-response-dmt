@@ -14,33 +14,18 @@ const Routes: Array<TRoute> = [
     content: Library,
   },
   {
-    path: '/operation/:data_source/:entity_id',
+    path: '/operations/:data_source/:entity_id',
     heading: 'Operation details',
     content: OperationView,
   },
   {
-    path: '/operation/new',
+    path: '/operations/new',
     heading: 'Create new operation',
     content: OperationCreate,
   },
   {
-    path: '/operation',
+    path: '/operations',
     heading: 'Operations',
-    content: OperationOverview,
-  },
-  {
-    path: '/operation#draft',
-    heading: 'Operation drafts',
-    content: OperationOverview,
-  },
-  {
-    path: '/operation#ongoing',
-    heading: 'Ongoing operations',
-    content: OperationOverview,
-  },
-  {
-    path: '/operation#concluded',
-    heading: 'Completed operations',
     content: OperationOverview,
   },
 ]
