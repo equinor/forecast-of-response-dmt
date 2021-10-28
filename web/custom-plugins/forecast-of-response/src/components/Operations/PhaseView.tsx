@@ -17,9 +17,10 @@ import JobApi from '../../utils/JobApi'
 import { AuthContext, DmssAPI } from '@dmt/common'
 import { DEFAULT_DATASOURCE_ID } from '../../const'
 import { Blueprints } from '../../Enums'
-import { primaryGray } from '../Design/Colors'
+import { lightGray, primaryGray } from '../Design/Colors'
 import { StyledSelect } from '../Input'
 import Mock from '../Plots/Mock'
+import Icon from '../Design/Icons'
 
 const SimHeaderWrapper = styled.div`
   display: flex;
@@ -39,6 +40,43 @@ const ResultWrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin: 20px 0;
+`
+
+const SummaryButton = styled.div`
+  z-index: 100;
+  display: flex;
+  padding: 5px;
+  height: 40px;
+  width: 40px;
+  box-shadow: ${(props: any) =>
+    props.expanded ? 0 : 'darkgrey -2px 2px 6px 1px'};
+  cursor: pointer;
+  position: absolute;
+  right: ${(props: any) => (props.expanded ? '210px' : 0)};
+  align-items: center;
+  justify-content: center;
+  background-color: ${lightGray};
+`
+
+const SummaryWrapper = styled.div`
+  z-index: 100;
+  position: absolute;
+  display: flex;
+  width: min-content;
+  align-self: flex-end;
+  background-color: ${lightGray};
+  flex-flow: row-reverse;
+`
+
+const SummaryContentWrapper = styled.div`
+  z-index: 100;
+  display: flex;
+  flex-flow: column;
+  width: 250px;
+  height: 600px;
+  box-shadow: darkgrey -2px 2px 6px 1px;
+  padding: 40px;
+  justify-content: space-around;
 `
 
 function NewSimulationConfig(props: { defaultVars: any }) {
@@ -120,6 +158,7 @@ function SingleSimulationConfig(props: {
   const { simulationConfig, dottedId, stask } = props
   const [selectedSim, setSelectedSim] = useState<number>(1)
   const [loadingJob, setLoadingJob] = useState<boolean>(false)
+  const [showSummary, setShowSummary] = useState<boolean>(false)
   const { token } = useContext(AuthContext)
   const jobAPI = new JobApi(token)
   const dmssAPI = new DmssAPI(token)
@@ -208,27 +247,58 @@ function SingleSimulationConfig(props: {
   }
 
   return (
-    <div>
-      <div style={{ display: 'flex', flexDirection: 'column' }}>
-        <SimHeaderWrapper>
-          <StyledHeaderButton onClick={() => startJob()}>
-            Run simulation
-          </StyledHeaderButton>
-          <StyledHeaderButton disabled>
-            Define reoccurring job (Not implemented)
-          </StyledHeaderButton>
-          {/* The Buttons loses margin prop when they are disabled...*/}
-          <div style={{ width: '20px' }}></div>
-          <StyledHeaderButton disabled>
-            Publish this simulation (Not implemented)
-          </StyledHeaderButton>
-        </SimHeaderWrapper>
-        {loadingJob && <Progress.Linear />}
+    <div
+      style={{ display: 'flex', flexDirection: 'column', position: 'relative' }}
+    >
+      <SummaryWrapper>
+        {showSummary && (
+          <SummaryContentWrapper>
+            <h3>Summary</h3>
+            <h4>Values:</h4>
+            {simulationConfig.variables.length &&
+              simulationConfig.variables.map((variable: any) => (
+                <label key={variable}>{variable}</label>
+              ))}
+            <h4>Last published:</h4>
+            <label>Not implemented</label>
+            <h4>Author:</h4>
+            <label>Not implemented</label>
+          </SummaryContentWrapper>
+        )}
+        <SummaryButton
+          onClick={() => setShowSummary(!showSummary)}
+          expanded={showSummary}
+        >
+          {showSummary ? (
+            <Icon name="last_page" size={24} />
+          ) : (
+            <Icon name="first_page" size={24} />
+          )}
+        </SummaryButton>
+      </SummaryWrapper>
+      <SimHeaderWrapper>
+        <StyledHeaderButton onClick={() => startJob()}>
+          Run simulation
+        </StyledHeaderButton>
+        <StyledHeaderButton disabled>
+          Define reoccurring job (Not implemented)
+        </StyledHeaderButton>
+        {/* The Buttons loses margin prop when they are disabled...*/}
+        <div style={{ width: '20px' }}></div>
+        <StyledHeaderButton disabled>
+          Publish this simulation (Not implemented)
+        </StyledHeaderButton>
+      </SimHeaderWrapper>
+      {loadingJob && <Progress.Linear />}
+      <div
+        style={{ padding: '16px', display: 'flex', flexDirection: 'column' }}
+      >
         <label>Select which simulation to view</label>
         <StyledSelect>
           {simulationConfig.simulations.map(
             (simulation: TSimulation, index) => (
               <option
+                key={index}
                 value={simulation.started}
                 onSelect={() => setSelectedSim(index)}
               >
@@ -256,14 +326,14 @@ function SimulationConfigList(props: {
       <Accordion>
         {Object.values(simulationConfigs).map(
           (simulationConfig: TSimulationConfig, index: number) => (
-            <Accordion.Item isExpanded={index === 0}>
+            <Accordion.Item key={index} isExpanded={index === 0}>
               <Accordion.Header>
                 {simulationConfig.name}
                 {simulationConfig.published && (
                   <Chip variant="active">Published</Chip>
                 )}
               </Accordion.Header>
-              <Accordion.Panel>
+              <Accordion.Panel style={{ padding: '0' }}>
                 <SingleSimulationConfig
                   key={simulationConfig.name}
                   simulationConfig={simulationConfig}

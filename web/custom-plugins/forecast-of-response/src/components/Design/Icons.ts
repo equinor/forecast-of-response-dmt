@@ -1,15 +1,23 @@
 import { Icon } from '@equinor/eds-core-react'
 import {
-  // AppHeader
-  waves,
-  notifications,
+  accessible,
   account_circle,
-  // AppMenu
+  add_circle_outlined,
+  delete_forever,
+  delete_to_trash,
+  edit_text,
+  fullscreen,
+  grid_on,
   home,
+  info_circle,
+  last_page,
+  first_page,
   library,
   list,
+  notifications,
   person,
-  add_circle_outlined,
+  save,
+  waves,
 } from '@equinor/eds-icons'
 
 Icon.add({
@@ -21,6 +29,18 @@ Icon.add({
   list,
   person,
   add_circle_outlined,
+  info_circle,
+  accessible,
+  fullscreen,
+  last_page,
+  first_page,
+  grid_on,
+  edit_text,
+  delete_forever,
+  delete_to_trash,
+  save,
 })
 
 export default Icon
+// Usage example:
+// <Icon name="info_circle" size={24} />
