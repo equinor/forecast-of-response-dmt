@@ -75,7 +75,7 @@ export type TPhase = {
 }
 
 export type TBlob = {
-  _id: string
+  _blob_id: string
   name: string
   type: string
 }

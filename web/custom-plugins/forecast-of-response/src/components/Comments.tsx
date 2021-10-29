@@ -7,6 +7,7 @@ import { DmssAPI, AuthContext } from '@dmt/common'
 import { DEFAULT_DATASOURCE_ID } from '../const'
 import { Blueprints } from '../Enums'
 import { IconWrapper } from './Other'
+import { poorMansUUID } from '../utils/uuid'
 
 const CommentHeaderWrapper = styled.div`
   display: flex;
@@ -108,10 +109,9 @@ export const CommentInput = (props: {
   const dmssAPI = new DmssAPI(token)
 
   function handlePost() {
-    // TODO: When we can import model contained data, remove name from Comment
-    const commentName = crypto.randomUUID()
+    // TODO: When we can import model contained data, remove 'name' attribute from Comment
     const newComment = {
-      name: commentName,
+      name: poorMansUUID(),
       type: Blueprints.Comment,
       author: userData.username,
       date: new Date().toISOString(),

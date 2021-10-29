@@ -21,6 +21,8 @@ import { lightGray, primaryGray } from '../Design/Colors'
 import { StyledSelect } from '../Input'
 import Result from '../Result'
 import Icon from '../Design/Icons'
+import { poorMansUUID } from '../../utils/uuid'
+import { JobLog } from '../Jobs'
 
 const SimHeaderWrapper = styled.div`
   display: flex;
@@ -149,34 +151,10 @@ function SingleSimulationConfig(props: {
 
   function startJob() {
     setLoadingJob(true)
-    const simName = crypto.randomUUID()
+    // window.crypto.randomUUID() is not supported in firefox yet.
+    const simName = poorMansUUID()
     // Create the simulation entity
     dmssAPI.generatedDmssApi
-      // TODO: Remove this when testing ok
-      //   .explorerAdd({
-      //     dataSourceId: DEFAULT_DATASOURCE_ID,
-      //     dottedId: `${dottedId}.simulations`,
-      //     body: {
-      //       type: 'ForecastDS/ForecastOfResponse/Blueprints/Simulation',
-      //       name: simName,
-      //       simaJob: {
-      //         name: simName,
-      //         type: 'DMT-Internal/DMT/AzureContainerInstanceJob',
-      //         description: 'Test',
-      //         image: 'alpine',
-      //         command: ['echo', 'Hello world!'],
-      //         environmentVariables: [
-      //           'var1=a',
-      //           'var2=b',
-      //           'var3=_01863nv8||8374(/)&)(#!?=__Ba12|2',
-      //         ],
-      //       },
-      //       started: new Date().toISOString(),
-      //       progress: '0%',
-      //       ended: '',
-      //       results: [],
-      //     },
-      //   })
       .explorerAdd({
         dataSourceId: DEFAULT_DATASOURCE_ID,
         dottedId: `${dottedId}.simulations`,
@@ -186,9 +164,10 @@ function SingleSimulationConfig(props: {
           simaJob: {
             name: simName,
             type: Blueprints.AZ_CONTAINER_JOB,
-            image: 'aPublibRepo/SRSWrapper:v1.2.3',
+            image: 'publicMSA.azurecr.io/dmt-job/srs:latest',
             command: [
-              `--stask=${DEFAULT_DATASOURCE_ID}/${stask.blob._id}`,
+              '/code/init.sh',
+              `--stask=${DEFAULT_DATASOURCE_ID}/${stask.blob._blob_id}`,
               `--workflow=${stask.workflowTask}`,
               '--input=waveDir=180',
               `--target=${DEFAULT_DATASOURCE_ID}/${dottedId}.simulations.${simulationConfig.simulations.length}.results`,
@@ -207,7 +186,7 @@ function SingleSimulationConfig(props: {
           .startJob(`${DEFAULT_DATASOURCE_ID}/${newSimUID}.simaJob`)
           .then((result: any) => {
             NotificationManager.success(
-              JSON.stringify(result),
+              JSON.stringify(result.data),
               'Simulation job started'
             )
           })
@@ -302,6 +281,9 @@ function SingleSimulationConfig(props: {
         ) : (
           <div style={{ alignSelf: 'center' }}>
             <label>No result for this simulation...</label>
+            <JobLog
+              jobId={`${DEFAULT_DATASOURCE_ID}/${dottedId}.simulations.${selectedSim}.simaJob`}
+            />
           </div>
         )}
       </div>
