@@ -13,7 +13,10 @@ services:
       LOGGING_LEVEL: DEBUG
       ENVIRONMENT: local
       DMSS_API: http://dmss:5000
+      # Used for callback from Azure Container Job
+      PUBLIC_DMSS_API: https://dmss-forecast-of-response-test.radix.equinor.com
 #      SCHEDULER_REDIS_PASSWORD: ${SCHEDULER_REDIS_PASSWORD}
+      SCHEDULER_ENVS_TO_EXPORT: "PUBLIC_DMSS_API,SIMA_LICENSE"
       SCHEDULER_REDIS_HOST: job-store
       SCHEDULER_REDIS_PORT: 6379
       SCHEDULER_REDIS_SSL: "false"
@@ -22,6 +25,8 @@ services:
       AZURE_SP_SECRET: ${AZURE_SP_SECRET}
       AZURE_JOB_SP_TENANT_ID: 3aa4a235-b6e2-48d5-9195-7fcf05b459b0
       AZURE_JOB_SP_CLIENT_ID: 97a6b5bd-63fb-42c6-bb75-7e5de2394ba0
+#      SIMA_LICENSE: |
+# $(cat ./sima.lic)
     volumes:
       - ./api/home/:/code/home
 
