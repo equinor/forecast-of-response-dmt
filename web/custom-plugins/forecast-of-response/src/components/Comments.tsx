@@ -120,17 +120,19 @@ export const CommentInput = (props: { operationId: string }) => {
   function handlePost() {
     // TODO: When we can import model contained data, remove name from Comment
     const commentName = crypto.randomUUID()
-    dmssAPI.generatedDmssApi.explorerAdd({
-      dataSourceId: DEFAULT_DATASOURCE_ID,
-      dottedId: `${operationId}.comments`,
-      body: {
-        name: commentName,
-        type: Blueprints.Comment,
-        author: userData?.token || 'anon',
-        date: new Date().toISOString(),
-        message: message,
-      },
-    })
+    dmssAPI.generatedDmssApi
+      .explorerAdd({
+        dataSourceId: DEFAULT_DATASOURCE_ID,
+        dottedId: `${operationId}.comments`,
+        body: {
+          name: commentName,
+          type: Blueprints.Comment,
+          author: userData?.name || 'Anonymous',
+          date: new Date().toISOString(),
+          message: message,
+        },
+      })
+      .then(() => setMessage(''))
   }
 
   return (
@@ -142,6 +144,7 @@ export const CommentInput = (props: { operationId: string }) => {
           multiline
           style={{ borderRadius: '5px' }}
           rows={5}
+          value={message}
           onChange={(event: ChangeEvent<HTMLInputElement>) =>
             setMessage(event.target.value)
           }
