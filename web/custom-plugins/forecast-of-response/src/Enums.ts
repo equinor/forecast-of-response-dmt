@@ -22,6 +22,8 @@ export enum Blueprints {
   OPERATION = 'ForecastDS/ForecastOfResponse/Blueprints/Operation',
   Comment = 'ForecastDS/ForecastOfResponse/Blueprints/Comment',
   SIMULATION = 'ForecastDS/ForecastOfResponse/Blueprints/Simulation',
+  SIMULATION_CONFIG = 'ForecastDS/ForecastOfResponse/Blueprints/SimulationConfig',
+  VARIABLE = 'ForecastDS/ForecastOfResponse/Blueprints/Variable',
   AZ_CONTAINER_JOB = 'DMT-Internal/DMT/AzureContainerInstanceJob',
   LOCATION = 'ForecastDS/ForecastOfResponse/Blueprints/Location',
   STASK = 'ForecastDS/ForecastOfResponse/Blueprints/STask',

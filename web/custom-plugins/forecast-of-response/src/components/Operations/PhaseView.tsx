@@ -1,5 +1,11 @@
 import React, { useContext, useState } from 'react'
-import { TPhase, TSimulation, TSimulationConfig, TStask } from '../../Types'
+import {
+  TPhase,
+  TSimulation,
+  TSimulationConfig,
+  TStask,
+  TVariable,
+} from '../../Types'
 import {
   Accordion,
   Button,
@@ -10,6 +16,8 @@ import {
   Scrim,
   Table,
   TextField,
+  CircularProgress,
+  Typography,
 } from '@equinor/eds-core-react'
 import { NotificationManager } from 'react-notifications'
 import styled from 'styled-components'
@@ -75,10 +83,53 @@ const SummaryContentWrapper = styled.div`
   justify-content: space-around;
 `
 
-function NewSimulationConfig(props: { defaultVars: any }) {
-  const { defaultVars } = props
-  const [variables, setVariables] = useState<any>(defaultVars)
+function NewSimulationConfig(props: {
+  defaultVars: TVariable[]
+  dottedId: string
+  setVisibleCreateSimScrim: (isVisible: boolean) => void
+  setCreateSimError: (message: string) => void
+}) {
+  const {
+    defaultVars,
+    dottedId,
+    setVisibleCreateSimScrim,
+    setCreateSimError,
+  } = props
+  const [variables, setVariables] = useState<TVariable[]>(
+    defaultVars.map((vari) => ({ ...vari }))
+  )
   const [simConfigName, setSimConfigName] = useState<string>('New Simulation')
+  const { token } = useContext(AuthContext)
+  const dmssAPI = new DmssAPI(token)
+
+  function createSimulation(variables: TVariable[]) {
+    setVisibleCreateSimScrim(false)
+    setCreateSimError('')
+    // Create the simulation entity
+    dmssAPI.generatedDmssApi
+      .explorerAdd({
+        dataSourceId: DEFAULT_DATASOURCE_ID,
+        dottedId: `${dottedId}`,
+        body: {
+          type: Blueprints.SIMULATION_CONFIG,
+          name: simConfigName,
+          variables: variables,
+        },
+      })
+      .catch((e: Error) => {
+        e.json().then((result: any) => {
+          setVisibleCreateSimScrim(true)
+          setCreateSimError('result.message')
+        })
+      })
+  }
+
+  function resetValues() {
+    setVariables(defaultVars.map((vari) => ({ ...vari })))
+    setSimConfigName('New Simulation')
+    setCreateSimError('')
+  }
+
   return (
     <>
       <TextField
@@ -96,20 +147,19 @@ function NewSimulationConfig(props: { defaultVars: any }) {
           </Table.Row>
         </Table.Head>
         <Table.Body>
-          {Object.entries(defaultVars).map(([key, defaultVal]) => (
-            <Table.Row key={key}>
-              <Table.Cell>{key}</Table.Cell>
-              <Table.Cell>{defaultVal}</Table.Cell>
+          {defaultVars.map((defaultVal, index) => (
+            <Table.Row key={defaultVal.name}>
+              <Table.Cell>{defaultVal.name}</Table.Cell>
+              <Table.Cell>{defaultVal.value}</Table.Cell>
               <Table.Cell>
                 <Input
-                  placeholder={defaultVal}
-                  value={variables[key]}
-                  onChange={(event: Event) =>
-                    setVariables({
-                      ...variables,
-                      [key]: event.target.value,
-                    })
-                  }
+                  placeholder={defaultVal.value}
+                  type={defaultVal.unit}
+                  value={variables[index].value}
+                  onChange={(event: Event) => {
+                    variables[index].value = event.target.value
+                    setVariables([...variables])
+                  }}
                 />
               </Table.Cell>
             </Table.Row>
@@ -123,15 +173,12 @@ function NewSimulationConfig(props: { defaultVars: any }) {
           margin: '10px',
         }}
       >
-        <Button
-          variant="outlined"
-          color="danger"
-          onClick={() => setVariables(defaultVars)}
-        >
+        <Button variant="outlined" color="danger" onClick={() => resetValues()}>
           Reset
         </Button>
-        {/*TODO: Do something*/}
-        <Button disabled>Create (Not implemented)</Button>
+        <Button onClick={() => createSimulation(variables)}>
+          Create simulation
+        </Button>
       </div>
     </>
   )
@@ -299,9 +346,13 @@ function SingleSimulationConfig(props: {
         ) : (
           <div>
             <label>No result for this simulation...</label>
-            <JobLog
-              jobId={`${DEFAULT_DATASOURCE_ID}/${dottedId}.simulations.${getStoredIndexOfSelectedSim()}.simaJob`}
-            />
+            {simulations.length ? (
+              <JobLog
+                jobId={`${DEFAULT_DATASOURCE_ID}/${dottedId}.simulations.${getStoredIndexOfSelectedSim()}.simaJob`}
+              />
+            ) : (
+              <div>No simulations yet...</div>
+            )}
           </div>
         )}
       </div>
@@ -373,6 +424,23 @@ export default (props: {
 }): JSX.Element => {
   const { phase, dottedId, stask } = props
   const [visibleCreateSimScrim, setVisibleCreateSimScrim] = useState(false)
+  const [createSimError, setCreateSimError] = useState<string>('')
+
+  function closeCreateNewSim() {
+    setVisibleCreateSimScrim(false)
+    setCreateSimError('')
+  }
+
+  function CreateSimErrorDialog() {
+    return (
+      <Typography color="danger" variant="h6">
+        {createSimError.includes('DuplicateFileNameException')
+          ? 'Could not create the simulation: A simulation with that label already exists.'
+          : createSimError}
+      </Typography>
+    )
+  }
+
   return (
     <>
       <div style={{ display: 'flex', flexFlow: 'row-reverse' }}>
@@ -384,12 +452,14 @@ export default (props: {
         <Scrim onClose={() => setVisibleCreateSimScrim(false)} isDismissable>
           <div style={{ backgroundColor: '#fff', padding: '1rem' }}>
             Create new simulation
+            {createSimError && <CreateSimErrorDialog />}
             <NewSimulationConfig
-              defaultVars={{ WaveHeight: 1.12, WaveDirection: 90 }}
+              defaultVars={phase.defaultVariables}
+              dottedId={`${dottedId}.simulationConfigs`}
+              setVisibleCreateSimScrim={setVisibleCreateSimScrim}
+              setCreateSimError={setCreateSimError}
             />
-            <Button onClick={() => setVisibleCreateSimScrim(false)}>
-              Close
-            </Button>
+            <Button onClick={() => closeCreateNewSim()}>Close</Button>
           </div>
         </Scrim>
       )}
