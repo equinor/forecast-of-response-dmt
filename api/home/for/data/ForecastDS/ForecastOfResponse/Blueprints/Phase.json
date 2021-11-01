@@ -40,7 +40,7 @@
     {
       "name": "defaultVariables",
       "type": "system/SIMOS/BlueprintAttribute",
-      "attributeType": "string",
+      "attributeType": "/Blueprints/Variable",
       "optional": true,
       "contained": true,
       "dimensions": "*"

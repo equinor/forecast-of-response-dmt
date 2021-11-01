@@ -7,7 +7,7 @@
     {
       "name": "variables",
       "type": "system/SIMOS/BlueprintAttribute",
-      "attributeType": "string",
+      "attributeType": "/Blueprints/Variable",
       "optional": true,
       "dimensions": "*"
     },

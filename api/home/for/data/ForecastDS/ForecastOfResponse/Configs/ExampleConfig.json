@@ -11,9 +11,34 @@
       "start": "2021-06-25 13:45:37.352574",
       "end": "2021-06-27 13:45:37.352574",
       "defaultVariables": [
-        "WaveHeight=0.12",
-        "WaveDirection=30",
-        "Thrusters=2"
+                                {
+              "type": "/Blueprints/Variable",
+              "name": "WaveHeight",
+              "value": "0.12",
+              "valueType":  "string",
+              "unit": "meters"
+            },
+            {
+              "type": "/Blueprints/Variable",
+              "name": "WaveDirection",
+              "value": "30",
+              "valueType":  "string",
+              "unit": "degrees"
+            },
+            {
+              "type": "/Blueprints/Variable",
+              "name": "Thrusters",
+              "value": "2",
+              "valueType":  "string",
+              "unit": "unit"
+            },
+            {
+              "type": "/Blueprints/Variable",
+              "name": "VariableName",
+              "value": "VaiableValue",
+              "valueType":  "string",
+              "unit": "VariableUnit"
+            }
       ],
       "status": "Ongoing",
       "activeForecast": {
@@ -30,10 +55,34 @@
         "name": "test1config",
         "type": "ForecastDS/ForecastOfResponse/Blueprints/SimulationConfig",
         "variables": [
-            "WaveHeight=1.12",
-            "WaveHeight=0.6",
-            "WaveDirection=90",
-            "WaveDirection=60"
+                                          {
+              "type": "/Blueprints/Variable",
+              "name": "WaveHeight",
+              "value": "0.6",
+              "valueType":  "string",
+              "unit": "meters"
+            },
+            {
+              "type": "/Blueprints/Variable",
+              "name": "WaveDirection",
+              "value": "90",
+              "valueType":  "string",
+              "unit": "degrees"
+            },
+            {
+              "type": "/Blueprints/Variable",
+              "name": "Thrusters",
+              "value": "5",
+              "valueType":  "string",
+              "unit": "unit"
+            },
+            {
+              "type": "/Blueprints/Variable",
+              "name": "VariableName",
+              "value": "VaiableValue",
+              "valueType":  "string",
+              "unit": "VariableUnit"
+            }
           ]
       }
         ]

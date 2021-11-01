@@ -8,9 +8,34 @@
       "name": "phase1",
       "type": "ForecastDS/ForecastOfResponse/Blueprints/Phase",
       "defaultVariables": [
-        "WaveHeight=1.12",
-        "WaveDirection=90",
-        "Thrusters=5"
+                                {
+              "type": "/Blueprints/Variable",
+              "name": "WaveHeight",
+              "value": "1.12",
+              "valueType":  "string",
+              "unit": "meters"
+            },
+            {
+              "type": "/Blueprints/Variable",
+              "name": "WaveDirection",
+              "value": "90",
+              "valueType":  "string",
+              "unit": "degrees"
+            },
+            {
+              "type": "/Blueprints/Variable",
+              "name": "Thrusters",
+              "value": "5",
+              "valueType":  "string",
+              "unit": "unit"
+            },
+            {
+              "type": "/Blueprints/Variable",
+              "name": "VariableName",
+              "value": "VaiableValue",
+              "valueType":  "string",
+              "unit": "VariableUnit"
+            }
       ],
       "workflowTask": "someTask"
     }
