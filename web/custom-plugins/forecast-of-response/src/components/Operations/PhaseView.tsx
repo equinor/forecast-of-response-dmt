@@ -1,5 +1,11 @@
 import React, { useContext, useState } from 'react'
-import { TPhase, TSimulation, TSimulationConfig, TStask } from '../../Types'
+import {
+  TPhase,
+  TSimulation,
+  TSimulationConfig,
+  TStask,
+  TVariable,
+} from '../../Types'
 import {
   Accordion,
   Button,
@@ -72,10 +78,37 @@ const SummaryContentWrapper = styled.div`
   justify-content: space-around;
 `
 
-function NewSimulationConfig(props: { defaultVars: any }) {
-  const { defaultVars } = props
-  const [variables, setVariables] = useState<any>(defaultVars)
+function NewSimulationConfig(props: {
+  defaultVars: TVariable[]
+  dottedId: string
+  stask: TStask
+  setVisibleCreateSimScrim: (isVisible: boolean) => void
+}) {
+  const { defaultVars, dottedId, stask, setVisibleCreateSimScrim } = props
+  const [variables, setVariables] = useState<TVariable[]>(
+    defaultVars.map((vari) => ({ ...vari }))
+  )
   const [simConfigName, setSimConfigName] = useState<string>('New Simulation')
+  const [creatingJob, setCreatingJob] = useState<boolean>(false)
+  const { token } = useContext(AuthContext)
+  const dmssAPI = new DmssAPI(token)
+
+  function createSimulation(variables: TVariable[]) {
+    setCreatingJob(true)
+    // Create the simulation entity
+    dmssAPI.generatedDmssApi.explorerAdd({
+      dataSourceId: DEFAULT_DATASOURCE_ID,
+      dottedId: `${dottedId}`,
+      body: {
+        type: Blueprints.SIMULATION_CONFIG,
+        name: simConfigName,
+        variables: variables,
+      },
+    })
+    setCreatingJob(false)
+    setVisibleCreateSimScrim(false)
+  }
+
   return (
     <>
       <TextField
@@ -93,20 +126,18 @@ function NewSimulationConfig(props: { defaultVars: any }) {
           </Table.Row>
         </Table.Head>
         <Table.Body>
-          {Object.entries(defaultVars).map(([key, defaultVal]) => (
-            <Table.Row key={key}>
-              <Table.Cell>{key}</Table.Cell>
-              <Table.Cell>{defaultVal}</Table.Cell>
+          {defaultVars.map((defaultVal, index) => (
+            <Table.Row key={defaultVal.name}>
+              <Table.Cell>{defaultVal.name}</Table.Cell>
+              <Table.Cell>{defaultVal.value}</Table.Cell>
               <Table.Cell>
                 <Input
-                  placeholder={defaultVal}
-                  value={variables[key]}
-                  onChange={(event: Event) =>
-                    setVariables({
-                      ...variables,
-                      [key]: event.target.value,
-                    })
-                  }
+                  placeholder={defaultVal.value}
+                  type={defaultVal.unit}
+                  onChange={(event: Event) => {
+                    variables[index].value = event.target.value
+                    setVariables([...variables])
+                  }}
                 />
               </Table.Cell>
             </Table.Row>
@@ -127,8 +158,10 @@ function NewSimulationConfig(props: { defaultVars: any }) {
         >
           Reset
         </Button>
-        {/*TODO: Do something*/}
-        <Button disabled>Create (Not implemented)</Button>
+        <Button onClick={() => createSimulation(variables)}>
+          Create simulation
+        </Button>
+        {creatingJob && <Progress.Linear />}
       </div>
     </>
   )
@@ -362,7 +395,10 @@ export default (props: {
           <div style={{ backgroundColor: '#fff', padding: '1rem' }}>
             Create new simulation
             <NewSimulationConfig
-              defaultVars={{ WaveHeight: 1.12, WaveDirection: 90 }}
+              defaultVars={phase.defaultVariables}
+              dottedId={`${dottedId}.simulationConfigs`}
+              stask={stask}
+              setVisibleCreateSimScrim={setVisibleCreateSimScrim}
             />
             <Button onClick={() => setVisibleCreateSimScrim(false)}>
               Close

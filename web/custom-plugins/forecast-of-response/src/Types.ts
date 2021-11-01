@@ -71,7 +71,15 @@ export type TPhase = {
   end?: Date
   activeForecast?: TSimulation
   status?: OperationStatus
-  defaultVariables?: StringMap
+  defaultVariables?: TVariable
+}
+
+export type TVariable = {
+  name: string
+  value: string
+  valueType: string
+  unit: string
+  type: string
 }
 
 export type TBlob = {
