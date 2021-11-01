@@ -6,7 +6,7 @@ import { addToPath } from '../utils/insertDocument'
 import { DEFAULT_DATASOURCE_ID } from '../const'
 import DateRangePicker from '../components/DateRangePicker'
 import { Heading } from '../components/Design/Fonts'
-import { TConfig, TLocation } from '../Types'
+import { TConfig, TLocation, TOperationMeta, TPhase } from '../Types'
 import SelectOperationConfig from '../components/Operations/SelectConfig'
 import SelectOperationLocation from '../components/Operations/SelectLocation'
 import { ClickableMap } from '../components/Map'
@@ -79,6 +79,35 @@ const getEntityId = (
   isNew: boolean = false
 ): PromiseLike<string> => {
   if (isNew) {
+    //A function for automatically setting the correct types in a config entity - can be used if we decide to not require types in uploaded config files.
+    //NB! relative paths ("/Blueprints/Config") does not work when uploading a new config.
+
+    // export const CONFIG_BLUEPRINT =
+    //   'ForecastDS/ForecastOfResponse/Blueprints/Config'
+    // export const PHASE_BLUEPRINT = 'ForecastDS/ForecastOfResponse/Blueprints/Phase'
+    // export const SIMULATION_BLUEPRINT =
+    //   'ForecastDS/ForecastOfResponse/Blueprints/Simulation'
+    // export const SIMULATION_CONFIG_BLUEPRINT =
+    //   'ForecastDS/ForecastOfResponse/Blueprints/SimulationConfig'
+
+    // const entityIsConfig = (entity as TConfig).type
+    // if (entityIsConfig) {
+    //   //add types to the config entity
+    //   entity['type'] = CONFIG_BLUEPRINT
+    //   //@ts-ignore - safe type ignore here since the if statement checks the entity type
+    //   if (entity?.phases) {
+    //     entity.phases.map((phase: TPhase) => {
+    //       phase['type'] = PHASE_BLUEPRINT
+    //       if (phase.activeForecast)
+    //         phase.activeForecast['type'] = SIMULATION_BLUEPRINT
+    //       if (phase.simulationConfigs) {
+    //         phase.simulationConfigs.map((simConfig) => {
+    //           simConfig['type'] = SIMULATION_CONFIG_BLUEPRINT
+    //         })
+    //       }
+    //     })
+    //   }
+    // }
     return addToPath(entity, token)
   } else {
     return new Promise((resolve: any) => {
@@ -98,6 +127,7 @@ const getEntityId = (
  */
 const createOperationEntity = (
   operationName: string,
+  operationLabel: string,
   stask: File,
   dateRange: Date[],
   location: TLocation,
@@ -108,6 +138,8 @@ const createOperationEntity = (
   return addToPath(
     {
       name: operationName,
+      label: operationLabel,
+      description: config.description,
       type: Blueprints.OPERATION,
       stask: {
         type: Blueprints.STASK,
@@ -122,7 +154,7 @@ const createOperationEntity = (
       start: dateRange && dateRange[0] ? dateRange[0].toISOString() : undefined,
       end: dateRange && dateRange[1] ? dateRange[1].toISOString() : undefined,
       status: OperationStatus.UPCOMING, // TODO: decide based on start attr? allow user to select?
-      config: config,
+      phases: config.phases,
     },
     token,
     [stask]
@@ -130,10 +162,10 @@ const createOperationEntity = (
 }
 
 const onClickCreate = (
-  operationMeta: { name: string; dateRange: Date[] },
+  operationMeta: TOperationMeta,
   operationLocation: TLocation,
   operationConfig: TConfig,
-  stask: Blob,
+  stask: File,
   isNewEntity: { location: boolean; config: boolean },
   setError: Function,
   token: string,
@@ -155,6 +187,7 @@ const onClickCreate = (
       if (isNewEntity.config) operationConfig._id = documentIds[1]
       createOperationEntity(
         operationMeta.name,
+        operationMeta.label,
         stask,
         operationMeta.dateRange,
         operationLocation,
@@ -163,12 +196,11 @@ const onClickCreate = (
         user
       )
         .then((documentId) => {
-          // todo redirect to operation view
-          console.log(`New operation ${documentId}`)
           const newLocation = document.location.pathname.replace(
             'new',
             `${DEFAULT_DATASOURCE_ID}/${documentId}`
           )
+          // @ts-ignore
           document.location = newLocation
         })
         .catch((err: any) => {
@@ -196,25 +228,46 @@ const onClickCreate = (
 
 const OperationCreate = (): JSX.Element => {
   const { userData, token } = useContext(AuthContext)
-  const user = userData.loggedIn ? userData.name : 'Anonymous'
+  const user = userData.username
   const [error, setError] = useState<string>()
-  const [operationMeta, setOperationMeta] = useState<{
-    name: string
-    dateRange: Date[]
-  }>()
+  const [operationMeta, setOperationMeta] = useState<TOperationMeta>({
+    name: '',
+    label: '',
+    dateRange: [],
+  })
+
   const [isNewEntity, setIsNewEntity] = useState<{
     location: boolean
     config: boolean
   }>({ location: false, config: false })
   const [operationConfig, setOperationConfig] = useState<TConfig>()
-  const [sTask, setSTask] = useState<Blob>()
-  const [operationLocation, setOperationLocation] = useState<TLocation>({})
+  const [sTask, setSTask] = useState<File>()
+  const [operationLocation, setOperationLocation] = useState<
+    TLocation | undefined
+  >()
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [mapClickPos, setMapClickPos] = useState<[number, number]>()
+  const [mapClickPos, setMapClickPos] = useState<[number, number] | undefined>()
 
-  // TODO: redirect to operation view upon creation
   // TODO: Upon clicking cancel, ask for confirmation and whether it should be saved as a draft
   // TODO: Add "Save as Draft" button?
+
+  const storeAndCheckOperationConfig = (
+    newOperationConfig: TConfig,
+    filename: string
+  ) => {
+    //todo the type checking can be improved... required attributes is defined in the type TConfig.
+    const hasRequiredAttirbutes =
+      'name' in newOperationConfig &&
+      'simaVersion' in newOperationConfig &&
+      'phases' in newOperationConfig
+    if (hasRequiredAttirbutes) {
+      setOperationConfig(newOperationConfig)
+    } else {
+      setError(
+        `Could not parse content of the configuration file ${filename}. Do the file have all required attributes?`
+      )
+    }
+  }
 
   return (
     <>
@@ -223,7 +276,19 @@ const OperationCreate = (): JSX.Element => {
         <InputGroupWrapper>
           <SelectOperationName
             setOperationName={(operationName: string) => {
-              setOperationMeta({ ...operationMeta, name: operationName })
+              const format = new RegExp('^[A-Za-z0-9-_ ]+$')
+              if (!format.test(operationName)) {
+                setError(
+                  'Invalid operation name! (you cannot use any special characters).'
+                )
+              } else {
+                setError('')
+                setOperationMeta({
+                  ...operationMeta,
+                  label: operationName,
+                  name: operationName.replace(' ', '-'),
+                })
+              }
             }}
           />
           <Wrapper>
@@ -235,15 +300,15 @@ const OperationCreate = (): JSX.Element => {
             />
           </Wrapper>
           <SelectOperationConfig
-            setOperationConfig={setOperationConfig}
+            setOperationConfig={storeAndCheckOperationConfig}
             setIsNewConfig={(isNew: boolean) => {
               setIsNewEntity({ ...isNewEntity, config: isNew })
             }}
             isLoading={isLoading}
+            setError={setError}
             setIsLoading={setIsLoading}
           />
           <SelectSTask setSTask={setSTask} isLoading={isLoading} />
-
           <SelectOperationLocation
             location={operationLocation}
             setLocation={setOperationLocation}
@@ -270,7 +335,7 @@ const OperationCreate = (): JSX.Element => {
         }}
       >
         <Button
-          onClick={() =>
+          onClick={() => {
             onClickCreate(
               operationMeta,
               operationLocation,
@@ -281,9 +346,15 @@ const OperationCreate = (): JSX.Element => {
               token,
               user
             )
-          }
+          }}
           disabled={
-            !(sTask && operationLocation && operationMeta && operationConfig)
+            !(
+              sTask &&
+              operationLocation &&
+              operationMeta &&
+              operationConfig &&
+              !error
+            )
           }
         >
           Create operation

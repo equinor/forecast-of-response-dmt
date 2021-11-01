@@ -8,6 +8,12 @@
       "name": "simaVersion",
       "type": "system/SIMOS/BlueprintAttribute",
       "attributeType": "string"
+    },
+    {
+      "name": "phases",
+      "type": "system/SIMOS/BlueprintAttribute",
+      "attributeType": "/Blueprints/Phase",
+      "dimensions": "*"
     }
   ],
     "uiRecipes": []

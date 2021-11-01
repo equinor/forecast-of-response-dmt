@@ -34,6 +34,7 @@
       "name": "status",
       "type": "system/SIMOS/BlueprintAttribute",
       "attributeType": "string",
+      "default": "Upcoming",
       "optional": true
     },
     {

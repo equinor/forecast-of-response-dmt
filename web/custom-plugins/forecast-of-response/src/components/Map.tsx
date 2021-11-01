@@ -36,7 +36,7 @@ interface ILocationOnMap {
 }
 
 interface IClickableMap {
-  location: TLocation
+  location: TLocation | undefined
   zoom: number
   setClickPos: Function
 }
@@ -70,7 +70,7 @@ export const ClickableMap = ({
   zoom,
   setClickPos,
 }: IClickableMap): JSX.Element => {
-  const marker = [location.lat || 60, location.long || 4]
+  const marker = [location?.lat || 60, location?.long || 4]
   const [clickLocation, setClickLocation] = useState<[number, number]>()
 
   return (

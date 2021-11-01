@@ -1,6 +1,7 @@
 {
   "_id": "26a4d888-3ab4-4ad2-9bd9-9614dcb066d5",
   "name": "TestMotor",
+  "label": "test motor",
   "type": "/Blueprints/Operation",
   "description": "an example operation",
   "stask": {

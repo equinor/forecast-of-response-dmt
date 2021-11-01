@@ -38,6 +38,7 @@ const SelectOperationConfig = (props: {
   setIsNewConfig: Function
   isLoading: boolean
   setIsLoading: Function
+  setError: Function
 }): JSX.Element => {
   const [operationConfigs, setOperationConfigs] = useState<TConfig[]>([])
   const [searchResult, isLoadingSearch, hasError] = useSearch(
@@ -45,7 +46,17 @@ const SelectOperationConfig = (props: {
   )
   const [fileName, setFileName] = useState<string>()
   const [uploadNew, setUploadNew] = useState<boolean>(true)
-  const { setOperationConfig, setIsNewConfig, isLoading, setIsLoading } = props
+  const [
+    configEntitiesInDatabase,
+    configEntitiesLoading,
+  ]: TConfig[] = useSearch('ForecastDS/ForecastOfResponse/Blueprints/Config')
+  const {
+    setOperationConfig,
+    setIsNewConfig,
+    isLoading,
+    setIsLoading,
+    setError,
+  } = props
 
   /**
    * Set operation configs when the search has completed
@@ -82,6 +93,7 @@ const SelectOperationConfig = (props: {
               style={{ display: 'none' }}
               accept=".json"
               onChange={(event: any) => {
+                setError('')
                 if (event.target.files.length >= 1) {
                   const file = event.target.files[0]
                   if (file.type === 'application/json') {
@@ -91,16 +103,20 @@ const SelectOperationConfig = (props: {
                       .then((contents: string) => {
                         const configJson = JSON.parse(contents)
                         setIsNewConfig(true)
-                        setOperationConfig(configJson)
-                        setIsLoading(false)
+                        setOperationConfig(configJson, file.name)
                       })
                       .catch((err: any) => {
                         console.error(err)
+                        setError(
+                          `Could not read the content of ${file.name}! Content was not in correct json format.`
+                        )
+                      })
+                      .finally(() => {
                         setIsLoading(false)
                       })
                   } else {
-                    console.error(
-                      'Specified file is not in the required format (JSON).'
+                    setError(
+                      'Selected configuration file is not in the required format (JSON).'
                     )
                   }
                 }

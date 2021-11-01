@@ -111,8 +111,11 @@ const InputWrapper = styled.div`
   flex-direction: column;
   margin: 15px;
 `
-export const CommentInput = (props: { operationId: string }) => {
-  const { operationId } = props
+export const CommentInput = (props: {
+  operationId: string
+  handleNewComment: any
+}) => {
+  const { operationId, handleNewComment } = props
   const [message, setMessage] = useState<string>('')
   const { token, userData } = useContext(AuthContext)
   const dmssAPI = new DmssAPI(token)
@@ -120,19 +123,23 @@ export const CommentInput = (props: { operationId: string }) => {
   function handlePost() {
     // TODO: When we can import model contained data, remove name from Comment
     const commentName = crypto.randomUUID()
+    const newComment = {
+      name: commentName,
+      type: Blueprints.Comment,
+      author: userData.username,
+      date: new Date().toISOString(),
+      message: message,
+    }
     dmssAPI.generatedDmssApi
       .explorerAdd({
         dataSourceId: DEFAULT_DATASOURCE_ID,
         dottedId: `${operationId}.comments`,
-        body: {
-          name: commentName,
-          type: Blueprints.Comment,
-          author: userData?.name || 'Anonymous',
-          date: new Date().toISOString(),
-          message: message,
-        },
+        body: newComment,
       })
-      .then(() => setMessage(''))
+      .then(() => {
+        handleNewComment(newComment)
+        setMessage('')
+      })
   }
 
   return (
@@ -150,7 +157,9 @@ export const CommentInput = (props: { operationId: string }) => {
           }
         />
         <div style={{ justifyContent: 'space-around', display: 'flex' }}>
-          <Button color="danger">Cancel</Button>
+          <Button color="danger" onClick={() => setMessage('')}>
+            Cancel
+          </Button>
           <Button disabled={message === ''} onClick={() => handlePost()}>
             Comment
           </Button>

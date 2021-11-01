@@ -5,6 +5,11 @@
   "description": "",
   "attributes": [
     {
+      "name": "label",
+      "type": "system/SIMOS/BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
       "name": "stask",
       "attributeType": "/Blueprints/STask",
       "type": "system/SIMOS/BlueprintAttribute"
@@ -15,13 +20,6 @@
       "attributeType": "/Blueprints/Phase",
       "contained": true,
       "dimensions": "*"
-    },
-    {
-      "name" : "config",
-      "type": "system/SIMOS/BlueprintAttribute",
-      "attributeType": "/Blueprints/Config",
-      "optional": true,
-      "contained": false
     },
     {
       "name": "creator",

@@ -63,7 +63,7 @@ const Dashboard = (): JSX.Element => {
               return [
                 location.lat,
                 location.long,
-                operation.name,
+                operation.label,
                 operation._id,
               ]
             })

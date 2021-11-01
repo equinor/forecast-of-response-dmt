@@ -1,0 +1,18 @@
+ {
+  "name": "ExampleConfigMinimal",
+  "type": "ForecastDS/ForecastOfResponse/Blueprints/Config",
+  "simaVersion": "1.2.3-rc",
+  "description": "some description",
+  "phases": [
+    {
+      "name": "phase1",
+      "type": "ForecastDS/ForecastOfResponse/Blueprints/Phase",
+      "defaultVariables": [
+        "WaveHeight=1.12",
+        "WaveDirection=90",
+        "Thrusters=5"
+      ],
+      "workflowTask": "someTask"
+    }
+  ]
+ }
