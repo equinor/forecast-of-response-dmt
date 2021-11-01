@@ -9,7 +9,7 @@ import { Blueprints } from '../Enums'
 import { TComment, TOperation } from '../Types'
 import { AuthContext, DmssAPI } from '@dmt/common'
 import { StyledMapContainer } from '../components/Map'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { DEFAULT_DATASOURCE_ID } from '../const'
 
 delete L.Icon.Default.prototype._getIconUrl
@@ -46,6 +46,7 @@ const Dashboard = (): JSX.Element => {
   const [coordinates, setCoordinates] = useState<CoordinateTuple[]>()
   const [comments, commentsLoading] = useSearch(Blueprints.Comment)
   const [operations] = useSearch(Blueprints.OPERATION)
+  const location = useLocation()
 
   useEffect(() => {
     setLoading(true)
@@ -102,7 +103,10 @@ const Dashboard = (): JSX.Element => {
                   >
                     <Popup>
                       <Link
-                        to={`/for/operations/${DEFAULT_DATASOURCE_ID}/${gridTuple[3]}`}
+                        to={{
+                          pathname: `/for/operations/${DEFAULT_DATASOURCE_ID}/${gridTuple[3]}`,
+                          state: location.state,
+                        }}
                       >
                         {gridTuple[2]}
                       </Link>
