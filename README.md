@@ -82,7 +82,7 @@ Make the following changes to the FoR repo (updated 05.10.21)
 
 1. Delete api/home/DMT/data_sources/DMT-DS.json and api/home/for/data_sources/ForecastDS.json.
 2. Add database password to DMT-DS-azure.json and ForecastDS-azure.json
-3. In DMT-DS-azure.json, update "name" to be DMT-DS. In ForecastDS-azure.json, change "name" to be "ForecastDS" 
+3. In DMT-DS-azure.json, update "name" to be DMT-Internal. In ForecastDS-azure.json, change "name" to be "ForecastDS" 
 4. Add database password to dmss-system.radix.json
 5. In docker-compose, make the following changes:
    - for dmss service, set environment variable ENVIRONMENT to be production
@@ -96,5 +96,7 @@ Make the following changes to the FoR repo (updated 05.10.21)
     docker-compose run dmss reset-app
     docker-compose run --rm -e DMSS_API=https://dmss-forecast-of-response-test.radix.equinor.com api --token="eyXXXX" reset-app
     ```
-
 7. Remember to delete the passwords in all json files after you are finished! Also, you probably want to revert the changes made to the docker-compose and docker files
+
+Note: you need to have the same SECRET_KEY in your local .env file as used on in the DMSS service in radix (can be changed in the radix console). 
+

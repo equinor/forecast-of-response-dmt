@@ -10,6 +10,7 @@ import { AuthContext } from '@dmt/common'
 import DateRangePicker from '../components/DateRangePicker'
 import Grid from '../components/App/Grid'
 import { OperationStatus } from '../Enums'
+import { DEFAULT_DATASOURCE_ID, DEFAULT_DIRECTORY } from '../const'
 
 const GridContainer = styled.div`
   padding-top: 50px;
@@ -38,7 +39,7 @@ const OperationOverview = (props: DmtSettings): JSX.Element => {
     'My operations',
   ]
   const [searchResult, isLoadingSearch, hasError] = useSearch(
-    'ForecastDS/ForecastOfResponse/Blueprints/Operation'
+    `${DEFAULT_DATASOURCE_ID}/${DEFAULT_DIRECTORY}/Blueprints/Operation`
   )
 
   const filterOperationsByStatus = (tabIndex: number) => {
