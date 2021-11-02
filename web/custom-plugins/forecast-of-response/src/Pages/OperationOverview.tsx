@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { Button, Divider, Progress, Tabs } from '@equinor/eds-core-react'
 import OperationsTable from '../components/Operations/OperationsTable'
 import useSearch from '../hooks/useSearch'
@@ -24,6 +24,7 @@ const OperationOverview = (props: DmtSettings): JSX.Element => {
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [dateRange, setDateRange] = useState<Date[]>()
   const [activeTab, setActiveTab] = useState<number>(0)
+  const location = useLocation()
   const { userData } = useContext(AuthContext)
   const operationStatus: (
     | TOperationStatus
@@ -111,6 +112,7 @@ const OperationOverview = (props: DmtSettings): JSX.Element => {
   const filerOperationsByDateRange = () => {
     const START_INDEX: number = 0
     const END_INDEX: number = 1
+
     const operationsFilteredByDateRange: TOperation[] = allOperations.filter(
       (operation: TOperation) => {
         if (dateRange) {
@@ -129,7 +131,6 @@ const OperationOverview = (props: DmtSettings): JSX.Element => {
     )
     return operationsFilteredByDateRange
   }
-
   const getVisibleOperations = () => {
     //Only the intersection of different filters will be visible.
     const operationsFilteredByStatus: TOperation[] = filterOperationsByStatus(
@@ -166,7 +167,12 @@ const OperationOverview = (props: DmtSettings): JSX.Element => {
             <SearchInput onChange={handleSearch} />
             <DateRangePicker setDateRange={setDateRange} />
             <div style={{ paddingTop: '16px' }}>
-              <Link to={`/${settings.name}/operations/new`}>
+              <Link
+                to={{
+                  pathname: `/${settings.name}/operations/new`,
+                  state: location.state,
+                }}
+              >
                 <Button>Create new operation</Button>
               </Link>
             </div>
