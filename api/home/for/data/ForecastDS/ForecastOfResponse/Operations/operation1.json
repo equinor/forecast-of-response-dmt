@@ -72,6 +72,7 @@
       "simulationConfigs": [
         {
           "name": "test1",
+          "published": true,
           "type": "/Blueprints/SimulationConfig",
           "simulations": [
             {

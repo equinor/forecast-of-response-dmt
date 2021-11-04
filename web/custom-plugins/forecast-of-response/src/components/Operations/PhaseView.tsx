@@ -140,8 +140,9 @@ function SingleSimulationConfig(props: {
   simulationConfig: TSimulationConfig
   dottedId: string
   stask: TStask
+  publishSimulation: Function
 }) {
-  const { simulationConfig, dottedId, stask } = props
+  const { simulationConfig, dottedId, stask, publishSimulation } = props
   const [selectedSim, setSelectedSim] = useState<number>(0)
   const [loadingJob, setLoadingJob] = useState<boolean>(false)
   const [showSummary, setShowSummary] = useState<boolean>(false)
@@ -248,8 +249,12 @@ function SingleSimulationConfig(props: {
         </StyledHeaderButton>
         {/* The Buttons loses margin prop when they are disabled...*/}
         <div style={{ width: '20px' }}></div>
-        <StyledHeaderButton disabled>
-          Publish this simulation (Not implemented)
+        <StyledHeaderButton
+          onClick={() =>
+            publishSimulation(parseInt(dottedId.split('.').slice(-1)[0]))
+          }
+        >
+          Publish this simulation
         </StyledHeaderButton>
       </SimHeaderWrapper>
       {loadingJob && <Progress.Linear />}
@@ -297,10 +302,32 @@ function SimulationConfigList(props: {
   stask: TStask
 }) {
   const { simulationConfigs, dottedId, stask } = props
+  const { token } = useContext(AuthContext)
+  const dmssAPI = new DmssAPI(token)
+  const [simConfigs, setSimConfigs] = useState<TSimulationConfig[]>(
+    simulationConfigs
+  )
+
+  function publishSimulation(simIndex: number): void {
+    const updatedSimConfs = simConfigs.map((conf: TSimulationConfig, index) => {
+      conf.published = index === simIndex
+      return conf
+    })
+    dmssAPI
+      .updateDocumentById({
+        dataSourceId: DEFAULT_DATASOURCE_ID,
+        documentId: dottedId.split('.', 1)[0],
+        data: JSON.stringify(updatedSimConfs),
+        attribute: dottedId.split('.').slice(1).join('.'),
+      })
+      .then(() => setSimConfigs(updatedSimConfs))
+      .catch((error: any) => console.error(error))
+  }
+
   return (
     <div>
       <Accordion>
-        {Object.values(simulationConfigs).map(
+        {Object.values(simConfigs).map(
           (simulationConfig: TSimulationConfig, index: number) => (
             <Accordion.Item key={index} isExpanded={index === 0}>
               <Accordion.Header>
@@ -315,6 +342,7 @@ function SimulationConfigList(props: {
                   simulationConfig={simulationConfig}
                   dottedId={`${dottedId}.${index}`}
                   stask={stask}
+                  publishSimulation={publishSimulation}
                 />
               </Accordion.Panel>
             </Accordion.Item>

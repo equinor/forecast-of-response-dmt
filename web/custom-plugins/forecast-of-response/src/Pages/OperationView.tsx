@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { useDocument } from '@dmt/common'
+import { useDocument, AuthContext } from '@dmt/common'
 import { Tabs } from '@equinor/eds-core-react'
 import { TOperation, TPhase } from '../Types'
 import OperationDetails from '../components/Operations/OperationDetails'
 import PhaseView from '../components/Operations/PhaseView'
+import { hasExpertRole } from '../utils/auth'
+import OperatorPhaseView from '../components/Operations/OperatorPhaseView'
 
 export default (): JSX.Element => {
   const { data_source, entity_id } = useParams()
@@ -14,6 +16,7 @@ export default (): JSX.Element => {
   )
   const [activeTab, setActiveTab] = useState<number>(0)
   const [phases, setPhases] = useState<TPhase[]>([])
+  const { userData } = useContext(AuthContext)
   const operation: TOperation = document
 
   useEffect(() => {
@@ -48,11 +51,15 @@ export default (): JSX.Element => {
           {phases.length ? (
             phases.map((phase: TPhase, index: number) => (
               <Tabs.Panel key={phase.name}>
-                <PhaseView
-                  phase={phase}
-                  dottedId={`${operation._id}.phases.${index}`}
-                  stask={operation.stask}
-                />
+                {hasExpertRole(userData) ? (
+                  <PhaseView
+                    phase={phase}
+                    dottedId={`${operation._id}.phases.${index}`}
+                    stask={operation.stask}
+                  />
+                ) : (
+                  <OperatorPhaseView phase={phase} />
+                )}
               </Tabs.Panel>
             ))
           ) : (

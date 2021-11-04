@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { TOperation } from '../Types'
 import { Button, Card, Label, Table, Typography } from '@equinor/eds-core-react'
 import { StatusDot } from '../Other'
@@ -6,8 +6,9 @@ import styled from 'styled-components'
 import { LocationOnMap } from '../Map'
 import { TComment, TPhase } from '../../Types'
 import { CommentInput, CommentView } from '../Comments'
-import { AccessControlList } from '@dmt/common'
+import { AccessControlList, AuthContext } from '@dmt/common'
 import { DEFAULT_DATASOURCE_ID } from '../../const'
+import { hasExpertRole } from '../../utils/auth'
 
 const FlexWrapper = styled.div`
   display: flex;
@@ -38,6 +39,7 @@ export default (props: { operation: TOperation }): JSX.Element => {
   const { operation } = props
   const [viewACL, setViewACL] = useState<boolean>(false)
   const [comments, setComments] = useState<TComment[]>(operation.comments)
+  const { userData } = useContext(AuthContext)
 
   const updateComments = (newComment: TComment) => {
     setComments([...comments, newComment])
@@ -88,17 +90,15 @@ export default (props: { operation: TOperation }): JSX.Element => {
         </LocationWrapper>
       </div>
       <Card.Actions>
-        <Button disabled={true}>Cancel</Button>
-        <Button disabled={true}>OK</Button>
-      </Card.Actions>
-      <Card.Actions>
-        <Button
-          onClick={() => {
-            setViewACL(!viewACL)
-          }}
-        >
-          {viewACL ? 'Hide access panel' : 'Open access panel'}
-        </Button>
+        {hasExpertRole(userData) && (
+          <Button
+            onClick={() => {
+              setViewACL(!viewACL)
+            }}
+          >
+            {viewACL ? 'Hide access panel' : 'Open access panel'}
+          </Button>
+        )}
       </Card.Actions>
       {viewACL && (
         <AccessControlList
