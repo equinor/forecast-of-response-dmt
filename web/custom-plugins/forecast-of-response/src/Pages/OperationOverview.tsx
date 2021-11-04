@@ -11,6 +11,7 @@ import DateRangePicker from '../components/DateRangePicker'
 import Grid from '../components/App/Grid'
 import { OperationStatus } from '../Enums'
 import { DEFAULT_DATASOURCE_ID, DEFAULT_DIRECTORY } from '../const'
+import { hasExpertRole } from '../utils/auth'
 
 const GridContainer = styled.div`
   padding-top: 50px;
@@ -174,7 +175,9 @@ const OperationOverview = (props: DmtSettings): JSX.Element => {
                   state: location.state,
                 }}
               >
-                <Button>Create new operation</Button>
+                {hasExpertRole(userData) && (
+                  <Button>Create new operation</Button>
+                )}
               </Link>
             </div>
           </Grid>
