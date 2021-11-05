@@ -25,4 +25,5 @@ export enum Blueprints {
   AZ_CONTAINER_JOB = 'DMT-Internal/DMT/AzureContainerInstanceJob',
   LOCATION = 'ForecastDS/ForecastOfResponse/Blueprints/Location',
   STASK = 'ForecastDS/ForecastOfResponse/Blueprints/STask',
+  CONFIG = 'ForecastDS/ForecastOfResponse/Blueprints/Config',
 }

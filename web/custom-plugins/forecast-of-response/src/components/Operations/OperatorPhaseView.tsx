@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { TPhase, TSimulation, TSimulationConfig } from '../../Types'
 import { StyledSelect } from '../Input'
 import Result from '../Result'
+import { sortSimulationsByNewest } from '../../utils/sort'
 
 export default (props: { phase: TPhase }): JSX.Element => {
   const { phase } = props
@@ -9,6 +10,9 @@ export default (props: { phase: TPhase }): JSX.Element => {
     (simConf: TSimulationConfig) => simConf?.published === true
   )
   const [selectedSim, setSelectedSim] = useState<number>(0)
+  const simulations = sortSimulationsByNewest(
+    publishedSimulation?.simulations || []
+  )
 
   if (!publishedSimulation)
     return <div>No results have been published for this operation phase</div>
@@ -26,24 +30,18 @@ export default (props: { phase: TPhase }): JSX.Element => {
             setSelectedSim(parseInt(e.target.value))
           }}
         >
-          {publishedSimulation.simulations.map(
-            (simulation: TSimulation, index) => (
-              <option
-                key={index}
-                value={index}
-                onSelect={() => setSelectedSim(index)}
-              >
-                {new Date(simulation.started).toLocaleString(
-                  navigator.language
-                )}
-              </option>
-            )
-          )}
+          {simulations.map((simulation: TSimulation, index) => (
+            <option
+              key={index}
+              value={index}
+              onSelect={() => setSelectedSim(index)}
+            >
+              {new Date(simulation.started).toLocaleString(navigator.language)}
+            </option>
+          ))}
         </StyledSelect>
-        {publishedSimulation.simulations[selectedSim]?.result._id ? (
-          <Result
-            result={publishedSimulation.simulations[selectedSim]?.result}
-          />
+        {simulations[selectedSim]?.result._id ? (
+          <Result result={simulations[selectedSim]?.result} />
         ) : (
           <div style={{ alignSelf: 'center' }}>
             <label>No result for this simulation...</label>

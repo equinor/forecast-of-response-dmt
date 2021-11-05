@@ -30,7 +30,7 @@ const CardWrapper = styled.div`
 
 type CoordinateTuple = [number, number, string, string] // [lat, long, operationName, operationId]
 
-function calculateUTMCenter(
+function calculateMapCenter(
   coordinates: CoordinateTuple[] | undefined
 ): [number, number] {
   if (!coordinates) return [57.4, 4.4] // Default value somewhere in the Northsea
@@ -56,7 +56,7 @@ const Dashboard = (): JSX.Element => {
         (operation: TOperation): CoordinateTuple => {
           return dmssAPI
             .getDocumentById({
-              dataSourceId: 'ForecastDS',
+              dataSourceId: DEFAULT_DATASOURCE_ID,
               documentId: operation.location._id,
             })
             .then((document): any => {
@@ -86,7 +86,7 @@ const Dashboard = (): JSX.Element => {
           Ongoing operations ({operations.length})
         </h3>
         <StyledMapContainer
-          center={calculateUTMCenter(coordinates)}
+          center={calculateMapCenter(coordinates)}
           zoom={5}
           scrollWheelZoom={true}
         >
