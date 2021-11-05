@@ -20,7 +20,6 @@
         "name": "test1",
         "type": "ForecastDS/ForecastOfResponse/Blueprints/Simulation",
         "description": "",
-        "weatherDataId": "25.6,19:15",
         "progress": "Running",
         "result": {},
         "started": "2021-06-27 13:45:37.352574",

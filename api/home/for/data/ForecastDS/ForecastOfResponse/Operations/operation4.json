@@ -5,14 +5,6 @@
   "type": "/Blueprints/Operation",
   "description": "an example operation",
   "stask": {
-    "name": "someSTask",
-    "type": "/Blueprints/STask",
-    "workflowTask": "WorkflowTask",
-    "blob": {
-      "_id": "26a4d888-3ab4-4ad2-9bd9-9614dcb066d5",
-      "name": "/STasks/mymodel_2_lbje.stask",
-      "type": "system/SIMOS/Blob"
-    }
   },
   "creator": "SomeUser",
   "location": {

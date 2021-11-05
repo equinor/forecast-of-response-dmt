@@ -50,9 +50,12 @@ export type StringMap = {
 }
 
 export type TSimulation = {
+  type?: string
+  name?: string
+  simaJob?: any
   progress?: string
-  started?: Date
-  ended?: Date
+  started?: string
+  ended?: string
   result?: any
 }
 

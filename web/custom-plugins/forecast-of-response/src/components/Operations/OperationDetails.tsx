@@ -82,6 +82,10 @@ export default (props: { operation: TOperation }): JSX.Element => {
             {operation.status}
             <StatusDot status={operation.status} />
           </FlexWrapper>
+          <FlexWrapper>
+            <Label label="STask:" />
+            {operation.stask?.blob?.name || 'None'}
+          </FlexWrapper>
         </div>
         <LocationWrapper>
           <Label label="Location:" /> {operation.location.name} (
@@ -119,7 +123,7 @@ export default (props: { operation: TOperation }): JSX.Element => {
           </Table.Row>
         </Table.Head>
         <Table.Body>
-          {operation.phases.length &&
+          {operation.phases.length ? (
             operation.phases.map((phase: TPhase, index: number) => (
               <Table.Row key={index}>
                 <Table.Cell>{phase.name}</Table.Cell>
@@ -140,7 +144,20 @@ export default (props: { operation: TOperation }): JSX.Element => {
                   </FlexWrapper>
                 </Table.Cell>
               </Table.Row>
-            ))}
+            ))
+          ) : (
+            <Table.Row>
+              <Table.Cell>None</Table.Cell>
+              <Table.Cell>None</Table.Cell>
+              <Table.Cell>None</Table.Cell>
+              <Table.Cell>
+                <FlexWrapper>
+                  None
+                  <StatusDot status={'None'} />
+                </FlexWrapper>
+              </Table.Cell>
+            </Table.Row>
+          )}
         </Table.Body>
       </Table>
       <h4>Comments</h4>

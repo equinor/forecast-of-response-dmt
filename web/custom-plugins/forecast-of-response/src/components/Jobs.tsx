@@ -24,7 +24,9 @@ function colorFromStatus(status: string): string {
 
 const SimStatusWrapper = styled.div`
   display: flex;
-  border-radius: 8px;
+  height: 25px;
+  align-content: baseline;
+  border-radius: 5px;
   padding: 0 3px;
   margin-left: 10px;
   border: ${(props: any) => `${colorFromStatus(props.status)} 3px solid`};

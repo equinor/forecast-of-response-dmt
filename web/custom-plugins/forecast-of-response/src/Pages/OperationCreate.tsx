@@ -6,7 +6,7 @@ import { addToPath } from '../utils/insertDocument'
 import { DEFAULT_DATASOURCE_ID } from '../const'
 import DateRangePicker from '../components/DateRangePicker'
 import { Heading } from '../components/Design/Fonts'
-import { TConfig, TLocation, TOperationMeta, TPhase } from '../Types'
+import { TConfig, TLocation, TOperationMeta } from '../Types'
 import SelectOperationConfig from '../components/Operations/SelectConfig'
 import SelectOperationLocation from '../components/Operations/SelectLocation'
 import { ClickableMap } from '../components/Map'
@@ -177,7 +177,7 @@ const onClickCreate = (
   getIds.push(getEntityId(operationLocation, token, isNewEntity.location))
   if (operationConfig) {
     // Optional
-    operationConfig.type = 'ForecastDS/ForecastOfResponse/Blueprints/Config'
+    operationConfig.type = Blueprints.CONFIG
     getIds.push(getEntityId(operationConfig, token, isNewEntity.config))
   }
 

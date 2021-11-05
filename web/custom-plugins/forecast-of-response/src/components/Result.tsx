@@ -161,6 +161,7 @@ export default (props: { result: any }) => {
           <AddedGraphWrapper>
             {graphNames.map((name, index) => (
               <Chip
+                key={index}
                 style={{ margin: '10px 5px' }}
                 variant="active"
                 onDelete={() => removeGraph(name)}

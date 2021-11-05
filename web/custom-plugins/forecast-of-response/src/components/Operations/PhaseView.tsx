@@ -23,6 +23,7 @@ import Result from '../Result'
 import Icon from '../Design/Icons'
 import { poorMansUUID } from '../../utils/uuid'
 import { JobLog } from '../Jobs'
+import { sortSimulationsByNewest } from '../../utils/sort'
 
 const SimHeaderWrapper = styled.div`
   display: flex;
@@ -146,6 +147,9 @@ function SingleSimulationConfig(props: {
   const [selectedSim, setSelectedSim] = useState<number>(0)
   const [loadingJob, setLoadingJob] = useState<boolean>(false)
   const [showSummary, setShowSummary] = useState<boolean>(false)
+  const [simulations, setSimulations] = useState<TSimulation[]>(
+    sortSimulationsByNewest(simulationConfig.simulations) || []
+  )
   const { token } = useContext(AuthContext)
   const jobAPI = new JobApi(token)
   const dmssAPI = new DmssAPI(token)
@@ -155,32 +159,35 @@ function SingleSimulationConfig(props: {
     // window.crypto.randomUUID() is not supported in firefox yet.
     const simName = poorMansUUID()
     // Create the simulation entity
+    const newSimulation: TSimulation = {
+      type: Blueprints.SIMULATION,
+      name: simName,
+      simaJob: {
+        name: simName,
+        type: Blueprints.AZ_CONTAINER_JOB,
+        image: 'publicMSA.azurecr.io/dmt-job/srs:latest',
+        command: [
+          '/code/init.sh',
+          `--stask=${DEFAULT_DATASOURCE_ID}/${stask.blob._blob_id}`,
+          `--workflow=${stask.workflowTask}`,
+          '--input=waveDir=180',
+          `--target=${DEFAULT_DATASOURCE_ID}/${dottedId}.simulations.${simulationConfig.simulations.length}.results`,
+        ],
+      },
+      started: new Date().toISOString(),
+      progress: '0%',
+      ended: '',
+      result: {},
+    }
     dmssAPI.generatedDmssApi
       .explorerAdd({
         dataSourceId: DEFAULT_DATASOURCE_ID,
         dottedId: `${dottedId}.simulations`,
-        body: {
-          type: Blueprints.SIMULATION,
-          name: simName,
-          simaJob: {
-            name: simName,
-            type: Blueprints.AZ_CONTAINER_JOB,
-            image: 'publicMSA.azurecr.io/dmt-job/srs:latest',
-            command: [
-              '/code/init.sh',
-              `--stask=${DEFAULT_DATASOURCE_ID}/${stask.blob._blob_id}`,
-              `--workflow=${stask.workflowTask}`,
-              '--input=waveDir=180',
-              `--target=${DEFAULT_DATASOURCE_ID}/${dottedId}.simulations.${simulationConfig.simulations.length}.results`,
-            ],
-          },
-          started: new Date().toISOString(),
-          progress: '0%',
-          ended: '',
-          results: [],
-        },
+        body: newSimulation,
       })
       .then((res: any) => {
+        // Add the simulation to the state
+        setSimulations([newSimulation, ...simulations])
         // Start a job from the created simulation
         const newSimUID = JSON.parse(res).uid
         jobAPI
@@ -208,6 +215,14 @@ function SingleSimulationConfig(props: {
         )
         setLoadingJob(false)
       })
+  }
+
+  // Since we sort the simulations by date, we need to fetch the real index of the selected sim
+  function getStoredIndexOfSelectedSim() {
+    const selectedSimStarted = simulations[selectedSim].started
+    return simulationConfig.simulations
+      .map((sim: TSimulation) => sim.started)
+      .indexOf(selectedSimStarted)
   }
 
   return (
@@ -251,6 +266,7 @@ function SingleSimulationConfig(props: {
         <div style={{ width: '20px' }}></div>
         <StyledHeaderButton
           onClick={() =>
+            // Get the index of the current simulationConfig from dottedId
             publishSimulation(parseInt(dottedId.split('.').slice(-1)[0]))
           }
         >
@@ -267,27 +283,23 @@ function SingleSimulationConfig(props: {
             setSelectedSim(parseInt(e.target.value))
           }}
         >
-          {simulationConfig.simulations.map(
-            (simulation: TSimulation, index) => (
-              <option
-                key={index}
-                value={index}
-                onSelect={() => setSelectedSim(index)}
-              >
-                {new Date(simulation.started).toLocaleString(
-                  navigator.language
-                )}
-              </option>
-            )
-          )}
+          {simulations.map((simulation: TSimulation, index) => (
+            <option
+              key={index}
+              value={index}
+              onSelect={() => setSelectedSim(index)}
+            >
+              {new Date(simulation.started).toLocaleString(navigator.language)}
+            </option>
+          ))}
         </StyledSelect>
-        {simulationConfig.simulations[selectedSim]?.result._id ? (
-          <Result result={simulationConfig.simulations[selectedSim]?.result} />
+        {simulations[selectedSim]?.result._id ? (
+          <Result result={simulations[selectedSim]?.result} />
         ) : (
-          <div style={{ alignSelf: 'center' }}>
+          <div>
             <label>No result for this simulation...</label>
             <JobLog
-              jobId={`${DEFAULT_DATASOURCE_ID}/${dottedId}.simulations.${selectedSim}.simaJob`}
+              jobId={`${DEFAULT_DATASOURCE_ID}/${dottedId}.simulations.${getStoredIndexOfSelectedSim()}.simaJob`}
             />
           </div>
         )}

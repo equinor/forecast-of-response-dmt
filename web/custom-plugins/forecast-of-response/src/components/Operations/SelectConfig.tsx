@@ -5,6 +5,7 @@ import useSearch from '../../hooks/useSearch'
 import { Heading } from '../Design/Fonts'
 import Grid from '../App/Grid'
 import styled from 'styled-components'
+import { Blueprints } from '../../Enums'
 
 const Wrapper = styled.div`
   display: flex;
@@ -41,15 +42,9 @@ const SelectOperationConfig = (props: {
   setError: Function
 }): JSX.Element => {
   const [operationConfigs, setOperationConfigs] = useState<TConfig[]>([])
-  const [searchResult, isLoadingSearch, hasError] = useSearch(
-    'ForecastDS/ForecastOfResponse/Blueprints/Config'
-  )
+  const [searchResult, isLoadingSearch, hasError] = useSearch(Blueprints.CONFIG)
   const [fileName, setFileName] = useState<string>()
   const [uploadNew, setUploadNew] = useState<boolean>(true)
-  const [
-    configEntitiesInDatabase,
-    configEntitiesLoading,
-  ]: TConfig[] = useSearch('ForecastDS/ForecastOfResponse/Blueprints/Config')
   const {
     setOperationConfig,
     setIsNewConfig,
