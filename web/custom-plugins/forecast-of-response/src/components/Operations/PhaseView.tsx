@@ -74,7 +74,7 @@ const SummaryContentWrapper = styled.div`
 
 function NewSimulationConfig(props: { defaultVars: TVariable[], dottedId: string, stask: TStask }) {
     const {defaultVars, dottedId, stask} = props
-    const [variables, setVariables] = useState<any>(defaultVars)
+    const [variables, setVariables] = useState<TVariable[]>(defaultVars)
     const [simConfigName, setSimConfigName] = useState<string>('New Simulation')
     const [creatingJob, setCreatingJob] = useState<boolean>(false)
     const {token} = useContext(AuthContext)
@@ -115,7 +115,7 @@ function NewSimulationConfig(props: { defaultVars: TVariable[], dottedId: string
                     </Table.Row>
                 </Table.Head>
                 <Table.Body>
-                    {defaultVars.map((defaultVal) => (
+                    {defaultVars.map((defaultVal, index) => (
                         <Table.Row key={defaultVal.name}>
                             <Table.Cell>{defaultVal.name}</Table.Cell>
                             <Table.Cell>{defaultVal.value}</Table.Cell>
@@ -123,17 +123,13 @@ function NewSimulationConfig(props: { defaultVars: TVariable[], dottedId: string
                                 <Input
                                     placeholder={defaultVal.value}
                                     type={defaultVal.unit}
-                                    value={variables[defaultVal.name]}
                                     onChange={(event: Event) =>
-                                        defaultVal.value = event.target.value
-
-                                        // variables.
-                                        //
-                                        // setVariables({
-                                        //     ...variables,
-                                        //     [defaultVal.name]: event.target.value,
-                                        // })
-                                    }
+                                    {console.log(event)
+                                        variables[index].value = event.target.value
+                                        setVariables([
+                                            ...variables,
+                                        ])
+                                    }}
                                 />
                             </Table.Cell>
                         </Table.Row>
