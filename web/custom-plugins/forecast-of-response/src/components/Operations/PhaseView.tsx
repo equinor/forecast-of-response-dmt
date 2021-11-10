@@ -183,6 +183,7 @@ function SingleSimulationConfig(props: {
       .explorerAdd({
         dataSourceId: DEFAULT_DATASOURCE_ID,
         dottedId: `${dottedId}.simulations`,
+        updateUncontained: false,
         body: newSimulation,
       })
       .then((res: any) => {
