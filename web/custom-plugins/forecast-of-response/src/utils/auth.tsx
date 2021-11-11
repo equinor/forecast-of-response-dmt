@@ -1,13 +1,11 @@
+const EXPERT_ROLES = ['EXPERT', 'dmss-admin']
+
 export function hasExpertRole(userData: any): boolean {
-  // Always return true ff auth is not enabled
+  // Always return true if auth is not enabled
   if (process.env.REACT_APP_AUTH !== '1') return true
   if (userData?.roles) {
-    if (
-      userData.roles.includes('EXPERT') ||
-      userData.roles.includes('DMSS_ADMIN')
-    ) {
-      return true
-    }
+    // If any of the roles the user has in the the EXPERT_ROLES array, return TRUE
+    return userData.roles.some((role: string) => EXPERT_ROLES.includes(role))
   }
   return false
 }
