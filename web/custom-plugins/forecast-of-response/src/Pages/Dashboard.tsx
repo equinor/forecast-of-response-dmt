@@ -11,6 +11,7 @@ import { AuthContext, DmssAPI } from '@dmt/common'
 import { StyledMapContainer } from '../components/Map'
 import { Link, useLocation } from 'react-router-dom'
 import { DEFAULT_DATASOURCE_ID } from '../const'
+import { DotProgress, LinearProgress } from '@equinor/eds-core-react'
 
 delete L.Icon.Default.prototype._getIconUrl
 
@@ -77,7 +78,7 @@ const Dashboard = (): JSX.Element => {
       .finally(() => setLoading(false))
   }, [operations])
 
-  if (loading) return <>Loading...</>
+  if (loading) return <LinearProgress />
 
   return (
     <div style={{ display: 'flex', minHeight: '500px', maxHeight: '900px' }}>
@@ -121,7 +122,7 @@ const Dashboard = (): JSX.Element => {
       <CardWrapper style={{ margin: '0 20px', width: '30%', overflow: 'auto' }}>
         <h3 style={{ margin: '5px' }}>Comments</h3>
         {commentsLoading ? (
-          <>Loading comments...</>
+          <DotProgress color="primary" />
         ) : (
           <>
             {comments ? (

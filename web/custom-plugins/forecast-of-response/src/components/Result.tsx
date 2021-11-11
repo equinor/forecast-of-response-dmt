@@ -139,13 +139,14 @@ export default (props: { result: any }) => {
     setChartData(Object.values(newDataDict))
   }
 
+  if (isLoading) return <Progress.Linear style={{ margin: '20px' }} />
+
   if (!variableRuns.length) return <>No variableRuns in result</>
 
   if (error) {
     NotificationManager.error(error.message)
     return <div />
   }
-  if (isLoading) return <Progress.Linear />
 
   return (
     <ResultWrapper>

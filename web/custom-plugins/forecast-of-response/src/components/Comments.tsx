@@ -60,7 +60,9 @@ export const CompactCommentView = (props: { comment: TComment }) => {
   return (
     <CompactCommentWrapper>
       <CommentHeaderWrapper>
-        <IconWrapper color={'grey'}>&#9679;</IconWrapper>
+        <IconWrapper color={colorFromString(comment.author)}>
+          &#9679;
+        </IconWrapper>
         <b>{comment.author}</b>
       </CommentHeaderWrapper>
       <b style={{ width: 'fit-content' }}>
