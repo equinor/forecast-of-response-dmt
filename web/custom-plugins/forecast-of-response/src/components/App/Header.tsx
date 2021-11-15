@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import { Button, Scrim, TopBar } from '@equinor/eds-core-react'
 import styled from 'styled-components'
 import Icon from '../Design/Icons'
-import { AuthContext } from '@dmt/common'
+import { AuthContext } from 'react-oauth2-code-pkce'
 
 const Icons = styled.div`
   display: flex;
@@ -23,7 +23,7 @@ const ClickableIcon = styled.div`
 export default (props: { appName: string }): JSX.Element => {
   const { appName } = props
   const [visibleUserInfo, setVisibleUserInfo] = useState<boolean>(false)
-  const { userData } = useContext(AuthContext)
+  const { tokenData } = useContext(AuthContext)
   return (
     <TopBar>
       <TopBar.Header>
@@ -48,7 +48,7 @@ export default (props: { appName: string }): JSX.Element => {
             }}
           >
             <pre style={{ whiteSpace: 'pre-line' }}>
-              {JSON.stringify(userData || '', null, 2)}
+              {JSON.stringify(tokenData || '', null, 2)}
             </pre>
             <Button onClick={() => setVisibleUserInfo(false)}>Close</Button>
           </div>

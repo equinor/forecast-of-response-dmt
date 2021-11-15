@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { useDocument, AuthContext } from '@dmt/common'
+import { useDocument } from '@dmt/common'
+import { AuthContext } from 'react-oauth2-code-pkce'
 import { Tabs } from '@equinor/eds-core-react'
 import { TOperation, TPhase } from '../Types'
 import OperationDetails from '../components/Operations/OperationDetails'
@@ -16,7 +17,7 @@ export default (): JSX.Element => {
   )
   const [activeTab, setActiveTab] = useState<number>(0)
   const [phases, setPhases] = useState<TPhase[]>([])
-  const { userData } = useContext(AuthContext)
+  const { tokenData } = useContext(AuthContext)
   const operation: TOperation = document
 
   useEffect(() => {
@@ -51,7 +52,7 @@ export default (): JSX.Element => {
           {phases.length ? (
             phases.map((phase: TPhase, index: number) => (
               <Tabs.Panel key={phase.name}>
-                {hasExpertRole(userData) ? (
+                {hasExpertRole(tokenData) ? (
                   <PhaseView
                     phase={phase}
                     dottedId={`${operation._id}.phases.${index}`}

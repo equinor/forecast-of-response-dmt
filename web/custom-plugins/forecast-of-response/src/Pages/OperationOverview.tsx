@@ -6,7 +6,7 @@ import useSearch from '../hooks/useSearch'
 import { DmtSettings, TOperation, TOperationStatus } from '../Types'
 import SearchInput from '../components/SearchInput'
 import styled from 'styled-components'
-import { AuthContext } from '@dmt/common'
+import { AuthContext } from 'react-oauth2-code-pkce'
 import DateRangePicker from '../components/DateRangePicker'
 import Grid from '../components/App/Grid'
 import { OperationStatus } from '../Enums'
@@ -27,7 +27,7 @@ const OperationOverview = (props: DmtSettings): JSX.Element => {
   const [dateRange, setDateRange] = useState<Date[]>()
   const [activeTab, setActiveTab] = useState<number>(0)
   const location = useLocation()
-  const { userData } = useContext(AuthContext)
+  const { tokenData } = useContext(AuthContext)
   const operationStatus: (
     | TOperationStatus
     | 'All operations'
@@ -64,7 +64,7 @@ const OperationOverview = (props: DmtSettings): JSX.Element => {
         )
       case 'My operations':
         return allOperations.filter((operation: TOperation) => {
-          operation.creator === userData.username
+          operation.creator === tokenData.username
         })
       default:
         return []
@@ -175,7 +175,7 @@ const OperationOverview = (props: DmtSettings): JSX.Element => {
                   state: location.state,
                 }}
               >
-                {hasExpertRole(userData) && (
+                {hasExpertRole(tokenData) && (
                   <Button>Create new operation</Button>
                 )}
               </Link>

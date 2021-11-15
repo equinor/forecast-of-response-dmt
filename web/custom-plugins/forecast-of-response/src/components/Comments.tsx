@@ -3,7 +3,8 @@ import styled from 'styled-components'
 import { TComment } from '../Types'
 import { colorFromString } from '../utils/colorFromString'
 import { Button, TextField } from '@equinor/eds-core-react'
-import { DmssAPI, AuthContext } from '@dmt/common'
+import { DmssAPI } from '@dmt/common'
+import { AuthContext } from 'react-oauth2-code-pkce'
 import { DEFAULT_DATASOURCE_ID } from '../const'
 import { Blueprints } from '../Enums'
 import { IconWrapper } from './Other'
@@ -107,7 +108,7 @@ export const CommentInput = (props: {
 }) => {
   const { operationId, handleNewComment } = props
   const [message, setMessage] = useState<string>('')
-  const { token, userData } = useContext(AuthContext)
+  const { token, tokenData } = useContext(AuthContext)
   const dmssAPI = new DmssAPI(token)
 
   function handlePost() {
@@ -115,7 +116,7 @@ export const CommentInput = (props: {
     const newComment = {
       name: poorMansUUID(),
       type: Blueprints.Comment,
-      author: userData.username,
+      author: tokenData.username,
       date: new Date().toISOString(),
       message: message,
     }
