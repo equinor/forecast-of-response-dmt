@@ -1,6 +1,5 @@
 import { useEffect, useState, useContext } from 'react'
-import { DmssAPI } from '@dmt/common'
-import { AuthContext } from 'react-oauth2-code-pkce'
+import { DmssAPI, AuthContext } from '@dmt/common'
 import { DEFAULT_DATASOURCE_ID } from '../const'
 
 const useSearch = (

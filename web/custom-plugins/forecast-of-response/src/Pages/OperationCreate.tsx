@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { Button, Progress, TextField } from '@equinor/eds-core-react'
-import { AuthContext } from 'react-oauth2-code-pkce'
+import { AuthContext } from '@dmt/common'
 import { Blueprints, OperationStatus } from '../Enums'
 import { addToPath } from '../utils/insertDocument'
 import { DEFAULT_DATASOURCE_ID } from '../const'

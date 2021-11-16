@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { useDocument } from '@dmt/common'
-import { AuthContext } from 'react-oauth2-code-pkce'
+import { useDocument, AuthContext } from '@dmt/common'
 import { Tabs } from '@equinor/eds-core-react'
 import { TOperation, TPhase } from '../Types'
 import OperationDetails from '../components/Operations/OperationDetails'

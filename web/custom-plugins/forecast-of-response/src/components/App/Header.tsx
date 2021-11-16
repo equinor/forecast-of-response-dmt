@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import { Button, Scrim, TopBar } from '@equinor/eds-core-react'
 import styled from 'styled-components'
 import Icon from '../Design/Icons'
-import { AuthContext } from 'react-oauth2-code-pkce'
+import { AuthContext } from '@dmt/common'
 
 const Icons = styled.div`
   display: flex;
