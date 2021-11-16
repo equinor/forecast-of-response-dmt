@@ -4,6 +4,11 @@
   "label": "Sverdrup Anchor Replace 2021",
   "type": "/Blueprints/Operation",
   "description": "Bridge forecast",
+  "SIMAComputeConnectInfo": {
+      "_id": "15a4d888-3ab4-5bd2-9bd9-9614dcb066d5",
+      "name": "/SIMACompute/compute.yml",
+      "type": "system/SIMOS/Blob"
+    },
   "stask": {
     "name": "someSTask",
     "type": "/Blueprints/STask",
@@ -54,15 +59,6 @@
       "start": "2021-06-25 13:45:37.352574",
       "end": "2021-06-27 13:45:37.352574",
       "status": "Ongoing",
-      "activeForecast": {
-        "name": "test1",
-        "type": "/Blueprints/Simulation",
-        "description": "",
-        "progress": "Running",
-        "result": {},
-        "started": "2021-06-27 13:45:37.352574",
-        "ended": "2021-06-27 13:45:37.352574"
-      },
       "defaultVariables": [
         "WaveHeight=1.12",
         "WaveDirection=90",

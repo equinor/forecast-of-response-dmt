@@ -12,6 +12,7 @@ import SelectOperationLocation from '../components/Operations/SelectLocation'
 import { ClickableMap } from '../components/Map'
 import SelectSTask from '../components/Operations/SelectSTask'
 import styled from 'styled-components'
+import SelectSIMACompute from '../components/Operations/SelectSIMACompute'
 
 const CreateOperationWrapper = styled.div`
   justify-content: space-between;
@@ -79,35 +80,6 @@ const getEntityId = (
   isNew: boolean = false
 ): PromiseLike<string> => {
   if (isNew) {
-    //A function for automatically setting the correct types in a config entity - can be used if we decide to not require types in uploaded config files.
-    //NB! relative paths ("/Blueprints/Config") does not work when uploading a new config.
-
-    // export const CONFIG_BLUEPRINT =
-    //   'ForecastDS/ForecastOfResponse/Blueprints/Config'
-    // export const PHASE_BLUEPRINT = 'ForecastDS/ForecastOfResponse/Blueprints/Phase'
-    // export const SIMULATION_BLUEPRINT =
-    //   'ForecastDS/ForecastOfResponse/Blueprints/Simulation'
-    // export const SIMULATION_CONFIG_BLUEPRINT =
-    //   'ForecastDS/ForecastOfResponse/Blueprints/SimulationConfig'
-
-    // const entityIsConfig = (entity as TConfig).type
-    // if (entityIsConfig) {
-    //   //add types to the config entity
-    //   entity['type'] = CONFIG_BLUEPRINT
-    //   //@ts-ignore - safe type ignore here since the if statement checks the entity type
-    //   if (entity?.phases) {
-    //     entity.phases.map((phase: TPhase) => {
-    //       phase['type'] = PHASE_BLUEPRINT
-    //       if (phase.activeForecast)
-    //         phase.activeForecast['type'] = SIMULATION_BLUEPRINT
-    //       if (phase.simulationConfigs) {
-    //         phase.simulationConfigs.map((simConfig) => {
-    //           simConfig['type'] = SIMULATION_CONFIG_BLUEPRINT
-    //         })
-    //       }
-    //     })
-    //   }
-    // }
     return addToPath(entity, token)
   } else {
     return new Promise((resolve: any) => {
@@ -119,6 +91,9 @@ const getEntityId = (
 /**
  * Create a new Operation entity
  * @param operationName Name of the operation to create
+ * @param operationLabel Friendly name of the operation
+ * @param SIMACompute A File on the SIMA Compute format (.yaml)
+ * @param stask An Stask File
  * @param dateRange An array of dates as [startDate, endDate]
  * @param location A Location entity
  * @param config An OperationConfig entity
@@ -128,6 +103,7 @@ const getEntityId = (
 const createOperationEntity = (
   operationName: string,
   operationLabel: string,
+  SIMACompute: File,
   stask: File,
   dateRange: Date[],
   location: TLocation,
@@ -141,6 +117,10 @@ const createOperationEntity = (
       label: operationLabel,
       description: config.description,
       type: Blueprints.OPERATION,
+      SIMAComputeConnectInfo: {
+        name: SIMACompute.name,
+        type: 'system/SIMOS/Blob',
+      },
       stask: {
         type: Blueprints.STASK,
         name: stask.name,
@@ -157,7 +137,7 @@ const createOperationEntity = (
       phases: config.phases,
     },
     token,
-    [stask]
+    [stask, SIMACompute]
   )
 }
 
@@ -165,6 +145,7 @@ const onClickCreate = (
   operationMeta: TOperationMeta,
   operationLocation: TLocation,
   operationConfig: TConfig,
+  SIMACompute: File,
   stask: File,
   isNewEntity: { location: boolean; config: boolean },
   setError: Function,
@@ -188,6 +169,7 @@ const onClickCreate = (
       createOperationEntity(
         operationMeta.name,
         operationMeta.label,
+        SIMACompute,
         stask,
         operationMeta.dateRange,
         operationLocation,
@@ -242,6 +224,7 @@ const OperationCreate = (): JSX.Element => {
   }>({ location: false, config: false })
   const [operationConfig, setOperationConfig] = useState<TConfig>()
   const [sTask, setSTask] = useState<File>()
+  const [SIMACompute, setSIMACompute] = useState<File>()
   const [operationLocation, setOperationLocation] = useState<
     TLocation | undefined
   >()
@@ -308,6 +291,10 @@ const OperationCreate = (): JSX.Element => {
             setError={setError}
             setIsLoading={setIsLoading}
           />
+          <SelectSIMACompute
+            setSIMAComputeConfig={setSIMACompute}
+            setError={setError}
+          />
           <SelectSTask setSTask={setSTask} isLoading={isLoading} />
           <SelectOperationLocation
             location={operationLocation}
@@ -340,6 +327,7 @@ const OperationCreate = (): JSX.Element => {
               operationMeta,
               operationLocation,
               operationConfig,
+              SIMACompute,
               sTask,
               isNewEntity,
               setError,
@@ -350,6 +338,7 @@ const OperationCreate = (): JSX.Element => {
           disabled={
             !(
               sTask &&
+              SIMACompute &&
               operationLocation &&
               operationMeta &&
               operationConfig &&

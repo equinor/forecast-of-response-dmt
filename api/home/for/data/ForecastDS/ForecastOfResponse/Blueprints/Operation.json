@@ -15,6 +15,11 @@
       "type": "system/SIMOS/BlueprintAttribute"
     },
     {
+      "name": "SIMAComputeConnectInfo",
+      "attributeType": "system/SIMOS/Blob",
+      "type": "system/SIMOS/BlueprintAttribute"
+    },
+    {
       "name": "phases",
       "type": "system/SIMOS/BlueprintAttribute",
       "attributeType": "/Blueprints/Phase",
