@@ -62,7 +62,7 @@ export type TSimulation = {
 export type TSimulationConfig = {
   name: string
   simulations: TSimulation[]
-  variables: string[]
+  variables: TVariable[]
   simaJob: any
   published: boolean
 }
