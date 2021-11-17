@@ -119,7 +119,7 @@ function NewSimulationConfig(props: {
       .catch((e: Error) => {
         e.json().then((result: any) => {
           setVisibleCreateSimScrim(true)
-          setCreateSimError('result.message')
+          setCreateSimError(result.message)
         })
       })
   }
@@ -283,8 +283,10 @@ function SingleSimulationConfig(props: {
             <h3>Summary</h3>
             <h4>Values:</h4>
             {simulationConfig.variables.length &&
-              simulationConfig.variables.map((variable: any) => (
-                <label key={variable}>{variable}</label>
+              simulationConfig.variables.map((variable: TVariable) => (
+                <label key={variable.name}>
+                  {variable.name}: {variable.value}
+                </label>
               ))}
             <h4>Last published:</h4>
             <label>Not implemented</label>
