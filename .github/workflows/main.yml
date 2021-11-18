@@ -1,6 +1,9 @@
 name: CI
 
-on: push
+on:
+  push:
+  workflow_dispatch:
+  # Enables manually triggers
 
 env:
   WEB_IMAGE: mariner.azurecr.io/for/web:latest
