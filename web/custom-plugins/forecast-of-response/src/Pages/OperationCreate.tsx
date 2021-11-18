@@ -209,8 +209,8 @@ const onClickCreate = (
 }
 
 const OperationCreate = (): JSX.Element => {
-  const { userData, token } = useContext(AuthContext)
-  const user = userData.username
+  const { tokenData, token } = useContext(AuthContext)
+  const user = tokenData.username
   const [error, setError] = useState<string>()
   const [operationMeta, setOperationMeta] = useState<TOperationMeta>({
     name: '',

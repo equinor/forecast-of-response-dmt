@@ -39,7 +39,7 @@ export default (props: { operation: TOperation }): JSX.Element => {
   const { operation } = props
   const [viewACL, setViewACL] = useState<boolean>(false)
   const [comments, setComments] = useState<TComment[]>(operation.comments)
-  const { userData } = useContext(AuthContext)
+  const { tokenData } = useContext(AuthContext)
 
   const updateComments = (newComment: TComment) => {
     setComments([...comments, newComment])
@@ -94,7 +94,7 @@ export default (props: { operation: TOperation }): JSX.Element => {
         </LocationWrapper>
       </div>
       <Card.Actions>
-        {hasExpertRole(userData) && (
+        {hasExpertRole(tokenData) && (
           <Button
             onClick={() => {
               setViewACL(!viewACL)

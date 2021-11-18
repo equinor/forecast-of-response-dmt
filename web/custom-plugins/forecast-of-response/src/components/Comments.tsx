@@ -107,7 +107,7 @@ export const CommentInput = (props: {
 }) => {
   const { operationId, handleNewComment } = props
   const [message, setMessage] = useState<string>('')
-  const { token, userData } = useContext(AuthContext)
+  const { token, tokenData } = useContext(AuthContext)
   const dmssAPI = new DmssAPI(token)
 
   function handlePost() {
@@ -115,7 +115,7 @@ export const CommentInput = (props: {
     const newComment = {
       name: poorMansUUID(),
       type: Blueprints.Comment,
-      author: userData.username,
+      author: tokenData.username,
       date: new Date().toISOString(),
       message: message,
     }
