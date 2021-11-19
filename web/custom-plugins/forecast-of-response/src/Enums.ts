@@ -19,13 +19,13 @@ export enum ACLEnum {
 }
 
 export enum Blueprints {
-  OPERATION = 'ForecastDS/ForecastOfResponse/Blueprints/Operation',
-  Comment = 'ForecastDS/ForecastOfResponse/Blueprints/Comment',
-  SIMULATION = 'ForecastDS/ForecastOfResponse/Blueprints/Simulation',
-  SIMULATION_CONFIG = 'ForecastDS/ForecastOfResponse/Blueprints/SimulationConfig',
-  VARIABLE = 'ForecastDS/ForecastOfResponse/Blueprints/Variable',
+  OPERATION = 'ForecastDS/FoR-BP/Blueprints/Operation',
+  Comment = 'ForecastDS/FoR-BP/Blueprints/Comment',
+  SIMULATION = 'ForecastDS/FoR-BP/Blueprints/Simulation',
+  SIMULATION_CONFIG = 'ForecastDS/FoR-BP/Blueprints/SimulationConfig',
+  VARIABLE = 'ForecastDS/FoR-BP/Blueprints/Variable',
   AZ_CONTAINER_JOB = 'DMT-Internal/DMT/AzureContainerInstanceJob',
-  LOCATION = 'ForecastDS/ForecastOfResponse/Blueprints/Location',
-  STASK = 'ForecastDS/ForecastOfResponse/Blueprints/STask',
-  CONFIG = 'ForecastDS/ForecastOfResponse/Blueprints/Config',
+  LOCATION = 'ForecastDS/FoR-BP/Blueprints/Location',
+  STASK = 'ForecastDS/FoR-BP/Blueprints/STask',
+  CONFIG = 'ForecastDS/FoR-BP/Blueprints/Config',
 }

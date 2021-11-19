@@ -40,7 +40,7 @@ services:
       args:
         DMT_VERSION:-latest: ${DMT_VERSION:-latest}
         REDIRECT_URI: http://localhost:9000/
-        AUTH_ENABLED: 0
+        AUTH_ENABLED: 1
         AUTH_SCOPE: api://ee7dbf49-e358-4c9c-a7e4-fb6d56c02205/FoR_test_scope
         CLIENT_ID: ee7dbf49-e358-4c9c-a7e4-fb6d56c02205
     stdin_open: true

@@ -1,36 +1,36 @@
  {
   "name": "ExampleConfigMinimal",
-  "type": "ForecastDS/ForecastOfResponse/Blueprints/Config",
+  "type": "ForecastDS/FoR-BP/Blueprints/Config",
   "simaVersion": "1.2.3-rc",
   "description": "some description",
   "phases": [
     {
       "name": "phase1",
-      "type": "ForecastDS/ForecastOfResponse/Blueprints/Phase",
+      "type": "ForecastDS/FoR-BP/Blueprints/Phase",
       "defaultVariables": [
                                 {
-              "type": "/Blueprints/Variable",
+              "type": "ForecastDS/FoR-BP/Blueprints/Variable",
               "name": "WaveHeight",
               "value": "1.12",
               "valueType":  "string",
               "unit": "meters"
             },
             {
-              "type": "/Blueprints/Variable",
+              "type": "ForecastDS/FoR-BP/Blueprints/Variable",
               "name": "WaveDirection",
               "value": "90",
               "valueType":  "string",
               "unit": "degrees"
             },
             {
-              "type": "/Blueprints/Variable",
+              "type": "ForecastDS/FoR-BP/Blueprints/Variable",
               "name": "Thrusters",
               "value": "5",
               "valueType":  "string",
               "unit": "unit"
             },
             {
-              "type": "/Blueprints/Variable",
+              "type": "ForecastDS/FoR-BP/Blueprints/Variable",
               "name": "VariableName",
               "value": "VaiableValue",
               "valueType":  "string",

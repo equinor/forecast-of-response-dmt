@@ -1,12 +1,12 @@
 import { DmssAPI } from '@dmt/common'
-import { DEFAULT_DATASOURCE_ID, DEFAULT_DIRECTORY } from '../const'
+import { DEFAULT_DATASOURCE_ID, ENTITIES } from '../const'
 
 export const addToPath = (
   body: any,
   token: string,
   files: Blob[] = [],
   dataSourceId: string = DEFAULT_DATASOURCE_ID,
-  directory: string = DEFAULT_DIRECTORY
+  directory: string = ENTITIES
 ): Promise<string> => {
   const dmssAPI = new DmssAPI(token)
 

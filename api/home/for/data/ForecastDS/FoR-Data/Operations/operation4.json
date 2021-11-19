@@ -2,7 +2,7 @@
   "_id": "26a4d888-3ab4-4ad2-9bd9-9614dcb066d5",
   "name": "TestMotor",
   "label": "test motor",
-  "type": "/Blueprints/Operation",
+  "type": "ForecastDS/FoR-BP/Blueprints/Operation",
   "description": "an example operation",
   "stask": {
   },
@@ -10,7 +10,7 @@
   "location": {
     "_id": "gullfaks-location",
     "name": "Gullfaks",
-    "type": "/Blueprints/Location"
+    "type": "ForecastDS/FoR-BP/Blueprints/Location"
   },
   "start": "2021-07-25 13:45:37.352574",
   "end": "2021-08-14 13:45:37.352574",
@@ -19,7 +19,7 @@
     {
       "_id": "comment1",
       "name": "comment1",
-      "type": "/Blueprints/Comment"
+      "type": "ForecastDS/FoR-BP/Blueprints/Comment"
     }
   ],
   "phases": []

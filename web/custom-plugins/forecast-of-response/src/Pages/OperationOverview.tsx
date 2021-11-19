@@ -9,8 +9,7 @@ import styled from 'styled-components'
 import { AuthContext } from '@dmt/common'
 import DateRangePicker from '../components/DateRangePicker'
 import Grid from '../components/App/Grid'
-import { OperationStatus } from '../Enums'
-import { DEFAULT_DATASOURCE_ID, DEFAULT_DIRECTORY } from '../const'
+import { Blueprints, OperationStatus } from '../Enums'
 import { hasExpertRole } from '../utils/auth'
 
 const GridContainer = styled.div`
@@ -40,7 +39,7 @@ const OperationOverview = (props: DmtSettings): JSX.Element => {
     'My operations',
   ]
   const [searchResult, isLoadingSearch, hasError] = useSearch(
-    `${DEFAULT_DATASOURCE_ID}/${DEFAULT_DIRECTORY}/Blueprints/Operation`
+    Blueprints.OPERATION
   )
 
   const filterOperationsByStatus = (tabIndex: number) => {

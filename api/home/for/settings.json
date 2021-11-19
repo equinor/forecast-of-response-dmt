@@ -6,11 +6,11 @@
   "visibleDataSources": ["ForecastDS"],
   "type": "system/SIMOS/Application",
   "description": "Forecast of Response app",
-  "packages": ["ForecastDS/ForecastOfResponse", "ForecastDS/FoR-Entities"],
+  "packages": ["ForecastDS/FoR-BP", "ForecastDS/FoR-Data"],
   "models": [
-    "ForecastDS/ForecastOfResponse/Blueprints/Operation",
-    "ForecastDS/ForecastOfResponse/Blueprints/Location",
-    "ForecastDS/ForecastOfResponse/Blueprints/Config"
+    "ForecastDS/FoR-BP/Blueprints/Operation",
+    "ForecastDS/FoR-BP/Blueprints/Location",
+    "ForecastDS/FoR-BP/Blueprints/Config"
   ],
   "actions": []
 }
