@@ -1,7 +1,7 @@
 {
   "_id": "comment2",
   "name": "comment2",
-  "type": "/Blueprints/Comment",
+  "type": "ForecastDS/FoR-BP/Blueprints/Comment",
   "author": "netr0m",
   "date": "2021-06-25 13:45:37.352574",
   "message": "Integer tristique et est eget tincidunt. Mauris mattis ultrices orci quis vulputate. Praesent enim magna, pulvinar ut eleifend eu, ornare nec arcu. Duis id magna vel leo venenatis interdum at iaculis enim. Quisque eu iaculis nibh. Curabitur et metus"

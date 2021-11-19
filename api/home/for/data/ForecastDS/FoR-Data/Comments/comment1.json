@@ -1,7 +1,7 @@
 {
   "_id": "comment1",
   "name": "comment1",
-  "type": "/Blueprints/Comment",
+  "type": "ForecastDS/FoR-BP/Blueprints/Comment",
   "author": "eaks",
   "date": "2021-06-25 13:45:37.352574",
   "message": "Ongoing"

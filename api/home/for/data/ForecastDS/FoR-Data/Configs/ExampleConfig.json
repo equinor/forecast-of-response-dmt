@@ -1,39 +1,39 @@
  {
   "_id": "example-cfg",
   "name": "ExampleConfig",
-  "type": "ForecastDS/ForecastOfResponse/Blueprints/Config",
+  "type": "ForecastDS/FoR-BP/Blueprints/Config",
   "simaVersion": "1.2.3-rc",
   "description": "some description",
   "phases": [
     {
       "name": "phase1",
-      "type": "ForecastDS/ForecastOfResponse/Blueprints/Phase",
+      "type": "ForecastDS/FoR-BP/Blueprints/Phase",
       "start": "2021-06-25 13:45:37.352574",
       "end": "2021-06-27 13:45:37.352574",
       "defaultVariables": [
                                 {
-              "type": "/Blueprints/Variable",
+              "type": "ForecastDS/FoR-BP/Blueprints/Variable",
               "name": "WaveHeight",
               "value": "0.12",
               "valueType":  "string",
               "unit": "meters"
             },
             {
-              "type": "/Blueprints/Variable",
+              "type": "ForecastDS/FoR-BP/Blueprints/Variable",
               "name": "WaveDirection",
               "value": "30",
               "valueType":  "string",
               "unit": "degrees"
             },
             {
-              "type": "/Blueprints/Variable",
+              "type": "ForecastDS/FoR-BP/Blueprints/Variable",
               "name": "Thrusters",
               "value": "2",
               "valueType":  "string",
               "unit": "unit"
             },
             {
-              "type": "/Blueprints/Variable",
+              "type": "ForecastDS/FoR-BP/Blueprints/Variable",
               "name": "VariableName",
               "value": "VaiableValue",
               "valueType":  "string",
@@ -43,7 +43,7 @@
       "status": "Ongoing",
       "activeForecast": {
         "name": "test1",
-        "type": "ForecastDS/ForecastOfResponse/Blueprints/Simulation",
+        "type": "ForecastDS/FoR-BP/Blueprints/Simulation",
         "description": "",
         "progress": "Running",
         "result": {},
@@ -53,31 +53,31 @@
       "workflowTask": "someTask",
       "simulationConfigs": [{
         "name": "test1config",
-        "type": "ForecastDS/ForecastOfResponse/Blueprints/SimulationConfig",
+        "type": "ForecastDS/FoR-BP/Blueprints/SimulationConfig",
         "variables": [
                                           {
-              "type": "/Blueprints/Variable",
+              "type": "ForecastDS/FoR-BP/Blueprints/Variable",
               "name": "WaveHeight",
               "value": "0.6",
               "valueType":  "string",
               "unit": "meters"
             },
             {
-              "type": "/Blueprints/Variable",
+              "type": "ForecastDS/FoR-BP/Blueprints/Variable",
               "name": "WaveDirection",
               "value": "90",
               "valueType":  "string",
               "unit": "degrees"
             },
             {
-              "type": "/Blueprints/Variable",
+              "type": "ForecastDS/FoR-BP/Blueprints/Variable",
               "name": "Thrusters",
               "value": "5",
               "valueType":  "string",
               "unit": "unit"
             },
             {
-              "type": "/Blueprints/Variable",
+              "type": "ForecastDS/FoR-BP/Blueprints/Variable",
               "name": "VariableName",
               "value": "VaiableValue",
               "valueType":  "string",

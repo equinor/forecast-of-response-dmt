@@ -1,28 +1,28 @@
 {
   "_id": "be81daa9-9787-462e-b92b-104f71b80701",
-  "type": "ForecastDS/ForecastOfResponse/Blueprints/ResultFile",
+  "type": "ForecastDS/FoR-BP/Blueprints/ResultFile",
   "name": "exampleResult",
   "variableRuns": [
     {
-      "type": "ForecastDS/ForecastOfResponse/Blueprints/VariableRun",
+      "type": "ForecastDS/FoR-BP/Blueprints/VariableRun",
       "name": "variableRun1",
       "variables": [
         {
-          "type": "ForecastDS/ForecastOfResponse/Blueprints/Variable",
+          "type": "ForecastDS/FoR-BP/Blueprints/Variable",
           "name": "heading",
           "value": "30",
           "valueType": "number",
           "unit": "deg"
         },
         {
-          "type": "ForecastDS/ForecastOfResponse/Blueprints/Variable",
+          "type": "ForecastDS/FoR-BP/Blueprints/Variable",
           "name": "nthrusters",
           "value": "3",
           "valueType": "integer",
           "unit": "-"
         },
         {
-          "type": "ForecastDS/ForecastOfResponse/Blueprints/Variable",
+          "type": "ForecastDS/FoR-BP/Blueprints/Variable",
           "name": "dp_on",
           "value": "true",
           "valueType": "boolean",
@@ -31,11 +31,11 @@
       ],
       "responses": [
         {
-          "type": "ForecastDS/ForecastOfResponse/Blueprints/Response",
+          "type": "ForecastDS/FoR-BP/Blueprints/Response",
           "name": "x-error",
           "statistics": [
             {
-              "type": "ForecastDS/ForecastOfResponse/Blueprints/Timeseries",
+              "type": "ForecastDS/FoR-BP/Blueprints/Timeseries",
               "name": "mean",
               "datetimes": [
                 "24/Dec/2018, 03:30:00",
@@ -48,7 +48,7 @@
               "unit": "m"
             },
             {
-              "type": "ForecastDS/ForecastOfResponse/Blueprints/Timeseries",
+              "type": "ForecastDS/FoR-BP/Blueprints/Timeseries",
               "name": "std",
               "datetimes": [
                 "24/Dec/2018, 03:30:00",
@@ -63,11 +63,11 @@
           ]
         },
         {
-          "type": "ForecastDS/ForecastOfResponse/Blueprints/Response",
+          "type": "ForecastDS/FoR-BP/Blueprints/Response",
           "name": "y-error",
           "statistics": [
             {
-              "type": "ForecastDS/ForecastOfResponse/Blueprints/Timeseries",
+              "type": "ForecastDS/FoR-BP/Blueprints/Timeseries",
               "name": "mean",
               "datetimes": [
                 "24/Dec/2018, 03:30:00",
@@ -80,7 +80,7 @@
               "unit": "m"
             },
             {
-              "type": "ForecastDS/ForecastOfResponse/Blueprints/Timeseries",
+              "type": "ForecastDS/FoR-BP/Blueprints/Timeseries",
               "name": "std",
               "datetimes": [
                 "24/Dec/2018, 03:30:00",
@@ -97,25 +97,25 @@
       ]
     },
     {
-      "type": "ForecastDS/ForecastOfResponse/Blueprints/VariableRun",
+      "type": "ForecastDS/FoR-BP/Blueprints/VariableRun",
       "name": "variableRun2",
       "variables": [
         {
-          "type": "ForecastDS/ForecastOfResponse/Blueprints/Variable",
+          "type": "ForecastDS/FoR-BP/Blueprints/Variable",
           "name": "heading",
           "value": "60",
           "valueType": "number",
           "unit": "deg"
         },
         {
-          "type": "ForecastDS/ForecastOfResponse/Blueprints/Variable",
+          "type": "ForecastDS/FoR-BP/Blueprints/Variable",
           "name": "nthrusters",
           "value": "3",
           "valueType": "integer",
           "unit": "-"
         },
         {
-          "type": "ForecastDS/ForecastOfResponse/Blueprints/Variable",
+          "type": "ForecastDS/FoR-BP/Blueprints/Variable",
           "name": "dp_on",
           "value": "true",
           "valueType": "boolean",
@@ -124,11 +124,11 @@
       ],
       "responses": [
         {
-          "type": "ForecastDS/ForecastOfResponse/Blueprints/Response",
+          "type": "ForecastDS/FoR-BP/Blueprints/Response",
           "name": "x-error",
           "statistics": [
             {
-              "type": "ForecastDS/ForecastOfResponse/Blueprints/Timeseries",
+              "type": "ForecastDS/FoR-BP/Blueprints/Timeseries",
               "name": "mean",
               "datetimes": [
                 "24/Dec/2018, 03:30:00",
@@ -141,7 +141,7 @@
               "unit": "m"
             },
             {
-              "type": "ForecastDS/ForecastOfResponse/Blueprints/Timeseries",
+              "type": "ForecastDS/FoR-BP/Blueprints/Timeseries",
               "name": "std",
               "datetimes": [
                 "24/Dec/2018, 03:30:00",
@@ -156,11 +156,11 @@
           ]
         },
         {
-          "type": "ForecastDS/ForecastOfResponse/Blueprints/Response",
+          "type": "ForecastDS/FoR-BP/Blueprints/Response",
           "name": "y-error",
           "statistics": [
             {
-              "type": "ForecastDS/ForecastOfResponse/Blueprints/Timeseries",
+              "type": "ForecastDS/FoR-BP/Blueprints/Timeseries",
               "name": "mean",
               "datetimes": [
                 "24/Dec/2018, 03:30:00",
@@ -173,7 +173,7 @@
               "unit": "m"
             },
             {
-              "type": "ForecastDS/ForecastOfResponse/Blueprints/Timeseries",
+              "type": "ForecastDS/FoR-BP/Blueprints/Timeseries",
               "name": "std",
               "datetimes": [
                 "24/Dec/2018, 03:30:00",
@@ -190,25 +190,25 @@
       ]
     },
     {
-      "type": "ForecastDS/ForecastOfResponse/Blueprints/VariableRun",
+      "type": "ForecastDS/FoR-BP/Blueprints/VariableRun",
       "name": "variableRun3",
       "variables": [
         {
-          "type": "ForecastDS/ForecastOfResponse/Blueprints/Variable",
+          "type": "ForecastDS/FoR-BP/Blueprints/Variable",
           "name": "heading",
           "value": "90",
           "valueType": "number",
           "unit": "deg"
         },
         {
-          "type": "ForecastDS/ForecastOfResponse/Blueprints/Variable",
+          "type": "ForecastDS/FoR-BP/Blueprints/Variable",
           "name": "nthrusters",
           "value": "3",
           "valueType": "integer",
           "unit": "-"
         },
         {
-          "type": "ForecastDS/ForecastOfResponse/Blueprints/Variable",
+          "type": "ForecastDS/FoR-BP/Blueprints/Variable",
           "name": "dp_on",
           "value": "true",
           "valueType": "boolean",
@@ -217,11 +217,11 @@
       ],
       "responses": [
         {
-          "type": "ForecastDS/ForecastOfResponse/Blueprints/Response",
+          "type": "ForecastDS/FoR-BP/Blueprints/Response",
           "name": "x-error",
           "statistics": [
             {
-              "type": "ForecastDS/ForecastOfResponse/Blueprints/Timeseries",
+              "type": "ForecastDS/FoR-BP/Blueprints/Timeseries",
               "name": "mean",
               "datetimes": [
                 "24/Dec/2018, 03:30:00",
@@ -234,7 +234,7 @@
               "unit": "m"
             },
             {
-              "type": "ForecastDS/ForecastOfResponse/Blueprints/Timeseries",
+              "type": "ForecastDS/FoR-BP/Blueprints/Timeseries",
               "name": "std",
               "datetimes": [
                 "24/Dec/2018, 03:30:00",
@@ -249,11 +249,11 @@
           ]
         },
         {
-          "type": "ForecastDS/ForecastOfResponse/Blueprints/Response",
+          "type": "ForecastDS/FoR-BP/Blueprints/Response",
           "name": "y-error",
           "statistics": [
             {
-              "type": "ForecastDS/ForecastOfResponse/Blueprints/Timeseries",
+              "type": "ForecastDS/FoR-BP/Blueprints/Timeseries",
               "name": "mean",
               "datetimes": [
                 "24/Dec/2018, 03:30:00",
@@ -266,7 +266,7 @@
               "unit": "m"
             },
             {
-              "type": "ForecastDS/ForecastOfResponse/Blueprints/Timeseries",
+              "type": "ForecastDS/FoR-BP/Blueprints/Timeseries",
               "name": "std",
               "datetimes": [
                 "24/Dec/2018, 03:30:00",
@@ -283,25 +283,25 @@
       ]
     },
     {
-      "type": "ForecastDS/ForecastOfResponse/Blueprints/VariableRun",
+      "type": "ForecastDS/FoR-BP/Blueprints/VariableRun",
       "name": "variableRun4",
       "variables": [
         {
-          "type": "ForecastDS/ForecastOfResponse/Blueprints/Variable",
+          "type": "ForecastDS/FoR-BP/Blueprints/Variable",
           "name": "heading",
           "value": "30",
           "valueType": "number",
           "unit": "deg"
         },
         {
-          "type": "ForecastDS/ForecastOfResponse/Blueprints/Variable",
+          "type": "ForecastDS/FoR-BP/Blueprints/Variable",
           "name": "nthrusters",
           "value": "4",
           "valueType": "integer",
           "unit": "-"
         },
         {
-          "type": "ForecastDS/ForecastOfResponse/Blueprints/Variable",
+          "type": "ForecastDS/FoR-BP/Blueprints/Variable",
           "name": "dp_on",
           "value": "true",
           "valueType": "boolean",
@@ -310,11 +310,11 @@
       ],
       "responses": [
         {
-          "type": "ForecastDS/ForecastOfResponse/Blueprints/Response",
+          "type": "ForecastDS/FoR-BP/Blueprints/Response",
           "name": "x-error",
           "statistics": [
             {
-              "type": "ForecastDS/ForecastOfResponse/Blueprints/Timeseries",
+              "type": "ForecastDS/FoR-BP/Blueprints/Timeseries",
               "name": "mean",
               "datetimes": [
                 "24/Dec/2018, 03:30:00",
@@ -327,7 +327,7 @@
               "unit": "m"
             },
             {
-              "type": "ForecastDS/ForecastOfResponse/Blueprints/Timeseries",
+              "type": "ForecastDS/FoR-BP/Blueprints/Timeseries",
               "name": "std",
               "datetimes": [
                 "24/Dec/2018, 03:30:00",
@@ -342,11 +342,11 @@
           ]
         },
         {
-          "type": "ForecastDS/ForecastOfResponse/Blueprints/Response",
+          "type": "ForecastDS/FoR-BP/Blueprints/Response",
           "name": "y-error",
           "statistics": [
             {
-              "type": "ForecastDS/ForecastOfResponse/Blueprints/Timeseries",
+              "type": "ForecastDS/FoR-BP/Blueprints/Timeseries",
               "name": "mean",
               "datetimes": [
                 "24/Dec/2018, 03:30:00",
@@ -359,7 +359,7 @@
               "unit": "m"
             },
             {
-              "type": "ForecastDS/ForecastOfResponse/Blueprints/Timeseries",
+              "type": "ForecastDS/FoR-BP/Blueprints/Timeseries",
               "name": "std",
               "datetimes": [
                 "24/Dec/2018, 03:30:00",
@@ -376,25 +376,25 @@
       ]
     },
     {
-      "type": "ForecastDS/ForecastOfResponse/Blueprints/VariableRun",
+      "type": "ForecastDS/FoR-BP/Blueprints/VariableRun",
       "name": "variableRun5",
       "variables": [
         {
-          "type": "ForecastDS/ForecastOfResponse/Blueprints/Variable",
+          "type": "ForecastDS/FoR-BP/Blueprints/Variable",
           "name": "heading",
           "value": "30",
           "valueType": "number",
           "unit": "deg"
         },
         {
-          "type": "ForecastDS/ForecastOfResponse/Blueprints/Variable",
+          "type": "ForecastDS/FoR-BP/Blueprints/Variable",
           "name": "nthrusters",
           "value": "5",
           "valueType": "integer",
           "unit": "-"
         },
         {
-          "type": "ForecastDS/ForecastOfResponse/Blueprints/Variable",
+          "type": "ForecastDS/FoR-BP/Blueprints/Variable",
           "name": "dp_on",
           "value": "true",
           "valueType": "boolean",
@@ -403,11 +403,11 @@
       ],
       "responses": [
         {
-          "type": "ForecastDS/ForecastOfResponse/Blueprints/Response",
+          "type": "ForecastDS/FoR-BP/Blueprints/Response",
           "name": "x-error",
           "statistics": [
             {
-              "type": "ForecastDS/ForecastOfResponse/Blueprints/Timeseries",
+              "type": "ForecastDS/FoR-BP/Blueprints/Timeseries",
               "name": "mean",
               "datetimes": [
                 "24/Dec/2018, 03:30:00",
@@ -420,7 +420,7 @@
               "unit": "m"
             },
             {
-              "type": "ForecastDS/ForecastOfResponse/Blueprints/Timeseries",
+              "type": "ForecastDS/FoR-BP/Blueprints/Timeseries",
               "name": "std",
               "datetimes": [
                 "24/Dec/2018, 03:30:00",
@@ -435,11 +435,11 @@
           ]
         },
         {
-          "type": "ForecastDS/ForecastOfResponse/Blueprints/Response",
+          "type": "ForecastDS/FoR-BP/Blueprints/Response",
           "name": "y-error",
           "statistics": [
             {
-              "type": "ForecastDS/ForecastOfResponse/Blueprints/Timeseries",
+              "type": "ForecastDS/FoR-BP/Blueprints/Timeseries",
               "name": "mean",
               "datetimes": [
                 "24/Dec/2018, 03:30:00",
@@ -452,7 +452,7 @@
               "unit": "m"
             },
             {
-              "type": "ForecastDS/ForecastOfResponse/Blueprints/Timeseries",
+              "type": "ForecastDS/FoR-BP/Blueprints/Timeseries",
               "name": "std",
               "datetimes": [
                 "24/Dec/2018, 03:30:00",
@@ -471,11 +471,11 @@
   ],
   "comparisonGroups": [
     {
-      "type": "ForecastDS/ForecastOfResponse/Blueprints/ComparisonGroups",
+      "type": "ForecastDS/FoR-BP/Blueprints/ComparisonGroups",
       "name": "headingVariation"
     },
     {
-      "type": "ForecastDS/ForecastOfResponse/Blueprints/ComparisonGroups",
+      "type": "ForecastDS/FoR-BP/Blueprints/ComparisonGroups",
       "name": "thrusterVariation"
     }
   ]
