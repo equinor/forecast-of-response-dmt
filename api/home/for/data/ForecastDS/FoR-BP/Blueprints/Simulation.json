@@ -25,7 +25,7 @@
     {
       "name": "result",
       "type": "system/SIMOS/BlueprintAttribute",
-      "type": "ForecastDS/FoR-BP/Blueprints/ResultFile",
+      "attributeType": "ForecastDS/FoR-BP/Blueprints/ResultFile",
       "optional": true,
       "contained": false
     },
