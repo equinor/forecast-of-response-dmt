@@ -103,8 +103,8 @@
               "started": "2021-06-25 13:45:37.352574",
               "ended": "2021-06-25 16:22:10",
               "result": {
-                "type": "ForecastDS/FoR-BP/Blueprints/ResultFile",
-                "_id": "be81daa9-9787-462e-b92b-104f71b80701"
+                "type": "/Blueprints/ResultFile",
+                "_id": "cf81daa9-9787-462e-b92b-104f71b80712"
               }
             },
             {

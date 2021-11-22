@@ -3,27 +3,25 @@ import {
   CartesianGrid,
   Legend,
   Line,
-  LineChart,
+  ComposedChart,
   ReferenceLine,
   ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
+  Area,
 } from 'recharts'
 import { plotColors } from '../Design/Colors'
+import { PlotType, TGraphNames } from '../Result'
 
 export type TLineChartDataPoint = {
   name: string
   [key: string]: number
 }
 
-export type TLineChartData = {
-  data: TLineChartDataPoint[]
-}
-
 export default (props: {
-  data: TLineChartData
-  graphNames: string[]
+  data: TLineChartDataPoint[]
+  graphNames: TGraphNames[]
   warningLine: number
   MaxLine: number
 }): JSX.Element => {
@@ -34,7 +32,7 @@ export default (props: {
       style={{ width: '100%', height: '300px', border: 'darkgrey 1px solid' }}
     >
       <ResponsiveContainer width="100%" height="100%">
-        <LineChart data={data}>
+        <ComposedChart data={data}>
           <CartesianGrid strokeDasharray="2 2" />
           <XAxis dataKey="timestamp" />
           <YAxis unit="m" />
@@ -44,15 +42,29 @@ export default (props: {
           <ReferenceLine y={MaxLine} stroke="red" label="Max" />
           <ReferenceLine y={warningLine} stroke="orange" label="Warning" />
           {graphNames &&
-            graphNames.map((dataKey: string, index) => (
-              <Line
-                key={index}
-                type="monotone"
-                dataKey={dataKey}
-                stroke={plotColors[index]}
-              />
-            ))}
-        </LineChart>
+            graphNames.map((graphName: TGraphNames, index) => {
+              if (graphName.plotType === PlotType.LINE) {
+                return (
+                  <Line
+                    key={index}
+                    type="monotone"
+                    dataKey={graphName.name}
+                    stroke={plotColors[index]}
+                  />
+                )
+              }
+              if (graphName.plotType === PlotType.SHADED) {
+                return (
+                  <Area
+                    key={index}
+                    dataKey={graphName.name}
+                    stroke={plotColors[index]}
+                    fill={plotColors[index]}
+                  />
+                )
+              }
+            })}
+        </ComposedChart>
       </ResponsiveContainer>
     </div>
   )

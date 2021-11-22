@@ -34,7 +34,7 @@ function GraphSelect(props: {
   variableRuns: any[]
   chartData: any
   setChartData: Function
-  graphNames: string[]
+  graphNames: TGraphNames[]
   setGraphNames: Function
 }) {
   const {
@@ -58,25 +58,42 @@ function GraphSelect(props: {
     const statisticName = `${variableRuns[run].responses[response].statistics[statistic].name}`
     const plotName = `${runName}-${responseName}-${statisticName}`
 
-    if (graphNames.includes(plotName)) return // Skip if trying to add an existing plot
+    if (graphNames.map((graph) => graph.name).includes(plotName)) return // Skip if trying to add an existing plot
     let newDataDict: any = {}
 
     // Create a object for the chartData array (so we can lookup on timestamp)
-    chartData.forEach((dataPoint: any) => {
-      newDataDict[dataPoint.timestamp] = dataPoint
-    })
+    chartData.forEach(
+      (dataPoint: any) => (newDataDict[dataPoint.timestamp] = dataPoint)
+    )
 
     // Add the new values into the possibly existing timestamp (x-axis), spreading any existing values into it
     result.datetimes.forEach((timestamp: string, index: number) => {
       let newDataPoint: TLineChartDataPoint = newDataDict[timestamp]
-      newDataPoint = {
-        timestamp: timestamp,
-        [plotName]: result.values[index],
-        ...newDataDict[timestamp],
+      if (result?.plotType == 'shaded') {
+        // For AreaChart(shaded), there are twice as many values (upper and lower), as timestamps.
+        // Value @ index 1 is lower value for upper value found at index=values.length/2+index
+        newDataPoint = {
+          timestamp: timestamp,
+          [plotName]: [
+            result.values[index],
+            result.values[result.values.length / 2 + index],
+          ],
+          ...newDataDict[timestamp],
+        }
+      } else {
+        newDataPoint = {
+          timestamp: timestamp,
+          [plotName]: result.values[index],
+          ...newDataDict[timestamp],
+        }
       }
       newDataDict[timestamp] = newDataPoint
     })
-    setGraphNames([...graphNames, plotName])
+
+    setGraphNames([
+      ...graphNames,
+      { name: plotName, plotType: result?.plotType },
+    ])
     setChartData(Object.values(newDataDict))
   }
 
@@ -112,9 +129,19 @@ function GraphSelect(props: {
   )
 }
 
+export enum PlotType {
+  SHADED = 'shaded',
+  LINE = 'line',
+}
+
+export type TGraphNames = {
+  name: string
+  plotType: PlotType
+}
+
 export default (props: { result: any }) => {
   const { result } = props
-  const [graphNames, setGraphNames] = useState<string[]>([])
+  const [graphNames, setGraphNames] = useState<TGraphNames[]>([])
   const [variableRuns, setVariableRuns] = useState<any[]>([])
   const [chartData, setChartData] = useState<TLineChartDataPoint[]>([])
   const [document, isLoading, updateDocument, error] = useDocument(
@@ -135,7 +162,7 @@ export default (props: { result: any }) => {
       newDataDict[dataPoint.timestamp] = dataPoint
     })
 
-    setGraphNames(graphNames.filter((existingName) => name !== existingName))
+    setGraphNames(graphNames.filter((graph) => name !== graph.name))
     setChartData(Object.values(newDataDict))
   }
 
@@ -160,15 +187,15 @@ export default (props: { result: any }) => {
         />
         {graphNames.length >= 1 && (
           <AddedGraphWrapper>
-            {graphNames.map((name, index) => (
+            {graphNames.map((graph, index) => (
               <Chip
                 key={index}
                 style={{ margin: '10px 5px' }}
                 variant="active"
-                onDelete={() => removeGraph(name)}
+                onDelete={() => removeGraph(graph.name)}
               >
                 <IconWrapper color={plotColors[index]}>&#9679;</IconWrapper>
-                {name}
+                {graph.name}
               </Chip>
             ))}
           </AddedGraphWrapper>
