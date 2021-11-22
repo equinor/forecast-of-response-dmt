@@ -217,7 +217,7 @@ function SingleSimulationConfig(props: {
           '/code/init.sh',
           `--stask=${DEFAULT_DATASOURCE_ID}/${stask.blob._blob_id}`,
           `--workflow=${stask.workflowTask}`,
-          '--input=waveDir=180',
+          '--input=ForecastDS/8ec0d646-907c-4eba-9e65-24106236d61c',
           `--target=${DEFAULT_DATASOURCE_ID}/${dottedId}.simulations.${simulationConfig.simulations.length}.results`,
         ],
       },

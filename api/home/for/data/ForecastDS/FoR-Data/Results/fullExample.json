@@ -1,6 +1,6 @@
 {
   "_id": "cf81daa9-9787-462e-b92b-104f71b80712",
-  "type": "ForecastDS/ForecastOfResponse/Blueprints/ResultFile",
+  "type": "ForecastDS/FoR-BP/Blueprints/ResultFile",
   "name": "VisundEnsembleResults_2019090100",
   "description": "Results",
   "variableRuns": [
