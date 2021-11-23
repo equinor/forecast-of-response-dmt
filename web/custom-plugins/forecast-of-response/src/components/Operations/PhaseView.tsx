@@ -88,17 +88,21 @@ function NewSimulationConfig(props: {
   dottedId: string
   setVisibleCreateSimScrim: (isVisible: boolean) => void
   setCreateSimError: (message: string) => void
+  setSimulationConfigs: (simConfig: TSimulationConfig[]) => void
+  simulationConfigs: TSimulationConfig[]
 }) {
   const {
     defaultVars,
     dottedId,
     setVisibleCreateSimScrim,
     setCreateSimError,
+    setSimulationConfigs,
+    simulationConfigs,
   } = props
   const [variables, setVariables] = useState<TVariable[]>(
     defaultVars.map((vari) => ({ ...vari }))
   )
-  const [simConfigName, setSimConfigName] = useState<string>('New Simulation')
+  const [simConfigName, setSimConfigName] = useState<string>('')
   const { token } = useContext(AuthContext)
   const dmssAPI = new DmssAPI(token)
 
@@ -112,10 +116,22 @@ function NewSimulationConfig(props: {
         dottedId: `${dottedId}`,
         body: {
           type: Blueprints.SIMULATION_CONFIG,
-          name: simConfigName,
+          name: simConfigName !== '' ? simConfigName : 'New Simulation',
           variables: variables,
         },
       })
+      .then(
+        setSimulationConfigs([
+          ...simulationConfigs,
+          {
+            name: simConfigName,
+            simulations: [],
+            variables: variables,
+            simaJob: {},
+            published: false,
+          },
+        ])
+      )
       .catch((e: Error) => {
         e.json().then((result: any) => {
           setVisibleCreateSimScrim(true)
@@ -126,7 +142,7 @@ function NewSimulationConfig(props: {
 
   function resetValues() {
     setVariables(defaultVars.map((vari) => ({ ...vari })))
-    setSimConfigName('New Simulation')
+    setSimConfigName('')
     setCreateSimError('')
   }
 
@@ -135,6 +151,7 @@ function NewSimulationConfig(props: {
       <TextField
         id="simulation-name"
         placeholder="Label your simulation config"
+        value={simConfigName}
         style={{ borderRadius: '5px', margin: '10px', width: 'inherit' }}
         onChange={(event): Event => setSimConfigName(event.target.value)}
       />
@@ -363,22 +380,22 @@ function SingleSimulationConfig(props: {
 }
 
 function SimulationConfigList(props: {
+  setSimulationConfigs: (simConfig: TSimulationConfig[]) => void
   simulationConfigs: TSimulationConfig[]
   dottedId: string
   stask: TStask
 }) {
-  const { simulationConfigs, dottedId, stask } = props
+  const { setSimulationConfigs, simulationConfigs, dottedId, stask } = props
   const { token } = useContext(AuthContext)
   const dmssAPI = new DmssAPI(token)
-  const [simConfigs, setSimConfigs] = useState<TSimulationConfig[]>(
-    simulationConfigs
-  )
 
   function publishSimulation(simIndex: number): void {
-    const updatedSimConfs = simConfigs.map((conf: TSimulationConfig, index) => {
-      conf.published = index === simIndex
-      return conf
-    })
+    const updatedSimConfs = simulationConfigs.map(
+      (conf: TSimulationConfig, index) => {
+        conf.published = index === simIndex
+        return conf
+      }
+    )
     dmssAPI
       .updateDocumentById({
         dataSourceId: DEFAULT_DATASOURCE_ID,
@@ -386,14 +403,14 @@ function SimulationConfigList(props: {
         data: JSON.stringify(updatedSimConfs),
         attribute: dottedId.split('.').slice(1).join('.'),
       })
-      .then(() => setSimConfigs(updatedSimConfs))
+      .then(() => setSimulationConfigs(updatedSimConfs))
       .catch((error: any) => console.error(error))
   }
 
   return (
     <div>
       <Accordion>
-        {Object.values(simConfigs).map(
+        {Object.values(simulationConfigs).map(
           (simulationConfig: TSimulationConfig, index: number) => (
             <Accordion.Item key={index} isExpanded={index === 0}>
               <Accordion.Header>
@@ -427,6 +444,9 @@ export default (props: {
   const { phase, dottedId, stask } = props
   const [visibleCreateSimScrim, setVisibleCreateSimScrim] = useState(false)
   const [createSimError, setCreateSimError] = useState<string>('')
+  const [simulationConfigs, setSimulationConfigs] = useState<
+    TSimulationConfig[]
+  >(phase.simulationConfigs)
 
   function closeCreateNewSim() {
     setVisibleCreateSimScrim(false)
@@ -460,6 +480,8 @@ export default (props: {
               dottedId={`${dottedId}.simulationConfigs`}
               setVisibleCreateSimScrim={setVisibleCreateSimScrim}
               setCreateSimError={setCreateSimError}
+              setSimulationConfigs={setSimulationConfigs}
+              simulationConfigs={simulationConfigs}
             />
             <Button onClick={() => closeCreateNewSim()}>Close</Button>
           </div>
@@ -468,7 +490,8 @@ export default (props: {
 
       <Divider />
       <SimulationConfigList
-        simulationConfigs={phase.simulationConfigs}
+        setSimulationConfigs={setSimulationConfigs}
+        simulationConfigs={simulationConfigs}
         dottedId={`${dottedId}.simulationConfigs`}
         stask={stask}
       />
