@@ -5,16 +5,16 @@
   "description": "Results",
   "variableRuns": [
     {
-      "type": "ForecastDS/ForecastOfResponse/Blueprints/VariableRun",
+      "type": "ForecastDS/FoR-BP/Blueprints/VariableRun",
       "name": "VariableRun1",
       "responses": [
         {
-          "type": "ForecastDS/ForecastOfResponse/Blueprints/Response",
+          "type": "ForecastDS/FoR-BP/Blueprints/Response",
           "name": "+ offset",
           "description": "+ offset response of plaform",
           "statistics": [
             {
-              "type": "ForecastDS/ForecastOfResponse/Blueprints/Timeseries",
+              "type": "ForecastDS/FoR-BP/Blueprints/Timeseries",
               "name": "Expected",
               "description": "Expected extreme",
               "datetimes": [
@@ -107,7 +107,7 @@
               "plotType": "line"
             },
             {
-              "type": "ForecastDS/ForecastOfResponse/Blueprints/Timeseries",
+              "type": "ForecastDS/FoR-BP/Blueprints/Timeseries",
               "name": "80% C.I.",
               "description": "80% Confidence Interval",
               "datetimes": [
@@ -241,7 +241,7 @@
               "plotType": "shaded"
             },
             {
-              "type": "ForecastDS/ForecastOfResponse/Blueprints/Timeseries",
+              "type": "ForecastDS/FoR-BP/Blueprints/Timeseries",
               "name": "50% C.I.",
               "description": "50% Confidence Interval",
               "datetimes": [
@@ -375,7 +375,7 @@
               "plotType": "shaded"
             },
             {
-              "type": "ForecastDS/ForecastOfResponse/Blueprints/Timeseries",
+              "type": "ForecastDS/FoR-BP/Blueprints/Timeseries",
               "name": "Threshold",
               "description": "Allowable threshold",
               "datetimes": [
@@ -470,12 +470,12 @@
           ]
         },
         {
-          "type": "ForecastDS/ForecastOfResponse/Blueprints/Response",
+          "type": "ForecastDS/FoR-BP/Blueprints/Response",
           "name": "+ heave",
           "description": "+ heave response of plaform",
           "statistics": [
             {
-              "type": "ForecastDS/ForecastOfResponse/Blueprints/Timeseries",
+              "type": "ForecastDS/FoR-BP/Blueprints/Timeseries",
               "name": "Expected",
               "description": "Expected extreme",
               "datetimes": [
@@ -568,7 +568,7 @@
               "plotType": "line"
             },
             {
-              "type": "ForecastDS/ForecastOfResponse/Blueprints/Timeseries",
+              "type": "ForecastDS/FoR-BP/Blueprints/Timeseries",
               "name": "80% C.I.",
               "description": "80% Confidence Interval",
               "datetimes": [
@@ -702,7 +702,7 @@
               "plotType": "shaded"
             },
             {
-              "type": "ForecastDS/ForecastOfResponse/Blueprints/Timeseries",
+              "type": "ForecastDS/FoR-BP/Blueprints/Timeseries",
               "name": "50% C.I.",
               "description": "50% Confidence Interval",
               "datetimes": [
@@ -836,7 +836,7 @@
               "plotType": "shaded"
             },
             {
-              "type": "ForecastDS/ForecastOfResponse/Blueprints/Timeseries",
+              "type": "ForecastDS/FoR-BP/Blueprints/Timeseries",
               "name": "Threshold",
               "description": "Allowable threshold",
               "datetimes": [
@@ -931,12 +931,12 @@
           ]
         },
         {
-          "type": "ForecastDS/ForecastOfResponse/Blueprints/Response",
+          "type": "ForecastDS/FoR-BP/Blueprints/Response",
           "name": "Hs",
           "description": "Significant wave height",
           "statistics": [
             {
-              "type": "ForecastDS/ForecastOfResponse/Blueprints/Timeseries",
+              "type": "ForecastDS/FoR-BP/Blueprints/Timeseries",
               "name": "Sample Mean",
               "description": "Sample Mean from the {nFors} ensembles",
               "datetimes": [
@@ -1029,7 +1029,7 @@
               "plotType": "line"
             },
             {
-              "type": "ForecastDS/ForecastOfResponse/Blueprints/Timeseries",
+              "type": "ForecastDS/FoR-BP/Blueprints/Timeseries",
               "name": "Sample Range",
               "description": "Sample range from the {nFors} ensembles",
               "datetimes": [
@@ -1167,7 +1167,7 @@
       ],
       "variables": [
         {
-          "type": "ForecastDS/ForecastOfResponse/Blueprints/Variable",
+          "type": "ForecastDS/FoR-BP/Blueprints/Variable",
           "name": "timestamp",
           "description": "Timestamp for metocean file (to be deprecated when Metocean API comes)",
           "value": "2019090100",
@@ -1175,7 +1175,7 @@
           "unit": "-"
         },
         {
-          "type": "ForecastDS/ForecastOfResponse/Blueprints/Variable",
+          "type": "ForecastDS/FoR-BP/Blueprints/Variable",
           "name": "simulationLength",
           "description": "duration of simulation in hours (excluding transient)",
           "value": "3.0",
@@ -1183,7 +1183,7 @@
           "unit": "hr"
         },
         {
-          "type": "ForecastDS/ForecastOfResponse/Blueprints/Variable",
+          "type": "ForecastDS/FoR-BP/Blueprints/Variable",
           "name": "durationOfEvent",
           "description": "duration of event in hours",
           "value": "0.5",
@@ -1191,7 +1191,7 @@
           "unit": "hr"
         },
         {
-          "type": "ForecastDS/ForecastOfResponse/Blueprints/Variable",
+          "type": "ForecastDS/FoR-BP/Blueprints/Variable",
           "name": "transient",
           "description": "length of transient for removal in hrs",
           "value": "0.0",
@@ -1201,16 +1201,16 @@
       ]
     },
     {
-      "type": "ForecastDS/ForecastOfResponse/Blueprints/VariableRun",
+      "type": "ForecastDS/FoR-BP/Blueprints/VariableRun",
       "name": "VariableRun2",
       "responses": [
         {
-          "type": "ForecastDS/ForecastOfResponse/Blueprints/Response",
+          "type": "ForecastDS/FoR-BP/Blueprints/Response",
           "name": "+ offset",
           "description": "+ offset response of plaform",
           "statistics": [
             {
-              "type": "ForecastDS/ForecastOfResponse/Blueprints/Timeseries",
+              "type": "ForecastDS/FoR-BP/Blueprints/Timeseries",
               "name": "Expected",
               "description": "Expected extreme",
               "datetimes": [
@@ -1303,7 +1303,7 @@
               "plotType": "line"
             },
             {
-              "type": "ForecastDS/ForecastOfResponse/Blueprints/Timeseries",
+              "type": "ForecastDS/FoR-BP/Blueprints/Timeseries",
               "name": "80% C.I.",
               "description": "80% Confidence Interval",
               "datetimes": [
@@ -1437,7 +1437,7 @@
               "plotType": "shaded"
             },
             {
-              "type": "ForecastDS/ForecastOfResponse/Blueprints/Timeseries",
+              "type": "ForecastDS/FoR-BP/Blueprints/Timeseries",
               "name": "50% C.I.",
               "description": "50% Confidence Interval",
               "datetimes": [
@@ -1571,7 +1571,7 @@
               "plotType": "shaded"
             },
             {
-              "type": "ForecastDS/ForecastOfResponse/Blueprints/Timeseries",
+              "type": "ForecastDS/FoR-BP/Blueprints/Timeseries",
               "name": "Threshold",
               "description": "Allowable threshold",
               "datetimes": [
@@ -1666,12 +1666,12 @@
           ]
         },
         {
-          "type": "ForecastDS/ForecastOfResponse/Blueprints/Response",
+          "type": "ForecastDS/FoR-BP/Blueprints/Response",
           "name": "+ heave",
           "description": "+ heave response of plaform",
           "statistics": [
             {
-              "type": "ForecastDS/ForecastOfResponse/Blueprints/Timeseries",
+              "type": "ForecastDS/FoR-BP/Blueprints/Timeseries",
               "name": "Expected",
               "description": "Expected extreme",
               "datetimes": [
@@ -1764,7 +1764,7 @@
               "plotType": "line"
             },
             {
-              "type": "ForecastDS/ForecastOfResponse/Blueprints/Timeseries",
+              "type": "ForecastDS/FoR-BP/Blueprints/Timeseries",
               "name": "80% C.I.",
               "description": "80% Confidence Interval",
               "datetimes": [
@@ -1898,7 +1898,7 @@
               "plotType": "shaded"
             },
             {
-              "type": "ForecastDS/ForecastOfResponse/Blueprints/Timeseries",
+              "type": "ForecastDS/FoR-BP/Blueprints/Timeseries",
               "name": "50% C.I.",
               "description": "50% Confidence Interval",
               "datetimes": [
@@ -2032,7 +2032,7 @@
               "plotType": "shaded"
             },
             {
-              "type": "ForecastDS/ForecastOfResponse/Blueprints/Timeseries",
+              "type": "ForecastDS/FoR-BP/Blueprints/Timeseries",
               "name": "Threshold",
               "description": "Allowable threshold",
               "datetimes": [
@@ -2127,12 +2127,12 @@
           ]
         },
         {
-          "type": "ForecastDS/ForecastOfResponse/Blueprints/Response",
+          "type": "ForecastDS/FoR-BP/Blueprints/Response",
           "name": "Hs",
           "description": "Significant wave height",
           "statistics": [
             {
-              "type": "ForecastDS/ForecastOfResponse/Blueprints/Timeseries",
+              "type": "ForecastDS/FoR-BP/Blueprints/Timeseries",
               "name": "Sample Mean",
               "description": "Sample Mean from the {nFors} ensembles",
               "datetimes": [
@@ -2225,7 +2225,7 @@
               "plotType": "line"
             },
             {
-              "type": "ForecastDS/ForecastOfResponse/Blueprints/Timeseries",
+              "type": "ForecastDS/FoR-BP/Blueprints/Timeseries",
               "name": "Sample Range",
               "description": "Sample range from the {nFors} ensembles",
               "datetimes": [
@@ -2363,7 +2363,7 @@
       ],
       "variables": [
         {
-          "type": "ForecastDS/ForecastOfResponse/Blueprints/Variable",
+          "type": "ForecastDS/FoR-BP/Blueprints/Variable",
           "name": "timestamp",
           "description": "Timestamp for metocean file (to be deprecated when Metocean API comes)",
           "value": "2019090100",
@@ -2371,7 +2371,7 @@
           "unit": "-"
         },
         {
-          "type": "ForecastDS/ForecastOfResponse/Blueprints/Variable",
+          "type": "ForecastDS/FoR-BP/Blueprints/Variable",
           "name": "simulationLength",
           "description": "duration of simulation in hours (excluding transient)",
           "value": "3.0",
@@ -2379,7 +2379,7 @@
           "unit": "hr"
         },
         {
-          "type": "ForecastDS/ForecastOfResponse/Blueprints/Variable",
+          "type": "ForecastDS/FoR-BP/Blueprints/Variable",
           "name": "durationOfEvent",
           "description": "duration of event in hours",
           "value": "3.0",
@@ -2387,7 +2387,7 @@
           "unit": "hr"
         },
         {
-          "type": "ForecastDS/ForecastOfResponse/Blueprints/Variable",
+          "type": "ForecastDS/FoR-BP/Blueprints/Variable",
           "name": "transient",
           "description": "length of transient for removal in hrs",
           "value": "0.0",
