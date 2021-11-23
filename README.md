@@ -73,7 +73,7 @@ This deployment is connected to an Azure mongo database in Azure called forecast
 ### Reset a deployed package
 
 ```bash
-docker-compose run --rm -e DMSS_API=https://dmss-forecast-of-response-test.radix.equinor.com api --token="eyJ0eXAiOiKIb9TKV0rQ" reset-package home/for/data/ForecastDS/ForecastOfResponse ForecastDS/ForecastOfResponse
+docker-compose run --rm -e DMSS_API=https://dmss-forecast-of-response-test.radix.equinor.com api --token="eyJ0eXAiOiKIb9TKV0rQ" reset-package home/for/data/ForecastDS/FoR-BP ForecastDS/FoR-BP
 ```
 
 ### How to reset database used in the forecast app
