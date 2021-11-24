@@ -5,18 +5,18 @@
   "type": "ForecastDS/FoR-BP/Blueprints/Operation",
   "description": "Bridge forecast",
   "SIMAComputeConnectInfo": {
-      "_id": "15a4d888-3ab4-5bd2-9bd9-9614dcb066d5",
-      "name": "/SIMACompute/compute.yml",
-      "type": "system/SIMOS/Blob"
-    },
+    "name": "/SIMACompute/compute.yml",
+    "type": "system/SIMOS/Blob",
+    "_blob_id": "a1fb7672-a559-4c5f-913c-281e142e7f0c"
+  },
   "stask": {
-    "name": "someSTask",
+    "name": "myStask",
     "type": "ForecastDS/FoR-BP/Blueprints/STask",
     "workflowTask": "WorkflowTask",
     "blob": {
-      "_id": "26a4d888-3ab4-4ad2-9bd9-9614dcb066d5",
       "name": "/STasks/mymodel_2_lbje.stask",
-      "type": "system/SIMOS/Blob"
+      "type": "system/SIMOS/Blob",
+      "_blob_id": "04cf2783-6118-4bfd-a427-9485b00fa9da"
     }
   },
   "creator": "eaks",
