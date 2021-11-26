@@ -1,5 +1,12 @@
 import React, { useContext, useState } from 'react'
-import { TPhase, TSimulationConfig, TStask, TVariable } from '../../Types'
+import {
+  TCronJob,
+  TPhase,
+  TSimulation,
+  TSimulationConfig,
+  TStask,
+  TVariable,
+} from '../../Types'
 import {
   Accordion,
   Button,
@@ -25,6 +32,8 @@ import Result from '../Result'
 import Icon from '../Design/Icons'
 import { poorMansUUID } from '../../utils/uuid'
 import { JobLog } from '../Jobs'
+import { sortSimulationsByNewest } from '../../utils/sort'
+import { CreateReoccurringJob } from '../ReoccurringJob'
 
 const SimHeaderWrapper = styled.div`
   display: flex;
@@ -289,6 +298,8 @@ function SingleSimulationConfig(props: {
                   {variable.name}: {variable.value}
                 </label>
               ))}
+            <h4>Reoccurring job:</h4>
+            <label>{cronJob ? cronJob.cron : 'Not configured'}</label>
             <h4>Last published:</h4>
             <label>Not implemented</label>
             <h4>Author:</h4>
@@ -310,11 +321,11 @@ function SingleSimulationConfig(props: {
         <StyledHeaderButton onClick={() => startJob()}>
           Run simulation
         </StyledHeaderButton>
-        <StyledHeaderButton disabled>
-          Define reoccurring job (Not implemented)
+        <StyledHeaderButton
+          onClick={() => setVisibleReoccurringJob(!visibleReoccurringJob)}
+        >
+          Configure reoccurring job
         </StyledHeaderButton>
-        {/* The Buttons loses margin prop when they are disabled...*/}
-        <div style={{ width: '20px' }}></div>
         <StyledHeaderButton
           onClick={() =>
             // Get the index of the current simulationConfig from dottedId
@@ -323,6 +334,18 @@ function SingleSimulationConfig(props: {
         >
           Publish this simulation
         </StyledHeaderButton>
+        {visibleReoccurringJob && (
+          <Scrim onClose={() => setVisibleReoccurringJob(false)} isDismissable>
+            <CreateReoccurringJob
+              close={() => setVisibleReoccurringJob(false)}
+              setCronJob={(value) => {
+                setCronJob(value)
+                startJob()
+              }}
+              value={cronJob}
+            />
+          </Scrim>
+        )}
       </SimHeaderWrapper>
       {loadingJob && <Progress.Linear />}
       <div
