@@ -14,6 +14,12 @@ export type TApp = {
   settings: DmtSettings
 }
 
+export type TCronJob = {
+  cron: string
+  startDate: Date
+  endDate: Date
+}
+
 export type TContent = {
   heading: string
   content: JSX.Element

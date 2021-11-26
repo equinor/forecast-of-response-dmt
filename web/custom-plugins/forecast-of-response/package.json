@@ -4,9 +4,9 @@
   "version": "0.0.2",
   "main": "src/index.tsx",
   "dependencies": {
-    "@equinor/eds-core-react": "^0.12.1",
-    "@equinor/eds-icons": "^0.6.2",
-    "@equinor/eds-tokens": "^0.6.0",
+    "@equinor/eds-core-react": "^0.14.3",
+    "@equinor/eds-icons": "^0.8.0",
+    "@equinor/eds-tokens": "^0.7.0",
     "antd": "^4.16.13",
     "leaflet": "^1.7.1",
     "react-datepicker": "^4.2.1",
