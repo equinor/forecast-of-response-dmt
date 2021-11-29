@@ -149,7 +149,13 @@ export const CommentInput = (props: {
             setMessage(event.target.value)
           }
         />
-        <div style={{ justifyContent: 'space-around', display: 'flex' }}>
+        <div
+          style={{
+            justifyContent: 'space-around',
+            display: 'flex',
+            paddingTop: '10px',
+          }}
+        >
           <Button color="danger" onClick={() => setMessage('')}>
             Cancel
           </Button>
