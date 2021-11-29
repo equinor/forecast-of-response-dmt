@@ -13,6 +13,7 @@ import { ClickableMap } from '../components/Map'
 import SelectSTask from '../components/Operations/SelectSTask'
 import styled from 'styled-components'
 import SelectSIMACompute from '../components/Operations/SelectSIMACompute'
+import { getUsername } from '../utils/auth'
 
 const CreateOperationWrapper = styled.div`
   justify-content: space-between;
@@ -211,7 +212,7 @@ const onClickCreate = (
 
 const OperationCreate = (): JSX.Element => {
   const { tokenData, token } = useContext(AuthContext)
-  const user = tokenData?.username || 'NoLogin'
+  const user = getUsername(tokenData) || 'NoLogin'
   const [error, setError] = useState<string>()
   const [operationMeta, setOperationMeta] = useState<TOperationMeta>({
     name: '',

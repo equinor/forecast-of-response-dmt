@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { TOperation } from '../Types'
+import { getUsername } from '../../utils/auth'
 import { Button, Card, Label, Table, Typography } from '@equinor/eds-core-react'
 import { StatusDot } from '../Other'
 import styled from 'styled-components'
@@ -164,9 +165,9 @@ export default (props: { operation: TOperation }): JSX.Element => {
       <CommentsWrapper>
         {comments.map((comment: TComment, index: number) => (
           <CommentView
-            key={comment._id}
+            key={index}
             comment={comment}
-            even={index % 2 == 0}
+            leftAdjusted={comment.author !== getUsername(tokenData)}
           />
         ))}
       </CommentsWrapper>

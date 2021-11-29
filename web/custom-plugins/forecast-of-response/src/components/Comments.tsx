@@ -8,6 +8,7 @@ import { DEFAULT_DATASOURCE_ID } from '../const'
 import { Blueprints } from '../Enums'
 import { IconWrapper } from './Other'
 import { poorMansUUID } from '../utils/uuid'
+import { getUsername } from '../utils/auth'
 
 const CommentHeaderWrapper = styled.div`
   display: flex;
@@ -16,7 +17,7 @@ const CommentHeaderWrapper = styled.div`
 
 type CommentWrapperProps = {
   color?: any
-  even?: any
+  leftAdjusted?: any
 }
 
 const CommentWrapper = styled.div<CommentWrapperProps>`
@@ -33,7 +34,7 @@ const CommentWrapper = styled.div<CommentWrapperProps>`
   border-radius: 5px;
   margin: 5px 10px;
   align-self: ${(props: CommentWrapperProps) => {
-    if (props.even) return 'flex-start'
+    if (props.leftAdjusted) return 'flex-start'
     return 'flex-end'
   }};
 `
@@ -76,11 +77,14 @@ export const CompactCommentView = (props: { comment: TComment }) => {
   )
 }
 
-export const CommentView = (props: { comment: TComment; even: boolean }) => {
-  const { comment, even } = props
+export const CommentView = (props: {
+  comment: TComment
+  leftAdjusted: boolean
+}) => {
+  const { comment, leftAdjusted } = props
   const uniqueAuthorColor = colorFromString(comment.author)
   return (
-    <CommentWrapper color={uniqueAuthorColor} even={even}>
+    <CommentWrapper color={uniqueAuthorColor} leftAdjusted={leftAdjusted}>
       <CommentHeaderWrapper>
         <IconWrapper color={uniqueAuthorColor}>&#9679;</IconWrapper>
         <b>{comment.author}</b>
@@ -115,7 +119,7 @@ export const CommentInput = (props: {
     const newComment = {
       name: poorMansUUID(),
       type: Blueprints.Comment,
-      author: tokenData.username,
+      author: getUsername(tokenData),
       date: new Date().toISOString(),
       message: message,
     }
