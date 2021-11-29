@@ -54,6 +54,7 @@
       "simulationConfigs": [{
         "name": "test1config",
         "type": "ForecastDS/FoR-BP/Blueprints/SimulationConfig",
+        "published": false,
         "variables": [
                                           {
               "type": "ForecastDS/FoR-BP/Blueprints/Variable",

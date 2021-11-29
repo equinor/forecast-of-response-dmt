@@ -118,6 +118,7 @@ function NewSimulationConfig(props: {
           type: Blueprints.SIMULATION_CONFIG,
           name: simConfigName !== '' ? simConfigName : 'New Simulation',
           variables: variables,
+          published: false,
         },
       })
       .then(

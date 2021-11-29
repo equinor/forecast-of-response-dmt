@@ -10,7 +10,7 @@ import { AuthContext } from '@dmt/common'
 import DateRangePicker from '../components/DateRangePicker'
 import Grid from '../components/App/Grid'
 import { Blueprints, OperationStatus } from '../Enums'
-import { hasExpertRole } from '../utils/auth'
+import { getUsername, hasExpertRole } from '../utils/auth'
 
 const GridContainer = styled.div`
   padding-top: 50px;
@@ -63,7 +63,7 @@ const OperationOverview = (props: DmtSettings): JSX.Element => {
         )
       case 'My operations':
         return allOperations.filter((operation: TOperation) => {
-          operation.creator === tokenData.username
+          return operation.creator === getUsername(tokenData)
         })
       default:
         return []
