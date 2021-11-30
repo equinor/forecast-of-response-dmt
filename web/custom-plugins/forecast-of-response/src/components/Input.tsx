@@ -11,4 +11,5 @@ export const StyledSelect = styled.select`
   cursor: pointer;
   width: fit-content;
   background-color: ${primaryGray};
+  min-width: 150px;
 `

@@ -23,11 +23,7 @@ const AddedGraphWrapper = styled.div`
 
 const GraphSelectorWrapper = styled.div`
   display: flex;
-  border: #f6f6f6 2px solid;
   margin: 15px 15px;
-  padding: 10px;
-  width: 500px;
-  justify-content: space-evenly;
 `
 
 function GraphSelect(props: {

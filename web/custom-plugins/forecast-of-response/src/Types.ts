@@ -49,22 +49,14 @@ export type StringMap = {
   [key: string]: string
 }
 
-export type TSimulation = {
-  type?: string
-  name?: string
-  simaJob?: any
-  progress?: string
-  started?: string
-  ended?: string
-  result?: any
-}
-
 export type TSimulationConfig = {
   name: string
-  simulations: TSimulation[]
   variables: TVariable[]
-  simaJob: any
+  jobs: any[]
+  results: any[]
+  cronJob: any
   published: boolean
+  type?: string
 }
 
 export type TPhase = {
@@ -72,7 +64,6 @@ export type TPhase = {
   name: string
   start?: Date
   end?: Date
-  activeForecast?: TSimulation
   status?: OperationStatus
   defaultVariables?: TVariable
 }

@@ -1,22 +1,16 @@
 import React, { useContext, useState } from 'react'
-import {
-  TPhase,
-  TSimulation,
-  TSimulationConfig,
-  TStask,
-  TVariable,
-} from '../../Types'
+import { TPhase, TSimulationConfig, TStask, TVariable } from '../../Types'
 import {
   Accordion,
   Button,
   Chip,
   Divider,
   Input,
+  Label,
   Progress,
   Scrim,
   Table,
   TextField,
-  CircularProgress,
   Typography,
 } from '@equinor/eds-core-react'
 import { NotificationManager } from 'react-notifications'
@@ -31,7 +25,6 @@ import Result from '../Result'
 import Icon from '../Design/Icons'
 import { poorMansUUID } from '../../utils/uuid'
 import { JobLog } from '../Jobs'
-import { sortSimulationsByNewest } from '../../utils/sort'
 
 const SimHeaderWrapper = styled.div`
   display: flex;
@@ -62,6 +55,13 @@ const SummaryButton = styled.div`
   background-color: ${lightGray};
 `
 
+const JobDetailsLink = styled.div`
+  color: blue;
+  cursor: pointer;
+  text-decoration: underline;
+  margin-left: 10px;
+`
+
 const SummaryWrapper = styled.div`
   z-index: 100;
   position: absolute;
@@ -90,6 +90,7 @@ function NewSimulationConfig(props: {
   setCreateSimError: (message: string) => void
   setSimulationConfigs: (simConfig: TSimulationConfig[]) => void
   simulationConfigs: TSimulationConfig[]
+  close: Function
 }) {
   const {
     defaultVars,
@@ -98,6 +99,7 @@ function NewSimulationConfig(props: {
     setCreateSimError,
     setSimulationConfigs,
     simulationConfigs,
+    close,
   } = props
   const [variables, setVariables] = useState<TVariable[]>(
     defaultVars.map((vari) => ({ ...vari }))
@@ -109,30 +111,23 @@ function NewSimulationConfig(props: {
   function createSimulation(variables: TVariable[]) {
     setVisibleCreateSimScrim(false)
     setCreateSimError('')
+    const newSimConf: TSimulationConfig = {
+      type: Blueprints.SIMULATION_CONFIG,
+      name: simConfigName !== '' ? simConfigName : 'New Simulation',
+      variables: variables,
+      published: false,
+      jobs: [],
+      results: [],
+      cronJob: {},
+    }
     // Create the simulation entity
     dmssAPI.generatedDmssApi
       .explorerAdd({
         dataSourceId: DEFAULT_DATASOURCE_ID,
         dottedId: `${dottedId}`,
-        body: {
-          type: Blueprints.SIMULATION_CONFIG,
-          name: simConfigName !== '' ? simConfigName : 'New Simulation',
-          variables: variables,
-          published: false,
-        },
+        body: newSimConf,
       })
-      .then(
-        setSimulationConfigs([
-          ...simulationConfigs,
-          {
-            name: simConfigName,
-            simulations: [],
-            variables: variables,
-            simaJob: {},
-            published: false,
-          },
-        ])
-      )
+      .then(() => setSimulationConfigs([...simulationConfigs, newSimConf]))
       .catch((e: Error) => {
         e.json().then((result: any) => {
           setVisibleCreateSimScrim(true)
@@ -153,7 +148,7 @@ function NewSimulationConfig(props: {
         id="simulation-name"
         placeholder="Label your simulation config"
         value={simConfigName}
-        style={{ borderRadius: '5px', margin: '10px', width: 'inherit' }}
+        style={{ marginBottom: '10px' }}
         onChange={(event): Event => setSimConfigName(event.target.value)}
       />
       <Table>
@@ -191,12 +186,13 @@ function NewSimulationConfig(props: {
           margin: '10px',
         }}
       >
+        <Button color="secondary" onClick={() => close()}>
+          Close
+        </Button>
         <Button variant="outlined" color="danger" onClick={() => resetValues()}>
           Reset
         </Button>
-        <Button onClick={() => createSimulation(variables)}>
-          Create simulation
-        </Button>
+        <Button onClick={() => createSimulation(variables)}>Create</Button>
       </div>
     </>
   )
@@ -209,55 +205,50 @@ function SingleSimulationConfig(props: {
   publishSimulation: Function
 }) {
   const { simulationConfig, dottedId, stask, publishSimulation } = props
-  const [selectedSim, setSelectedSim] = useState<number>(0)
+  const [selectedJob, setSelectedJob] = useState<number>(0)
+  const [selectedResult, setSelectedResult] = useState<number>(0)
   const [loadingJob, setLoadingJob] = useState<boolean>(false)
   const [showSummary, setShowSummary] = useState<boolean>(false)
-  const [simulations, setSimulations] = useState<TSimulation[]>(
-    sortSimulationsByNewest(simulationConfig.simulations) || []
+  // Reverse these two lists, so to show newest first
+  const [jobs, setJobs] = useState<any[]>([...simulationConfig.jobs].reverse())
+  const [results, setResults] = useState<any[]>(
+    [...simulationConfig.results].reverse()
   )
+  const [viewJobDetails, setViewJobDetails] = useState<boolean>(false)
+
   const { token } = useContext(AuthContext)
   const jobAPI = new JobApi(token)
   const dmssAPI = new DmssAPI(token)
 
   function startJob() {
     setLoadingJob(true)
-    // window.crypto.randomUUID() is not supported in firefox yet.
-    const simName = poorMansUUID()
-    // Create the simulation entity
-    const newSimulation: TSimulation = {
-      type: Blueprints.SIMULATION,
-      name: simName,
-      simaJob: {
-        name: simName,
-        type: Blueprints.AZ_CONTAINER_JOB,
-        image: 'publicMSA.azurecr.io/dmt-job/srs:latest',
-        command: [
-          '/code/init.sh',
-          `--stask=${DEFAULT_DATASOURCE_ID}/${stask.blob._blob_id}`,
-          `--workflow=${stask.workflowTask}`,
-          '--input=ForecastDS/8ec0d646-907c-4eba-9e65-24106236d61c',
-          `--target=${DEFAULT_DATASOURCE_ID}/${dottedId}.simulations.${simulationConfig.simulations.length}.results`,
-        ],
-      },
-      started: new Date().toISOString(),
-      progress: '0%',
-      ended: '',
-      result: {},
+    // Create the job entity
+    const newJob: any = {
+      // window.crypto.randomUUID() is not supported in firefox yet.
+      name: poorMansUUID(),
+      type: Blueprints.AZ_CONTAINER_JOB,
+      image: 'publicMSA.azurecr.io/dmt-job/srs:latest',
+      command: [
+        '/code/init.sh',
+        `--stask=${DEFAULT_DATASOURCE_ID}/${stask.blob._blob_id}`,
+        `--workflow=${stask.workflowTask}`,
+        '--input=ForecastDS/8ec0d646-907c-4eba-9e65-24106236d61c',
+        `--target=${DEFAULT_DATASOURCE_ID}/${dottedId}.results`,
+      ],
     }
     dmssAPI.generatedDmssApi
       .explorerAdd({
         dataSourceId: DEFAULT_DATASOURCE_ID,
-        dottedId: `${dottedId}.simulations`,
+        dottedId: `${dottedId}.jobs`,
         updateUncontained: false,
-        body: newSimulation,
+        body: newJob,
       })
       .then((res: any) => {
-        // Add the simulation to the state
-        setSimulations([newSimulation, ...simulations])
-        // Start a job from the created simulation
-        const newSimUID = JSON.parse(res).uid
+        // Add the new job to the state
+        setJobs([newJob, ...jobs])
+        // Start a job from the created job entity (last one in list)
         jobAPI
-          .startJob(`${DEFAULT_DATASOURCE_ID}/${newSimUID}.simaJob`)
+          .startJob(`${DEFAULT_DATASOURCE_ID}/${dottedId}.jobs.${jobs.length}`)
           .then((result: any) => {
             NotificationManager.success(
               JSON.stringify(result.data),
@@ -281,14 +272,6 @@ function SingleSimulationConfig(props: {
         )
         setLoadingJob(false)
       })
-  }
-
-  // Since we sort the simulations by date, we need to fetch the real index of the selected sim
-  function getStoredIndexOfSelectedSim() {
-    const selectedSimStarted = simulations[selectedSim].started
-    return simulationConfig.simulations
-      .map((sim: TSimulation) => sim.started)
-      .indexOf(selectedSimStarted)
   }
 
   return (
@@ -345,35 +328,46 @@ function SingleSimulationConfig(props: {
       <div
         style={{ padding: '16px', display: 'flex', flexDirection: 'column' }}
       >
-        <label>Select which simulation to view</label>
-        <StyledSelect
-          onChange={(e: Event) => {
-            setSelectedSim(parseInt(e.target.value))
+        <Label label="Job history" />
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'self-end',
+            marginBottom: '15px',
           }}
         >
-          {simulations.map((simulation: TSimulation, index) => (
-            <option
-              key={index}
-              value={index}
-              onSelect={() => setSelectedSim(index)}
-            >
-              {new Date(simulation.started).toLocaleString(navigator.language)}
+          <StyledSelect
+            onChange={(e: Event) => setSelectedJob(parseInt(e.target.value))}
+          >
+            {jobs.map((job: any, index) => (
+              <option key={index} value={index}>
+                {job.name}
+              </option>
+            ))}
+          </StyledSelect>
+          <JobDetailsLink onClick={() => setViewJobDetails(!viewJobDetails)}>
+            {viewJobDetails ? 'Show less' : 'Show more'}
+          </JobDetailsLink>
+        </div>
+
+        {viewJobDetails && (
+          <JobLog
+            jobId={`${DEFAULT_DATASOURCE_ID}/${dottedId}.jobs.${selectedJob}`}
+          />
+        )}
+        <Label label="Select result" />
+        <StyledSelect
+          onChange={(e: Event) => setSelectedResult(parseInt(e.target.value))}
+        >
+          {results.map((resultRef: any, index) => (
+            <option key={index} value={index}>
+              {resultRef.name}
             </option>
           ))}
         </StyledSelect>
-        {simulations[selectedSim]?.result._id ? (
-          <Result result={simulations[selectedSim]?.result} />
-        ) : (
-          <div>
-            <label>No result for this simulation...</label>
-            {simulations.length ? (
-              <JobLog
-                jobId={`${DEFAULT_DATASOURCE_ID}/${dottedId}.simulations.${getStoredIndexOfSelectedSim()}.simaJob`}
-              />
-            ) : (
-              <div>No simulations yet...</div>
-            )}
-          </div>
+        {results[selectedResult]?._id && (
+          <Result result={results[selectedResult]} />
         )}
       </div>
     </div>
@@ -474,7 +468,6 @@ export default (props: {
       {visibleCreateSimScrim && (
         <Scrim onClose={() => setVisibleCreateSimScrim(false)} isDismissable>
           <div style={{ backgroundColor: '#fff', padding: '1rem' }}>
-            Create new simulation
             {createSimError && <CreateSimErrorDialog />}
             <NewSimulationConfig
               defaultVars={phase.defaultVariables}
@@ -483,8 +476,11 @@ export default (props: {
               setCreateSimError={setCreateSimError}
               setSimulationConfigs={setSimulationConfigs}
               simulationConfigs={simulationConfigs}
+              close={() => {
+                setCreateSimError('')
+                setVisibleCreateSimScrim(false)
+              }}
             />
-            <Button onClick={() => closeCreateNewSim()}>Close</Button>
           </div>
         </Scrim>
       )}

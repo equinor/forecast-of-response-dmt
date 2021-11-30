@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { useDocument, AuthContext } from '@dmt/common'
+import { AuthContext, useDocument } from '@dmt/common'
 import { Tabs } from '@equinor/eds-core-react'
 import { TOperation, TPhase } from '../Types'
 import OperationDetails from '../components/Operations/OperationDetails'
@@ -24,8 +24,15 @@ export default (): JSX.Element => {
     setPhases(document.phases || [])
   }, [document])
 
+  if (error) {
+    console.error(error.message)
+    return (
+      <div style={{ color: 'red' }}>
+        Failed to fetch the document. See console for details.
+      </div>
+    )
+  }
   if (!document) return <>Loading...</>
-  if (error) return <>Something went wrong. Sorry...</>
 
   return (
     <>
