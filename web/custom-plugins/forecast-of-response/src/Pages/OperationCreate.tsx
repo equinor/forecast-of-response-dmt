@@ -3,7 +3,7 @@ import { Button, Progress, TextField } from '@equinor/eds-core-react'
 import { AuthContext } from '@dmt/common'
 import { Blueprints, OperationStatus } from '../Enums'
 import { addToPath } from '../utils/insertDocument'
-import { DEFAULT_DATASOURCE_ID } from '../const'
+import { DEFAULT_DATASOURCE_ID, OperationsLocation } from '../const'
 import DateRangePicker from '../components/DateRangePicker'
 import { Heading } from '../components/Design/Fonts'
 import { TConfig, TLocation, TOperationMeta } from '../Types'
@@ -112,34 +112,38 @@ const createOperationEntity = (
   token: string,
   user: string
 ): Promise<string> => {
-  return addToPath(
-    {
-      name: operationName,
-      label: operationLabel,
-      description: config.description,
-      type: Blueprints.OPERATION,
-      SIMAComputeConnectInfo: {
-        name: SIMACompute.name,
+  let body = {
+    name: operationName,
+    label: operationLabel,
+    description: config.description,
+    type: Blueprints.OPERATION,
+    stask: {
+      type: Blueprints.STASK,
+      name: stask.name,
+      workflowTask: '',
+      blob: {
+        name: stask.name,
         type: 'system/SIMOS/Blob',
       },
-      stask: {
-        type: Blueprints.STASK,
-        name: stask.name,
-        workflowTask: '',
-        blob: {
-          name: stask.name,
-          type: 'system/SIMOS/Blob',
-        },
-      },
-      creator: user,
-      location: location,
-      start: dateRange && dateRange[0] ? dateRange[0].toISOString() : undefined,
-      end: dateRange && dateRange[1] ? dateRange[1].toISOString() : undefined,
-      status: OperationStatus.UPCOMING, // TODO: decide based on start attr? allow user to select?
-      phases: config.phases,
     },
+    creator: user,
+    location: location,
+    start: dateRange && dateRange[0] ? dateRange[0].toISOString() : undefined,
+    end: dateRange && dateRange[1] ? dateRange[1].toISOString() : undefined,
+    status: OperationStatus.UPCOMING, // TODO: decide based on start attr? allow user to select?
+    phases: config.phases,
+  }
+  if (SIMACompute)
+    body.SIMAComputeConnectInfo = {
+      name: SIMACompute.name,
+      type: 'system/SIMOS/Blob',
+    }
+  return addToPath(
+    body,
     token,
-    [stask, SIMACompute]
+    [stask, SIMACompute || undefined],
+    DEFAULT_DATASOURCE_ID,
+    OperationsLocation
   )
 }
 
@@ -246,6 +250,7 @@ const OperationCreate = (): JSX.Element => {
       'simaVersion' in newOperationConfig &&
       'phases' in newOperationConfig
     if (hasRequiredAttirbutes) {
+      setError(undefined)
       setOperationConfig(newOperationConfig)
     } else {
       setError(
@@ -267,7 +272,7 @@ const OperationCreate = (): JSX.Element => {
                   'Invalid operation name! (you cannot use any special characters).'
                 )
               } else {
-                setError('')
+                setError(undefined)
                 setOperationMeta({
                   ...operationMeta,
                   label: operationName,
@@ -280,6 +285,7 @@ const OperationCreate = (): JSX.Element => {
             <Heading text="Time periode" variant="h4" />
             <DateRangePicker
               setDateRange={(dateRange: Date[]) => {
+                setError(undefined)
                 setOperationMeta({ ...operationMeta, dateRange: dateRange })
               }}
             />
@@ -287,6 +293,7 @@ const OperationCreate = (): JSX.Element => {
           <SelectOperationConfig
             setOperationConfig={storeAndCheckOperationConfig}
             setIsNewConfig={(isNew: boolean) => {
+              setError(undefined)
               setIsNewEntity({ ...isNewEntity, config: isNew })
             }}
             isLoading={isLoading}
@@ -302,6 +309,7 @@ const OperationCreate = (): JSX.Element => {
             location={operationLocation}
             setLocation={setOperationLocation}
             setIsNewLocation={(isNew: boolean) => {
+              setError(undefined)
               setIsNewEntity({ ...isNewEntity, location: isNew })
             }}
             mapClickPos={mapClickPos}
@@ -340,7 +348,6 @@ const OperationCreate = (): JSX.Element => {
           disabled={
             !(
               sTask &&
-              SIMACompute &&
               operationLocation &&
               operationMeta &&
               operationConfig &&
