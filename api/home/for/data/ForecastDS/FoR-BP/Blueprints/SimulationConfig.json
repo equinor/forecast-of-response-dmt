@@ -33,7 +33,7 @@
       "default": false
     },
     {
-      "name": "cronjob",
+      "name": "cronJob",
       "type": "system/SIMOS/BlueprintAttribute",
       "attributeType": "DMT-Internal/DMT/AzureContainerInstanceJobClassic",
       "optional": true
