@@ -124,6 +124,7 @@ const Dashboard = (): JSX.Element => {
             })}
         </StyledMapContainer>
       </CardWrapper>
+
       <CardWrapper style={{ margin: '0 20px', width: '30%', overflow: 'auto' }}>
         <h3 style={{ margin: '5px' }}>Comments</h3>
         {commentsLoading ? (

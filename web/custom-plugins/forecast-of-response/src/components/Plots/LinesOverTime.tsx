@@ -10,6 +10,7 @@ import {
   XAxis,
   YAxis,
   Area,
+  Label,
 } from 'recharts'
 import { plotColors } from '../Design/Colors'
 import { PlotType, TGraphInfo } from '../Result'
@@ -23,8 +24,7 @@ export default (props: {
   data: TLineChartDataPoint[]
   graphNames: TGraphInfo[]
 }): JSX.Element => {
-  const { data, graphNames, warningLine, MaxLine } = props
-
+  const { data, graphNames, warningLine, MaxLine, yAxisUnit } = props
   return (
     <div
       style={{ width: '100%', height: '300px', border: 'darkgrey 1px solid' }}
@@ -32,8 +32,9 @@ export default (props: {
       <ResponsiveContainer width="100%" height="100%">
         <ComposedChart data={data}>
           <CartesianGrid strokeDasharray="2 2" />
+
           <XAxis dataKey="timestamp" />
-          <YAxis unit="m" />
+          <YAxis unit={yAxisUnit} />
           <Tooltip />
           <Legend />
           {/*TODO: Read threshold values from result file*/}

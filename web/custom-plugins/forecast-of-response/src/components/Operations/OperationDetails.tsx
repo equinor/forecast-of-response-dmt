@@ -1,7 +1,14 @@
 import React, { useContext, useState } from 'react'
 import { TOperation } from '../Types'
 import { getUsername } from '../../utils/auth'
-import { Button, Card, Label, Table, Typography } from '@equinor/eds-core-react'
+import {
+  Accordion,
+  Button,
+  Card,
+  Label,
+  Table,
+  Typography,
+} from '@equinor/eds-core-react'
 import { StatusDot } from '../Other'
 import styled from 'styled-components'
 import { LocationOnMap } from '../Map'
@@ -10,6 +17,9 @@ import { CommentInput, CommentView } from '../Comments'
 import { AccessControlList, AuthContext } from '@dmt/common'
 import { DEFAULT_DATASOURCE_ID } from '../../const'
 import { hasExpertRole } from '../../utils/auth'
+import { WaveForecast } from '../WaveForecast'
+import { WeatherForecast } from '../WeatherForecast'
+import TestCustom from '../../TestCustom'
 
 const FlexWrapper = styled.div`
   display: flex;
@@ -154,13 +164,14 @@ export default (props: { operation: TOperation }): JSX.Element => {
               <Table.Cell>
                 <FlexWrapper>
                   None
-                  <StatusDot status={'None'} />
+                  <StatusDot status={undefined} />
                 </FlexWrapper>
               </Table.Cell>
             </Table.Row>
           )}
         </Table.Body>
       </Table>
+
       <h4>Comments</h4>
       <CommentsWrapper>
         {comments.map((comment: TComment, index: number) => (

@@ -18,6 +18,7 @@ import {
   person,
   save,
   waves,
+  arrow_up,
 } from '@equinor/eds-icons'
 
 Icon.add({
@@ -39,6 +40,7 @@ Icon.add({
   delete_forever,
   delete_to_trash,
   save,
+  arrow_up,
 })
 
 export default Icon

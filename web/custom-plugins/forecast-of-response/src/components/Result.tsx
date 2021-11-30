@@ -8,6 +8,8 @@ import { plotColors } from './Design/Colors'
 import { DEFAULT_DATASOURCE_ID } from '../const'
 import { StyledSelect } from './Input'
 import { IconWrapper } from './Other'
+import DirectionPlot from './Plots/DirectionPlot'
+import LinesOverTimeVictory from './Plots/LinesOverTimeVictory'
 
 const ResultWrapper = styled.div`
   display: flex;
@@ -130,10 +132,12 @@ function GraphSelect(props: {
 export enum PlotType {
   SHADED = 'shaded',
   LINE = 'line',
+  ARROW = 'arrow',
 }
 
 export type TGraphInfo = {
   name: string
+  unit: string
   plotType: PlotType
   description: string
 }
