@@ -60,168 +60,72 @@
       "end": "2021-06-27 13:45:37.352574",
       "status": "Ongoing",
       "defaultVariables": [
-                                {
-              "type": "ForecastDS/FoR-BP/Blueprints/Variable",
-              "name": "WaveHeight",
-              "value": "1.12",
-              "valueType":  "string",
-              "unit": "meters"
-            },
-            {
-              "type": "ForecastDS/FoR-BP/Blueprints/Variable",
-              "name": "WaveDirection",
-              "value": "90",
-              "valueType":  "string",
-              "unit": "degrees"
-            },
-            {
-              "type": "ForecastDS/FoR-BP/Blueprints/Variable",
-              "name": "Thrusters",
-              "value": "5",
-              "valueType":  "string",
-              "unit": "unit"
-            },
-            {
-              "type": "ForecastDS/FoR-BP/Blueprints/Variable",
-              "name": "VariableName",
-              "value": "VaiableValue",
-              "valueType":  "string",
-              "unit": "VariableUnit"
-            }
+        {
+          "type": "ForecastDS/FoR-BP/Blueprints/Variable",
+          "name": "WaveHeight",
+          "value": "1.12",
+          "valueType": "string",
+          "unit": "meters"
+        },
+        {
+          "type": "ForecastDS/FoR-BP/Blueprints/Variable",
+          "name": "WaveDirection",
+          "value": "90",
+          "valueType": "string",
+          "unit": "degrees"
+        },
+        {
+          "type": "ForecastDS/FoR-BP/Blueprints/Variable",
+          "name": "Thrusters",
+          "value": "5",
+          "valueType": "string",
+          "unit": "unit"
+        },
+        {
+          "type": "ForecastDS/FoR-BP/Blueprints/Variable",
+          "name": "VariableName",
+          "value": "VaiableValue",
+          "valueType": "string",
+          "unit": "VariableUnit"
+        }
       ],
       "simulationConfigs": [
         {
           "name": "test1",
           "published": true,
           "type": "ForecastDS/FoR-BP/Blueprints/SimulationConfig",
-          "simulations": [
+          "cronjob": {},
+          "jobs": [
             {
-              "type": "ForecastDS/FoR-BP/Blueprints/Simulation",
-              "name": "ShouldBeRemoved",
-              "progress": "99%",
-              "simaJob": {},
-              "started": "2021-06-25 13:45:37.352574",
-              "ended": "2021-06-25 16:22:10",
-              "result": {
-                "type": "ForecastDS/FoR-BP/Blueprints/ResultFile",
-                "_id": "cf81daa9-9787-462e-b92b-104f71b80712",
-                "name": "ShouldBeRemoved_result"
-              }
-            },
-            {
-              "type": "ForecastDS/FoR-BP/Blueprints/Simulation",
-              "name": "ShouldBeRemoved",
-              "progress": "100%",
-              "simaJob": {},
-              "started": "2021-07-18 13:45:37.352574",
-              "ended": "2021-08-2 16:22:10",
-              "result": {}
+              "type": "DMT-Internal/DMT/AzureContainerInstanceJob",
+              "name": "9315122775452282502224230",
+              "image": "publicMSA.azurecr.io/dmt-job/srs:latest",
+              "command": [
+                "/code/init.sh", "--stask=ForecastDS/04cf2783-6118-4bfd-a427-9485b00fa9da",
+                "--workflow=WorkflowTask", "--input=ForecastDS/8ec0d646-907c-4eba-9e65-24106236d61c",
+                "--target=ForecastDS/26a4d888-3ab4-4ad2-9bd9-9614dcb066d4.phases.0.simulationConfigs.0.results"
+              ]
+            }, {
+              "type": "DMT-Internal/DMT/AzureContainerInstanceJob",
+              "name": "16919347221725392129248189",
+              "image": "publicMSA.azurecr.io/dmt-job/srs:latest",
+              "command": [
+                "/code/init.sh", "--stask=ForecastDS/04cf2783-6118-4bfd-a427-9485b00fa9da",
+                "--workflow=WorkflowTask", "--input=ForecastDS/8ec0d646-907c-4eba-9e65-24106236d61c",
+                "--target=ForecastDS/26a4d888-3ab4-4ad2-9bd9-9614dcb066d4.phases.0.simulationConfigs.0.results"
+              ]
             }
           ],
-          "variables": [
-                                {
-              "type": "ForecastDS/FoR-BP/Blueprints/Variable",
-              "name": "WaveHeight",
-              "value": "1.12",
-              "valueType":  "string",
-              "unit": "meters"
+          "results": [
+            {
+              "type": "ForecastDS/FoR-BP/Blueprints/ResultFile",
+              "_id": "cf81daa9-9787-462e-b92b-104f71b80712",
+              "name": "ShouldBeRemoved_result"
             },
             {
-              "type": "ForecastDS/FoR-BP/Blueprints/Variable",
-              "name": "WaveDirection",
-              "value": "90",
-              "valueType":  "string",
-              "unit": "degrees"
-            },
-            {
-              "type": "ForecastDS/FoR-BP/Blueprints/Variable",
-              "name": "Thrusters",
-              "value": "5",
-              "valueType":  "string",
-              "unit": "unit"
-            },
-            {
-              "type": "ForecastDS/FoR-BP/Blueprints/Variable",
-              "name": "VariableName",
-              "value": "VaiableValue",
-              "valueType":  "string",
-              "unit": "VariableUnit"
-            }
-          ]
-        },
-        {
-          "name": "APublishedSimConfig",
-          "type": "ForecastDS/FoR-BP/Blueprints/SimulationConfig",
-          "published": true,
-          "simulations": [
-            {
-              "type": "ForecastDS/FoR-BP/Blueprints/Simulation",
-              "name": "ShouldBeRemoved",
-              "progress": "100%",
-              "simaJob": {},
-              "started": "2021-06-25 13:45:37.352574",
-              "ended": "2021-06-25 16:22:10"
-            },
-            {
-              "type": "ForecastDS/FoR-BP/Blueprints/Simulation",
-              "name": "ShouldBeRemoved",
-              "progress": "100%",
-              "simaJob": {},
-              "started": "2021-07-18 13:45:37.352574",
-              "ended": "2021-08-2 16:22:10"
-            }
-          ],
-          "variables": [
-                                {
-              "type": "ForecastDS/FoR-BP/Blueprints/Variable",
-              "name": "WaveHeight",
-              "value": "1.12",
-              "valueType":  "string",
-              "unit": "meters"
-            },
-            {
-              "type": "ForecastDS/FoR-BP/Blueprints/Variable",
-              "name": "WaveDirection",
-              "value": "90",
-              "valueType":  "string",
-              "unit": "degrees"
-            },
-            {
-              "type": "ForecastDS/FoR-BP/Blueprints/Variable",
-              "name": "Thrusters",
-              "value": "5",
-              "valueType":  "string",
-              "unit": "unit"
-            },
-            {
-              "type": "ForecastDS/FoR-BP/Blueprints/Variable",
-              "name": "VariableName",
-              "value": "VaiableValue",
-              "valueType":  "string",
-              "unit": "VariableUnit"
-            }
-          ]
-        },
-        {
-          "name": "YetAnother",
-          "type": "ForecastDS/FoR-BP/Blueprints/SimulationConfig",
-          "published": true,
-          "simulations": [
-            {
-              "type": "ForecastDS/FoR-BP/Blueprints/Simulation",
-              "name": "ShouldBeRemoved",
-              "progress": "100%",
-              "simaJob": {},
-              "started": "2021-06-25 13:45:37.352574",
-              "ended": "2021-06-25 16:22:10"
-            },
-            {
-              "type": "ForecastDS/FoR-BP/Blueprints/Simulation",
-              "name": "ShouldBeRemoved",
-              "progress": "100%",
-              "simaJob": {},
-              "started": "2021-07-18 13:45:37.352574",
-              "ended": "2021-08-2 16:22:10"
+              "type": "ForecastDS/FoR-BP/Blueprints/ResultFile",
+              "_id": "cf81daa9-9787-462e-b92b-104f71b80712",
+              "name": "ShouldBeRemoved_result"
             }
           ],
           "variables": [
@@ -229,28 +133,28 @@
               "type": "ForecastDS/FoR-BP/Blueprints/Variable",
               "name": "WaveHeight",
               "value": "1.12",
-              "valueType":  "string",
+              "valueType": "string",
               "unit": "meters"
             },
             {
               "type": "ForecastDS/FoR-BP/Blueprints/Variable",
               "name": "WaveDirection",
               "value": "90",
-              "valueType":  "string",
+              "valueType": "string",
               "unit": "degrees"
             },
             {
               "type": "ForecastDS/FoR-BP/Blueprints/Variable",
               "name": "Thrusters",
               "value": "5",
-              "valueType":  "string",
+              "valueType": "string",
               "unit": "unit"
             },
             {
               "type": "ForecastDS/FoR-BP/Blueprints/Variable",
               "name": "VariableName",
               "value": "VaiableValue",
-              "valueType":  "string",
+              "valueType": "string",
               "unit": "VariableUnit"
             }
           ]

@@ -12,9 +12,17 @@
       "dimensions": "*"
     },
     {
-      "name": "simulations",
+      "name": "results",
       "type": "system/SIMOS/BlueprintAttribute",
-      "attributeType": "/Blueprints/Simulation",
+      "attributeType": "ForecastDS/FoR-BP/Blueprints/ResultFile",
+      "optional": true,
+      "contained": false,
+      "dimensions": "*"
+    },
+    {
+      "name": "jobs",
+      "attributeType": "DMT-Internal/DMT/AzureContainerInstanceJob",
+      "type": "system/SIMOS/BlueprintAttribute",
       "optional": true,
       "dimensions": "*"
     },
@@ -23,6 +31,12 @@
       "type": "system/SIMOS/BlueprintAttribute",
       "attributeType": "boolean",
       "default": false
+    },
+    {
+      "name": "cronjob",
+      "type": "system/SIMOS/BlueprintAttribute",
+      "attributeType": "DMT-Internal/DMT/AzureContainerInstanceJobClassic",
+      "optional": true
     }
   ]
 }
