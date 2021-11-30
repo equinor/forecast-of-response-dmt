@@ -70,6 +70,7 @@ services:
       MONGO_AZURE_URI: ${MONGO_AZURE_URI}
       SECRET_KEY: ${SECRET_KEY}
       LOGGING_LEVEL: "warning"
+#      LOGGING_LEVEL: "debug"
       ENVIRONMENT: local
 #      AUTH_ENABLED: "True"
       AUTH_ENABLED: "False"

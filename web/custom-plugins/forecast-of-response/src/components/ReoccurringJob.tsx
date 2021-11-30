@@ -40,10 +40,11 @@ const InputWrapper = styled.div`
 
 export function CreateReoccurringJob(props: {
   close: Function
+  removeJob: Function
   setCronJob: Function
-  value?: TCronJob | undefined
+  cronJob?: TCronJob | undefined
 }) {
-  const { close, setCronJob, value } = props
+  const { close, removeJob, setCronJob, cronJob } = props
   const [schedule, setSchedule] = useState<string | null>(null)
   const [dateRange, setDateRange] = useState<[Date, Date] | [null, null]>([
     null,
@@ -63,7 +64,7 @@ export function CreateReoccurringJob(props: {
     switch (interval) {
       case Interval.WEEKLY:
         dayOfMonth = '*'
-        dayOfWeek = '7'
+        dayOfWeek = '6'
         break
       case Interval.MONTHLY:
         dayOfMonth = '1'
@@ -73,7 +74,7 @@ export function CreateReoccurringJob(props: {
   }, [interval, hour, minute])
   return (
     <Wrapper>
-      <h3>Select a schedule for the job</h3>
+      <h3>Set a schedule for the job</h3>
       <InputWrapper>
         <DateRangePicker
           setDateRange={(dateRange: [Date, Date]) => setDateRange(dateRange)}
@@ -86,7 +87,7 @@ export function CreateReoccurringJob(props: {
             justifyContent: 'space-between',
           }}
         >
-          <div>
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
             <Label label="Interval" />
             <StyledSelect onChange={(e: Event) => setInterval(e.target.value)}>
               {Object.entries(Interval).map(([key, value]: any) => (
@@ -95,6 +96,13 @@ export function CreateReoccurringJob(props: {
                 </option>
               ))}
             </StyledSelect>
+
+            {interval === 'Weekly' && (
+              <small>Will run on sunday in every week</small>
+            )}
+            {interval === 'Monthly' && (
+              <small>Will run on the 1st on every month</small>
+            )}
           </div>
           <div>
             <Label label="Time" />
@@ -127,16 +135,27 @@ export function CreateReoccurringJob(props: {
           Close
         </Button>
         <Button
+          disabled={Object.keys(cronJob).length === 0}
+          color="danger"
+          variant="outlined"
+          onClick={() => {
+            removeJob()
+            close()
+          }}
+        >
+          Remove
+        </Button>
+        <Button
           onClick={() => {
             setCronJob({
               cron: schedule,
-              startDate: dateRange[0],
-              endDate: dateRange[1],
+              startDate: dateRange[0]?.toISOString(),
+              endDate: dateRange[1]?.toISOString(),
             })
             close()
           }}
         >
-          Set schedule
+          Set
         </Button>
       </div>
     </Wrapper>

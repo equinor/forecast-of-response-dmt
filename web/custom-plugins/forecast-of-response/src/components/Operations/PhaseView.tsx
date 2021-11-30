@@ -2,7 +2,6 @@ import React, { useContext, useState } from 'react'
 import {
   TCronJob,
   TPhase,
-  TSimulation,
   TSimulationConfig,
   TStask,
   TVariable,
@@ -30,10 +29,9 @@ import { lightGray, primaryGray } from '../Design/Colors'
 import { StyledSelect } from '../Input'
 import Result from '../Result'
 import Icon from '../Design/Icons'
-import { poorMansUUID } from '../../utils/uuid'
 import { JobLog } from '../Jobs'
-import { sortSimulationsByNewest } from '../../utils/sort'
 import { CreateReoccurringJob } from '../ReoccurringJob'
+import { createContainerJob } from '../../utils/createContainerJob'
 
 const SimHeaderWrapper = styled.div`
   display: flex;
@@ -218,33 +216,103 @@ function SingleSimulationConfig(props: {
   const [selectedResult, setSelectedResult] = useState<number>(0)
   const [loadingJob, setLoadingJob] = useState<boolean>(false)
   const [showSummary, setShowSummary] = useState<boolean>(false)
+  const [visibleReoccurringJob, setVisibleReoccurringJob] = useState<boolean>(
+    false
+  )
+  const [cronJob, setCronJob] = useState<any>({ ...simulationConfig?.cronJob })
   // Reverse these two lists, so to show newest first
   const [jobs, setJobs] = useState<any[]>([...simulationConfig.jobs].reverse())
-  const [results, setResults] = useState<any[]>(
-    [...simulationConfig.results].reverse()
-  )
+  const results = [...simulationConfig.results].reverse()
+
   const [viewJobDetails, setViewJobDetails] = useState<boolean>(false)
 
   const { token } = useContext(AuthContext)
   const jobAPI = new JobApi(token)
   const dmssAPI = new DmssAPI(token)
 
-  function startJob() {
+  function removeCronJob() {
+    const success = () => NotificationManager.success('Removed reoccurring job')
+    // Remove the cronJob entity
+    dmssAPI.generatedDmssApi
+      .explorerRemove({
+        dataSourceId: DEFAULT_DATASOURCE_ID,
+        dottedId: `${dottedId}.cronJob`,
+      })
+      .catch((error: Error) => console.error(error))
+    // Remove the registered job
+    jobAPI
+      .removeJob(`${DEFAULT_DATASOURCE_ID}/${dottedId}.cronJob`)
+      .then(() => success())
+      .catch((error: Error) => {
+        if (error.response.status === 404) {
+          setCronJob({})
+          success()
+        } else {
+          console.error(error)
+          NotificationManager.error(
+            error?.response?.data?.message,
+            'Failed to register reoccurring job'
+          )
+        }
+      })
+  }
+
+  function saveAndStartCronJob(cronValue: TCronJob) {
     setLoadingJob(true)
-    // Create the job entity
-    const newJob: any = {
-      // window.crypto.randomUUID() is not supported in firefox yet.
-      name: poorMansUUID(),
-      type: Blueprints.AZ_CONTAINER_JOB,
-      image: 'publicMSA.azurecr.io/dmt-job/srs:latest',
-      command: [
-        '/code/init.sh',
-        `--stask=${DEFAULT_DATASOURCE_ID}/${stask.blob._blob_id}`,
-        `--workflow=${stask.workflowTask}`,
-        '--input=ForecastDS/8ec0d646-907c-4eba-9e65-24106236d61c',
-        `--target=${DEFAULT_DATASOURCE_ID}/${dottedId}.results`,
-      ],
-    }
+    removeCronJob()
+    const cronJob = createContainerJob(
+      `${DEFAULT_DATASOURCE_ID}/${stask.blob._blob_id}`,
+      stask.workflowTask,
+      `${DEFAULT_DATASOURCE_ID}/${dottedId}.results`,
+      cronValue
+    )
+    dmssAPI.generatedDmssApi
+      .explorerAdd({
+        dataSourceId: DEFAULT_DATASOURCE_ID,
+        dottedId: `${dottedId}.cronJob`,
+        updateUncontained: false,
+        body: cronJob,
+      })
+      .then(() => {
+        setCronJob(cronJob)
+        jobAPI
+          .startJob(`${DEFAULT_DATASOURCE_ID}/${dottedId}.cronJob`)
+          .then((result: any) => {
+            NotificationManager.success(
+              JSON.stringify(result.data),
+              'Reoccurring job registered',
+              0
+            )
+          })
+          .catch((error: Error) => {
+            console.error(error)
+            NotificationManager.error(
+              error?.response?.data?.message,
+              'Failed to register cron job'
+            )
+          })
+          .finally(() => setLoadingJob(false))
+      })
+      .catch((error: Response) => {
+        error.json().then((data: any) => {
+          console.error(data)
+          NotificationManager.error(
+            data?.message,
+            'Failed to register cron job',
+            0
+          )
+          setLoadingJob(false)
+        })
+      })
+  }
+
+  function saveAndStartJob() {
+    setLoadingJob(true)
+    const newJob: any = createContainerJob(
+      `${DEFAULT_DATASOURCE_ID}/${stask.blob._blob_id}`,
+      stask.workflowTask,
+      `${DEFAULT_DATASOURCE_ID}/${dottedId}.results`
+    )
     dmssAPI.generatedDmssApi
       .explorerAdd({
         dataSourceId: DEFAULT_DATASOURCE_ID,
@@ -299,7 +367,11 @@ function SingleSimulationConfig(props: {
                 </label>
               ))}
             <h4>Reoccurring job:</h4>
-            <label>{cronJob ? cronJob.cron : 'Not configured'}</label>
+            <label>
+              {simulationConfig?.cronJob
+                ? simulationConfig.cronJob.cron
+                : 'Not configured'}
+            </label>
             <h4>Last published:</h4>
             <label>Not implemented</label>
             <h4>Author:</h4>
@@ -318,7 +390,7 @@ function SingleSimulationConfig(props: {
         </SummaryButton>
       </SummaryWrapper>
       <SimHeaderWrapper>
-        <StyledHeaderButton onClick={() => startJob()}>
+        <StyledHeaderButton onClick={() => saveAndStartJob()}>
           Run simulation
         </StyledHeaderButton>
         <StyledHeaderButton
@@ -338,11 +410,11 @@ function SingleSimulationConfig(props: {
           <Scrim onClose={() => setVisibleReoccurringJob(false)} isDismissable>
             <CreateReoccurringJob
               close={() => setVisibleReoccurringJob(false)}
-              setCronJob={(value) => {
-                setCronJob(value)
-                startJob()
+              removeJob={() => removeCronJob()}
+              setCronJob={(cronValue) => {
+                saveAndStartCronJob(cronValue)
               }}
-              value={cronJob}
+              cronJob={cronJob}
             />
           </Scrim>
         )}
@@ -351,7 +423,7 @@ function SingleSimulationConfig(props: {
       <div
         style={{ padding: '16px', display: 'flex', flexDirection: 'column' }}
       >
-        <Label label="Job history" />
+        <Label label="Jobs" />
         <div
           style={{
             display: 'flex',
@@ -379,7 +451,7 @@ function SingleSimulationConfig(props: {
             jobId={`${DEFAULT_DATASOURCE_ID}/${dottedId}.jobs.${selectedJob}`}
           />
         )}
-        <Label label="Select result" />
+        <Label label="Results" />
         <StyledSelect
           onChange={(e: Event) => setSelectedResult(parseInt(e.target.value))}
         >
@@ -433,6 +505,9 @@ function SimulationConfigList(props: {
             <Accordion.Item key={index} isExpanded={index === 0}>
               <Accordion.Header>
                 {simulationConfig.name}
+                {Object.keys(simulationConfig?.cronJob).length > 0 && (
+                  <Chip variant="active">Schedule set</Chip>
+                )}
                 {simulationConfig.published && (
                   <Chip variant="active">Published</Chip>
                 )}
