@@ -16,7 +16,6 @@ import {
   Scrim,
   Table,
   TextField,
-  CircularProgress,
   Typography,
 } from '@equinor/eds-core-react'
 import { NotificationManager } from 'react-notifications'
@@ -32,6 +31,7 @@ import Icon from '../Design/Icons'
 import { poorMansUUID } from '../../utils/uuid'
 import { JobLog } from '../Jobs'
 import { sortSimulationsByNewest } from '../../utils/sort'
+import { WaveForecast } from '../WaveForecast'
 
 const SimHeaderWrapper = styled.div`
   display: flex;

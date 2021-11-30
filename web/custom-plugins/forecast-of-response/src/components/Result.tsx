@@ -206,6 +206,7 @@ export default (props: { result: any }) => {
         warningLine={1.2}
         MaxLine={2.7}
         graphNames={graphNames}
+        yAxisUnit={'m'}
       />
     </ResultWrapper>
   )
