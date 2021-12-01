@@ -95,3 +95,10 @@ docker-compose run --rm -e DMSS_API=https://dmss-forecast-of-response-test.radix
    3. Run and create a new secret key: `./reset-db.sh --create-key`
       1. NB: Make sure to set the new key in the Radix secrets for DMSS for the environment you wish to reset.
       2. The new secret key is written to a file named `generated-secret-key.env`
+   
+
+#### Prod URL
+DMSS_API=https://dmss-forecast-of-response-prod.radix.equinor.com
+
+#### Test URL
+DMSS_API=https://dmss-forecast-of-response-test.radix.equinor.com

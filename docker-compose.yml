@@ -68,7 +68,7 @@ services:
     volumes:
       - ./dmss-system.local.json:/code/home/system/data_sources/system.json
     environment:
-      MONGO_AZURE_URI: ${MONGO_AZURE_URI}
+#      MONGO_AZURE_URI: ${MONGO_AZURE_URI}
       SECRET_KEY: ${SECRET_KEY}
       LOGGING_LEVEL: "warning"
 #      LOGGING_LEVEL: "debug"

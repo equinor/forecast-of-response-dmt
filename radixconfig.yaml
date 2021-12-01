@@ -9,7 +9,7 @@ spec:
         from: master
     - name: prod
       build:
-        from: radix-prod-env
+        from: master
   components:
     - name: web
       image: mariner.azurecr.io/for/web:latest

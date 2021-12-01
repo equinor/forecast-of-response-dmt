@@ -2,8 +2,6 @@ on:
   # Enables manually triggers
   workflow_dispatch:
   push:
-    branches:
-      - "radix-prod-env"
     tags:
       - "v**"
 
