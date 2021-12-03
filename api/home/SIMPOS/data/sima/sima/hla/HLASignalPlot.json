@@ -1,0 +1,62 @@
+{
+ "name" : "HLASignalPlot",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "figureTemplate",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/post/FigureTemplate",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "traces",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/post/TraceConfiguration",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "fixed",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "default" : "false"
+  }, {
+   "name" : "title",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "optional" : true
+  }, {
+   "name" : "xLabel",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "optional" : true
+  }, {
+   "name" : "yLabel",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "optional" : true
+  }, {
+   "name" : "selectAll",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "description" : "Will export all signals as plot",
+   "default" : "false"
+  }, {
+   "name" : "signals",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/hla/HLASignal",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "timeWindow",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Maximum size of time window when displaying plot.",
+   "default" : "60.0"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

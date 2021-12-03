@@ -1,0 +1,59 @@
+{
+ "name" : "PointBerthingFender",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "dynamicFriction",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Dynamic friction coefficient, sliding",
+   "default" : "0.0"
+  }, {
+   "name" : "staticFriction",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Friction coefficient, when not sliding (stiction)",
+   "default" : "0.0"
+  }, {
+   "name" : "shearStiffnes",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Shear stiffness associated with friction",
+   "default" : "0.0"
+  }, {
+   "name" : "velocityLimit",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Velocity limit for normal friction force",
+   "default" : "0.0"
+  }, {
+   "name" : "contactPlane",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/Plane",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "characteristic",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/ForceDampingCharacteristic",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "attachment",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "enumType" : "/simo/FenderAttachment",
+   "description" : "Fender attachment",
+   "default" : "global_point"
+  }, {
+   "name" : "contactPoint",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/Point3",
+   "contained" : true,
+   "optional" : false
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

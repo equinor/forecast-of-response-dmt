@@ -1,0 +1,78 @@
+{
+ "name" : "Workflow",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "nodes",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/post/RunNode",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "connections",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/post/SlotConnection",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "computeServiceID",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : [{
+                "type": "system/SIMOS/UiRecipe",
+                "name": "Workflow",
+                "description": "SIMA Workflow view",
+                "plugin": "sima-workflow-view",
+                "attributes": []
+              },
+              {
+                "name": "INDEX",
+                "type": "system/SIMOS/UiRecipe",
+                "description": "",
+                "plugin": "INDEX",
+                "hideTab": false,
+                "options": [],
+                "attributes": [
+                  {
+                    "name": "nodes",
+                    "type": "system/SIMOS/UiAttribute",
+                    "attributeType": "system/SIMOS/BlueprintAttribute",
+                    "widget": "hidden",
+                    "contained": false,
+                    "options": []
+                  },{
+                    "name": "connections",
+                    "type": "system/SIMOS/UiAttribute",
+                    "attributeType": "system/SIMOS/BlueprintAttribute",
+                    "widget": "hidden",
+                    "contained": false,
+                    "options": []
+                  }]
+              },
+              {
+                "name": "Edit",
+                "type": "system/SIMOS/UiRecipe",
+                "description": "",
+                "plugin": "EDIT_PLUGIN",
+                "field": "",
+                "hideTab": true,
+                "options": [],
+                "attributes": []
+              },
+              {
+                "name": "Raw",
+                "type": "system/SIMOS/UiRecipe",
+                "description": "",
+                "plugin": "PREVIEW",
+                "field": "",
+                "hideTab": true,
+                "options": [],
+                "attributes": []
+              }]
+}
+

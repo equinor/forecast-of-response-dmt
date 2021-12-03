@@ -1,0 +1,7 @@
+{
+ "name" : "WaveIntegrationMethod",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["actual_wave_elevation", "strictly_linear_wave"],
+ "labels" : ["Actual wave elevation", "Strictly linear wave"]
+}
+

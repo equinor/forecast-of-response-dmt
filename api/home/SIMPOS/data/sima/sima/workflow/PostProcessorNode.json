@@ -1,0 +1,64 @@
+{
+ "name" : "PostProcessorNode",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "x",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "default" : "0"
+  }, {
+   "name" : "y",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "default" : "0"
+  }, {
+   "name" : "h",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "default" : "0"
+  }, {
+   "name" : "w",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "default" : "0"
+  }, {
+   "name" : "controlSignalInputSlots",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/post/ControlSignalInputSlot",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "variableInputSlots",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/workflow/VariableInputSlot",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "postprocessor",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/post/PostProcessorSpecification",
+   "contained" : false,
+   "optional" : true
+  }, {
+   "name" : "postOutputSlots",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/workflow/PostprocessorOutputSlot",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "postInputSlots",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/workflow/PostprocessorInputSlot",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

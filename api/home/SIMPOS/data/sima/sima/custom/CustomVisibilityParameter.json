@@ -1,0 +1,16 @@
+{
+ "name" : "CustomVisibilityParameter",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "parameter",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/custom/ParameterField",
+   "contained" : false,
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

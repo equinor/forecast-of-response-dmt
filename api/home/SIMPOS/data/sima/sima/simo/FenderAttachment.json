@@ -1,0 +1,7 @@
+{
+ "name" : "FenderAttachment",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["global_point", "global_plane"],
+ "labels" : ["Globally fixed point", "Globally fixed plane"]
+}
+

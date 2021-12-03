@@ -1,0 +1,47 @@
+{
+ "name" : "SimpleCondition",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "changeNumber",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "default" : "0"
+  }, {
+   "name" : "resultContainer",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/ResultContainer",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "selection",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/ConditionSelectable",
+   "contained" : false,
+   "optional" : true
+  }, {
+   "name" : "variableItems",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/VariableItem",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "probabilityVariable",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/DoubleVariable",
+   "contained" : false,
+   "optional" : true,
+   "description" : "Used to set a probability for single runs"
+  }, {
+   "name" : "variation",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/condition/ModelVariation",
+   "contained" : false,
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

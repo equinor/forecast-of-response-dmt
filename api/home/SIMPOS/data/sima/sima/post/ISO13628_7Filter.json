@@ -1,0 +1,87 @@
+{
+ "name" : "ISO13628_7Filter",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "x",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "default" : "0"
+  }, {
+   "name" : "y",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "default" : "0"
+  }, {
+   "name" : "h",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "default" : "0"
+  }, {
+   "name" : "w",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "default" : "0"
+  }, {
+   "name" : "controlSignalInputSlots",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/post/ControlSignalInputSlot",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "filterInputSlots",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/post/InputSlot",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "filterOutputSlots",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/post/OutputSlot",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "ultimateTensionCapacity",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Single load ultimate tension capacity",
+   "default" : "0.0"
+  }, {
+   "name" : "ultimateBendingCapacity",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Single load ultimate bending capacity",
+   "default" : "0.0"
+  }, {
+   "name" : "ultimatePressureCapacity",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Single load ultimate pressure capacity due to end cap effect",
+   "default" : "0.0"
+  }, {
+   "name" : "internalPressure",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Internal pressure",
+   "default" : "0.0"
+  }, {
+   "name" : "externalPressure",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "External pressure",
+   "default" : "0.0"
+  }, {
+   "name" : "designFactor",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Design factor",
+   "default" : "0.8"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

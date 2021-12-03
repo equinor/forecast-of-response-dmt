@@ -1,0 +1,7 @@
+{
+ "name" : "IECTurbulenceCharacteristics",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["a", "b", "c", "percent"],
+ "labels" : ["A", "B", "C", "In percent"]
+}
+

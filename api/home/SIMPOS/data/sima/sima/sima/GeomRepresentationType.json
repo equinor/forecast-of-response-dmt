@@ -1,0 +1,7 @@
+{
+ "name" : "GeomRepresentationType",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["default_box", "file", "box", "sphere", "cylinder_x", "cylinder_y", "cylinder_z", "none"],
+ "labels" : ["Default arrow box", "Geometry file", "Box", "Sphere", "Cylinder X", "Cylinder Y", "Cylinder Z", "No graphical representation"]
+}
+

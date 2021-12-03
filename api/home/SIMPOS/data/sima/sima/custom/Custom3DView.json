@@ -1,0 +1,24 @@
+{
+ "name" : "Custom3DView",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "model",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/MOAO",
+   "contained" : false,
+   "optional" : true
+  }, {
+   "name" : "result",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string"
+  }, {
+   "name" : "_type",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

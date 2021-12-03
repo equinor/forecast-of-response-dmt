@@ -1,0 +1,41 @@
+{
+ "name" : "HLAPipeRoute",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "routeFile",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string"
+  }, {
+   "name" : "coordsUTM",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "default" : "no"
+  }, {
+   "name" : "mapOnTerrain",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "default" : "auto"
+  }, {
+   "name" : "routeWidth",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "default" : "0.0"
+  }, {
+   "name" : "color",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/SIMAColor",
+   "contained" : false,
+   "optional" : true
+  }, {
+   "name" : "routeWidthColor",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/SIMAColor",
+   "contained" : false,
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

@@ -1,0 +1,16 @@
+{
+ "name" : "WorkflowInputSlot",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "workflowInput",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/workflow/WorkflowInput",
+   "contained" : false,
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

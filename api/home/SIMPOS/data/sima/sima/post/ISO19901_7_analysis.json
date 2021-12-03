@@ -1,0 +1,7 @@
+{
+ "name" : "ISO19901_7_analysis",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["intact_condition", "one_failure", "one_failure_transient", "two_failures", "two_failures_transient"],
+ "labels" : ["Intact condition", "One failure", "One failure, transient", "Two failures", "Two failures, transient"]
+}
+

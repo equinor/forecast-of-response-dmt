@@ -1,0 +1,7 @@
+{
+ "name" : "SurfaceType",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["ocean_surface", "sea_floor"],
+ "labels" : ["Ocean surface", "Seafloor"]
+}
+

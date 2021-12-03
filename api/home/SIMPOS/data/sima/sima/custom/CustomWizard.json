@@ -1,0 +1,47 @@
+{
+ "name" : "CustomWizard",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "title",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string"
+  }, {
+   "name" : "selectionType",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "description" : "When an object of the given type is selected a popup menu will be enabled,"
+  }, {
+   "name" : "menuLabel",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "description" : "Menu label shown in the popup"
+  }, {
+   "name" : "pages",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/custom/CustomWizardPage",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "inline",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "description" : "Use inline script or external",
+   "default" : "true"
+  }, {
+   "name" : "path",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "description" : "Path to the output file."
+  }, {
+   "name" : "finishScript",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "description" : "This script will be run when finishing the wizard. Use the variable selection to get hold of the object selected in the navigator"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

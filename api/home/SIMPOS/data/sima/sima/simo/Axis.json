@@ -1,0 +1,7 @@
+{
+ "name" : "Axis",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["x", "y", "z"],
+ "labels" : ["X", "Y", "Z"]
+}
+

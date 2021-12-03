@@ -1,0 +1,17 @@
+{
+ "name" : "RegularWave",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "items",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/environment/RegularWaveItem",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : false
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

@@ -1,0 +1,17 @@
+{
+ "name" : "EigenvalueResult",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "bodyResults",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/BodyEigenvalueResult",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

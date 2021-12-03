@@ -1,0 +1,108 @@
+{
+ "name" : "SimpleWireCoupling",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "endPoint1",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/SIMOBodyPoint",
+   "contained" : false,
+   "optional" : false
+  }, {
+   "name" : "endPoint2",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/SIMOBodyPoint",
+   "contained" : false,
+   "optional" : false
+  }, {
+   "name" : "failureMode",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "enumType" : "/simo/ActivationFailureMode",
+   "description" : "Failure mode of coupling element",
+   "default" : "none"
+  }, {
+   "name" : "failureTime",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Earliest possible time of failure",
+   "default" : "0.0"
+  }, {
+   "name" : "breakingStrength",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Breaking strength",
+   "default" : "0.0"
+  }, {
+   "name" : "ea",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Wire cross section stiffness",
+   "default" : "0.0"
+  }, {
+   "name" : "length",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Initial, unstretched wire length",
+   "default" : "0.0"
+  }, {
+   "name" : "damping",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Material damping",
+   "default" : "0.0"
+  }, {
+   "name" : "flexibility",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Connection flexibility",
+   "default" : "0.0"
+  }, {
+   "name" : "guidePointSpecifications",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/GuidePointSpecification",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "constantTensionControl",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "description" : "Enable constant tension control for this wire",
+   "default" : "false"
+  }, {
+   "name" : "tensionLevel",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Desired tension level",
+   "default" : "0.0"
+  }, {
+   "name" : "tensionDeadband",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Tension level deadband",
+   "default" : "0.0"
+  }, {
+   "name" : "maxSpeed",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Max wire length rate of change",
+   "default" : "0.0"
+  }, {
+   "name" : "activationTime",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Activation time for constant tension control",
+   "default" : "0.0"
+  }, {
+   "name" : "deactivationTime",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Deactivation time for constant tension control. If value is less then or equal to activation time, controller will remain active throughout simulation",
+   "default" : "0.0"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

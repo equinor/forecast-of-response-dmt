@@ -1,0 +1,22 @@
+{
+ "name" : "ThrusterReduction",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "propellerDirection",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Direction of propeller axis in body coordinate system",
+   "default" : "0.0"
+  }, {
+   "name" : "reductionFactor",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Thrust reduction factor",
+   "default" : "1.0"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

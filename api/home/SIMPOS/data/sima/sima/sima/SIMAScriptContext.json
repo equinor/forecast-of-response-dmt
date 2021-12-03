@@ -1,0 +1,17 @@
+{
+ "name" : "SIMAScriptContext",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "model",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/MOAO",
+   "contained" : false,
+   "optional" : true,
+   "description" : "Model object to be directly available in script by given name"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

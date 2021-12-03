@@ -1,0 +1,58 @@
+{
+ "name" : "OptimizationCalculationParameters",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "desiredFinalAccuracy",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Desired final accuracy. Should not be much smaller than the accuracy by which the gradients are computed.",
+   "default" : "0.01"
+  }, {
+   "name" : "tolerance",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Tolerance needed for the QP solver to perform several tests, for example whether optimality conditions are satisfied or whether a  number is considered as zero or not.",
+   "default" : "1.0E-12"
+  }, {
+   "name" : "minStepLength",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Minimum step length in case there is more than one parallel system. Recommended is any value in the order of the accuracy by which the functions are computed.",
+   "default" : "1.0E-12"
+  }, {
+   "name" : "maxFunctionCalls",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "description" : "Maximum number of function calls during line search. Should not be larger than 50.",
+   "default" : "20"
+  }, {
+   "name" : "maxIterations",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "description" : "Maximum number of outer iterations, where one iteration corresponds to one formulation and solution of the quadratic programming subproblem, or, alternatively one evaluation of the gradients.",
+   "default" : "20"
+  }, {
+   "name" : "stackSize",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "description" : "Stack size for storing merit function values at previous iterations for non-monotone line search. If set to zero, monotone line search is performed. Should not be greater than 50.",
+   "default" : "10"
+  }, {
+   "name" : "automaticNormalization",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "description" : "Automatic normalization of optimization problem",
+   "default" : "true"
+  }, {
+   "name" : "handleFailure",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "description" : "Try another solution if the underlying calculation fails",
+   "default" : "true"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

@@ -1,0 +1,32 @@
+{
+ "name" : "DiffractedWave",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "id",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string"
+  }, {
+   "name" : "referencePoint",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/Point3",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "elevation",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/hydro/DiffractedWaveElevation",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "velocity",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/hydro/DiffractedWaveVelocity",
+   "contained" : true,
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

@@ -1,0 +1,17 @@
+{
+ "name" : "HLAWellPathGroup",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "HLAWellPaths",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/hla/HLAWellPath",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

@@ -1,0 +1,34 @@
+{
+ "name" : "SingleEnvironment",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "wave",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/environment/Wave",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "swell",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/environment/Wave",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "wind",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/environment/Wind",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "current",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/environment/Current",
+   "contained" : true,
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

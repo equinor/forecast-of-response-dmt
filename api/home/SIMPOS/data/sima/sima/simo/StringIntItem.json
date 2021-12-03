@@ -1,0 +1,19 @@
+{
+ "name" : "StringIntItem",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "text",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string"
+  }, {
+   "name" : "value",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "default" : "0"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

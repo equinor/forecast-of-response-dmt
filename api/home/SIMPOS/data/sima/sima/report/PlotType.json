@@ -1,0 +1,7 @@
+{
+ "name" : "PlotType",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["line", "scatter", "bar"],
+ "labels" : ["Line", "Scatter", "Bar"]
+}
+

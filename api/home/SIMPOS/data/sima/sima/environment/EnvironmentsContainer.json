@@ -1,0 +1,17 @@
+{
+ "name" : "EnvironmentsContainer",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "environments",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/environment/Environment",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

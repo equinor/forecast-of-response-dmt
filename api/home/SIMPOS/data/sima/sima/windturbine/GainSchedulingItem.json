@@ -1,0 +1,22 @@
+{
+ "name" : "GainSchedulingItem",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "rotorSpeed",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Rotor speed",
+   "default" : "0.0"
+  }, {
+   "name" : "gainCorrectionFactor",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Gain correction factor",
+   "default" : "0.0"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

@@ -1,0 +1,7 @@
+{
+ "name" : "MooringType",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["permanent_mooring", "mobile_mooring"],
+ "labels" : ["Permanent mooring", "Mobile mooring"]
+}
+

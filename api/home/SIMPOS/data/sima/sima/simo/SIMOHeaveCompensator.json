@@ -1,0 +1,101 @@
+{
+ "name" : "SIMOHeaveCompensator",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "_type",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "enumType" : "/simo/CompensatorType",
+   "default" : "generic"
+  }, {
+   "name" : "limitationMode",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "enumType" : "/simo/CompensatorLimitation",
+   "description" : "Limitation handling mode for the compensator",
+   "default" : "factor"
+  }, {
+   "name" : "factor",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Reduction factor for compensator action at high sea states",
+   "default" : "0.0"
+  }, {
+   "name" : "clippingLevel",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Clipping level for crane motion measurement",
+   "default" : "0.0"
+  }, {
+   "name" : "numWiresCylinder",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "description" : "Number of wire parts around compensator cylinder",
+   "default" : "2"
+  }, {
+   "name" : "strokeLength",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Maximum range of elongation (stroke length)",
+   "default" : "0.0"
+  }, {
+   "name" : "cylinderArea",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Cylinder cross section area",
+   "default" : "0.0"
+  }, {
+   "name" : "feedbackGainFactor",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Gain factor in feedback",
+   "default" : "0.0"
+  }, {
+   "name" : "feedbackTimeDerivative",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Time derivative in feedback",
+   "default" : "0.0"
+  }, {
+   "name" : "feedforwardGainFactor",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Gain factor in feedforward",
+   "default" : "0.0"
+  }, {
+   "name" : "feedforwardTimeDerivative",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Time derivative in feedforward",
+   "default" : "0.0"
+  }, {
+   "name" : "valveCharacteristics",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Characteristics of valve",
+   "default" : "0.0"
+  }, {
+   "name" : "valveTimeConstant",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Valve time constant",
+   "default" : "0.0"
+  }, {
+   "name" : "lowPassTimeConstant",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Time constant in low-pass filter",
+   "default" : "0.0"
+  }, {
+   "name" : "numWiresTopHook",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "description" : "Number of wire parts from crane top to hook",
+   "default" : "1"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

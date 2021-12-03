@@ -1,0 +1,28 @@
+{
+ "name" : "ThrustTorqueCoefficient",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "advanceRatio",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Advance ratio",
+   "default" : "0.0"
+  }, {
+   "name" : "thrustCoefficient",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Thrust coefficient",
+   "default" : "0.0"
+  }, {
+   "name" : "torqueCoefficient",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Torque coefficient",
+   "default" : "0.0"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

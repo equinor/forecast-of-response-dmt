@@ -1,0 +1,40 @@
+{
+ "name" : "FluctuatingWindVelocityProfile",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "verticalCoordinate",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Vertical coordinate of profile level",
+   "default" : "0.0"
+  }, {
+   "name" : "longitudinalVelocityFactor",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Wind speed scaling factor for fluctuating part of the longitudinal wind",
+   "default" : "0.0"
+  }, {
+   "name" : "lateralVelocityFactor",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Wind speed scaling factor for the lateral wind velocity",
+   "default" : "0.0"
+  }, {
+   "name" : "verticalVelocityFactor",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Wind speed scaling factor for the vertical wind velocity",
+   "default" : "0.0"
+  }, {
+   "name" : "meanSpeedFactor",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Wind speed scaling factor for the mean wind speed",
+   "default" : "0.0"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

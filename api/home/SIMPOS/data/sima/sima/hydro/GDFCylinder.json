@@ -1,0 +1,58 @@
+{
+ "name" : "GDFCylinder",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "dimensionalLength",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Dimensional length",
+   "default" : "1.0"
+  }, {
+   "name" : "centerX",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Global x-coordinate",
+   "default" : "0.0"
+  }, {
+   "name" : "centerY",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Global y-coordinate",
+   "default" : "0.0"
+  }, {
+   "name" : "radius",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Radius of cyllinder",
+   "default" : "40.0"
+  }, {
+   "name" : "numberOfRadialPanels",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "description" : "Number of panels around the circumference",
+   "default" : "20"
+  }, {
+   "name" : "depth",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Depth of cylinder (1 means equidistant)",
+   "default" : "20.0"
+  }, {
+   "name" : "numberOfVerticalPanels",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "description" : "Number of depth levels",
+   "default" : "10"
+  }, {
+   "name" : "exponent",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Exponent in depth distribution",
+   "default" : "2.0"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

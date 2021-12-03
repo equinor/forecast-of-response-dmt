@@ -2,6 +2,7 @@
 /.idea
 /.code
 /.venv
+/.history
 
 data/*
 node_modules

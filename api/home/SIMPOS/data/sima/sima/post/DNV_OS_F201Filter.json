@@ -1,0 +1,214 @@
+{
+ "name" : "DNV_OS_F201Filter",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "x",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "default" : "0"
+  }, {
+   "name" : "y",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "default" : "0"
+  }, {
+   "name" : "h",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "default" : "0"
+  }, {
+   "name" : "w",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "default" : "0"
+  }, {
+   "name" : "controlSignalInputSlots",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/post/ControlSignalInputSlot",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "filterInputSlots",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/post/InputSlot",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "filterOutputSlots",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/post/OutputSlot",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "customSafetyClassResistanceFactor",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Safety class resistance factor (? SC)",
+   "default" : "0.0"
+  }, {
+   "name" : "useCustomSafetyClassResistanceFactor",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "default" : "false"
+  }, {
+   "name" : "customLoadEffectFactorForEnvironmentalLoads",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Load effect factor for environmental loads (? E)",
+   "default" : "0.0"
+  }, {
+   "name" : "useCustomLoadEffectFactorForEnvironmentalLoads",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "default" : "false"
+  }, {
+   "name" : "customLoadEffectFactorForFunctionalLoads",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Load effect factor for functional loads (? F)",
+   "default" : "0.0"
+  }, {
+   "name" : "useCustomLoadEffectFactorForFunctionalLoads",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "default" : "false"
+  }, {
+   "name" : "customLoadFactorForAccidentalLoads",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Load factor for accidental loads (? A)",
+   "default" : "0.0"
+  }, {
+   "name" : "useCustomLoadFactorForAccidentalLoads",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "default" : "false"
+  }, {
+   "name" : "customMaterialResistanceFactor",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Material resistance factor (? m)",
+   "default" : "0.0"
+  }, {
+   "name" : "useCustomMaterialResistanceFactor",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "default" : "false"
+  }, {
+   "name" : "fabricationFactor",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Fabrication factor (? fab)",
+   "default" : "0.85"
+  }, {
+   "name" : "youngsFactor",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Young's modulus",
+   "default" : "2.1E11"
+  }, {
+   "name" : "poissonsRatio",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Poisson's ratio for pipe wall material",
+   "default" : "0.3"
+  }, {
+   "name" : "yieldStrength",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Yield strength to be used in design",
+   "default" : "4.0E8"
+  }, {
+   "name" : "tensileStrength",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Tensile strength to be used in design",
+   "default" : "7.0E8"
+  }, {
+   "name" : "nomOD",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Nominal outside diameter",
+   "default" : "0.2967"
+  }, {
+   "name" : "pipeThickness",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Thickness of pipe",
+   "default" : "0.05"
+  }, {
+   "name" : "ovality",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Ovality",
+   "default" : "0.005"
+  }, {
+   "name" : "extFluidDensity",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Density of external fluid (e.g. sea water)",
+   "default" : "1025.0"
+  }, {
+   "name" : "intFluidDensity",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Density of internal fluid (contents)",
+   "default" : "900.0"
+  }, {
+   "name" : "refPointPressure",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Design pressure at reference point",
+   "default" : "500000.0"
+  }, {
+   "name" : "corrosionAllowance",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Internal and external corrosion allowance",
+   "default" : "0.001"
+  }, {
+   "name" : "safetyClass",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "enumType" : "/post/SafetyClass",
+   "default" : "low"
+  }, {
+   "name" : "limitStateCategory",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "enumType" : "/post/LimitStateCategory",
+   "default" : "sls"
+  }, {
+   "name" : "useWeibullDistributionFitting",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "description" : "Calculate characteristic extreme values of utilization factors using Weibull distribution fitting",
+   "default" : "false"
+  }, {
+   "name" : "lowerThresholdForTailFitting",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Sample points with probability of non-exceedance below this threshold will not be used when fitting the Weibull distribution",
+   "default" : "0.87"
+  }, {
+   "name" : "seastateReturnPeriod",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Return period used for estimating the characteristic extreme value",
+   "default" : "3.0"
+  }, {
+   "name" : "accelerationOfGravity",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Acceleration of gravity",
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

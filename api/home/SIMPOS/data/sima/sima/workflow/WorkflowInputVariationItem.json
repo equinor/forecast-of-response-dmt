@@ -1,0 +1,23 @@
+{
+ "name" : "WorkflowInputVariationItem",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "fromId",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string"
+  }, {
+   "name" : "toId",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string"
+  }, {
+   "name" : "runRoots",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "dimensions" : "*"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

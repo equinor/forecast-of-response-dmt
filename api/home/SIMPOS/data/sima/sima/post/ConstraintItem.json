@@ -1,0 +1,25 @@
+{
+ "name" : "ConstraintItem",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "path",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string"
+  }, {
+   "name" : "_type",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "enumType" : "/post/ConstraintType",
+   "default" : "le"
+  }, {
+   "name" : "value",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "default" : "0.0"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

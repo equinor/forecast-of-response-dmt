@@ -1,0 +1,9 @@
+{
+ "name" : "SignalSlot",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : true,
+ "extends" : ["/NamedEntity"],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

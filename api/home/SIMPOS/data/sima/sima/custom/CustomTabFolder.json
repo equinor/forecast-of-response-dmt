@@ -1,0 +1,17 @@
+{
+ "name" : "CustomTabFolder",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "tabItems",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/custom/CustomTabItem",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

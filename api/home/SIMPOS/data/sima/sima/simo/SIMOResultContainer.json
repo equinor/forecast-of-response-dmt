@@ -1,0 +1,50 @@
+{
+ "name" : "SIMOResultContainer",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "properties",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/Property",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "modelOutputFile",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string"
+  }, {
+   "name" : "probability",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "optional" : true
+  }, {
+   "name" : "static",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/SIMOStaticResultEntry",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "dynamic",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/SIMODynamicResultEntry",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "stability",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/ResultEntry",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "preRunResults",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/ResultEntry",
+   "contained" : true,
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

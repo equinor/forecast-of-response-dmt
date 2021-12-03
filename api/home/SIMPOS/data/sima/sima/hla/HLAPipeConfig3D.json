@@ -1,0 +1,20 @@
+{
+ "name" : "HLAPipeConfig3D",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "color",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/SIMAColor",
+   "contained" : false,
+   "optional" : true
+  }, {
+   "name" : "fileName",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

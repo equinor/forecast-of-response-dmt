@@ -1,0 +1,59 @@
+{
+ "name" : "WaveDriftDamping",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "id",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string"
+  }, {
+   "name" : "nDOF2",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "default" : "0"
+  }, {
+   "name" : "nDir",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "default" : "0"
+  }, {
+   "name" : "directions",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "dimensions" : "*",
+   "default" : "0.0"
+  }, {
+   "name" : "nFreq",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "default" : "0"
+  }, {
+   "name" : "frequencies",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "dimensions" : "*",
+   "default" : "0.0"
+  }, {
+   "name" : "nonZeroDofs",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "dimensions" : "*",
+   "default" : "true"
+  }, {
+   "name" : "symmetry",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "enumType" : "/hydro/DirectionSymmetry",
+   "default" : "no_symmetry"
+  }, {
+   "name" : "values",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "dimensions" : "*",
+   "default" : "0.0"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

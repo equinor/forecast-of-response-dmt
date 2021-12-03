@@ -1,0 +1,91 @@
+{
+ "name" : "SumFrequencyWaveForce",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "id",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string"
+  }, {
+   "name" : "nFreq",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "default" : "0"
+  }, {
+   "name" : "nDir",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "default" : "0"
+  }, {
+   "name" : "bichromatic",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "default" : "false"
+  }, {
+   "name" : "bidirectional",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "default" : "false"
+  }, {
+   "name" : "frequencies",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "dimensions" : "*",
+   "default" : "0.0"
+  }, {
+   "name" : "directions",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "dimensions" : "*",
+   "default" : "0.0"
+  }, {
+   "name" : "onFile",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "default" : "false"
+  }, {
+   "name" : "file",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string"
+  }, {
+   "name" : "surge",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/hydro/QTFDofItem",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "sway",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/hydro/QTFDofItem",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "heave",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/hydro/QTFDofItem",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "roll",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/hydro/QTFDofItem",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "pitch",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/hydro/QTFDofItem",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "yaw",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/hydro/QTFDofItem",
+   "contained" : true,
+   "optional" : false
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

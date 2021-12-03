@@ -1,0 +1,36 @@
+{
+ "name" : "ElongationCharacteristic",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "inputType",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "enumType" : "/simo/ElongationCharacteristicType",
+   "description" : "Elongation characteristic type. Stress-strain or tension-strain.",
+   "default" : "stress_strain"
+  }, {
+   "name" : "items",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/ElongationItem",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "tensionMax",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Historical maximum tension",
+   "default" : "0.0"
+  }, {
+   "name" : "fibreRopeModel",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/FibreRopeModel",
+   "contained" : false,
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

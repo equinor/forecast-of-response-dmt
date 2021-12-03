@@ -1,0 +1,7 @@
+{
+ "name" : "CouplingPointType",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["fixed", "guide"],
+ "labels" : ["Fixed", "Guide"]
+}
+

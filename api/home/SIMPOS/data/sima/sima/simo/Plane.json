@@ -1,0 +1,46 @@
+{
+ "name" : "Plane",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "unlimited",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "description" : "Whether the fender plane is limited to a restricted sector",
+   "default" : "false"
+  }, {
+   "name" : "width",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Width of plane",
+   "default" : "0.0"
+  }, {
+   "name" : "length",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Length of plane",
+   "default" : "0.0"
+  }, {
+   "name" : "point",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/Point3",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "normalVector",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/Vector3",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "parallelVector",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/Vector3",
+   "contained" : true,
+   "optional" : false
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

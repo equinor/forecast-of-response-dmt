@@ -1,0 +1,155 @@
+{
+ "name" : "WorkflowSetNode",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "x",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "default" : "0"
+  }, {
+   "name" : "y",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "default" : "0"
+  }, {
+   "name" : "h",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "default" : "0"
+  }, {
+   "name" : "w",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "default" : "0"
+  }, {
+   "name" : "controlSignalInputSlots",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/post/ControlSignalInputSlot",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "variableInputSlots",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/workflow/VariableInputSlot",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "modelReferenceInputSlot",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/workflow/ModelReferenceInputSlot",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "workflow",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/workflow/Workflow",
+   "contained" : false,
+   "optional" : true
+  }, {
+   "name" : "workflowOutputSlots",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/workflow/WorkflowOutputSlot",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "workflowInputSlots",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/workflow/WorkflowInputSlot",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "inputWorkflow",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "description" : "Set the workflow input from the outside. Use a model reference as source.",
+   "default" : "false"
+  }, {
+   "name" : "setFolderName",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "description" : "Override the default folder name created. This folder will be relative to the running workflow. If left empty it will create the results directly in the workflow folder.",
+   "default" : "false"
+  }, {
+   "name" : "folderName",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string"
+  }, {
+   "name" : "variableInputSets",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/workflow/VariableInputSet",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "writeRunStatus",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "description" : "Write a text file with the run status after running all the cases",
+   "default" : "false"
+  }, {
+   "name" : "runStatusFolder",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "description" : "If provided the status file(s) will  to exported to this location"
+  }, {
+   "name" : "input",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "enumType" : "/workflow/WorkflowSetInput",
+   "description" : "Specify variable values from file.",
+   "default" : "manual"
+  }, {
+   "name" : "filename",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "description" : "Import variable values from file. Expected file format:\r\n' any comment specified with '\r\n'Hs    Tp     seed : values specified in rows ( Need to match the variables specified)  \r\n1.0      2.0    3\r\n4.0      5.0    4\r\n'any comment\r\n           "
+  }, {
+   "name" : "variableInputSetSlots",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/workflow/VariableInputSetSlot",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "iteration",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "enumType" : "/workflow/Iteration",
+   "description" : "Switch to change type of iteration",
+   "default" : "column"
+  }, {
+   "name" : "distribute",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "description" : "Distribute workflow using SIMACompute",
+   "default" : "false"
+  }, {
+   "name" : "grouping",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "description" : "Group given amount of runs together in the same process. Should be used if workflow within takes a relative short amount of time compared to forking off a new process",
+   "optional" : true
+  }, {
+   "name" : "iterateOverInput",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "description" : "Enable iteration over workflow inputs. The iteration will loop over all input folders with type=workflow",
+   "default" : "false"
+  }, {
+   "name" : "workflowInputVariationSlots",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/workflow/WorkflowInputSlot",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

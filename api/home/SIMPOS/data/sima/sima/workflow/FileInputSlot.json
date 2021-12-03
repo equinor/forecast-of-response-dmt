@@ -1,0 +1,28 @@
+{
+ "name" : "FileInputSlot",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "properties",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/post/SignalProperties",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "filename",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "description" : "Name of file to be imported"
+  }, {
+   "name" : "specifyAdditionalProperties",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "description" : "Specify additional properties in the file root",
+   "default" : "false"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

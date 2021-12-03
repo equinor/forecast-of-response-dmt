@@ -1,0 +1,69 @@
+{
+ "name" : "BodyResult",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "body",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "description" : "Result body"
+  }, {
+   "name" : "initialPosition",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/Position",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "staticPosition",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/Position",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "bodyForces",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/ForceResult",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "positioningElementResults",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/PositioningElementResult",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "couplingResults",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/CouplingElementResult",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "specifiedForces",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/ForceResult",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "thrusterForces",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/ForceResult",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "externalForces",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/ForceResult",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

@@ -1,0 +1,19 @@
+{
+ "name" : "CustomImage",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "filename",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string"
+  }, {
+   "name" : "factor",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "default" : "0.2"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

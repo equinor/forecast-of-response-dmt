@@ -1,0 +1,29 @@
+{
+ "name" : "WasimResultExport",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "floaterBody",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/SIMOBody",
+   "contained" : false,
+   "optional" : true
+  }, {
+   "name" : "pointForces",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/BodyForceComponentReference",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "maxNumberOfWaveComponents",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "description" : "Limit the number of wave components exported to file",
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

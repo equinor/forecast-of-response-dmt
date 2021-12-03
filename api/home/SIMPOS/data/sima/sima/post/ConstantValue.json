@@ -1,0 +1,29 @@
+{
+ "name" : "ConstantValue",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "properties",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/post/SignalProperties",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "value",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Value of the constant",
+   "default" : "0.0"
+  }, {
+   "name" : "unit",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "description" : "Defines the unit of the constant",
+   "default" : "-"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

@@ -1,0 +1,15 @@
+{
+ "name" : "StringVariable",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "value",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "description" : "The current value for the variable"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

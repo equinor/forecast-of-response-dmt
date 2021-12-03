@@ -1,0 +1,102 @@
+{
+ "name" : "SmallBodyHydrodynamicData",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "svol",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Fully submerged volume",
+   "default" : "0.0"
+  }, {
+   "name" : "am1",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Added mass in 1. degree of freedom, fully submerged",
+   "default" : "0.0"
+  }, {
+   "name" : "am2",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Added mass in 2. degree of freedom, fully submerged",
+   "default" : "0.0"
+  }, {
+   "name" : "am3",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Added mass in 3. degree of freedom, fully submerged",
+   "default" : "0.0"
+  }, {
+   "name" : "c11",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Linear drag coefficient in 1. degree of freedom, \r\nfully submerged",
+   "default" : "0.0"
+  }, {
+   "name" : "c12",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Linear drag coefficient in 2. degree of freedom, \r\nfully submerged",
+   "default" : "0.0"
+  }, {
+   "name" : "c13",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Linear drag coefficient in 3. degree of freedom, \r\nfully submerged",
+   "default" : "0.0"
+  }, {
+   "name" : "c21",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Quadratic drag coefficient in 1. degree of freedom,\r\nfully submerged",
+   "default" : "0.0"
+  }, {
+   "name" : "c22",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Quadratic drag coefficient in 2. degree of freedom,\r\nfully submerged",
+   "default" : "0.0"
+  }, {
+   "name" : "c23",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Quadratic drag coefficient in 3. degree of freedom,fully submerged",
+   "default" : "0.0"
+  }, {
+   "name" : "zcoef",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Vertical position used as reference for depth dependency",
+   "default" : "0.0"
+  }, {
+   "name" : "depthDependency",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "enumType" : "/simo/DepthDependency",
+   "description" : "Reference for depth dependency",
+   "default" : "wave_elevation"
+  }, {
+   "name" : "depthDependentHydrodynamicCoefficients",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/DepthDependenthydrodynamicCoefficient",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "soilPenetration",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/SoilPenetration",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "diffractedWave",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/hydro/DiffractedWave",
+   "contained" : false,
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

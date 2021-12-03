@@ -1,0 +1,35 @@
+{
+ "name" : "ScriptableValue",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "script",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string"
+  }, {
+   "name" : "dependencies",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/Dependency",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "cyclic",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "default" : "false"
+  }, {
+   "name" : "feature",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string"
+  }, {
+   "name" : "index",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "default" : "-1"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

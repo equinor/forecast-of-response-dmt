@@ -1,0 +1,7 @@
+{
+ "name" : "StatisticsOperation",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["max", "max_absolute", "min", "mean", "standard_deviation"],
+ "labels" : ["Maximum", "Maximum of absolute input values", "Minimum", "Mean", "Standard deviation"]
+}
+

@@ -1,0 +1,30 @@
+{
+ "name" : "NumericalWave",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "directions",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Number of wave directions",
+   "dimensions" : "*",
+   "default" : "0.0"
+  }, {
+   "name" : "frequencies",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Number of wave frequencies",
+   "dimensions" : "*",
+   "default" : "0.0"
+  }, {
+   "name" : "values",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "dimensions" : "*",
+   "default" : "0.0"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

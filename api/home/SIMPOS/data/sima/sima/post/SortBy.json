@@ -1,0 +1,7 @@
+{
+ "name" : "SortBy",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["x_axis", "y_axis"],
+ "labels" : ["X Axis", "Y Axis"]
+}
+

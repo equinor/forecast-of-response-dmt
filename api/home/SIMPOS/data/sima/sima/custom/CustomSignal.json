@@ -1,0 +1,62 @@
+{
+ "name" : "CustomSignal",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "label",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string"
+  }, {
+   "name" : "tooltip",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string"
+  }, {
+   "name" : "fileType",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "enumType" : "/custom/FileType",
+   "default" : "input"
+  }, {
+   "name" : "directory",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "default" : "false"
+  }, {
+   "name" : "fileExtensions",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "description" : "Describes legal file extensions separated by semicolon, example:  *.txt;*.dat"
+  }, {
+   "name" : "options",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "dimensions" : "*"
+  }, {
+   "name" : "_type",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "enumType" : "/custom/FieldType",
+   "default" : "text"
+  }, {
+   "name" : "width",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "optional" : true
+  }, {
+   "name" : "expandHorizontally",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "description" : "If set the field will fill all available horzontal space",
+   "default" : "false"
+  }, {
+   "name" : "signal",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/post/GeneratorSignal",
+   "contained" : false,
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

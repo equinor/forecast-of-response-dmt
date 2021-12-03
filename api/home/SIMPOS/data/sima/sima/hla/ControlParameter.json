@@ -1,0 +1,22 @@
+{
+ "name" : "ControlParameter",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "label",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string"
+  }, {
+   "name" : "tooltip",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string"
+  }, {
+   "name" : "hlaObjectId",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

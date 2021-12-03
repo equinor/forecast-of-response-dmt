@@ -1,0 +1,34 @@
+{
+ "name" : "SoilCapacityElement",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "dCap",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Penetration relative to ZCONT (positive upwards)",
+   "default" : "0.0"
+  }, {
+   "name" : "soilFr",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Soil capacity against failure at soil surface",
+   "default" : "0.0"
+  }, {
+   "name" : "frcDep",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Depth of each new soil failure",
+   "default" : "0.0"
+  }, {
+   "name" : "pSuct",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Suction pressure",
+   "default" : "0.0"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

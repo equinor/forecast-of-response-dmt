@@ -1,0 +1,23 @@
+{
+ "name" : "WorkflowReportFragment",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "items",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/report/ReportItem",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "fragment",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/report/ReportFragmentReference",
+   "contained" : false,
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

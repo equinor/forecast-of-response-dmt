@@ -1,0 +1,68 @@
+{
+ "name" : "SIMOFrequencyDomainCalculation",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "analysisType",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "enumType" : "/simo/FrequencyAnalysisType",
+   "default" : "wave_frequency"
+  }, {
+   "name" : "linearization",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "enumType" : "/simo/Linearization",
+   "default" : "stochastic"
+  }, {
+   "name" : "maximumNumberOfIterations",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "default" : "10"
+  }, {
+   "name" : "bodies",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/FrequencyDomainBodyItem",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "frequencyRangeLF",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/FrequencyRangeDefinition",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "frequencyRangeWF",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/FrequencyRangeDefinition",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "calculateLineDynamics",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "default" : "false"
+  }, {
+   "name" : "estimationTime",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "default" : "10800.0"
+  }, {
+   "name" : "specifyLinesToSimulate",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "default" : "false"
+  }, {
+   "name" : "linesToSimulate",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/FrequnecyDomainLineItem",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

@@ -1,0 +1,20 @@
+{
+ "name" : "TensionItem",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "tension",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "default" : "0.0"
+  }, {
+   "name" : "angle",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "default" : "0.0"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

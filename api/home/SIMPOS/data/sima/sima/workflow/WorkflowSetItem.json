@@ -1,0 +1,19 @@
+{
+ "name" : "WorkflowSetItem",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "parameterId",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string"
+  }, {
+   "name" : "values",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "dimensions" : "*"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

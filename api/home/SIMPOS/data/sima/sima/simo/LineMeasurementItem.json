@@ -1,0 +1,23 @@
+{
+ "name" : "LineMeasurementItem",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "line",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/LineForceProvider",
+   "contained" : false,
+   "optional" : true
+  }, {
+   "name" : "lineEnd",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "enumType" : "/simo/LineEnd",
+   "description" : "Line end to read measurements from",
+   "default" : "end1"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

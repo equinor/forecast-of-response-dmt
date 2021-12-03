@@ -1,0 +1,41 @@
+{
+ "name" : "PositioningElement",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "localPoint",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/Point3",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "globalPoint",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/Point3",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "failureMode",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "enumType" : "/simo/ActivationFailureMode",
+   "description" : "Failure mode:\r\n - No failure\r\n - Failure by exceeding the breaking strength after specified time\r\n - Activation of element after specified time if absolute value of force is below breaking strength",
+   "default" : "none"
+  }, {
+   "name" : "failureTime",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Earliest possible time of failure",
+   "default" : "0.0"
+  }, {
+   "name" : "breakingStrength",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Breaking strength",
+   "default" : "0.0"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

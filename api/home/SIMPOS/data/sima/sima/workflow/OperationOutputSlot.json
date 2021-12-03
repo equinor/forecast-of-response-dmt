@@ -1,0 +1,16 @@
+{
+ "name" : "OperationOutputSlot",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "filterOutputSlot",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/post/OutputSlot",
+   "contained" : false,
+   "optional" : false
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

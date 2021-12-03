@@ -1,0 +1,65 @@
+{
+ "name" : "ExternalForceFromFile",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "forceFile",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "description" : "' File heading,  arbitrary number of lines with \r\n' apostrophe in the first position of the input line\r\nNCOL: Number of columns (=6)\r\nNROW: Number of rows (i.e. no. of time incidents)\r\nSAMP: Sampling interval [T]\r\nForce components, NROW lines (one per time incident)\r\nFX   FY   FZ   MX   MY   MZ\r\nFX   FY   FZ   MX   MY   MZ\r\nFX   FY   FZ   MX   MY   MZ\r\nFX   FY   FZ   MX   MY   MZ\r\n"
+  }, {
+   "name" : "referenceFrame",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "enumType" : "/simo/ReferenceFrameType",
+   "description" : "Which coordinate system is the force is given in?",
+   "default" : "local"
+  }, {
+   "name" : "attachmentPoint",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/Point3",
+   "contained" : true,
+   "optional" : false,
+   "description" : "Attack point of force."
+  }, {
+   "name" : "fx",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Force in X-direction",
+   "default" : "0.0"
+  }, {
+   "name" : "fy",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Force in Y-direction",
+   "default" : "0.0"
+  }, {
+   "name" : "fz",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Force in Z-direction",
+   "default" : "0.0"
+  }, {
+   "name" : "mx",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Moment about X-axis",
+   "default" : "0.0"
+  }, {
+   "name" : "my",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Moment about Y-axis",
+   "default" : "0.0"
+  }, {
+   "name" : "mz",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Moment about Z-axis",
+   "default" : "0.0"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

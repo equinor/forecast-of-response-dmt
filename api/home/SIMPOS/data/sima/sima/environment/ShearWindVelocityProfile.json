@@ -1,0 +1,33 @@
+{
+ "name" : "ShearWindVelocityProfile",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "verticalCoordinate",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Vertical coordinate of profile level",
+   "default" : "0.0"
+  }, {
+   "name" : "horizontalVelocityFactor",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Wind speed scaling factor for fluctuating part of the horizontal wind",
+   "default" : "0.0"
+  }, {
+   "name" : "verticalVelocityFactor",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Wind speed scaling factor for the vertical wind velocity",
+   "default" : "0.0"
+  }, {
+   "name" : "direction",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "default" : "0.0"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

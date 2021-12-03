@@ -1,0 +1,59 @@
+{
+ "name" : "GuidePoint",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "winch",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/Winch",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "tensioner",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/SIMOTensioner",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "heaveCompensator",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/SIMOHeaveCompensator",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "x",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Local  x position",
+   "default" : "0.0"
+  }, {
+   "name" : "y",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Local  y position",
+   "default" : "0.0"
+  }, {
+   "name" : "z",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Local z position",
+   "default" : "0.0"
+  }, {
+   "name" : "diameter",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Diameter of guide hole",
+   "default" : "0.0"
+  }, {
+   "name" : "normalVector",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/Vector3",
+   "contained" : true,
+   "optional" : false,
+   "description" : "Vector normal to hole in body fixed coordinate system"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

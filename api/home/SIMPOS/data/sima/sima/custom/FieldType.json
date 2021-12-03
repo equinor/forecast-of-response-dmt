@@ -1,0 +1,7 @@
+{
+ "name" : "FieldType",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["text", "check", "file", "dropdown"],
+ "labels" : ["Text", "Checkbox", "File", "Drop-down"]
+}
+

@@ -1,0 +1,7 @@
+{
+ "name" : "GDFType",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["body", "lid", "control"],
+ "labels" : ["Body Surface", "Lid Surface", "Control Surface"]
+}
+

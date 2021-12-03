@@ -1,0 +1,134 @@
+{
+ "name" : "MannWindGenerator",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "baseFileName",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "default" : "sima"
+  }, {
+   "name" : "alphaEpsilon",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Spectrum scale parameter",
+   "default" : "0.0"
+  }, {
+   "name" : "lengthScale",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Length scale",
+   "default" : "0.0"
+  }, {
+   "name" : "gamma",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Shear distortion parameter",
+   "optional" : true
+  }, {
+   "name" : "seed",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "description" : "Start seed for random number generator",
+   "default" : "0"
+  }, {
+   "name" : "gridPointsX",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "description" : "Grid points in X-direction (Power of 2)",
+   "default" : "0"
+  }, {
+   "name" : "gridPointsY",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "description" : "Grid points in Y-direction (Power of 2)",
+   "default" : "0"
+  }, {
+   "name" : "gridPointsZ",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "description" : "Grid points in Z-direction (Power of 2)",
+   "default" : "0"
+  }, {
+   "name" : "pointDistanceX",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Distance between grid points in X direction",
+   "default" : "0.0"
+  }, {
+   "name" : "pointDistanceY",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Distance between grid points in Y direction",
+   "default" : "0.0"
+  }, {
+   "name" : "pointDistanceZ",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Distance between grid points in Z direction",
+   "default" : "0.0"
+  }, {
+   "name" : "hfCompensation",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "description" : "High Frequency Compensation",
+   "default" : "true"
+  }, {
+   "name" : "turbulenceIntensity",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Turbulence intensity",
+   "default" : "0.0"
+  }, {
+   "name" : "meanWindSpeed",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Mean wind speed",
+   "default" : "0.0"
+  }, {
+   "name" : "transient",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Starting point in simulation used for calculation of scaling factor",
+   "default" : "0.0"
+  }, {
+   "name" : "inputFormat",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "enumType" : "/windturbine/MannInputFormat",
+   "default" : "direct"
+  }, {
+   "name" : "windSeriesDuration",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Length of simulation",
+   "default" : "0.0"
+  }, {
+   "name" : "gridWidth",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Domain size in Y-direction",
+   "default" : "0.0"
+  }, {
+   "name" : "gridHeight",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Domain size in Z-direction",
+   "default" : "0.0"
+  }, {
+   "name" : "lengthFactor",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "optional" : true
+  }, {
+   "name" : "longTurbScaleParam",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Longitudenal Turbulence Scale Parameter",
+   "default" : "0.0"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+
