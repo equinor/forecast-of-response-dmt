@@ -1,0 +1,7 @@
+{
+ "name" : "IECStandard",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["iec_61400_1", "iec_61400_1_ed2", "iec_61400_2", "iec_61400_3"],
+ "labels" : ["IEC 61400-1", "IEC 61400-1 Ed2", "IEC 61400-2", "IEC 61400-3"]
+}
+

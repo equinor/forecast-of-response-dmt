@@ -1,0 +1,130 @@
+{
+ "name" : "ProplibTunnelThruster",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "minForce",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Minimum thruster force",
+   "default" : "0.0"
+  }, {
+   "name" : "maxForce",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Maximum thruster force",
+   "default" : "0.0"
+  }, {
+   "name" : "position",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/Point3",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "force",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Resulting force, initial value if controlled by a DP-system",
+   "default" : "0.0"
+  }, {
+   "name" : "forceDirection",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Direction of thrust force in body x-y plane, initial value if controlled by a DP-system",
+   "default" : "0.0"
+  }, {
+   "name" : "thrusterDynamics",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/ThrusterDynamics",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "controlSequence",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/ThrusterControlSequence",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "failureSpecification",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/ThrusterFailureSpecification",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "includeSurfaceProximityLoss",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "description" : "Should surface proximity loss be included?",
+   "default" : "false"
+  }, {
+   "name" : "includeThrusterHullInteraction",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "description" : "Should thruster-hull interaction be included?",
+   "default" : "false"
+  }, {
+   "name" : "includeThrusterThrusterInteraction",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "description" : "Should thruster-thruster interaction be included?",
+   "default" : "false"
+  }, {
+   "name" : "maxRps",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "The RPS giving maximum force",
+   "default" : "0.0"
+  }, {
+   "name" : "diameter",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Thruster diameter",
+   "default" : "0.0"
+  }, {
+   "name" : "tunnelLength",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Tunnel length",
+   "default" : "0.0"
+  }, {
+   "name" : "baselineAngle",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Hull angle relative to baseline (front view)",
+   "default" : "0.0"
+  }, {
+   "name" : "centerlineAngle",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Hull angle relative to centerline (top view)",
+   "default" : "0.0"
+  }, {
+   "name" : "numberOfGrids",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "description" : "Number of grids",
+   "default" : "0"
+  }, {
+   "name" : "pitchRatio",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Propeller Pitch Ratio",
+   "default" : "0.0"
+  }, {
+   "name" : "bilgeRadius",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Bilge radius",
+   "default" : "0.0"
+  }, {
+   "name" : "verticalDistanceHull",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Vertical distance from propeller center to hull",
+   "default" : "0.0"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

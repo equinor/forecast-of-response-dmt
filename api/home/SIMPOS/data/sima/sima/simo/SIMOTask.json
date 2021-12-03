@@ -1,0 +1,100 @@
+{
+ "name" : "SIMOTask",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "doubleVariables",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/DoubleVariable",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "integerVariables",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/IntegerVariable",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "stringVariables",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/StringVariable",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "runNumber",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "default" : "0"
+  }, {
+   "name" : "scripts",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/SIMAScript",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "variations",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/condition/ModelVariation",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "referenceVariables",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/condition/ModelReferenceVariable",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "initialCondition",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/condition/InitialCondition",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "conditions",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/condition/ConditionTaskCondition",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "model",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/SIMOModel",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "simoMemory",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "description" : "Enables override of the default memory settings for SIMO. Given in MB",
+   "optional" : true
+  }, {
+   "name" : "removeIntermediateFiles",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "optional" : true
+  }, {
+   "name" : "exportMassUnit",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "enumType" : "/simo/MassUnit",
+   "description" : "Used as export unit for mass ( and indirectly force)",
+   "default" : "mg"
+  }, {
+   "name" : "exportAsFMU",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "description" : "Generate FMU (Functional Mockup Unit) from model",
+   "default" : "false"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

@@ -1,0 +1,22 @@
+{
+ "name" : "HydrostaticStiffnessData",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "matrix",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/hydro/HydrostaticStiffnessMatrix",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "reference",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/Position",
+   "contained" : true,
+   "optional" : false
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

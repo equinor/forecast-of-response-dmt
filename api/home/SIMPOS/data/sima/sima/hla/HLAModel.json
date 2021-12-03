@@ -1,0 +1,23 @@
+{
+ "name" : "HLAModel",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "location",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/hla/HLALocation",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "forces",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/hla/HLAForce",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

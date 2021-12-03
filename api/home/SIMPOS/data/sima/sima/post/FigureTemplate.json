@@ -1,0 +1,60 @@
+{
+ "name" : "FigureTemplate",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "titleFont",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/FontDescription",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "legendFont",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/FontDescription",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "xAxis",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/post/AxisConfiguration",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "yAxis",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/post/AxisConfiguration",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "showTitle",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "default" : "true"
+  }, {
+   "name" : "showLegend",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "default" : "true"
+  }, {
+   "name" : "size",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "enumType" : "/post/PlotSize",
+   "default" : "dynamic"
+  }, {
+   "name" : "width",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "default" : "0"
+  }, {
+   "name" : "height",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "default" : "0"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

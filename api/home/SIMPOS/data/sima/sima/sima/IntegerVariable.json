@@ -1,0 +1,16 @@
+{
+ "name" : "IntegerVariable",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "value",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "description" : "The current value for the variable",
+   "default" : "0"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

@@ -1,0 +1,7 @@
+{
+ "name" : "WaypointReference",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["local", "global"],
+ "labels" : ["Locally defined relative to body location", "Globally defined"]
+}
+

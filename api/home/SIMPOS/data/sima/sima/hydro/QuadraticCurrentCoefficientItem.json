@@ -1,0 +1,52 @@
+{
+ "name" : "QuadraticCurrentCoefficientItem",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "direction",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Direction",
+   "default" : "0.0"
+  }, {
+   "name" : "c21",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Quadratic current force coefficient for 1. degree of freedom",
+   "default" : "0.0"
+  }, {
+   "name" : "c22",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Quadratic current force coefficient for 2. degree of freedom",
+   "default" : "0.0"
+  }, {
+   "name" : "c23",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Quadratic current force coefficient for 3. degree of freedom",
+   "default" : "0.0"
+  }, {
+   "name" : "c24",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Quadratic current force coefficient for 4. degree of freedom",
+   "default" : "0.0"
+  }, {
+   "name" : "c25",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Quadratic current force coefficient for 5. degree of freedom",
+   "default" : "0.0"
+  }, {
+   "name" : "c26",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Quadratic current force coefficient for 6. degree of freedom",
+   "default" : "0.0"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

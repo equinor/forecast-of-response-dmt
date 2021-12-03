@@ -1,0 +1,7 @@
+{
+ "name" : "HydroSystemFilterMethod",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["blocked", "none", "active"],
+ "labels" : ["Block low pass translation velocities.", "No filtering", "Filter activated"]
+}
+

@@ -1,0 +1,7 @@
+{
+ "name" : "HydrodynamicSeparationMethod",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["bw2_filtering", "nlp_filtering", "none"],
+ "labels" : ["2nd Order Butterworth Filter", "Non-Linearity Pass Filter", "No estimation"]
+}
+

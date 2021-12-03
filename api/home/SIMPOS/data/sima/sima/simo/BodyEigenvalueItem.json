@@ -1,0 +1,53 @@
+{
+ "name" : "BodyEigenvalueItem",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "body",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/SIMOBody",
+   "contained" : false,
+   "optional" : true,
+   "description" : "Selected body to compute eigenvalues for"
+  }, {
+   "name" : "surgeExcursion",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Excursion in surge",
+   "default" : "1.0"
+  }, {
+   "name" : "swayExcursion",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Excursion in sway",
+   "default" : "1.0"
+  }, {
+   "name" : "heaveExcursion",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Excursion in heave",
+   "default" : "1.0"
+  }, {
+   "name" : "rollExcursion",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Excursion in roll",
+   "default" : "1.0"
+  }, {
+   "name" : "pitchExcursion",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Excursion in pitch",
+   "default" : "1.0"
+  }, {
+   "name" : "yawExcursion",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Excursion in yaw",
+   "default" : "1.0"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

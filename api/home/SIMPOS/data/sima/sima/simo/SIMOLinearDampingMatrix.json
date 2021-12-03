@@ -1,0 +1,32 @@
+{
+ "name" : "SIMOLinearDampingMatrix",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "id",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string"
+  }, {
+   "name" : "nDOF2",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "default" : "0"
+  }, {
+   "name" : "values",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "dimensions" : "*",
+   "default" : "0.0"
+  }, {
+   "name" : "mode",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "enumType" : "/simo/DampingMatrixMotionMode",
+   "description" : "Select which motions the damping matrix force should be calculated from. When 'default' is selected, low frequency motion is used for bodies of type '6 DOF - separated analysis' and total motion otherwise.",
+   "default" : "default"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

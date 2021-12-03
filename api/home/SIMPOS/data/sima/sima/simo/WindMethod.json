@@ -1,0 +1,7 @@
+{
+ "name" : "WindMethod",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["no_wind", "fft", "state_space"],
+ "labels" : ["No wind", "FFT", "State space model"]
+}
+

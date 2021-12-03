@@ -1,0 +1,70 @@
+{
+ "name" : "HLAControlConfiguration",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "bodyName",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "description" : "HLA name of body"
+  }, {
+   "name" : "vMaxRot",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Maximum rotation speed",
+   "default" : "1.0"
+  }, {
+   "name" : "vMaxX",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Maximum speed in x",
+   "default" : "2.0"
+  }, {
+   "name" : "vMaxY",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Maximum speed in y",
+   "default" : "1.0"
+  }, {
+   "name" : "aMaxRot",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Maximum rotation acceleration",
+   "default" : "0.1"
+  }, {
+   "name" : "aMaxX",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Maximum acceleration in x",
+   "default" : "0.2"
+  }, {
+   "name" : "aMaxY",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "maximum acceleration in y",
+   "default" : "0.05"
+  }, {
+   "name" : "limRot",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "The rotation accuracy",
+   "default" : "1.0"
+  }, {
+   "name" : "limXY",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "The movement accuracy",
+   "default" : "0.5"
+  }, {
+   "name" : "controlReference",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "enumType" : "/hla/HLAControlReference",
+   "description" : "Control reference",
+   "default" : "position"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

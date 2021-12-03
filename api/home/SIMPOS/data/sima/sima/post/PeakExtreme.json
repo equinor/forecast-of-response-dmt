@@ -1,0 +1,7 @@
+{
+ "name" : "PeakExtreme",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["max", "min"],
+ "labels" : ["Maxima", "Minima"]
+}
+

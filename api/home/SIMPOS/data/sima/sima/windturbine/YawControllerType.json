@@ -1,0 +1,7 @@
+{
+ "name" : "YawControllerType",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["none", "internal"],
+ "labels" : ["No yaw controller", "Internal controller"]
+}
+

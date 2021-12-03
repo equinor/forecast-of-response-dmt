@@ -1,0 +1,124 @@
+{
+ "name" : "WorkflowTask",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "doubleVariables",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/DoubleVariable",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "integerVariables",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/IntegerVariable",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "stringVariables",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/StringVariable",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "runNumber",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "default" : "0"
+  }, {
+   "name" : "scripts",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/SIMAScript",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "packages",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/workflow/WorkflowContainerPackage",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "workflows",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/workflow/Workflow",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : [{
+  "name": "INDEX",
+  "type": "system/SIMOS/UiRecipe",
+  "description": "",
+  "plugin": "INDEX",
+  "hideTab": false,
+  "options": [],
+  "attributes": [
+    {
+      "name": "doubleVariables",
+      "type": "system/SIMOS/UiAttribute",
+      "attributeType": "system/SIMOS/BlueprintAttribute",
+      "widget": "hidden",
+      "contained": false,
+      "options": []
+    },
+    {
+      "name": "integerVariables",
+      "type": "system/SIMOS/UiAttribute",
+      "attributeType": "system/SIMOS/BlueprintAttribute",
+      "widget": "hidden",
+      "contained": false,
+      "options": []
+    },
+    {
+      "name": "stringVariables",
+      "type": "system/SIMOS/UiAttribute",
+      "attributeType": "system/SIMOS/BlueprintAttribute",
+      "widget": "hidden",
+      "contained": false,
+      "options": []
+    },
+    {
+      "name": "packages",
+      "type": "system/SIMOS/UiAttribute",
+      "attributeType": "system/SIMOS/BlueprintAttribute",
+      "widget": "hidden",
+      "contained": false,
+      "options": []
+    },{
+      "name": "scripts",
+      "type": "system/SIMOS/UiAttribute",
+      "attributeType": "system/SIMOS/BlueprintAttribute",
+      "widget": "hidden",
+      "contained": false,
+      "options": []
+    }]
+},
+{
+  "name": "Edit",
+  "type": "system/SIMOS/UiRecipe",
+  "description": "",
+  "plugin": "EDIT_PLUGIN",
+  "field": "",
+  "hideTab": true,
+  "options": [],
+  "attributes": []
+},
+{
+  "name": "Raw",
+  "type": "system/SIMOS/UiRecipe",
+  "description": "",
+  "plugin": "PREVIEW",
+  "field": "",
+  "hideTab": true,
+  "options": [],
+  "attributes": []
+}]
+}
+

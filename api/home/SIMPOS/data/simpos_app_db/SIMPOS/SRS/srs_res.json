@@ -1,0 +1,1808 @@
+{
+    "type": "sima/marmo/report/ReportFragment",
+    "name": "srs_res",
+    "items": [
+        {
+            "type": "sima/marmo/report/ReportFragment",
+            "name": "env",
+            "items": [
+                {
+                    "type": "sima/marmo/report/ReportFragment",
+                    "name": "RF_Env",
+                    "items": [
+                        {
+                            "type": "sima/marmo/report/Section",
+                            "name": "Environmental Condition",
+                            "title": "Environmental Condition",
+                            "items": [
+                                {
+                                    "type": "sima/marmo/report/ReportFragment",
+                                    "name": "RF_Env",
+                                    "items": [
+                                        {
+                                            "type": "sima/marmo/report/ReportFragment",
+                                            "name": "RF_Env_Metocean",
+                                            "items": [
+                                                {
+                                                    "type": "sima/marmo/report/Table",
+                                                    "name": "EnvTable",
+                                                    "caption": "Applied enviromental condition in Metocean coordinate system.",
+                                                    "transposed": true,
+                                                    "columns": [
+                                                        {
+                                                            "type": "sima/marmo/report/NumberColumn",
+                                                            "name": "col",
+                                                            "cells": [
+                                                                330.0
+                                                            ],
+                                                            "header": "Wave Dir.",
+                                                            "label": "[deg]"
+                                                        },
+                                                        {
+                                                            "type": "sima/marmo/report/NumberColumn",
+                                                            "name": "col_duplicate_1",
+                                                            "cells": [
+                                                                14.68655766
+                                                            ],
+                                                            "header": "Significant Wave Height (Hs)",
+                                                            "label": "[m]"
+                                                        },
+                                                        {
+                                                            "type": "sima/marmo/report/NumberColumn",
+                                                            "name": "col_duplicate_2",
+                                                            "cells": [
+                                                                17.24327883
+                                                            ],
+                                                            "header": "Peak Period (Tp)",
+                                                            "label": "[s]"
+                                                        },
+                                                        {
+                                                            "type": "sima/marmo/report/NumberColumn",
+                                                            "name": "col_duplicate_3",
+                                                            "cells": [
+                                                                330.0
+                                                            ],
+                                                            "header": "Wind Dir.",
+                                                            "label": "[deg]"
+                                                        },
+                                                        {
+                                                            "type": "sima/marmo/report/NumberColumn",
+                                                            "name": "col_duplicate_4",
+                                                            "cells": [
+                                                                31.73
+                                                            ],
+                                                            "header": "Wind Vel.",
+                                                            "label": "[m/s]"
+                                                        },
+                                                        {
+                                                            "type": "sima/marmo/report/NumberColumn",
+                                                            "name": "col_duplicate_5",
+                                                            "cells": [
+                                                                330.0
+                                                            ],
+                                                            "header": "Current Dir.",
+                                                            "label": "[deg]"
+                                                        },
+                                                        {
+                                                            "type": "sima/marmo/report/StringColumn",
+                                                            "name": "col_duplicate_6",
+                                                            "cells": [
+                                                                "     0.826,     0.504,     0.344,     0.244,     0.000"
+                                                            ],
+                                                            "header": "Current Vel.",
+                                                            "label": "[m/s]"
+                                                        },
+                                                        {
+                                                            "type": "sima/marmo/report/StringColumn",
+                                                            "name": "col_duplicate_7",
+                                                            "cells": [
+                                                                "       0.0,     -50.0,    -150.0,    -297.0,    -300.0"
+                                                            ],
+                                                            "header": "Current Levels",
+                                                            "label": "[m]"
+                                                        },
+                                                        {
+                                                            "type": "sima/marmo/report/NumberColumn",
+                                                            "name": "col_duplicate_8",
+                                                            "cells": [
+                                                                0.0
+                                                            ],
+                                                            "header": "Relative Compass Angle",
+                                                            "label": "[deg]"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "type": "sima/marmo/report/ReportFragment",
+                                            "name": "RF_Env_SIMA",
+                                            "items": [
+                                                {
+                                                    "type": "sima/marmo/report/Table",
+                                                    "name": "EnvTable",
+                                                    "caption": "Applied enviromental condition in SIMA coordinate system.",
+                                                    "transposed": true,
+                                                    "columns": [
+                                                        {
+                                                            "type": "sima/marmo/report/NumberColumn",
+                                                            "name": "col",
+                                                            "cells": [
+                                                                210.0
+                                                            ],
+                                                            "header": "Wave Dir.",
+                                                            "label": "[deg]"
+                                                        },
+                                                        {
+                                                            "type": "sima/marmo/report/NumberColumn",
+                                                            "name": "col_duplicate_1",
+                                                            "cells": [
+                                                                14.68655766
+                                                            ],
+                                                            "header": "Significant Wave Height (Hs)",
+                                                            "label": "[m]"
+                                                        },
+                                                        {
+                                                            "type": "sima/marmo/report/NumberColumn",
+                                                            "name": "col_duplicate_2",
+                                                            "cells": [
+                                                                17.24327883
+                                                            ],
+                                                            "header": "Peak Period (Tp)",
+                                                            "label": "[s]"
+                                                        },
+                                                        {
+                                                            "type": "sima/marmo/report/NumberColumn",
+                                                            "name": "col_duplicate_3",
+                                                            "cells": [
+                                                                210.0
+                                                            ],
+                                                            "header": "Wind Dir.",
+                                                            "label": "[deg]"
+                                                        },
+                                                        {
+                                                            "type": "sima/marmo/report/NumberColumn",
+                                                            "name": "col_duplicate_4",
+                                                            "cells": [
+                                                                31.73
+                                                            ],
+                                                            "header": "Wind Vel.",
+                                                            "label": "[m/s]"
+                                                        },
+                                                        {
+                                                            "type": "sima/marmo/report/NumberColumn",
+                                                            "name": "col_duplicate_5",
+                                                            "cells": [
+                                                                30.0
+                                                            ],
+                                                            "header": "Current Dir.",
+                                                            "label": "[deg]"
+                                                        },
+                                                        {
+                                                            "type": "sima/marmo/report/StringColumn",
+                                                            "name": "col_duplicate_6",
+                                                            "cells": [
+                                                                "     0.826,     0.504,     0.344,     0.244,     0.000"
+                                                            ],
+                                                            "header": "Current Vel.",
+                                                            "label": "[m/s]"
+                                                        },
+                                                        {
+                                                            "type": "sima/marmo/report/StringColumn",
+                                                            "name": "col_duplicate_7",
+                                                            "cells": [
+                                                                "       0.0,     -50.0,    -150.0,    -297.0,    -300.0"
+                                                            ],
+                                                            "header": "Current Levels",
+                                                            "label": "[m]"
+                                                        },
+                                                        {
+                                                            "type": "sima/marmo/report/NumberColumn",
+                                                            "name": "col_duplicate_8",
+                                                            "cells": [
+                                                                0.0
+                                                            ],
+                                                            "header": "Relative Compass Angle",
+                                                            "label": "[deg]"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "sima/marmo/report/ReportFragment",
+                    "name": "RF_operCond",
+                    "items": [
+                        {
+                            "type": "sima/marmo/report/Section",
+                            "name": "Operational Condition:",
+                            "title": "Operational Condition:",
+                            "items": [
+                                {
+                                    "type": "sima/marmo/report/Paragraph",
+                                    "name": "paragraph",
+                                    "text": "The chosen operational condition is presented in the table below."
+                                },
+                                {
+                                    "type": "sima/marmo/report/Table",
+                                    "name": "OperCondTable",
+                                    "caption": "The applied operational condition.",
+                                    "transposed": true,
+                                    "columns": [
+                                        {
+                                            "type": "sima/marmo/report/StringColumn",
+                                            "name": "col",
+                                            "cells": [
+                                                "25.0 (Intermediate)"
+                                            ],
+                                            "header": "Platform Draft",
+                                            "label": "[m]"
+                                        },
+                                        {
+                                            "type": "sima/marmo/report/StringColumn",
+                                            "name": "col_duplicate_1",
+                                            "cells": [
+                                                "None"
+                                            ],
+                                            "header": "Broken (Deactivated) Line Numbers",
+                                            "label": " "
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "sima/marmo/report/ReportFragment",
+            "name": "simo",
+            "items": [
+                {
+                    "type": "sima/marmo/report/ReportFragment",
+                    "name": "RF_responses",
+                    "items": [
+                        {
+                            "type": "sima/marmo/report/Section",
+                            "name": "Responses for ",
+                            "title": "Responses for ",
+                            "items": [
+                                {
+                                    "type": "sima/marmo/report/ReportFragment",
+                                    "name": "RF_variablesTab",
+                                    "items": [
+                                        {
+                                            "type": "sima/marmo/report/ReportFragment",
+                                            "name": "RF_SIMO",
+                                            "items": [
+                                                {
+                                                    "type": "sima/marmo/report/Table",
+                                                    "name": "Table",
+                                                    "caption": "Extreme value statistics based on Gumble fit to 3 seed numbers. ",
+                                                    "transposed": true,
+                                                    "columns": [
+                                                        {
+                                                            "type": "sima/marmo/report/StringColumn",
+                                                            "name": "Stats",
+                                                            "cells": [
+                                                                "MPM",
+                                                                "Expected",
+                                                                "P90"
+                                                            ],
+                                                            "header": " ",
+                                                            "label": " "
+                                                        },
+                                                        {
+                                                            "type": "sima/marmo/report/StringColumn",
+                                                            "name": "stat",
+                                                            "cells": [
+                                                                "14.25",
+                                                                "14.67",
+                                                                "16.84"
+                                                            ],
+                                                            "header": "Platform",
+                                                            "label": "Offset[m]"
+                                                        },
+                                                        {
+                                                            "type": "sima/marmo/report/StringColumn",
+                                                            "name": "stat_duplicate_1",
+                                                            "cells": [
+                                                                "5.03",
+                                                                "5.18",
+                                                                "5.97"
+                                                            ],
+                                                            "header": "Platform",
+                                                            "label": "Surge[m]"
+                                                        },
+                                                        {
+                                                            "type": "sima/marmo/report/StringColumn",
+                                                            "name": "stat_duplicate_2",
+                                                            "cells": [
+                                                                "13.31",
+                                                                "13.72",
+                                                                "15.85"
+                                                            ],
+                                                            "header": "Platform",
+                                                            "label": "Sway[m]"
+                                                        },
+                                                        {
+                                                            "type": "sima/marmo/report/StringColumn",
+                                                            "name": "stat_duplicate_3",
+                                                            "cells": [
+                                                                "5.08",
+                                                                "5.25",
+                                                                "6.17"
+                                                            ],
+                                                            "header": "Platform",
+                                                            "label": "Heave[m]"
+                                                        },
+                                                        {
+                                                            "type": "sima/marmo/report/StringColumn",
+                                                            "name": "stat_duplicate_4",
+                                                            "cells": [
+                                                                "6.99",
+                                                                "7.36",
+                                                                "9.32"
+                                                            ],
+                                                            "header": "Platform",
+                                                            "label": "Roll[deg]"
+                                                        },
+                                                        {
+                                                            "type": "sima/marmo/report/StringColumn",
+                                                            "name": "stat_duplicate_5",
+                                                            "cells": [
+                                                                "2.39",
+                                                                "2.58",
+                                                                "3.60"
+                                                            ],
+                                                            "header": "Platform",
+                                                            "label": "Pitch[deg]"
+                                                        },
+                                                        {
+                                                            "type": "sima/marmo/report/StringColumn",
+                                                            "name": "stat_duplicate_6",
+                                                            "cells": [
+                                                                "1.65",
+                                                                "1.69",
+                                                                "1.86"
+                                                            ],
+                                                            "header": "Platform",
+                                                            "label": "Yaw[deg]"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "sima/marmo/report/ReportFragment",
+                                    "name": "RF_variablesPlot",
+                                    "items": [
+                                        {
+                                            "type": "sima/marmo/report/ReportFragment",
+                                            "name": "__RFP__",
+                                            "items": [
+                                                {
+                                                    "type": "sima/marmo/report/LinePlot",
+                                                    "name": "Offset",
+                                                    "title": "Offset",
+                                                    "xlabel": "seed number [-]",
+                                                    "ylabel": "Offset [m]",
+                                                    "showtitle": false,
+                                                    "showlegend": true,
+                                                    "width": 970.0,
+                                                    "height": 300.0,
+                                                    "size": "fixed",
+                                                    "caption": "Offset extreme values for seed variation.   ",
+                                                    "legendfont": {
+                                                        "type": "sima/marmo/report/Font",
+                                                        "name": "legendfont",
+                                                        "size": 12.0,
+                                                        "font": "Arial Narrow",
+                                                        "style": "NORMAL",
+                                                        "color": "000000"
+                                                    },
+                                                    "xaxis": {
+                                                        "type": "sima/marmo/report/Axis",
+                                                        "name": "xaxis",
+                                                        "autoformat": true,
+                                                        "autoscale": true,
+                                                        "dashgridline": false,
+                                                        "format": "0.####E0",
+                                                        "font": {
+                                                            "type": "sima/marmo/report/Font",
+                                                            "name": "font",
+                                                            "size": 12.0,
+                                                            "font": "Arial Narrow",
+                                                            "style": "NORMAL",
+                                                            "color": "000000"
+                                                        }
+                                                    },
+                                                    "yaxis": {
+                                                        "type": "sima/marmo/report/Axis",
+                                                        "name": "yaxis",
+                                                        "autoformat": true,
+                                                        "autoscale": true,
+                                                        "dashgridline": false,
+                                                        "format": "0.####E0",
+                                                        "font": {
+                                                            "type": "sima/marmo/report/Font",
+                                                            "name": "font",
+                                                            "size": 12.0,
+                                                            "font": "Arial Narrow",
+                                                            "style": "NORMAL",
+                                                            "color": "000000"
+                                                        }
+                                                    },
+                                                    "lines": [
+                                                        {
+                                                            "type": "sima/marmo/report/PlotLine",
+                                                            "name": "line1",
+                                                            "x": [
+                                                                1.0,
+                                                                2.0,
+                                                                3.0
+                                                            ],
+                                                            "y": [
+                                                                13.265921033475696,
+                                                                16.137818910774536,
+                                                                15.324014689847598
+                                                            ],
+                                                            "xlabel": "",
+                                                            "ylabel": "",
+                                                            "legend": "SR (max= 16.14, min= 13.27, mean= 14.91, dev= 1.209)",
+                                                            "showlegend": true,
+                                                            "linewidth": 5.0,
+                                                            "pointsize": 4.0,
+                                                            "pointstyle": "none",
+                                                            "linestyle": "bar",
+                                                            "color": "1515c4"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "type": "sima/marmo/report/ReportFragment",
+                                            "name": "__RFP___duplicate_1",
+                                            "items": [
+                                                {
+                                                    "type": "sima/marmo/report/LinePlot",
+                                                    "name": "Surge",
+                                                    "title": "Surge",
+                                                    "xlabel": "seed number [-]",
+                                                    "ylabel": "Surge [m]",
+                                                    "showtitle": false,
+                                                    "showlegend": true,
+                                                    "width": 970.0,
+                                                    "height": 300.0,
+                                                    "size": "fixed",
+                                                    "caption": "Surge extreme values for seed variation.   ",
+                                                    "legendfont": {
+                                                        "type": "sima/marmo/report/Font",
+                                                        "name": "legendfont",
+                                                        "size": 12.0,
+                                                        "font": "Arial Narrow",
+                                                        "style": "NORMAL",
+                                                        "color": "000000"
+                                                    },
+                                                    "xaxis": {
+                                                        "type": "sima/marmo/report/Axis",
+                                                        "name": "xaxis",
+                                                        "autoformat": true,
+                                                        "autoscale": true,
+                                                        "dashgridline": false,
+                                                        "format": "0.####E0",
+                                                        "font": {
+                                                            "type": "sima/marmo/report/Font",
+                                                            "name": "font",
+                                                            "size": 12.0,
+                                                            "font": "Arial Narrow",
+                                                            "style": "NORMAL",
+                                                            "color": "000000"
+                                                        }
+                                                    },
+                                                    "yaxis": {
+                                                        "type": "sima/marmo/report/Axis",
+                                                        "name": "yaxis",
+                                                        "autoformat": true,
+                                                        "autoscale": true,
+                                                        "dashgridline": false,
+                                                        "format": "0.####E0",
+                                                        "font": {
+                                                            "type": "sima/marmo/report/Font",
+                                                            "name": "font",
+                                                            "size": 12.0,
+                                                            "font": "Arial Narrow",
+                                                            "style": "NORMAL",
+                                                            "color": "000000"
+                                                        }
+                                                    },
+                                                    "lines": [
+                                                        {
+                                                            "type": "sima/marmo/report/PlotLine",
+                                                            "name": "line1",
+                                                            "x": [
+                                                                1.0,
+                                                                2.0,
+                                                                3.0
+                                                            ],
+                                                            "y": [
+                                                                4.703583573368739,
+                                                                5.342732438841534,
+                                                                5.76861723932484
+                                                            ],
+                                                            "xlabel": "",
+                                                            "ylabel": "",
+                                                            "legend": "SR (max= 5.769, min= 4.704, mean= 5.272, dev=0.4377)",
+                                                            "showlegend": true,
+                                                            "linewidth": 5.0,
+                                                            "pointsize": 4.0,
+                                                            "pointstyle": "none",
+                                                            "linestyle": "bar",
+                                                            "color": "1515c4"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "type": "sima/marmo/report/ReportFragment",
+                                            "name": "__RFP___duplicate_2",
+                                            "items": [
+                                                {
+                                                    "type": "sima/marmo/report/LinePlot",
+                                                    "name": "Sway",
+                                                    "title": "Sway",
+                                                    "xlabel": "seed number [-]",
+                                                    "ylabel": "Sway [m]",
+                                                    "showtitle": false,
+                                                    "showlegend": true,
+                                                    "width": 970.0,
+                                                    "height": 300.0,
+                                                    "size": "fixed",
+                                                    "caption": "Sway extreme values for seed variation.   ",
+                                                    "legendfont": {
+                                                        "type": "sima/marmo/report/Font",
+                                                        "name": "legendfont",
+                                                        "size": 12.0,
+                                                        "font": "Arial Narrow",
+                                                        "style": "NORMAL",
+                                                        "color": "000000"
+                                                    },
+                                                    "xaxis": {
+                                                        "type": "sima/marmo/report/Axis",
+                                                        "name": "xaxis",
+                                                        "autoformat": true,
+                                                        "autoscale": true,
+                                                        "dashgridline": false,
+                                                        "format": "0.####E0",
+                                                        "font": {
+                                                            "type": "sima/marmo/report/Font",
+                                                            "name": "font",
+                                                            "size": 12.0,
+                                                            "font": "Arial Narrow",
+                                                            "style": "NORMAL",
+                                                            "color": "000000"
+                                                        }
+                                                    },
+                                                    "yaxis": {
+                                                        "type": "sima/marmo/report/Axis",
+                                                        "name": "yaxis",
+                                                        "autoformat": true,
+                                                        "autoscale": true,
+                                                        "dashgridline": false,
+                                                        "format": "0.####E0",
+                                                        "font": {
+                                                            "type": "sima/marmo/report/Font",
+                                                            "name": "font",
+                                                            "size": 12.0,
+                                                            "font": "Arial Narrow",
+                                                            "style": "NORMAL",
+                                                            "color": "000000"
+                                                        }
+                                                    },
+                                                    "lines": [
+                                                        {
+                                                            "type": "sima/marmo/report/PlotLine",
+                                                            "name": "line1",
+                                                            "x": [
+                                                                1.0,
+                                                                2.0,
+                                                                3.0
+                                                            ],
+                                                            "y": [
+                                                                12.404070397847179,
+                                                                15.268211076147562,
+                                                                14.205128303515334
+                                                            ],
+                                                            "xlabel": "",
+                                                            "ylabel": "",
+                                                            "legend": "SR (max= 15.27, min= 12.40, mean= 13.96, dev= 1.182)",
+                                                            "showlegend": true,
+                                                            "linewidth": 5.0,
+                                                            "pointsize": 4.0,
+                                                            "pointstyle": "none",
+                                                            "linestyle": "bar",
+                                                            "color": "1515c4"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "type": "sima/marmo/report/ReportFragment",
+                                            "name": "__RFP___duplicate_3",
+                                            "items": [
+                                                {
+                                                    "type": "sima/marmo/report/LinePlot",
+                                                    "name": "Heave",
+                                                    "title": "Heave",
+                                                    "xlabel": "seed number [-]",
+                                                    "ylabel": "Heave [m]",
+                                                    "showtitle": false,
+                                                    "showlegend": true,
+                                                    "width": 970.0,
+                                                    "height": 300.0,
+                                                    "size": "fixed",
+                                                    "caption": "Heave extreme values for seed variation.   ",
+                                                    "legendfont": {
+                                                        "type": "sima/marmo/report/Font",
+                                                        "name": "legendfont",
+                                                        "size": 12.0,
+                                                        "font": "Arial Narrow",
+                                                        "style": "NORMAL",
+                                                        "color": "000000"
+                                                    },
+                                                    "xaxis": {
+                                                        "type": "sima/marmo/report/Axis",
+                                                        "name": "xaxis",
+                                                        "autoformat": true,
+                                                        "autoscale": true,
+                                                        "dashgridline": false,
+                                                        "format": "0.####E0",
+                                                        "font": {
+                                                            "type": "sima/marmo/report/Font",
+                                                            "name": "font",
+                                                            "size": 12.0,
+                                                            "font": "Arial Narrow",
+                                                            "style": "NORMAL",
+                                                            "color": "000000"
+                                                        }
+                                                    },
+                                                    "yaxis": {
+                                                        "type": "sima/marmo/report/Axis",
+                                                        "name": "yaxis",
+                                                        "autoformat": true,
+                                                        "autoscale": true,
+                                                        "dashgridline": false,
+                                                        "format": "0.####E0",
+                                                        "font": {
+                                                            "type": "sima/marmo/report/Font",
+                                                            "name": "font",
+                                                            "size": 12.0,
+                                                            "font": "Arial Narrow",
+                                                            "style": "NORMAL",
+                                                            "color": "000000"
+                                                        }
+                                                    },
+                                                    "lines": [
+                                                        {
+                                                            "type": "sima/marmo/report/PlotLine",
+                                                            "name": "line1",
+                                                            "x": [
+                                                                1.0,
+                                                                2.0,
+                                                                3.0
+                                                            ],
+                                                            "y": [
+                                                                4.792128562927246,
+                                                                6.027976989746094,
+                                                                5.24425745010376
+                                                            ],
+                                                            "xlabel": "",
+                                                            "ylabel": "",
+                                                            "legend": "SR (max= 6.028, min= 4.792, mean= 5.355, dev=0.5106)",
+                                                            "showlegend": true,
+                                                            "linewidth": 5.0,
+                                                            "pointsize": 4.0,
+                                                            "pointstyle": "none",
+                                                            "linestyle": "bar",
+                                                            "color": "1515c4"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "type": "sima/marmo/report/ReportFragment",
+                                            "name": "__RFP___duplicate_4",
+                                            "items": [
+                                                {
+                                                    "type": "sima/marmo/report/LinePlot",
+                                                    "name": "Roll",
+                                                    "title": "Roll",
+                                                    "xlabel": "seed number [-]",
+                                                    "ylabel": "Roll [deg]",
+                                                    "showtitle": false,
+                                                    "showlegend": true,
+                                                    "width": 970.0,
+                                                    "height": 300.0,
+                                                    "size": "fixed",
+                                                    "caption": "Roll extreme values for seed variation.   ",
+                                                    "legendfont": {
+                                                        "type": "sima/marmo/report/Font",
+                                                        "name": "legendfont",
+                                                        "size": 12.0,
+                                                        "font": "Arial Narrow",
+                                                        "style": "NORMAL",
+                                                        "color": "000000"
+                                                    },
+                                                    "xaxis": {
+                                                        "type": "sima/marmo/report/Axis",
+                                                        "name": "xaxis",
+                                                        "autoformat": true,
+                                                        "autoscale": true,
+                                                        "dashgridline": false,
+                                                        "format": "0.####E0",
+                                                        "font": {
+                                                            "type": "sima/marmo/report/Font",
+                                                            "name": "font",
+                                                            "size": 12.0,
+                                                            "font": "Arial Narrow",
+                                                            "style": "NORMAL",
+                                                            "color": "000000"
+                                                        }
+                                                    },
+                                                    "yaxis": {
+                                                        "type": "sima/marmo/report/Axis",
+                                                        "name": "yaxis",
+                                                        "autoformat": true,
+                                                        "autoscale": true,
+                                                        "dashgridline": false,
+                                                        "format": "0.####E0",
+                                                        "font": {
+                                                            "type": "sima/marmo/report/Font",
+                                                            "name": "font",
+                                                            "size": 12.0,
+                                                            "font": "Arial Narrow",
+                                                            "style": "NORMAL",
+                                                            "color": "000000"
+                                                        }
+                                                    },
+                                                    "lines": [
+                                                        {
+                                                            "type": "sima/marmo/report/PlotLine",
+                                                            "name": "line1",
+                                                            "x": [
+                                                                1.0,
+                                                                2.0,
+                                                                3.0
+                                                            ],
+                                                            "y": [
+                                                                8.647558212280274,
+                                                                8.008543968200684,
+                                                                6.092238426208496
+                                                            ],
+                                                            "xlabel": "",
+                                                            "ylabel": "",
+                                                            "legend": "SR (max= 8.648, min= 6.092, mean= 7.583, dev= 1.086)",
+                                                            "showlegend": true,
+                                                            "linewidth": 5.0,
+                                                            "pointsize": 4.0,
+                                                            "pointstyle": "none",
+                                                            "linestyle": "bar",
+                                                            "color": "1515c4"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "type": "sima/marmo/report/ReportFragment",
+                                            "name": "__RFP___duplicate_5",
+                                            "items": [
+                                                {
+                                                    "type": "sima/marmo/report/LinePlot",
+                                                    "name": "Pitch",
+                                                    "title": "Pitch",
+                                                    "xlabel": "seed number [-]",
+                                                    "ylabel": "Pitch [deg]",
+                                                    "showtitle": false,
+                                                    "showlegend": true,
+                                                    "width": 970.0,
+                                                    "height": 300.0,
+                                                    "size": "fixed",
+                                                    "caption": "Pitch extreme values for seed variation.   ",
+                                                    "legendfont": {
+                                                        "type": "sima/marmo/report/Font",
+                                                        "name": "legendfont",
+                                                        "size": 12.0,
+                                                        "font": "Arial Narrow",
+                                                        "style": "NORMAL",
+                                                        "color": "000000"
+                                                    },
+                                                    "xaxis": {
+                                                        "type": "sima/marmo/report/Axis",
+                                                        "name": "xaxis",
+                                                        "autoformat": true,
+                                                        "autoscale": true,
+                                                        "dashgridline": false,
+                                                        "format": "0.####E0",
+                                                        "font": {
+                                                            "type": "sima/marmo/report/Font",
+                                                            "name": "font",
+                                                            "size": 12.0,
+                                                            "font": "Arial Narrow",
+                                                            "style": "NORMAL",
+                                                            "color": "000000"
+                                                        }
+                                                    },
+                                                    "yaxis": {
+                                                        "type": "sima/marmo/report/Axis",
+                                                        "name": "yaxis",
+                                                        "autoformat": true,
+                                                        "autoscale": true,
+                                                        "dashgridline": false,
+                                                        "format": "0.####E0",
+                                                        "font": {
+                                                            "type": "sima/marmo/report/Font",
+                                                            "name": "font",
+                                                            "size": 12.0,
+                                                            "font": "Arial Narrow",
+                                                            "style": "NORMAL",
+                                                            "color": "000000"
+                                                        }
+                                                    },
+                                                    "lines": [
+                                                        {
+                                                            "type": "sima/marmo/report/PlotLine",
+                                                            "name": "line1",
+                                                            "x": [
+                                                                1.0,
+                                                                2.0,
+                                                                3.0
+                                                            ],
+                                                            "y": [
+                                                                2.484210252761841,
+                                                                3.4677166938781744,
+                                                                2.1400110721588136
+                                                            ],
+                                                            "xlabel": "",
+                                                            "ylabel": "",
+                                                            "legend": "SR (max= 3.468, min= 2.140, mean= 2.697, dev=0.5626)",
+                                                            "showlegend": true,
+                                                            "linewidth": 5.0,
+                                                            "pointsize": 4.0,
+                                                            "pointstyle": "none",
+                                                            "linestyle": "bar",
+                                                            "color": "1515c4"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "type": "sima/marmo/report/ReportFragment",
+                                            "name": "__RFP___duplicate_6",
+                                            "items": [
+                                                {
+                                                    "type": "sima/marmo/report/LinePlot",
+                                                    "name": "Yaw",
+                                                    "title": "Yaw",
+                                                    "xlabel": "seed number [-]",
+                                                    "ylabel": "Yaw [deg]",
+                                                    "showtitle": false,
+                                                    "showlegend": true,
+                                                    "width": 970.0,
+                                                    "height": 300.0,
+                                                    "size": "fixed",
+                                                    "caption": "Yaw extreme values for seed variation.   ",
+                                                    "legendfont": {
+                                                        "type": "sima/marmo/report/Font",
+                                                        "name": "legendfont",
+                                                        "size": 12.0,
+                                                        "font": "Arial Narrow",
+                                                        "style": "NORMAL",
+                                                        "color": "000000"
+                                                    },
+                                                    "xaxis": {
+                                                        "type": "sima/marmo/report/Axis",
+                                                        "name": "xaxis",
+                                                        "autoformat": true,
+                                                        "autoscale": true,
+                                                        "dashgridline": false,
+                                                        "format": "0.####E0",
+                                                        "font": {
+                                                            "type": "sima/marmo/report/Font",
+                                                            "name": "font",
+                                                            "size": 12.0,
+                                                            "font": "Arial Narrow",
+                                                            "style": "NORMAL",
+                                                            "color": "000000"
+                                                        }
+                                                    },
+                                                    "yaxis": {
+                                                        "type": "sima/marmo/report/Axis",
+                                                        "name": "yaxis",
+                                                        "autoformat": true,
+                                                        "autoscale": true,
+                                                        "dashgridline": false,
+                                                        "format": "0.####E0",
+                                                        "font": {
+                                                            "type": "sima/marmo/report/Font",
+                                                            "name": "font",
+                                                            "size": 12.0,
+                                                            "font": "Arial Narrow",
+                                                            "style": "NORMAL",
+                                                            "color": "000000"
+                                                        }
+                                                    },
+                                                    "lines": [
+                                                        {
+                                                            "type": "sima/marmo/report/PlotLine",
+                                                            "name": "line1",
+                                                            "x": [
+                                                                1.0,
+                                                                2.0,
+                                                                3.0
+                                                            ],
+                                                            "y": [
+                                                                1.5780944824218797,
+                                                                1.7377777099609358,
+                                                                1.8006286621093768
+                                                            ],
+                                                            "xlabel": "",
+                                                            "ylabel": "",
+                                                            "legend": "SR (max= 1.801, min= 1.578, mean= 1.706, dev=0.09367)",
+                                                            "showlegend": true,
+                                                            "linewidth": 5.0,
+                                                            "pointsize": 4.0,
+                                                            "pointstyle": "none",
+                                                            "linestyle": "bar",
+                                                            "color": "1515c4"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "sima/marmo/report/ReportFragment",
+            "name": "riflex",
+            "items": [
+                {
+                    "type": "sima/marmo/report/ReportFragment",
+                    "name": "RF_Tension",
+                    "items": [
+                        {
+                            "type": "sima/marmo/report/Section",
+                            "name": "Lines Tension for ",
+                            "title": "Lines Tension for ",
+                            "items": [
+                                {
+                                    "type": "sima/marmo/report/ReportFragment",
+                                    "name": "RF_line",
+                                    "items": [
+                                        {
+                                            "type": "sima/marmo/report/ReportFragment",
+                                            "name": "RF_line",
+                                            "items": [
+                                                {
+                                                    "type": "sima/marmo/report/Section",
+                                                    "name": "MooringLine9 Tension",
+                                                    "title": "MooringLine9 Tension",
+                                                    "items": [
+                                                        {
+                                                            "type": "sima/marmo/report/ReportFragment",
+                                                            "name": "RF_LocationTab",
+                                                            "items": [
+                                                                {
+                                                                    "type": "sima/marmo/report/ReportFragment",
+                                                                    "name": "RF_lineForce",
+                                                                    "items": [
+                                                                        {
+                                                                            "type": "sima/marmo/report/Table",
+                                                                            "name": "Table_Force",
+                                                                            "caption": "MooringLine9 Anchor Tension extreme value statistics based on Gumble fit to 3 seed numbers. ",
+                                                                            "transposed": true,
+                                                                            "columns": [
+                                                                                {
+                                                                                    "type": "sima/marmo/report/StringColumn",
+                                                                                    "name": "Stats",
+                                                                                    "cells": [
+                                                                                        "MPM",
+                                                                                        "Expected",
+                                                                                        "P90",
+                                                                                        "Capacity"
+                                                                                    ],
+                                                                                    "header": " ",
+                                                                                    "label": " "
+                                                                                },
+                                                                                {
+                                                                                    "type": "sima/marmo/report/StringColumn",
+                                                                                    "name": "stat",
+                                                                                    "cells": [
+                                                                                        "1379.90 (11.72)",
+                                                                                        "1379.92 (11.72)",
+                                                                                        "1380.02 (11.72)",
+                                                                                        "16169.00"
+                                                                                    ],
+                                                                                    "header": "Anchor",
+                                                                                    "label": "Tension [kN] (SF)"
+                                                                                }
+                                                                            ]
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "type": "sima/marmo/report/ReportFragment",
+                                                                    "name": "RF_lineForce_duplicate_1",
+                                                                    "items": [
+                                                                        {
+                                                                            "type": "sima/marmo/report/Table",
+                                                                            "name": "Table_Force",
+                                                                            "caption": "MooringLine9 Bottom Chain Tension extreme value statistics based on Gumble fit to 3 seed numbers. ",
+                                                                            "transposed": true,
+                                                                            "columns": [
+                                                                                {
+                                                                                    "type": "sima/marmo/report/StringColumn",
+                                                                                    "name": "Stats",
+                                                                                    "cells": [
+                                                                                        "MPM",
+                                                                                        "Expected",
+                                                                                        "P90",
+                                                                                        "Capacity"
+                                                                                    ],
+                                                                                    "header": " ",
+                                                                                    "label": " "
+                                                                                },
+                                                                                {
+                                                                                    "type": "sima/marmo/report/StringColumn",
+                                                                                    "name": "stat",
+                                                                                    "cells": [
+                                                                                        "1636.74 (9.88)",
+                                                                                        "1636.92 (9.88)",
+                                                                                        "1637.87 (9.87)",
+                                                                                        "16170.00"
+                                                                                    ],
+                                                                                    "header": "Bottom Chain",
+                                                                                    "label": "Tension [kN] (SF)"
+                                                                                }
+                                                                            ]
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "type": "sima/marmo/report/ReportFragment",
+                                                                    "name": "RF_lineForce_duplicate_2",
+                                                                    "items": [
+                                                                        {
+                                                                            "type": "sima/marmo/report/Table",
+                                                                            "name": "Table_Force",
+                                                                            "caption": "MooringLine9 Connection Chain Tension extreme value statistics based on Gumble fit to 3 seed numbers. ",
+                                                                            "transposed": true,
+                                                                            "columns": [
+                                                                                {
+                                                                                    "type": "sima/marmo/report/StringColumn",
+                                                                                    "name": "Stats",
+                                                                                    "cells": [
+                                                                                        "MPM",
+                                                                                        "Expected",
+                                                                                        "P90",
+                                                                                        "Capacity"
+                                                                                    ],
+                                                                                    "header": " ",
+                                                                                    "label": " "
+                                                                                },
+                                                                                {
+                                                                                    "type": "sima/marmo/report/StringColumn",
+                                                                                    "name": "stat",
+                                                                                    "cells": [
+                                                                                        "2044.66 (8.11)",
+                                                                                        "2044.82 (8.11)",
+                                                                                        "2045.65 (8.10)",
+                                                                                        "16580.00"
+                                                                                    ],
+                                                                                    "header": "Connection Chain",
+                                                                                    "label": "Tension [kN] (SF)"
+                                                                                }
+                                                                            ]
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "type": "sima/marmo/report/ReportFragment",
+                                                                    "name": "RF_lineForce_duplicate_3",
+                                                                    "items": [
+                                                                        {
+                                                                            "type": "sima/marmo/report/Table",
+                                                                            "name": "Table_Force",
+                                                                            "caption": "MooringLine9 Fairlead Tension extreme value statistics based on Gumble fit to 3 seed numbers. ",
+                                                                            "transposed": true,
+                                                                            "columns": [
+                                                                                {
+                                                                                    "type": "sima/marmo/report/StringColumn",
+                                                                                    "name": "Stats",
+                                                                                    "cells": [
+                                                                                        "MPM",
+                                                                                        "Expected",
+                                                                                        "P90",
+                                                                                        "Capacity"
+                                                                                    ],
+                                                                                    "header": " ",
+                                                                                    "label": " "
+                                                                                },
+                                                                                {
+                                                                                    "type": "sima/marmo/report/StringColumn",
+                                                                                    "name": "stat",
+                                                                                    "cells": [
+                                                                                        "2159.79 (7.77)",
+                                                                                        "2159.95 (7.77)",
+                                                                                        "2160.76 (7.77)",
+                                                                                        "16785.00"
+                                                                                    ],
+                                                                                    "header": "Fairlead",
+                                                                                    "label": "Tension [kN] (SF)"
+                                                                                }
+                                                                            ]
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "sima/marmo/report/ReportFragment",
+                                                            "name": "RF_LocationPlot",
+                                                            "items": [
+                                                                {
+                                                                    "type": "sima/marmo/report/ReportFragment",
+                                                                    "name": "__RFP__",
+                                                                    "items": [
+                                                                        {
+                                                                            "type": "sima/marmo/report/LinePlot",
+                                                                            "name": "MooringLine9 Anchor Tension",
+                                                                            "title": "MooringLine9 Anchor Tension",
+                                                                            "xlabel": "seed number [-]",
+                                                                            "ylabel": "MooringLine9 Anchor Tension [N]",
+                                                                            "showtitle": false,
+                                                                            "showlegend": true,
+                                                                            "width": 970.0,
+                                                                            "height": 300.0,
+                                                                            "size": "fixed",
+                                                                            "caption": "MooringLine9 Anchor Tension extreme values for seed variation.   ",
+                                                                            "legendfont": {
+                                                                                "type": "sima/marmo/report/Font",
+                                                                                "name": "legendfont",
+                                                                                "size": 12.0,
+                                                                                "font": "Arial Narrow",
+                                                                                "style": "NORMAL",
+                                                                                "color": "000000"
+                                                                            },
+                                                                            "xaxis": {
+                                                                                "type": "sima/marmo/report/Axis",
+                                                                                "name": "xaxis",
+                                                                                "autoformat": true,
+                                                                                "autoscale": true,
+                                                                                "dashgridline": false,
+                                                                                "format": "0.####E0",
+                                                                                "font": {
+                                                                                    "type": "sima/marmo/report/Font",
+                                                                                    "name": "font",
+                                                                                    "size": 12.0,
+                                                                                    "font": "Arial Narrow",
+                                                                                    "style": "NORMAL",
+                                                                                    "color": "000000"
+                                                                                }
+                                                                            },
+                                                                            "yaxis": {
+                                                                                "type": "sima/marmo/report/Axis",
+                                                                                "name": "yaxis",
+                                                                                "autoformat": true,
+                                                                                "autoscale": true,
+                                                                                "dashgridline": false,
+                                                                                "format": "0.####E0",
+                                                                                "font": {
+                                                                                    "type": "sima/marmo/report/Font",
+                                                                                    "name": "font",
+                                                                                    "size": 12.0,
+                                                                                    "font": "Arial Narrow",
+                                                                                    "style": "NORMAL",
+                                                                                    "color": "000000"
+                                                                                }
+                                                                            },
+                                                                            "lines": [
+                                                                                {
+                                                                                    "type": "sima/marmo/report/PlotLine",
+                                                                                    "name": "line1",
+                                                                                    "x": [
+                                                                                        1.0,
+                                                                                        2.0,
+                                                                                        3.0
+                                                                                    ],
+                                                                                    "y": [
+                                                                                        1379844.7265625,
+                                                                                        1379979.3701171876,
+                                                                                        1379958.740234375
+                                                                                    ],
+                                                                                    "xlabel": "",
+                                                                                    "ylabel": "",
+                                                                                    "legend": "Anchor (max=1.380e+06, min=1.380e+06, mean=1.380e+06, dev= 59.21)",
+                                                                                    "showlegend": true,
+                                                                                    "linewidth": 5.0,
+                                                                                    "pointsize": 4.0,
+                                                                                    "pointstyle": "none",
+                                                                                    "linestyle": "bar",
+                                                                                    "color": "1515c4"
+                                                                                }
+                                                                            ]
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "type": "sima/marmo/report/ReportFragment",
+                                                                    "name": "__RFP___duplicate_1",
+                                                                    "items": [
+                                                                        {
+                                                                            "type": "sima/marmo/report/LinePlot",
+                                                                            "name": "MooringLine9 Bottom Chain Tension",
+                                                                            "title": "MooringLine9 Bottom Chain Tension",
+                                                                            "xlabel": "seed number [-]",
+                                                                            "ylabel": "MooringLine9 Bottom Chain Tension [N]",
+                                                                            "showtitle": false,
+                                                                            "showlegend": true,
+                                                                            "width": 970.0,
+                                                                            "height": 300.0,
+                                                                            "size": "fixed",
+                                                                            "caption": "MooringLine9 Bottom Chain Tension extreme values for seed variation.   ",
+                                                                            "legendfont": {
+                                                                                "type": "sima/marmo/report/Font",
+                                                                                "name": "legendfont",
+                                                                                "size": 12.0,
+                                                                                "font": "Arial Narrow",
+                                                                                "style": "NORMAL",
+                                                                                "color": "000000"
+                                                                            },
+                                                                            "xaxis": {
+                                                                                "type": "sima/marmo/report/Axis",
+                                                                                "name": "xaxis",
+                                                                                "autoformat": true,
+                                                                                "autoscale": true,
+                                                                                "dashgridline": false,
+                                                                                "format": "0.####E0",
+                                                                                "font": {
+                                                                                    "type": "sima/marmo/report/Font",
+                                                                                    "name": "font",
+                                                                                    "size": 12.0,
+                                                                                    "font": "Arial Narrow",
+                                                                                    "style": "NORMAL",
+                                                                                    "color": "000000"
+                                                                                }
+                                                                            },
+                                                                            "yaxis": {
+                                                                                "type": "sima/marmo/report/Axis",
+                                                                                "name": "yaxis",
+                                                                                "autoformat": true,
+                                                                                "autoscale": true,
+                                                                                "dashgridline": false,
+                                                                                "format": "0.####E0",
+                                                                                "font": {
+                                                                                    "type": "sima/marmo/report/Font",
+                                                                                    "name": "font",
+                                                                                    "size": 12.0,
+                                                                                    "font": "Arial Narrow",
+                                                                                    "style": "NORMAL",
+                                                                                    "color": "000000"
+                                                                                }
+                                                                            },
+                                                                            "lines": [
+                                                                                {
+                                                                                    "type": "sima/marmo/report/PlotLine",
+                                                                                    "name": "line1",
+                                                                                    "x": [
+                                                                                        1.0,
+                                                                                        2.0,
+                                                                                        3.0
+                                                                                    ],
+                                                                                    "y": [
+                                                                                        1636518.9208984376,
+                                                                                        1637752.0751953126,
+                                                                                        1636817.87109375
+                                                                                    ],
+                                                                                    "xlabel": "",
+                                                                                    "ylabel": "",
+                                                                                    "legend": "Bottom Chain (max=1.638e+06, min=1.637e+06, mean=1.637e+06, dev= 525.2)",
+                                                                                    "showlegend": true,
+                                                                                    "linewidth": 5.0,
+                                                                                    "pointsize": 4.0,
+                                                                                    "pointstyle": "none",
+                                                                                    "linestyle": "bar",
+                                                                                    "color": "1515c4"
+                                                                                }
+                                                                            ]
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "type": "sima/marmo/report/ReportFragment",
+                                                                    "name": "__RFP___duplicate_2",
+                                                                    "items": [
+                                                                        {
+                                                                            "type": "sima/marmo/report/LinePlot",
+                                                                            "name": "MooringLine9 Connection Chain Tension",
+                                                                            "title": "MooringLine9 Connection Chain Tension",
+                                                                            "xlabel": "seed number [-]",
+                                                                            "ylabel": "MooringLine9 Connection Chain Tension [N]",
+                                                                            "showtitle": false,
+                                                                            "showlegend": true,
+                                                                            "width": 970.0,
+                                                                            "height": 300.0,
+                                                                            "size": "fixed",
+                                                                            "caption": "MooringLine9 Connection Chain Tension extreme values for seed variation.   ",
+                                                                            "legendfont": {
+                                                                                "type": "sima/marmo/report/Font",
+                                                                                "name": "legendfont",
+                                                                                "size": 12.0,
+                                                                                "font": "Arial Narrow",
+                                                                                "style": "NORMAL",
+                                                                                "color": "000000"
+                                                                            },
+                                                                            "xaxis": {
+                                                                                "type": "sima/marmo/report/Axis",
+                                                                                "name": "xaxis",
+                                                                                "autoformat": true,
+                                                                                "autoscale": true,
+                                                                                "dashgridline": false,
+                                                                                "format": "0.####E0",
+                                                                                "font": {
+                                                                                    "type": "sima/marmo/report/Font",
+                                                                                    "name": "font",
+                                                                                    "size": 12.0,
+                                                                                    "font": "Arial Narrow",
+                                                                                    "style": "NORMAL",
+                                                                                    "color": "000000"
+                                                                                }
+                                                                            },
+                                                                            "yaxis": {
+                                                                                "type": "sima/marmo/report/Axis",
+                                                                                "name": "yaxis",
+                                                                                "autoformat": true,
+                                                                                "autoscale": true,
+                                                                                "dashgridline": false,
+                                                                                "format": "0.####E0",
+                                                                                "font": {
+                                                                                    "type": "sima/marmo/report/Font",
+                                                                                    "name": "font",
+                                                                                    "size": 12.0,
+                                                                                    "font": "Arial Narrow",
+                                                                                    "style": "NORMAL",
+                                                                                    "color": "000000"
+                                                                                }
+                                                                            },
+                                                                            "lines": [
+                                                                                {
+                                                                                    "type": "sima/marmo/report/PlotLine",
+                                                                                    "name": "line1",
+                                                                                    "x": [
+                                                                                        1.0,
+                                                                                        2.0,
+                                                                                        3.0
+                                                                                    ],
+                                                                                    "y": [
+                                                                                        2044260.7421875,
+                                                                                        2045285.2783203126,
+                                                                                        2045193.2373046876
+                                                                                    ],
+                                                                                    "xlabel": "",
+                                                                                    "ylabel": "",
+                                                                                    "legend": "Connection Chain (max=2.045e+06, min=2.044e+06, mean=2.045e+06, dev= 462.8)",
+                                                                                    "showlegend": true,
+                                                                                    "linewidth": 5.0,
+                                                                                    "pointsize": 4.0,
+                                                                                    "pointstyle": "none",
+                                                                                    "linestyle": "bar",
+                                                                                    "color": "1515c4"
+                                                                                }
+                                                                            ]
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "type": "sima/marmo/report/ReportFragment",
+                                                                    "name": "__RFP___duplicate_3",
+                                                                    "items": [
+                                                                        {
+                                                                            "type": "sima/marmo/report/LinePlot",
+                                                                            "name": "MooringLine9 Fairlead Tension",
+                                                                            "title": "MooringLine9 Fairlead Tension",
+                                                                            "xlabel": "seed number [-]",
+                                                                            "ylabel": "MooringLine9 Fairlead Tension [N]",
+                                                                            "showtitle": false,
+                                                                            "showlegend": true,
+                                                                            "width": 970.0,
+                                                                            "height": 300.0,
+                                                                            "size": "fixed",
+                                                                            "caption": "MooringLine9 Fairlead Tension extreme values for seed variation.   ",
+                                                                            "legendfont": {
+                                                                                "type": "sima/marmo/report/Font",
+                                                                                "name": "legendfont",
+                                                                                "size": 12.0,
+                                                                                "font": "Arial Narrow",
+                                                                                "style": "NORMAL",
+                                                                                "color": "000000"
+                                                                            },
+                                                                            "xaxis": {
+                                                                                "type": "sima/marmo/report/Axis",
+                                                                                "name": "xaxis",
+                                                                                "autoformat": true,
+                                                                                "autoscale": true,
+                                                                                "dashgridline": false,
+                                                                                "format": "0.####E0",
+                                                                                "font": {
+                                                                                    "type": "sima/marmo/report/Font",
+                                                                                    "name": "font",
+                                                                                    "size": 12.0,
+                                                                                    "font": "Arial Narrow",
+                                                                                    "style": "NORMAL",
+                                                                                    "color": "000000"
+                                                                                }
+                                                                            },
+                                                                            "yaxis": {
+                                                                                "type": "sima/marmo/report/Axis",
+                                                                                "name": "yaxis",
+                                                                                "autoformat": true,
+                                                                                "autoscale": true,
+                                                                                "dashgridline": false,
+                                                                                "format": "0.####E0",
+                                                                                "font": {
+                                                                                    "type": "sima/marmo/report/Font",
+                                                                                    "name": "font",
+                                                                                    "size": 12.0,
+                                                                                    "font": "Arial Narrow",
+                                                                                    "style": "NORMAL",
+                                                                                    "color": "000000"
+                                                                                }
+                                                                            },
+                                                                            "lines": [
+                                                                                {
+                                                                                    "type": "sima/marmo/report/PlotLine",
+                                                                                    "name": "line1",
+                                                                                    "x": [
+                                                                                        1.0,
+                                                                                        2.0,
+                                                                                        3.0
+                                                                                    ],
+                                                                                    "y": [
+                                                                                        2159406.982421875,
+                                                                                        2160295.654296875,
+                                                                                        2160414.794921875
+                                                                                    ],
+                                                                                    "xlabel": "",
+                                                                                    "ylabel": "",
+                                                                                    "legend": "Fairlead (max=2.160e+06, min=2.159e+06, mean=2.160e+06, dev= 449.6)",
+                                                                                    "showlegend": true,
+                                                                                    "linewidth": 5.0,
+                                                                                    "pointsize": 4.0,
+                                                                                    "pointstyle": "none",
+                                                                                    "linestyle": "bar",
+                                                                                    "color": "1515c4"
+                                                                                }
+                                                                            ]
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "sima/marmo/report/ReportFragment",
+                    "name": "RF_Displacement_Z",
+                    "items": [
+                        {
+                            "type": "sima/marmo/report/Section",
+                            "name": "Lines Displacement_Z for ",
+                            "title": "Lines Displacement_Z for ",
+                            "items": [
+                                {
+                                    "type": "sima/marmo/report/ReportFragment",
+                                    "name": "RF_line",
+                                    "items": [
+                                        {
+                                            "type": "sima/marmo/report/ReportFragment",
+                                            "name": "RF_line",
+                                            "items": [
+                                                {
+                                                    "type": "sima/marmo/report/Section",
+                                                    "name": "MooringLine9 Displacement_Z",
+                                                    "title": "MooringLine9 Displacement_Z",
+                                                    "items": [
+                                                        {
+                                                            "type": "sima/marmo/report/ReportFragment",
+                                                            "name": "RF_LocationTab",
+                                                            "items": [
+                                                                {
+                                                                    "type": "sima/marmo/report/ReportFragment",
+                                                                    "name": "RF_lineDisp",
+                                                                    "items": [
+                                                                        {
+                                                                            "type": "sima/marmo/report/Table",
+                                                                            "name": "Table_Disp",
+                                                                            "caption": "MooringLine9 Displacement_Z extreme value statistics based on Gumble fit to 3 seed numbers. ",
+                                                                            "transposed": true,
+                                                                            "columns": [
+                                                                                {
+                                                                                    "type": "sima/marmo/report/StringColumn",
+                                                                                    "name": "Stats",
+                                                                                    "cells": [
+                                                                                        "MPM",
+                                                                                        "Expected",
+                                                                                        "P90"
+                                                                                    ],
+                                                                                    "header": " ",
+                                                                                    "label": " "
+                                                                                },
+                                                                                {
+                                                                                    "type": "sima/marmo/report/StringColumn",
+                                                                                    "name": "stat",
+                                                                                    "cells": [
+                                                                                        "NaN",
+                                                                                        "NaN",
+                                                                                        "NaN"
+                                                                                    ],
+                                                                                    "header": "Connection Plate4",
+                                                                                    "label": "Displacement_Z [m]"
+                                                                                }
+                                                                            ]
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "type": "sima/marmo/report/ReportFragment",
+                                                                    "name": "RF_lineDisp_duplicate_1",
+                                                                    "items": [
+                                                                        {
+                                                                            "type": "sima/marmo/report/Table",
+                                                                            "name": "Table_Disp",
+                                                                            "caption": "MooringLine9 Displacement_Z extreme value statistics based on Gumble fit to 3 seed numbers. ",
+                                                                            "transposed": true,
+                                                                            "columns": [
+                                                                                {
+                                                                                    "type": "sima/marmo/report/StringColumn",
+                                                                                    "name": "Stats",
+                                                                                    "cells": [
+                                                                                        "MPM",
+                                                                                        "Expected",
+                                                                                        "P90"
+                                                                                    ],
+                                                                                    "header": " ",
+                                                                                    "label": " "
+                                                                                },
+                                                                                {
+                                                                                    "type": "sima/marmo/report/StringColumn",
+                                                                                    "name": "stat",
+                                                                                    "cells": [
+                                                                                        "224.75",
+                                                                                        "224.75",
+                                                                                        "224.75"
+                                                                                    ],
+                                                                                    "header": "Connection Plate3",
+                                                                                    "label": "Displacement_Z [m]"
+                                                                                }
+                                                                            ]
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "sima/marmo/report/ReportFragment",
+                                                            "name": "RF_LocationPlot",
+                                                            "items": [
+                                                                {
+                                                                    "type": "sima/marmo/report/ReportFragment",
+                                                                    "name": "__RFP__",
+                                                                    "items": [
+                                                                        {
+                                                                            "type": "sima/marmo/report/LinePlot",
+                                                                            "name": "MooringLine9 Connection Plate4 Displacement_Z",
+                                                                            "title": "MooringLine9 Connection Plate4 Displacement_Z",
+                                                                            "xlabel": "seed number [-]",
+                                                                            "ylabel": "MooringLine9 Connection Plate4 Displacement_Z [m]",
+                                                                            "showtitle": false,
+                                                                            "showlegend": true,
+                                                                            "width": 970.0,
+                                                                            "height": 300.0,
+                                                                            "size": "fixed",
+                                                                            "caption": "MooringLine9 Connection Plate4 Displacement_Z extreme values for seed variation.   ",
+                                                                            "legendfont": {
+                                                                                "type": "sima/marmo/report/Font",
+                                                                                "name": "legendfont",
+                                                                                "size": 12.0,
+                                                                                "font": "Arial Narrow",
+                                                                                "style": "NORMAL",
+                                                                                "color": "000000"
+                                                                            },
+                                                                            "xaxis": {
+                                                                                "type": "sima/marmo/report/Axis",
+                                                                                "name": "xaxis",
+                                                                                "autoformat": true,
+                                                                                "autoscale": true,
+                                                                                "dashgridline": false,
+                                                                                "format": "0.####E0",
+                                                                                "font": {
+                                                                                    "type": "sima/marmo/report/Font",
+                                                                                    "name": "font",
+                                                                                    "size": 12.0,
+                                                                                    "font": "Arial Narrow",
+                                                                                    "style": "NORMAL",
+                                                                                    "color": "000000"
+                                                                                }
+                                                                            },
+                                                                            "yaxis": {
+                                                                                "type": "sima/marmo/report/Axis",
+                                                                                "name": "yaxis",
+                                                                                "autoformat": true,
+                                                                                "autoscale": true,
+                                                                                "dashgridline": false,
+                                                                                "format": "0.####E0",
+                                                                                "font": {
+                                                                                    "type": "sima/marmo/report/Font",
+                                                                                    "name": "font",
+                                                                                    "size": 12.0,
+                                                                                    "font": "Arial Narrow",
+                                                                                    "style": "NORMAL",
+                                                                                    "color": "000000"
+                                                                                }
+                                                                            },
+                                                                            "lines": [
+                                                                                {
+                                                                                    "type": "sima/marmo/report/PlotLine",
+                                                                                    "name": "line1",
+                                                                                    "x": [
+                                                                                        1.0,
+                                                                                        2.0,
+                                                                                        3.0
+                                                                                    ],
+                                                                                    "y": [
+                                                                                        300.2635192871094,
+                                                                                        300.2635192871094,
+                                                                                        300.2635192871094
+                                                                                    ],
+                                                                                    "xlabel": "",
+                                                                                    "ylabel": "",
+                                                                                    "legend": "Connection Plate4 (max= 300.3, min= 300.3, mean= 300.3, dev= 0.000)",
+                                                                                    "showlegend": true,
+                                                                                    "linewidth": 5.0,
+                                                                                    "pointsize": 4.0,
+                                                                                    "pointstyle": "none",
+                                                                                    "linestyle": "bar",
+                                                                                    "color": "1515c4"
+                                                                                }
+                                                                            ]
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "type": "sima/marmo/report/ReportFragment",
+                                                                    "name": "__RFP___duplicate_1",
+                                                                    "items": [
+                                                                        {
+                                                                            "type": "sima/marmo/report/LinePlot",
+                                                                            "name": "MooringLine9 Connection Plate3 Displacement_Z",
+                                                                            "title": "MooringLine9 Connection Plate3 Displacement_Z",
+                                                                            "xlabel": "seed number [-]",
+                                                                            "ylabel": "MooringLine9 Connection Plate3 Displacement_Z [m]",
+                                                                            "showtitle": false,
+                                                                            "showlegend": true,
+                                                                            "width": 970.0,
+                                                                            "height": 300.0,
+                                                                            "size": "fixed",
+                                                                            "caption": "MooringLine9 Connection Plate3 Displacement_Z extreme values for seed variation.   ",
+                                                                            "legendfont": {
+                                                                                "type": "sima/marmo/report/Font",
+                                                                                "name": "legendfont",
+                                                                                "size": 12.0,
+                                                                                "font": "Arial Narrow",
+                                                                                "style": "NORMAL",
+                                                                                "color": "000000"
+                                                                            },
+                                                                            "xaxis": {
+                                                                                "type": "sima/marmo/report/Axis",
+                                                                                "name": "xaxis",
+                                                                                "autoformat": true,
+                                                                                "autoscale": true,
+                                                                                "dashgridline": false,
+                                                                                "format": "0.####E0",
+                                                                                "font": {
+                                                                                    "type": "sima/marmo/report/Font",
+                                                                                    "name": "font",
+                                                                                    "size": 12.0,
+                                                                                    "font": "Arial Narrow",
+                                                                                    "style": "NORMAL",
+                                                                                    "color": "000000"
+                                                                                }
+                                                                            },
+                                                                            "yaxis": {
+                                                                                "type": "sima/marmo/report/Axis",
+                                                                                "name": "yaxis",
+                                                                                "autoformat": true,
+                                                                                "autoscale": true,
+                                                                                "dashgridline": false,
+                                                                                "format": "0.####E0",
+                                                                                "font": {
+                                                                                    "type": "sima/marmo/report/Font",
+                                                                                    "name": "font",
+                                                                                    "size": 12.0,
+                                                                                    "font": "Arial Narrow",
+                                                                                    "style": "NORMAL",
+                                                                                    "color": "000000"
+                                                                                }
+                                                                            },
+                                                                            "lines": [
+                                                                                {
+                                                                                    "type": "sima/marmo/report/PlotLine",
+                                                                                    "name": "line1",
+                                                                                    "x": [
+                                                                                        1.0,
+                                                                                        2.0,
+                                                                                        3.0
+                                                                                    ],
+                                                                                    "y": [
+                                                                                        224.747314453125,
+                                                                                        224.747314453125,
+                                                                                        224.7473602294922
+                                                                                    ],
+                                                                                    "xlabel": "",
+                                                                                    "ylabel": "",
+                                                                                    "legend": "Connection Plate3 (max= 224.7, min= 224.7, mean= 224.7, dev=2.158e-05)",
+                                                                                    "showlegend": true,
+                                                                                    "linewidth": 5.0,
+                                                                                    "pointsize": 4.0,
+                                                                                    "pointstyle": "none",
+                                                                                    "linestyle": "bar",
+                                                                                    "color": "1515c4"
+                                                                                }
+                                                                            ]
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

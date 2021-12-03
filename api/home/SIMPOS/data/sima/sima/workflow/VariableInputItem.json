@@ -1,0 +1,20 @@
+{
+ "name" : "VariableInputItem",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "parameter",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/SingleParameter",
+   "contained" : false,
+   "optional" : false
+  }, {
+   "name" : "variation",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

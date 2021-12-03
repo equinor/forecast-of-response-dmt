@@ -1,0 +1,56 @@
+{
+ "name" : "AxisConfiguration",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "font",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/FontDescription",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "log",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "default" : "false"
+  }, {
+   "name" : "autoFormat",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "default" : "true"
+  }, {
+   "name" : "format",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "default" : "0.####E0"
+  }, {
+   "name" : "showGrid",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "default" : "true"
+  }, {
+   "name" : "dashGridLine",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "default" : "false"
+  }, {
+   "name" : "autoScale",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "default" : "true"
+  }, {
+   "name" : "minimum",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "default" : "0.0"
+  }, {
+   "name" : "maximum",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "default" : "0.0"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

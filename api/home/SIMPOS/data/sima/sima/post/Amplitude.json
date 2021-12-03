@@ -1,0 +1,7 @@
+{
+ "name" : "Amplitude",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["downcrossing", "upanddowncrossing"],
+ "labels" : ["Down crossing ", "Up and down crossing"]
+}
+

@@ -1,0 +1,7 @@
+{
+ "name" : "BodyType",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["prescribed", "six_dof_time_domain", "six_dof_separated_analysis", "three_dof_time_domain"],
+ "labels" : ["Prescribed", "6 DOF - time domain", "6 DOF - separated analysis", "3 DOF - time domain"]
+}
+

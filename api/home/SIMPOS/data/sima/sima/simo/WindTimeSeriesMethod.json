@@ -1,0 +1,7 @@
+{
+ "name" : "WindTimeSeriesMethod",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["same", "separate"],
+ "labels" : ["Same", "Separate"]
+}
+

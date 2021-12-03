@@ -1,0 +1,57 @@
+{
+ "name" : "CustomEditorTask",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "doubleVariables",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/DoubleVariable",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "integerVariables",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/IntegerVariable",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "stringVariables",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/StringVariable",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "runNumber",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "default" : "0"
+  }, {
+   "name" : "scripts",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/SIMAScript",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "editors",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/custom/CustomEditor",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "wizards",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/custom/CustomWizard",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

@@ -1,0 +1,46 @@
+{
+ "name" : "Position",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "x",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "x position coordinate ",
+   "default" : "0.0"
+  }, {
+   "name" : "y",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "y position coordinate ",
+   "default" : "0.0"
+  }, {
+   "name" : "z",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "z position coordinate ",
+   "default" : "0.0"
+  }, {
+   "name" : "rx",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "rotation about x-axis",
+   "default" : "0.0"
+  }, {
+   "name" : "ry",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "rotation about y-axis",
+   "default" : "0.0"
+  }, {
+   "name" : "rz",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "rotation about z-axis",
+   "default" : "0.0"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

@@ -1,0 +1,23 @@
+{
+ "name" : "ModelContent",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "header",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/Header",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "contents",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/NamedEntity",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

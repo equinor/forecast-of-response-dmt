@@ -1,0 +1,7 @@
+{
+ "name" : "ZeroCrossing",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["up", "down", "all"],
+ "labels" : ["Up crossing", "Down crossing", "All zero crossings"]
+}
+

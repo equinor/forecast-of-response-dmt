@@ -1,0 +1,52 @@
+{
+ "name" : "DOFElimination",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "body",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/SIMOBody",
+   "contained" : false,
+   "optional" : true
+  }, {
+   "name" : "x",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "description" : "Select to omit X degree of freedom",
+   "default" : "false"
+  }, {
+   "name" : "y",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "description" : "Select to omit Y degree of freedom",
+   "default" : "false"
+  }, {
+   "name" : "z",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "description" : "Select to omit Z degree of freedom",
+   "default" : "false"
+  }, {
+   "name" : "rx",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "description" : "Select to omit RX degree of freedom",
+   "default" : "false"
+  }, {
+   "name" : "ry",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "description" : "Select to omit RY degree of freedom",
+   "default" : "false"
+  }, {
+   "name" : "rz",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "description" : "Select to omit RZ degree of freedom",
+   "default" : "false"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

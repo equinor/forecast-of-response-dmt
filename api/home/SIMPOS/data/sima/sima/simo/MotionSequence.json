@@ -1,0 +1,40 @@
+{
+ "name" : "MotionSequence",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "start",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Sequence start time",
+   "default" : "0.0"
+  }, {
+   "name" : "stop",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Sequence stop time",
+   "default" : "0.0"
+  }, {
+   "name" : "deltaPos",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Change in position during sequence",
+   "default" : "0.0"
+  }, {
+   "name" : "speed",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Sequence travelling speed after ramp-up",
+   "default" : "0.0"
+  }, {
+   "name" : "acceleration",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Acceleration / retardation for start and stop of sequence",
+   "default" : "0.0"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

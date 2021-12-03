@@ -1,0 +1,41 @@
+{
+ "name" : "Ochi",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "direction",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Average wave propagation direction",
+   "default" : "0.0"
+  }, {
+   "name" : "spreadingExponent",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Exponent  ? in cos spreading function",
+   "optional" : true
+  }, {
+   "name" : "numDirections",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "description" : "Number of directions in spreading function, must be odd",
+   "default" : "11"
+  }, {
+   "name" : "spreadingType",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "enumType" : "/environment/WaveSpreadingType",
+   "description" : "Wave spreading code",
+   "default" : "unidirectional"
+  }, {
+   "name" : "waveHeight",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Significant wave height",
+   "default" : "0.0"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

@@ -1,0 +1,46 @@
+{
+ "name" : "SlotConnection",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "useQuery",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "description" : "Use boolean expressions using operators =, !=,&&,|| to create more advanced queries",
+   "default" : "false"
+  }, {
+   "name" : "query",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string"
+  }, {
+   "name" : "userRequirements",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/post/Requirement",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "points",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/graph/Point",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "toSlot",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/post/InputSlot",
+   "contained" : false,
+   "optional" : false
+  }, {
+   "name" : "fromSlot",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/post/OutputSlot",
+   "contained" : false,
+   "optional" : false
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

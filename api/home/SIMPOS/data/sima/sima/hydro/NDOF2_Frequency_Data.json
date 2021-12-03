@@ -1,0 +1,9 @@
+{
+ "name" : "NDOF2_Frequency_Data",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : true,
+ "extends" : ["/NamedEntity"],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

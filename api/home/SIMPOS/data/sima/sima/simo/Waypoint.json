@@ -1,0 +1,52 @@
+{
+ "name" : "Waypoint",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "x",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "X-coordinate of waypoint",
+   "default" : "0.0"
+  }, {
+   "name" : "y",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Y-coordinate of waypoint",
+   "default" : "0.0"
+  }, {
+   "name" : "velocity",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Velocity towards next waypoint",
+   "default" : "0.0"
+  }, {
+   "name" : "heading",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Heading towards next waypoint (Only for fixed heading reference)",
+   "default" : "0.0"
+  }, {
+   "name" : "turningRadius",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Turning radius of waypoint ( Maximum rate of turn = velocity/turning radius)",
+   "default" : "0.0"
+  }, {
+   "name" : "radiusOfAcceptance",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Radius of acceptance ( Select next waypoint when within radius of acceptance )",
+   "default" : "0.0"
+  }, {
+   "name" : "lineOfSight",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Line of sight length (Determines the line from the vessel to the intersection of the line between the current waypoint and the next)",
+   "default" : "0.0"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

@@ -1,0 +1,7 @@
+{
+ "name" : "SegmentType",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["catenary", "rigid"],
+ "labels" : ["Catenary", "Rigid"]
+}
+

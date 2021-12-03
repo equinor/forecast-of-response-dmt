@@ -1,0 +1,104 @@
+{
+ "name" : "FluctuatingThreeComponent",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "direction",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Wind propagation direction",
+   "default" : "0.0"
+  }, {
+   "name" : "meanSpeed",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Mean wind speed (along wind propagation direction)",
+   "default" : "0.0"
+  }, {
+   "name" : "velocityProfiles",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/environment/FluctuatingWindVelocityProfile",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "longitudinalFileName",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "description" : "Path and filename for the fluctuating longitudinal wind time series"
+  }, {
+   "name" : "lateralFileName",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "description" : "Path and filename for the fluctuating lateral wind time series"
+  }, {
+   "name" : "verticalFileName",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "description" : "Path and filename for the fluctuating vertical wind time series"
+  }, {
+   "name" : "lowerLeftX",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "X-coordinate of the lower left corner of the upstream border of the wind",
+   "default" : "0.0"
+  }, {
+   "name" : "lowerLeftY",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Y-coordinate of the lower left corner of the wind field domain",
+   "default" : "0.0"
+  }, {
+   "name" : "lowerLeftZ",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Z-coordinate of the lower left corner of the wind field domain",
+   "default" : "0.0"
+  }, {
+   "name" : "numPointsX",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "description" : "Number of grid points in X- (longitudinal) direction",
+   "default" : "0"
+  }, {
+   "name" : "numPointsY",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "description" : "Number of grid points in Y- (lateral) direction",
+   "default" : "0"
+  }, {
+   "name" : "numPointsZ",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "description" : "Number of grid points in Z- (vertical) direction",
+   "default" : "0"
+  }, {
+   "name" : "sizeX",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Field size in X- (longitudinal) direction",
+   "default" : "0.0"
+  }, {
+   "name" : "sizeY",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Field size in Y- (lateral) direction",
+   "default" : "0.0"
+  }, {
+   "name" : "sizeZ",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Field size in Z- (vertical) direction",
+   "default" : "0.0"
+  }, {
+   "name" : "numSlices",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "description" : "Buffer size: Number of wind crossectional planes (Slices) in memory",
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

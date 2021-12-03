@@ -1,0 +1,16 @@
+{
+ "name" : "FrequnecyDomainLineItem",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "line",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/CatenaryLine",
+   "contained" : false,
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

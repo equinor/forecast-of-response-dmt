@@ -1,0 +1,7 @@
+{
+ "name" : "SpecifiedLoadType",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["constant", "harmonic", "ramp"],
+ "labels" : ["Constant", "Harmonic", "Ramp"]
+}
+

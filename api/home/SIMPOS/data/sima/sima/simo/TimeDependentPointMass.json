@@ -1,0 +1,54 @@
+{
+ "name" : "TimeDependentPointMass",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "point",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/Point3",
+   "contained" : true,
+   "optional" : false,
+   "description" : "Mass point (local coordinates)."
+  }, {
+   "name" : "flowRates",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/FlowRateItem",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "mass0",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Mass at t=0 (may be negative).",
+   "default" : "0.0"
+  }, {
+   "name" : "massMax",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Maximum allowable mass Mass, (may be negative).",
+   "default" : "0.0"
+  }, {
+   "name" : "massMin",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Minimum allowable mass Mass, (may be negative).",
+   "default" : "0.0"
+  }, {
+   "name" : "massRateMax",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Maximum allowable mass rate, (may be negative) (HLA only).",
+   "default" : "0.0"
+  }, {
+   "name" : "massRateMin",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Minimum allowable mass rate, (may be negative) (HLA only).",
+   "default" : "0.0"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

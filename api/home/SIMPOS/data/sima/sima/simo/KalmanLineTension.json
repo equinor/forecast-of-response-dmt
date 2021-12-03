@@ -1,0 +1,7 @@
+{
+ "name" : "KalmanLineTension",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["none", "measurements", "stiffness_matrix", "full_stiffness_matrix", "stiffness_matrix_anchor_system", "forces_from_specified_lines"],
+ "labels" : ["None", "Measurements", "Stiffness matrix", "Full stiffness matrix", "Stiffness matrix for anchor system", "Forces from specified lines"]
+}
+

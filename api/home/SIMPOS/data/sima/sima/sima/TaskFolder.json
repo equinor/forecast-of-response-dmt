@@ -1,0 +1,24 @@
+{
+ "name" : "TaskFolder",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "childFolders",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/TaskFolder",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "childTasks",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/Task",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

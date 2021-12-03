@@ -1,0 +1,90 @@
+{
+ "name" : "LineSegment",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "length",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Length of the segment",
+   "default" : "0.0"
+  }, {
+   "name" : "buoy",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/BuoyType",
+   "contained" : false,
+   "optional" : true
+  }, {
+   "name" : "segmentType",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "enumType" : "/simo/SegmentType",
+   "description" : "Segment type",
+   "default" : "catenary"
+  }, {
+   "name" : "numElements",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "description" : "Number of elements. Used for calculation of fibre rope characteristics and for visualization",
+   "default" : "0"
+  }, {
+   "name" : "bottomFriction",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Friction coefficient between line and sea bottom",
+   "default" : "0.0"
+  }, {
+   "name" : "diameter",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Segment diameter",
+   "default" : "0.0"
+  }, {
+   "name" : "eMod",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Modulus of elasticity",
+   "default" : "0.0"
+  }, {
+   "name" : "emFac",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Factor of elasticity - 2 for chains - 1 for other segment types",
+   "default" : "1.0"
+  }, {
+   "name" : "transverseDrag",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Transverse drag coefficient",
+   "default" : "0.0"
+  }, {
+   "name" : "longitudinalDrag",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Longitudinal drag coefficient",
+   "default" : "0.0"
+  }, {
+   "name" : "uwia",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Unit weight in air",
+   "default" : "0.0"
+  }, {
+   "name" : "watfac",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "The ratio of weight in water to weight in air",
+   "default" : "0.0"
+  }, {
+   "name" : "elongationCharacteristic",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/ElongationCharacteristic",
+   "contained" : false,
+   "optional" : true,
+   "description" : "Non-linear Elongation characteristic"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

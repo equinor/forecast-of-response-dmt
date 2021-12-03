@@ -1,0 +1,7 @@
+{
+ "name" : "CompensatorLimitation",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["factor", "factor_amax", "amax"],
+ "labels" : ["Factor limit", "Factor amax limit", "Amax limit"]
+}
+

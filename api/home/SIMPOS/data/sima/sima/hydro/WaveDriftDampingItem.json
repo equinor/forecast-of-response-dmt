@@ -1,0 +1,52 @@
+{
+ "name" : "WaveDriftDampingItem",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "period",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Period",
+   "default" : "0.0"
+  }, {
+   "name" : "wd1",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Wave drift damping coefficient surge. Relative change in drift force for unit velocity.",
+   "default" : "0.0"
+  }, {
+   "name" : "wd2",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Wave drift damping coefficient sway. Relative change in drift force for unit velocity.",
+   "default" : "0.0"
+  }, {
+   "name" : "wd3",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Wave drift damping coefficient heave. Relative change in drift force for unit velocity.",
+   "default" : "0.0"
+  }, {
+   "name" : "wd4",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Wave drift damping coefficient roll. Relative change in drift force for unit velocity.",
+   "default" : "0.0"
+  }, {
+   "name" : "wd5",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Wave drift damping coefficient pitch. Relative change in drift force for unit velocity.",
+   "default" : "0.0"
+  }, {
+   "name" : "wd6",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Wave drift damping coefficient yaw. Relative change in drift force for unit velocity.",
+   "default" : "0.0"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

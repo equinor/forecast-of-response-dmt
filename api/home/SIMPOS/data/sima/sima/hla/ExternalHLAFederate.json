@@ -1,0 +1,59 @@
+{
+ "name" : "ExternalHLAFederate",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "timeStep",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "optional" : true
+  }, {
+   "name" : "launch",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "description" : "Launch federate from provided class",
+   "default" : "true"
+  }, {
+   "name" : "jarFile",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "description" : "Path to jar file"
+  }, {
+   "name" : "className",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "description" : "Class name starting HLAFederate"
+  }, {
+   "name" : "classPath",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "description" : "Additional classpath needed by the external jar"
+  }, {
+   "name" : "arguments",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "description" : "Arguments passed to the class' main function"
+  }, {
+   "name" : "libraryPath",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "description" : "Sometimes needed when using native libraries. Corresponds to the -Djava.library.path argument"
+  }, {
+   "name" : "showOutput",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "description" : "Show output from federate",
+   "default" : "false"
+  }, {
+   "name" : "hlaObjects",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/hla/HLAObject",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

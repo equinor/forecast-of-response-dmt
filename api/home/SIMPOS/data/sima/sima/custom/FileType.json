@@ -1,0 +1,7 @@
+{
+ "name" : "FileType",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["input", "output"],
+ "labels" : ["Input", "Output"]
+}
+

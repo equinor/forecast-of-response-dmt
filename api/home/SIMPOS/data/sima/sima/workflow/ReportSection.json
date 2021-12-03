@@ -1,0 +1,32 @@
+{
+ "name" : "ReportSection",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "reportFragmentItems",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/workflow/ReportFragmentItem",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "title",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string"
+  }, {
+   "name" : "pageBreakBefore",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "default" : "false"
+  }, {
+   "name" : "orientation",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "enumType" : "/report/Orientation",
+   "default" : "portrait"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

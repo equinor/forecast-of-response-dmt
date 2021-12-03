@@ -1,0 +1,74 @@
+{
+  "name" : "simpleWF",
+  "type" : "sima/sima/workflow/Workflow",
+  "nodes" : [{
+    "name" : "input",
+    "type" : "sima/sima/workflow/WorkflowInput",
+    "x" : 270,
+    "y" : 280,
+    "h" : 0,
+    "w" : 0,
+    "outputSlot" : {
+     "name" : "out",
+     "__id" : "a74904de-587f-4970-83db-611179e22c66",
+     "type" : "sima/sima/post/OutputSlot"
+    }
+   }, {
+    "name" : "output",
+    "type" : "sima/sima/workflow/WorkflowOutput",
+    "x" : 850,
+    "y" : 270,
+    "h" : 0,
+    "w" : 0,
+    "inputSlot" : {
+     "name" : "in",
+     "__id" : "3dc0353e-2ba9-44ad-8909-7d9f75ddc234",
+     "type" : "sima/sima/post/InputSlot"
+    }
+   }, {
+    "type" : "sima/sima/post/AddConstantFilter",
+    "x" : 510,
+    "y" : 300,
+    "h" : 0,
+    "w" : 0,
+    "filterInputSlots" : [{
+      "name" : "in",
+      "__id" : "871eb91b-0a37-4f26-9f99-fd56b2943f89",
+      "type" : "sima/sima/post/InputSlot"
+     }],
+    "filterOutputSlots" : [{
+      "name" : "out",
+      "__id" : "d425efc8-bbaf-4150-bd80-7abc070a27be",
+      "type" : "sima/sima/post/OutputSlot"
+     }],
+    "renameOutput" : true,
+    "constant" : 10.0,
+    "axis" : "Y-Axis",
+    "shiftAxis" : false
+   }],
+  "connections" : [{
+    "type" : "sima/sima/post/SlotConnection",
+    "useQuery" : false,
+    "toSlot" : {
+      "type" : "sima/sima/post/OutputSlot",
+     "__id" : "871eb91b-0a37-4f26-9f99-fd56b2943f89"
+    },
+    "fromSlot" : {
+     "type" : "sima/sima/post/InputSlot",
+     "__id" : "a74904de-587f-4970-83db-611179e22c66"
+    }
+   }, {
+    "type" : "sima/sima/post/SlotConnection",
+    "useQuery" : false,
+    "toSlot" : {
+     "type" : "sima/sima/post/OutputSlot",
+     "__id" : "3dc0353e-2ba9-44ad-8909-7d9f75ddc234"
+    },
+    "fromSlot" : {
+     "type" : "sima/sima/post/InputSlot",       
+     "__id" : "d425efc8-bbaf-4150-bd80-7abc070a27be"
+    }
+   }]
+ }
+ 
+ 

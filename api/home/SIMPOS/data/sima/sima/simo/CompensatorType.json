@@ -1,0 +1,7 @@
+{
+ "name" : "CompensatorType",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["generic", "not_implemented"],
+ "labels" : ["Generic model", "Not implemented"]
+}
+

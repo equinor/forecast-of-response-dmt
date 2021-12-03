@@ -1,0 +1,7 @@
+{
+ "name" : "LineEnd",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["end1", "end2"],
+ "labels" : ["End 1", "End 2"]
+}
+

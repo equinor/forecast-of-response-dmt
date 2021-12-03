@@ -1,0 +1,64 @@
+{
+ "name" : "Appearance",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "graphicsfile",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "description" : "Graphics file"
+  }, {
+   "name" : "translation",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/Vector3",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "rotation",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/Vector3",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "scaling",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/Vector3",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "color",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/SIMAColor",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "geomRepresentationType",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "enumType" : "/sima/GeomRepresentationType",
+   "description" : "Geometry representation type",
+   "default" : "default_box"
+  }, {
+   "name" : "radius",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "default" : "1.0"
+  }, {
+   "name" : "transparency",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Transparency of geometry. No transparancy=0, Full transparency=1",
+   "default" : "0.0"
+  }, {
+   "name" : "symmetry",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "enumType" : "/sima/Symmetry",
+   "description" : "Symmetric properties of the geometry",
+   "default" : "none"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

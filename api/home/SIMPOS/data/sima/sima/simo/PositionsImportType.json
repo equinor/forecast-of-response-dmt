@@ -1,0 +1,7 @@
+{
+ "name" : "PositionsImportType",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["fixed_position", "from_file", "from_hla", "articulated_structure"],
+ "labels" : ["Fixed position", "Read from file", "Import from HLA", "Articulated structure"]
+}
+

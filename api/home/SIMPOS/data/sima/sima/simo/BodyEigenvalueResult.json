@@ -1,0 +1,58 @@
+{
+ "name" : "BodyEigenvalueResult",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "body",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "description" : "Result body"
+  }, {
+   "name" : "surgeExcursion",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Excursion in surge",
+   "default" : "0.0"
+  }, {
+   "name" : "swayExcursion",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Excursion in sway",
+   "default" : "0.0"
+  }, {
+   "name" : "heaveExcursion",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Excursion in heave",
+   "default" : "0.0"
+  }, {
+   "name" : "rollExcursion",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Excursion in roll",
+   "default" : "0.0"
+  }, {
+   "name" : "pitchExcursion",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Excursion in pitch",
+   "default" : "0.0"
+  }, {
+   "name" : "yawExcursion",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Excursion in yaw",
+   "default" : "0.0"
+  }, {
+   "name" : "periodResults",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/PeriodEigenvalueResult",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

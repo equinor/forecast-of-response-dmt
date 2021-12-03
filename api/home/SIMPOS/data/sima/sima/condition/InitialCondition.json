@@ -1,0 +1,21 @@
+{
+ "name" : "InitialCondition",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "changeNumber",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "default" : "0"
+  }, {
+   "name" : "resultContainer",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/ResultContainer",
+   "contained" : true,
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

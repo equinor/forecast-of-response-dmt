@@ -1,0 +1,57 @@
+{
+ "name" : "PostProcessorTask",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "doubleVariables",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/DoubleVariable",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "integerVariables",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/IntegerVariable",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "stringVariables",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/StringVariable",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "runNumber",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "default" : "0"
+  }, {
+   "name" : "scripts",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/SIMAScript",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "postProcessors",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/post/PostProcessorSpecification",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "snCurves",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/post/SNCurve",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

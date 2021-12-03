@@ -1,0 +1,28 @@
+{
+ "name" : "CustomContainer",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "children",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/custom/CustomComponent",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "visibilityParameters",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/custom/CustomVisibilityParameter",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "visibleWhenScript",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

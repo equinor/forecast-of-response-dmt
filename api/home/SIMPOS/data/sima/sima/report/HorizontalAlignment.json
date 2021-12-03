@@ -1,0 +1,7 @@
+{
+ "name" : "HorizontalAlignment",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["left", "center", "right"],
+ "labels" : ["Left", "Center", "Right"]
+}
+

@@ -1,0 +1,7 @@
+{
+ "name" : "ThrustSignalType",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["force", "rps"],
+ "labels" : ["Force", "Rotations per second"]
+}
+

@@ -1,0 +1,24 @@
+{
+ "name" : "PostProcessorSpecification",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "nodes",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/post/OperationNode",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "connections",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/post/SlotConnection",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

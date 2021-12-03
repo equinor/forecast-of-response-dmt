@@ -1,0 +1,27 @@
+{
+ "name" : "SimaMessage",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "title",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string"
+  }, {
+   "name" : "severity",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "enumType" : "/sima/Severity",
+   "default" : "warning"
+  }, {
+   "name" : "messages",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/SimaMessage",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

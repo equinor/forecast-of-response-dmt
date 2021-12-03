@@ -1,0 +1,7 @@
+{
+ "name" : "SoilFriction",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["open_compartment", "soil_fracture", "open_compartment_horsliding"],
+ "labels" : ["Open compartment", "Soil fracture", "Open compartment horizontal sliding"]
+}
+
