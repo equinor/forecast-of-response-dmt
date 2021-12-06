@@ -21,8 +21,27 @@ MONGO_AZURE_PORT=None
 MONGO_AZURE_USER=None
 MONGO_AZURE_PW=None
 
+function print_help() {
+    echo "$0: usage
+
+    Arguments:
+      -h            Print this message
+      --token       A valid access token for DMT/FoR
+      --dmss-api    The URL of the DMSS API to run against
+      --create-key  Generate a new SECRET_KEY to encrypt the data with
+      --no-restore  Do not run 'git restore' on the modified files upon completion
+
+    Example:
+      $0 --token=\"eyJ0eX\" --dmss-api=\"https://dmss-[...].com\" --create-key --no-restore
+    "
+}
+
 for i in "$@"; do
   case $i in
+    -h)
+      print_help
+      exit 0
+      ;;
     --token=*)
       TOKEN="${i#*=}"
       shift # past argument=value
@@ -47,7 +66,7 @@ done
 
 if [ -z "$TOKEN" ]; then
   echo "Missing required variable 'TOKEN'. You must either provide the environment variable 'TOKEN',
-  or run the script with '--token=\"ey...\"'. Exiting."
+  or run the script with '--token=\"eyJ0eX...\"'. Exiting."
   exit 1
 fi
 if [ -z "$DMSS_API" ]; then
