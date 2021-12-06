@@ -61,7 +61,7 @@ import Grid from '@material-ui/core/Grid'
 import Tooltip from '@material-ui/core/Tooltip'
 import Box from '@material-ui/core/Box'
 
-const LightTooltip = withStyles(theme => ({
+const LightTooltip = withStyles((theme) => ({
   tooltip: {
     backgroundColor: theme.palette.common.white,
     color: 'rgba(0, 0, 0, 0.87)',
@@ -133,7 +133,7 @@ const StyledExpansionPanelSummary = withStyles({
   expanded: {},
 })(ExpansionPanelSummary)
 
-const StyledExpansionPanelDetails = withStyles(theme => ({
+const StyledExpansionPanelDetails = withStyles((theme) => ({
   root: {
     padding: theme.spacing(1),
     flexDirection: 'column',
@@ -222,7 +222,7 @@ class SectionView extends Component {
   //   }
   // }
 
-  handleChange = event => {
+  handleChange = (event) => {
     console.log('** handling change ...')
 
     const { id, value, defaultValue } = event.target
@@ -267,7 +267,7 @@ class SectionView extends Component {
     }
   }
 
-  guessType = val => {
+  guessType = (val) => {
     if (isNaN(val)) {
       if (val.indexOf(',') == -1) {
         return 'string'

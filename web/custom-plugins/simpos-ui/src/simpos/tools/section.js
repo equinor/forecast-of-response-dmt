@@ -67,7 +67,7 @@ const SectionView = ({ name, segment }) => {
     <Wrapper>
       <Toggle
         {...getToggleProps({
-          onClick: () => setOpen(oldOpen => !oldOpen),
+          onClick: () => setOpen((oldOpen) => !oldOpen),
         })}
       >
         <Icons>

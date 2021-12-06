@@ -91,24 +91,19 @@ const Icons = styled.span`
 /* ********************************************************* */
 function Table({ columns, data }) {
   // Use the state and functions returned from useTable to build your UI
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    rows,
-    prepareRow,
-  } = useTable({
-    columns,
-    data,
-  })
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
+    useTable({
+      columns,
+      data,
+    })
 
   // Render the UI for your table
   return (
     <table {...getTableProps()}>
       <thead>
-        {headerGroups.map(headerGroup => (
+        {headerGroups.map((headerGroup) => (
           <tr {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map(column => (
+            {headerGroup.headers.map((column) => (
               <th {...column.getHeaderProps()}>{column.render('Header')}</th>
             ))}
           </tr>
@@ -119,7 +114,7 @@ function Table({ columns, data }) {
           prepareRow(row)
           return (
             <tr {...row.getRowProps()}>
-              {row.cells.map(cell => {
+              {row.cells.map((cell) => {
                 return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
               })}
             </tr>
@@ -130,7 +125,7 @@ function Table({ columns, data }) {
   )
 }
 
-const ColTableData = tabDoc => {
+const ColTableData = (tabDoc) => {
   var columns = []
 
   for (var i = 0; i < tabDoc.columns.length; i++) {
@@ -163,7 +158,7 @@ const ColTableData = tabDoc => {
   return { columns, data }
 }
 
-const TransposedColTableData = tabDoc => {
+const TransposedColTableData = (tabDoc) => {
   // console.log(tabDoc)
   var columns = []
   columns.push({ Header: tabDoc.columns[0].header, accessor: 'col_' + 0 })
@@ -176,7 +171,6 @@ const TransposedColTableData = tabDoc => {
     })
   }
   //console.log(columns)
-
 
   var data = []
 
@@ -232,14 +226,14 @@ const PlotView = ({ plotDoc }) => {
   return (
     <div className="container">
       <Plot
-        data={plotDoc.lines.map(function(line) {
+        data={plotDoc.lines.map(function (line) {
           // console.log(line)
           if (line.linestyle == 'bar') {
             return {
               x: line.x,
               y: line.y,
               type: 'bar',
-              marker: { 
+              marker: {
                 color: '#' + line.color,
               },
             }
@@ -250,9 +244,9 @@ const PlotView = ({ plotDoc }) => {
             type: line.style,
             mode: 'lines',
             line: {
-              color: '#'+line.color,
-              width: line.linewidth
-            }
+              color: '#' + line.color,
+              width: line.linewidth,
+            },
           }
         })}
         layout={{
@@ -284,15 +278,13 @@ const CollapsedView = ({ doc }) => {
     section = <FragmentView doc={doc} />
     sectionTitle = doc.name
     defaultState = false
-    return ( section )
-  }else if (doc.type.includes('Section')) {
+    return section
+  } else if (doc.type.includes('Section')) {
     section = <SectionView doc={doc} />
     sectionTitle = section.title
     defaultState = false
-    return (
-        <Content>{section}</Content>
-    )
-  }else if (doc.type.includes('LinePlot')) {
+    return <Content>{section}</Content>
+  } else if (doc.type.includes('LinePlot')) {
     section = <PlotView plotDoc={doc} />
     sectionTitle = 'Plot: ' + doc.caption
     defaultState = false
@@ -303,7 +295,7 @@ const CollapsedView = ({ doc }) => {
   } else if (doc.type.includes('Paragraph')) {
     section = <ParagraphView doc={doc} />
     defaultState = false
-    return (section)
+    return section
   } else {
     console.log(doc.type + ' is not known. : view_SRSReportView')
   }
@@ -316,8 +308,9 @@ const CollapsedView = ({ doc }) => {
       <Toggle
         {...getToggleProps({
           onClick: () => {
-            console.log(doc);
-            setOpen(oldOpen => !oldOpen)},
+            console.log(doc)
+            setOpen((oldOpen) => !oldOpen)
+          },
         })}
       >
         <Icons>
@@ -335,13 +328,13 @@ const SectionView = ({ doc }) => {
   const [isOpen, setOpen] = useState(false)
   const { getCollapseProps, getToggleProps } = useCollapse({ isOpen })
 
-  const sectionTitle = doc.name;
+  const sectionTitle = doc.name
 
   return (
     <Wrapper>
       <Toggle
         {...getToggleProps({
-          onClick: () => setOpen(oldOpen => !oldOpen),
+          onClick: () => setOpen((oldOpen) => !oldOpen),
         })}
       >
         <Icons>
@@ -356,7 +349,6 @@ const SectionView = ({ doc }) => {
         ))}
       </Content>
     </Wrapper>
-    
   )
 }
 
@@ -371,11 +363,11 @@ const ParagraphView = ({ doc }) => {
 //********************************************************//
 const FragmentView = ({ doc }) => {
   return (
-      <Content>
-        {doc.items.map((item, index) => (
-          <CollapsedView doc={item} key={index} />
-        ))}
-      </Content>
+    <Content>
+      {doc.items.map((item, index) => (
+        <CollapsedView doc={item} key={index} />
+      ))}
+    </Content>
   )
 }
 //********************************************************//

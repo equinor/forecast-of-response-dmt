@@ -42,7 +42,7 @@ import MuiDialogContent from '@material-ui/core/DialogContent'
 import MuiDialogContentText from '@material-ui/core/DialogContentText'
 import MuiDialogTitle from '@material-ui/core/DialogTitle'
 
-const LightTooltip = withStyles(theme => ({
+const LightTooltip = withStyles((theme) => ({
   tooltip: {
     backgroundColor: theme.palette.common.white,
     color: 'rgba(0, 0, 0, 0.87)',
@@ -51,7 +51,7 @@ const LightTooltip = withStyles(theme => ({
   },
 }))(Tooltip)
 
-const StyledTableCell = withStyles(theme => ({
+const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: theme.palette.common.black,
     color: theme.palette.common.white,
@@ -62,7 +62,7 @@ const StyledTableCell = withStyles(theme => ({
   },
 }))(TableCell)
 
-const StyledTableRow = withStyles(theme => ({
+const StyledTableRow = withStyles((theme) => ({
   root: {
     '&:nth-of-type(odd)': {
       backgroundColor: theme.palette.background.default,
@@ -70,7 +70,7 @@ const StyledTableRow = withStyles(theme => ({
   },
 }))(TableRow)
 
-const ActionTableCell = withStyles(theme => ({
+const ActionTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: theme.palette.primary.dark,
     color: theme.palette.common.white,
@@ -82,7 +82,7 @@ const ActionTableCell = withStyles(theme => ({
   },
 }))(TableCell)
 
-const ActionTableRow = withStyles(theme => ({
+const ActionTableRow = withStyles((theme) => ({
   root: {
     '&:nth-of-type(odd)': {
       backgroundColor: theme.palette.background.default,
@@ -90,33 +90,33 @@ const ActionTableRow = withStyles(theme => ({
   },
 }))(TableRow)
 
-const StyledIconButton = withStyles(theme => ({
+const StyledIconButton = withStyles((theme) => ({
   root: {
     margin: theme.spacing(0.1),
     padding: 'none',
   },
 }))(IconButton)
 
-const Dialog = withStyles(theme => ({
+const Dialog = withStyles((theme) => ({
   root: {
     padding: theme.spacing(2),
   },
 }))(MuiDialog)
 
-const DialogActions = withStyles(theme => ({
+const DialogActions = withStyles((theme) => ({
   root: {
     padding: theme.spacing(2),
   },
 }))(MuiDialogActions)
 
-const DialogContent = withStyles(theme => ({
+const DialogContent = withStyles((theme) => ({
   root: {
     padding: theme.spacing(2),
     fontSize: 18,
   },
 }))(MuiDialogContent)
 
-const DialogContentText = withStyles(theme => ({
+const DialogContentText = withStyles((theme) => ({
   root: {
     padding: theme.spacing(2),
     fontSize: 18,
@@ -130,7 +130,7 @@ const DialogContentText = withStyles(theme => ({
 //   },
 // }))(MuiDialogTitle);
 
-const styles_DialogTitle = theme => ({
+const styles_DialogTitle = (theme) => ({
   root: {
     margin: 0,
     padding: theme.spacing(2),
@@ -144,7 +144,7 @@ const styles_DialogTitle = theme => ({
   },
 })
 
-const DialogTitle = withStyles(styles_DialogTitle)(props => {
+const DialogTitle = withStyles(styles_DialogTitle)((props) => {
   const { children, classes, onClose, ...other } = props
   return (
     <MuiDialogTitle disableTypography className={classes.root} {...other}>
@@ -162,14 +162,14 @@ const DialogTitle = withStyles(styles_DialogTitle)(props => {
   )
 })
 
-const DiagButton = withStyles(theme => ({
+const DiagButton = withStyles((theme) => ({
   root: {
     padding: theme.spacing(2),
     fontSize: 14,
   },
 }))(Button)
 
-const styles_TextField = theme => ({
+const styles_TextField = (theme) => ({
   root: {
     margin: 0,
     padding: theme.spacing(2),
@@ -192,7 +192,7 @@ const styles_TextField = theme => ({
   },
 })
 
-const DiagTextField = withStyles(styles_TextField)(props => {
+const DiagTextField = withStyles(styles_TextField)((props) => {
   const { children, classes, ...other } = props
   return (
     <TextField className={classes.root} {...other}>
@@ -302,7 +302,7 @@ class DynamicTable extends Component {
     this.parentState.rows = this.state.rows
   }
 
-  guessType = val => {
+  guessType = (val) => {
     if (isNaN(val)) {
       if (val.indexOf(',') === -1) {
         return 'string'
@@ -339,7 +339,7 @@ class DynamicTable extends Component {
     return cols
   }
 
-  objToRow = obj => {
+  objToRow = (obj) => {
     var row = {}
     for (var coli = 0; coli < this.columns.length; coli++) {
       var attrName = this.columns[coli].id
@@ -373,7 +373,7 @@ class DynamicTable extends Component {
     this.parentState.rows = this.state.rows
   }
 
-  deleteRow = ind => {
+  deleteRow = (ind) => {
     // console.log("delet clicked");
     const { rows } = this.state
     var delRow = rows.splice(ind, 1)
@@ -396,7 +396,7 @@ class DynamicTable extends Component {
     // console.log(this.state);
   }
 
-  shiftRowUp = ind => {
+  shiftRowUp = (ind) => {
     //console.log("shifting up")
     if (ind === 0) return
 
@@ -414,7 +414,7 @@ class DynamicTable extends Component {
     //console.log(this.state);
   }
 
-  shiftRowDown = ind => {
+  shiftRowDown = (ind) => {
     //console.log("shifting up")
     var newRows = []
     const { rows } = this.state
@@ -433,7 +433,7 @@ class DynamicTable extends Component {
     //console.log(this.state);
   }
 
-  handleChange = event => {
+  handleChange = (event) => {
     const { id, value, defaultValue, type } = event.target
 
     //console.log(id);
@@ -450,7 +450,7 @@ class DynamicTable extends Component {
     // console.log(this.state);
   }
 
-  importTextHandleChange = event => {
+  importTextHandleChange = (event) => {
     const { id, value } = event.target
     this.importedText = value
   }

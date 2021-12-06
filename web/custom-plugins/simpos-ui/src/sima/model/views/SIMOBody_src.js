@@ -14,7 +14,7 @@ import { FaChevronDown, FaChevronRight } from 'react-icons/fa'
 //********************************************************//
 import { SIMA_Model_QuadCurrentCoeffPlot } from './QuadCurrentCoeffPlot_src.js'
 import { SIMA_Model_StructuralMass } from './StructuralMass_src.js'
-import {SIMA_Model_FirstOrderMotionTransferFunction} from './FirstOrderMotionTransferFunction_src.js'
+import { SIMA_Model_FirstOrderMotionTransferFunction } from './FirstOrderMotionTransferFunction_src.js'
 /* ********************************************************* */
 //Custom views
 /* ********************************************************* */
@@ -74,7 +74,6 @@ const Icons = styled.span`
 
 //********************************************************//
 const CollapsedView = ({ section, sectionTitle, defaultState }) => {
-
   const [isOpen, setOpen] = useState(defaultState)
   const { getCollapseProps, getToggleProps } = useCollapse({ isOpen })
 
@@ -83,7 +82,8 @@ const CollapsedView = ({ section, sectionTitle, defaultState }) => {
       <Toggle
         {...getToggleProps({
           onClick: () => {
-            setOpen(oldOpen => !oldOpen)},
+            setOpen((oldOpen) => !oldOpen)
+          },
         })}
       >
         <Icons>
@@ -102,27 +102,36 @@ const CollapsedView = ({ section, sectionTitle, defaultState }) => {
 const SIMA_Model_SIMOBody = ({ parent, document, children }) => {
   console.log(document)
 
-  var section = "";
+  var section = ''
 
   return (
-      <div className="container">
-          <CollapsedView section={
-            <SIMA_Model_StructuralMass document={document.structuralMass}/>
-            } 
-            sectionTitle={"Mass"} 
-            defaultState={false}/>
-          <CollapsedView section={
-            <SIMA_Model_QuadCurrentCoeffPlot document={document.quadraticCurrentCoefficients}/>
-            } 
-            sectionTitle={"Quadratic Current"} 
-            defaultState={false}/>          
-          <CollapsedView section={
-            <SIMA_Model_FirstOrderMotionTransferFunction document={document.firstOrderMotionTransferFunction}/>
-            } 
-            sectionTitle={"RAO"} 
-            defaultState={false}/>                   
-      </div>
-    
+    <div className="container">
+      <CollapsedView
+        section={
+          <SIMA_Model_StructuralMass document={document.structuralMass} />
+        }
+        sectionTitle={'Mass'}
+        defaultState={false}
+      />
+      <CollapsedView
+        section={
+          <SIMA_Model_QuadCurrentCoeffPlot
+            document={document.quadraticCurrentCoefficients}
+          />
+        }
+        sectionTitle={'Quadratic Current'}
+        defaultState={false}
+      />
+      <CollapsedView
+        section={
+          <SIMA_Model_FirstOrderMotionTransferFunction
+            document={document.firstOrderMotionTransferFunction}
+          />
+        }
+        sectionTitle={'RAO'}
+        defaultState={false}
+      />
+    </div>
   )
 }
 export { SIMA_Model_SIMOBody }

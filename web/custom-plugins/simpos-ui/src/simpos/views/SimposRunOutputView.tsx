@@ -1,26 +1,22 @@
 import * as React from 'react'
 
-import {useDocument} from '@dmt/common'
-import {DmtPluginType, DmtUIPlugin} from '@dmt/core-plugins'
-
+import { useDocument } from '@dmt/common'
+import { DmtPluginType, DmtUIPlugin } from '@dmt/core-plugins'
 
 import { SimposRunOutputView } from './results.js'
 import { SimposStatusView } from './results.js'
 
 const SimposRunOutputView_Component = (props: DmtUIPlugin) => {
-    const {
-        document    } = props
+  const { document } = props
 
-    return <SimposRunOutputView document={document} />
+  return <SimposRunOutputView document={document} />
 }
 
 const SimposStatusView_Component = (props: DmtUIPlugin) => {
-    const {
-        document    } = props
+  const { document } = props
 
-    return <SimposStatusView document={document} />
+  return <SimposStatusView document={document} />
 }
 
-
-export {SimposRunOutputView_Component as SimposRunOutputView }
-export {SimposStatusView_Component as SimposStatusView }
+export { SimposRunOutputView_Component as SimposRunOutputView }
+export { SimposStatusView_Component as SimposStatusView }

@@ -172,18 +172,18 @@ function DynamicTable({
         toolbarButtonAlignment: 'right',
       }}
       components={{
-        Toolbar: props => (
+        Toolbar: (props) => (
           <div style={{ height: '46px' }}>
             <MTableToolbar {...props} />
           </div>
         ),
       }}
       editable={{
-        onRowAdd: newData =>
-          new Promise(resolve => {
+        onRowAdd: (newData) =>
+          new Promise((resolve) => {
             setTimeout(() => {
               resolve()
-              setState(prevState => {
+              setState((prevState) => {
                 const data = [...prevState.data]
                 data.push(newData)
                 //console.log(populate(document, data));
@@ -194,11 +194,11 @@ function DynamicTable({
             }, 600)
           }),
         onRowUpdate: (newData, oldData) =>
-          new Promise(resolve => {
+          new Promise((resolve) => {
             setTimeout(() => {
               resolve()
               if (oldData) {
-                setState(prevState => {
+                setState((prevState) => {
                   const data = [...prevState.data]
                   data[data.indexOf(oldData)] = newData
                   //console.log(populate(document, data));
@@ -208,11 +208,11 @@ function DynamicTable({
               }
             }, 600)
           }),
-        onRowDelete: oldData =>
-          new Promise(resolve => {
+        onRowDelete: (oldData) =>
+          new Promise((resolve) => {
             setTimeout(() => {
               resolve()
-              setState(prevState => {
+              setState((prevState) => {
                 const data = [...prevState.data]
                 data.splice(data.indexOf(oldData), 1)
                 //console.log(populate(document, data));
