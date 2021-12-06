@@ -3,18 +3,23 @@
 set -eu
 
 # Required variables
-## CLI arguments
-TOKEN=${TOKEN:-}  # optionally specify in env
-DMSS_API=${DMSS_API:-"https://dmss-forecast-of-response-test.radix.equinor.com"}
+## CLI arguments (optionally specify in env)
+TOKEN=${TOKEN:-}
+DMSS_API=${DMSS_API:-}
 ## Environment variables
 SECRET_KEY=${SECRET_KEY:-}
-MONGO_AZURE_PW=${MONGO_AZURE_PW:-}
 MONGO_AZURE_URI=${MONGO_AZURE_URI:-}
 
 # Optional variables
 ## CLI arguments
 CREATE_DMSS_KEY="False"
 GIT_RESTORE="True"
+
+# Placeholders
+MONGO_AZURE_HOST=None
+MONGO_AZURE_PORT=None
+MONGO_AZURE_USER=None
+MONGO_AZURE_PW=None
 
 for i in "$@"; do
   case $i in
@@ -55,10 +60,6 @@ if [ -z "$SECRET_KEY" ]; then
     exit 1
   fi
 fi
-if [ -z "$MONGO_AZURE_PW" ]; then
-  echo "Missing required environment variable 'MONGO_AZURE_PW'. Exiting."
-  exit 1
-fi
 if [ -z "$MONGO_AZURE_URI" ]; then
   echo "Missing required variable 'MONGO_AZURE_URI'. Exiting."
   exit 1
@@ -77,6 +78,35 @@ FoR_DS_AZ=$FoR_DS_DIR/ForecastDS-azure.json
 DMSS_SYSTEM=$DIR/dmss-system.radix.json
 COMPOSE_FILE=$DIR/docker-compose.yml
 
+function parse_mongo_conn_str() {
+  if [[ "$MONGO_AZURE_URI" =~ ^mongodb:\/\/[^\/\,]+:{1}[^\/\,]*@{1}.*$ ]]; then
+    stripped_conn_str=$(echo "$MONGO_AZURE_URI" | awk -F'://' '{ print $2 }' | awk -F'/' '{ print $1 }')
+    MONGO_AZURE_USER=$(echo "$stripped_conn_str" | awk -F':' '{ print $1 }')
+    MONGO_AZURE_PW=$(echo "$stripped_conn_str" | awk -F':' '{ print $2 }' | awk -F'@' '{ print $1 }')
+    MONGO_AZURE_HOST=$(echo "$stripped_conn_str" | awk -F':' '{ print $2 }' | awk -F'@' '{ print $2 }')
+    MONGO_AZURE_PORT=$(echo "$stripped_conn_str" | awk -F':' '{ print $3 }')
+    if [ -z "$MONGO_AZURE_USER" ]; then
+      echo "Failed to extract the username from the Mongo connection string ('MONGO_AZURE_URI'). Exiting."
+      exit 1
+    fi
+    if [ -z "$MONGO_AZURE_PW" ]; then
+      echo "Failed to extract the password from the Mongo connection string ('MONGO_AZURE_URI'). Exiting."
+      exit 1
+    fi
+    if [ -z "$MONGO_AZURE_HOST" ]; then
+      echo "Failed to extract the hostname from the Mongo connection string ('MONGO_AZURE_URI'). Exiting."
+      exit 1
+    fi
+    if [ -z "$MONGO_AZURE_PORT" ]; then
+      echo "Failed to extract the port from the Mongo connection string ('MONGO_AZURE_URI'). Exiting."
+      exit 1
+    fi
+  else
+    echo "Environment variable 'MONGO_AZURE_URI' is not a valid mongo connection string. Exiting."
+    exit 1
+  fi
+}
+
 function delete_data_source_defs() {
     echo "Deleting data source definitions.."
     if test -f "$DMT_DS"; then
@@ -88,6 +118,87 @@ function delete_data_source_defs() {
         echo "  Deleting ForecastDS.json"
         rm "$FoR_DS"
         test ! -f "$FoR_DS" && echo "    OK" || echo "    ERROR"
+    fi
+}
+
+function set_database_host() {
+    SED_PATTERN="s/\"host\":.*\",/\"host\": \"$MONGO_AZURE_HOST\",/"
+    GREP_PATTERN="^\s{1,}\"host\": \"$MONGO_AZURE_HOST\","
+
+    echo "Setting database hosts.."
+    if [ -n "$MONGO_AZURE_HOST" ]; then
+      if test -f "$DMT_DS_AZ"; then
+          echo "  Updating DMT-DS-azure.json"
+          sed -i "$SED_PATTERN" "$DMT_DS_AZ"
+          grep -Eq "$GREP_PATTERN" "$DMT_DS_AZ" && echo "    OK" || echo "    ERROR"
+      fi
+      if test -f "$FoR_DS_AZ"; then
+          echo "  Updating ForecastDS-azure.json"
+          sed -i "$SED_PATTERN" "$FoR_DS_AZ"
+          grep -Eq "$GREP_PATTERN" "$FoR_DS_AZ" && echo "    OK" || echo "    ERROR"
+      fi
+      if test -f "$DMSS_SYSTEM"; then
+          echo "  Updating dmss-system.radix.json"
+          sed -i "$SED_PATTERN" "$DMSS_SYSTEM"
+          grep -Eq "$GREP_PATTERN" "$DMSS_SYSTEM" && echo "    OK" || echo "    ERROR"
+      fi
+    else
+      echo "Missing required variable 'MONGO_AZURE_HOST'. Exiting."
+      exit 1
+    fi
+}
+
+function set_database_port() {
+    SED_PATTERN="s/\"port\": \d{2,5},/\"port\": $MONGO_AZURE_PORT,/"
+    GREP_PATTERN="^\s{1,}\"port\": $MONGO_AZURE_PORT,"
+
+    echo "Setting database ports.."
+    if [ -n "$MONGO_AZURE_PORT" ]; then
+      if test -f "$DMT_DS_AZ"; then
+          echo "  Updating DMT-DS-azure.json"
+          sed -i "$SED_PATTERN" "$DMT_DS_AZ"
+          grep -Eq "$GREP_PATTERN" "$DMT_DS_AZ" && echo "    OK" || echo "    ERROR"
+      fi
+      if test -f "$FoR_DS_AZ"; then
+          echo "  Updating ForecastDS-azure.json"
+          sed -i "$SED_PATTERN" "$FoR_DS_AZ"
+          grep -Eq "$GREP_PATTERN" "$FoR_DS_AZ" && echo "    OK" || echo "    ERROR"
+      fi
+      if test -f "$DMSS_SYSTEM"; then
+          echo "  Updating dmss-system.radix.json"
+          sed -i "$SED_PATTERN" "$DMSS_SYSTEM"
+          grep -Eq "$GREP_PATTERN" "$DMSS_SYSTEM" && echo "    OK" || echo "    ERROR"
+      fi
+    else
+      echo "Missing required variable 'MONGO_AZURE_HOST'. Exiting."
+      exit 1
+    fi
+}
+
+function set_database_username() {
+    SED_PATTERN="s/\"username\":.*\",/\"username\": \"$MONGO_AZURE_USER\",/"
+    GREP_PATTERN="^\s{1,}\"username\": \"$MONGO_AZURE_USER\","
+
+    echo "Setting database usernames.."
+    if [ -n "$MONGO_AZURE_USER" ]; then
+      if test -f "$DMT_DS_AZ"; then
+          echo "  Updating DMT-DS-azure.json"
+          sed -i "$SED_PATTERN" "$DMT_DS_AZ"
+          grep -Eq "$GREP_PATTERN" "$DMT_DS_AZ" && echo "    OK" || echo "    ERROR"
+      fi
+      if test -f "$FoR_DS_AZ"; then
+          echo "  Updating ForecastDS-azure.json"
+          sed -i "$SED_PATTERN" "$FoR_DS_AZ"
+          grep -Eq "$GREP_PATTERN" "$FoR_DS_AZ" && echo "    OK" || echo "    ERROR"
+      fi
+      if test -f "$DMSS_SYSTEM"; then
+          echo "  Updating dmss-system.radix.json"
+          sed -i "$SED_PATTERN" "$DMSS_SYSTEM"
+          grep -Eq "$GREP_PATTERN" "$DMSS_SYSTEM" && echo "    OK" || echo "    ERROR"
+      fi
+    else
+      echo "Missing required variable 'MONGO_AZURE_USER'. Exiting."
+      exit 1
     fi
 }
 
@@ -167,9 +278,8 @@ function set_env_vars() {
 }
 
 function print_vars() {
-  DB_NAME=$(echo "$MONGO_AZURE_URI" | awk -F':' '{ print $2 }')
   echo "=== Variables ===
-  Database: $DB_NAME
+  Database: $MONGO_AZURE_USER:*****@$MONGO_AZURE_HOST:$MONGO_AZURE_PORT
   DMSS API: $DMSS_API
   Key:      $SECRET_KEY
   "
@@ -202,7 +312,11 @@ function clean_up() {
 }
 
 function main() {
+  parse_mongo_conn_str
   delete_data_source_defs
+  set_database_host
+  set_database_port
+  set_database_username
   set_database_password
   set_data_source_names
   update_compose_spec
