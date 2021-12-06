@@ -46,16 +46,18 @@ for i in "$@"; do
 done
 
 if [ -z "$TOKEN" ]; then
-  echo "Missing required parameter '--token'. Exiting."
+  echo "Missing required variable 'TOKEN'. You must either provide the environment variable 'TOKEN',
+  or run the script with '--token=\"ey...\"'. Exiting."
   exit 1
 fi
 if [ -z "$DMSS_API" ]; then
-  echo "Missing required parameter '--dmss-api'. Exiting."
+  echo "Missing required variable 'DMSS_API'. You must either provide the environment variable 'DMSS_API',
+  or run the script with '--dmss-api=\"https://dmss-...\"'. Exiting."
   exit 1
 fi
 if [ -z "$SECRET_KEY" ]; then
   if [ "$CREATE_DMSS_KEY" == "False" ]; then
-    echo "Environment variable 'SECRET_KEY' is missing."
+    echo "Missing required environment variable 'SECRET_KEY'."
     echo "You must either provide the environment variable 'SECRET_KEY', or run the script with '--create-key'. Exiting."
     exit 1
   fi
@@ -105,6 +107,29 @@ function parse_mongo_conn_str() {
     echo "Environment variable 'MONGO_AZURE_URI' is not a valid mongo connection string. Exiting."
     exit 1
   fi
+}
+
+function set_env_vars() {
+    if [ "$CREATE_DMSS_KEY" == "True" ]; then
+      sk_outfile_name="generated-secret-key.env"
+      echo "Generating new DMSS SECRET_KEY.."
+      create_key_output=$(docker-compose run --rm dmss create-key)
+      SECRET_KEY=$(echo "$create_key_output" | tail -n 1)
+      echo "  =============================="
+      echo "  New SECRET_KEY: $SECRET_KEY   "
+      echo "  Make sure to add it to Radix! "
+      echo "  =============================="
+      echo "SECRET_KEY=$SECRET_KEY" > "$sk_outfile_name"
+      echo "Wrote secret key to '$sk_outfile_name'"
+    fi
+}
+
+function print_vars() {
+  echo "=== Variables ===
+  Database: $MONGO_AZURE_USER:*****@$MONGO_AZURE_HOST:$MONGO_AZURE_PORT
+  DMSS API: $DMSS_API
+  Key:      $SECRET_KEY
+  "
 }
 
 function delete_data_source_defs() {
@@ -262,29 +287,6 @@ function update_compose_spec() {
   fi
 }
 
-function set_env_vars() {
-    if [ "$CREATE_DMSS_KEY" == "True" ]; then
-      sk_outfile_name="generated-secret-key.env"
-      echo "Generating new DMSS SECRET_KEY.."
-      create_key_output=$(docker-compose run --rm dmss create-key)
-      SECRET_KEY=$(echo "$create_key_output" | tail -n 1)
-      echo "  =============================="
-      echo "  New SECRET_KEY: $SECRET_KEY   "
-      echo "  Make sure to add it to Radix! "
-      echo "  =============================="
-      echo "SECRET_KEY=$SECRET_KEY" > "$sk_outfile_name"
-      echo "Wrote secret key to '$sk_outfile_name'"
-    fi
-}
-
-function print_vars() {
-  echo "=== Variables ===
-  Database: $MONGO_AZURE_USER:*****@$MONGO_AZURE_HOST:$MONGO_AZURE_PORT
-  DMSS API: $DMSS_API
-  Key:      $SECRET_KEY
-  "
-}
-
 function build_and_run_images() {
   echo "Building and running the Docker containers.."
   docker-compose up -d --build
@@ -313,6 +315,8 @@ function clean_up() {
 
 function main() {
   parse_mongo_conn_str
+  set_env_vars
+  print_vars
   delete_data_source_defs
   set_database_host
   set_database_port
@@ -320,8 +324,6 @@ function main() {
   set_database_password
   set_data_source_names
   update_compose_spec
-  set_env_vars
-  print_vars
   build_and_run_images
   dmss_reset_app
   api_reset_app
