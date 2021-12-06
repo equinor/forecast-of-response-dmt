@@ -14,6 +14,7 @@ MONGO_AZURE_URI=${MONGO_AZURE_URI:-}
 # Optional variables
 ## CLI arguments
 CREATE_DMSS_KEY="False"
+GIT_RESTORE="True"
 
 for i in "$@"; do
   case $i in
@@ -27,6 +28,10 @@ for i in "$@"; do
       ;;
     --create-key)
       CREATE_DMSS_KEY="True"
+      shift # past argument=value
+      ;;
+    --no-restore)
+      GIT_RESTORE="False"
       shift # past argument=value
       ;;
     *)
@@ -187,7 +192,13 @@ function api_reset_app() {
 
 function clean_up() {
   echo "Cleaning up.."
-  git restore "$DMT_DS" "$DMT_DS_AZ" "$FoR_DS" "$FoR_DS_AZ" "$DMSS_SYSTEM" "$COMPOSE_FILE" && echo "    OK" || echo "    ERROR"
+  if [ "$GIT_RESTORE" == "True" ]; then
+    echo "  Running 'git restore' on modified JSON and docker(-compose) files.."
+    git restore "$DMT_DS" "$DMT_DS_AZ" "$FoR_DS" "$FoR_DS_AZ" "$DMSS_SYSTEM" "$COMPOSE_FILE" && echo "    OK" || echo "    ERROR"
+  else
+    echo "  Skipping 'git restore' due to '--no-restore' flag"
+    echo "    Warning: Passwords may be stored in clear text in the modified files. Please avoid committing them to git."
+  fi
 }
 
 function main() {
