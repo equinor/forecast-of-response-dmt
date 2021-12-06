@@ -13,7 +13,7 @@ import { MakeMooringConditionTemplate } from './templates/mooringCondition.js'
 import { Entity } from '../../forms/entity.js'
 import { DocForm } from '../../forms/docForm.js'
 
-const LightTooltip = withStyles(theme => ({
+const LightTooltip = withStyles((theme) => ({
   tooltip: {
     backgroundColor: theme.palette.common.white,
     color: 'rgba(0, 0, 0, 0.87)',
@@ -71,7 +71,7 @@ class Form extends Component {
     }
   }
 
-  handleChange = event => {
+  handleChange = (event) => {
     const { id, value } = event.target
     this.props.document[id] = value
   }

@@ -4,21 +4,21 @@ class EntityParser extends Object {
   }
   /* ******* model identifies ******* */
 
-  isArray = prop => {
+  isArray = (prop) => {
     if (prop instanceof Array) {
       return true
     }
     return false
   }
 
-  isAtomicSingle = prop => {
+  isAtomicSingle = (prop) => {
     if (!this.isArray(prop) && !this.isObject(prop)) {
       return true
     }
     return false
   }
 
-  isObject = prop => {
+  isObject = (prop) => {
     if (typeof prop === 'object' && prop !== null) {
       return true
     }
@@ -36,7 +36,7 @@ class EntityParser extends Object {
     }
   }
 
-  translateType = prop => {
+  translateType = (prop) => {
     if (this.isOfType(prop, 'DimensionalScalar'))
       return 'marmo:containers:DimensionalScalar'
     else if (this.isOfType(prop, 'SimpleString'))

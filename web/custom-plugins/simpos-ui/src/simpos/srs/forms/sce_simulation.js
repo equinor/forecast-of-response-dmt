@@ -35,7 +35,7 @@ import { withStyles } from '@material-ui/core/styles'
 
 import Tooltip from '@material-ui/core/Tooltip'
 
-const LightTooltip = withStyles(theme => ({
+const LightTooltip = withStyles((theme) => ({
   tooltip: {
     backgroundColor: theme.palette.common.white,
     color: 'rgba(0, 0, 0, 0.87)',
@@ -56,7 +56,7 @@ class FormTest extends Component {
     this.state = this.initialState
   }
 
-  handleChange = event => {
+  handleChange = (event) => {
     console.log('** handling change ...')
 
     const { name, value } = event.target
@@ -68,7 +68,8 @@ class FormTest extends Component {
 
   submitForm = () => {
     console.log('** submitting ...')
-    this.props.document.env.wave.significantWaveHeight = this.state.significantWaveHeight
+    this.props.document.env.wave.significantWaveHeight =
+      this.state.significantWaveHeight
     this.props.updateEntity(this.props.document)
     //this.props.handleSubmit(this.state)
   }
@@ -103,7 +104,7 @@ class Form extends Component {
     }
   }
 
-  handleChange = event => {
+  handleChange = (event) => {
     const { id, value } = event.target
     this.props.document[id] = value
   }

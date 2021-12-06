@@ -26,7 +26,6 @@ import { Form } from './form.js'
 //****************************************************** */
 
 const objForm = ({ document, updateEntity }) => {
-
   //console.log(document);
 
   return (
@@ -37,7 +36,6 @@ const objForm = ({ document, updateEntity }) => {
     </div>
   )
 }
-
 
 //********************************************************//
 //********************************************************//

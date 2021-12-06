@@ -63,7 +63,6 @@ import { RAOSceForm } from '../simpos/rao/forms/raoSce.js'
 //testing
 import { MaterialTableDemo } from '../simpos/views/matTable.js'
 
-
 /* ********************************************************* */
 
 /* ********************************************************* */
@@ -113,7 +112,7 @@ const TestPlugin = ({ parent, document, children }) => {
 //********************************************************//
 //********************************************************//
 //Helper functions
-const getXLabel = signal => {
+const getXLabel = (signal) => {
   var label = ''
 
   if (signal.xlabel !== undefined) {
@@ -133,7 +132,7 @@ const getXLabel = signal => {
   return label
 }
 
-const getYLabel = signal => {
+const getYLabel = (signal) => {
   var label = ''
 
   if (signal.label !== undefined) {

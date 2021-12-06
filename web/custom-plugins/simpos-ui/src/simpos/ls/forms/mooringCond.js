@@ -133,18 +133,18 @@ function LSMooringCond({ updateEntity, document, children }) {
         toolbarButtonAlignment: 'right',
       }}
       components={{
-        Toolbar: props => (
+        Toolbar: (props) => (
           <div style={{ height: '46px' }}>
             <MTableToolbar {...props} />
           </div>
         ),
       }}
       editable={{
-        onRowAdd: newData =>
-          new Promise(resolve => {
+        onRowAdd: (newData) =>
+          new Promise((resolve) => {
             setTimeout(() => {
               resolve()
-              setState(prevState => {
+              setState((prevState) => {
                 const data = [...prevState.data]
                 data.push(newData)
                 console.log(populateMoorConds(data))
@@ -156,28 +156,27 @@ function LSMooringCond({ updateEntity, document, children }) {
             }, 600)
           }),
         onRowUpdate: (newData, oldData) =>
-          new Promise(resolve => {
+          new Promise((resolve) => {
             setTimeout(() => {
               resolve()
               if (oldData) {
-                setState(prevState => {
+                setState((prevState) => {
                   const data = [...prevState.data]
                   data[data.indexOf(oldData)] = newData
                   console.log(populateMoorConds(data))
-                  document.mooringConditions.conditions = populateMoorConds(
-                    data
-                  )
+                  document.mooringConditions.conditions =
+                    populateMoorConds(data)
                   updateEntity(document)
                   return { ...prevState, data }
                 })
               }
             }, 600)
           }),
-        onRowDelete: oldData =>
-          new Promise(resolve => {
+        onRowDelete: (oldData) =>
+          new Promise((resolve) => {
             setTimeout(() => {
               resolve()
-              setState(prevState => {
+              setState((prevState) => {
                 const data = [...prevState.data]
                 data.splice(data.indexOf(oldData), 1)
                 console.log(populateMoorConds(data))
