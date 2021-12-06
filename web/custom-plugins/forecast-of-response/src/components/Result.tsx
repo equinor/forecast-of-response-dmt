@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import LinesOverTime, { TLineChartDataPoint } from './Plots/LinesOverTime'
-import { Button, Chip, Progress } from '@equinor/eds-core-react'
+import { Button, Chip, Progress, Tooltip } from '@equinor/eds-core-react'
 import { NotificationManager } from 'react-notifications'
 import styled from 'styled-components'
 import { useDocument } from '@dmt/common'
@@ -52,7 +52,9 @@ function GraphSelect(props: {
     const runName = `${variableRuns[run].name}`
     const responseName = `${variableRuns[run].responses[response].name}`
     const statisticName = `${variableRuns[run].responses[response].statistics[statistic].name}`
-    const plotName = `${runName}-${responseName}-${statisticName}`
+    const plotName = `${runName}: ${responseName} ${statisticName}`
+
+    const description = `${variableRuns[run].responses[response].statistics[statistic].description}`
 
     if (graphNames.map((graph) => graph.name).includes(plotName)) return // Skip if trying to add an existing plot
     let newDataDict: any = {}
@@ -88,7 +90,7 @@ function GraphSelect(props: {
 
     setGraphNames([
       ...graphNames,
-      { name: plotName, plotType: result?.plotType },
+      { name: plotName, plotType: result?.plotType, description: description },
     ])
     setChartData(Object.values(newDataDict))
   }
@@ -133,6 +135,7 @@ export enum PlotType {
 export type TGraphNames = {
   name: string
   plotType: PlotType
+  description: string
 }
 
 export default (props: { result: any }) => {
@@ -184,25 +187,22 @@ export default (props: { result: any }) => {
         {graphNames.length >= 1 && (
           <AddedGraphWrapper>
             {graphNames.map((graph, index) => (
-              <Chip
-                key={index}
-                style={{ margin: '10px 5px' }}
-                variant="active"
-                onDelete={() => removeGraph(graph.name)}
-              >
-                <IconWrapper color={plotColors[index]}>&#9679;</IconWrapper>
-                {graph.name}
-              </Chip>
+              <Tooltip title={graph.description}>
+                <Chip
+                  key={index}
+                  style={{ margin: '10px 5px', cursor: 'help' }}
+                  variant="active"
+                  onDelete={() => removeGraph(graph.name)}
+                >
+                  <IconWrapper color={plotColors[index]}>&#9679;</IconWrapper>
+                  {graph.name}
+                </Chip>
+              </Tooltip>
             ))}
           </AddedGraphWrapper>
         )}
       </div>
-      <LinesOverTime
-        data={chartData}
-        warningLine={1.2}
-        MaxLine={2.7}
-        graphNames={graphNames}
-      />
+      <LinesOverTime data={chartData} graphNames={graphNames} />
     </ResultWrapper>
   )
 }
