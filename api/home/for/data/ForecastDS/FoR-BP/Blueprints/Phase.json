@@ -25,6 +25,12 @@
       "optional": true
     },
     {
+      "name": "workflow",
+      "type": "system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    },
+    {
       "name": "end",
       "type": "system/SIMOS/BlueprintAttribute",
       "attributeType": "string",
