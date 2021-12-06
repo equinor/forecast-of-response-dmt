@@ -164,8 +164,9 @@ function LSMooringCond({ updateEntity, document, children }) {
                   const data = [...prevState.data]
                   data[data.indexOf(oldData)] = newData
                   console.log(populateMoorConds(data))
-                  document.mooringConditions.conditions =
-                    populateMoorConds(data)
+                  document.mooringConditions.conditions = populateMoorConds(
+                    data
+                  )
                   updateEntity(document)
                   return { ...prevState, data }
                 })
