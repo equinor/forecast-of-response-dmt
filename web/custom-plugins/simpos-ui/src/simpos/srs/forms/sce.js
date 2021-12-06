@@ -68,8 +68,7 @@ class FormTest extends Component {
 
   submitForm = () => {
     console.log('** submitting ...')
-    this.props.document.env.wave.significantWaveHeight =
-      this.state.significantWaveHeight
+    this.props.document.env.wave.significantWaveHeight = this.state.significantWaveHeight
     this.props.updateEntity(this.props.document)
     //this.props.handleSubmit(this.state)
   }

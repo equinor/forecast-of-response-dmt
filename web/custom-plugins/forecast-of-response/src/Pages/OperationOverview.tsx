@@ -134,10 +134,10 @@ const OperationOverview = (props: DmtSettings): JSX.Element => {
   }
   const getVisibleOperations = () => {
     //Only the intersection of different filters will be visible.
-    const operationsFilteredByStatus: TOperation[] =
-      filterOperationsByStatus(activeTab)
-    const operationsFilteredByDateRange: TOperation[] =
-      filerOperationsByDateRange()
+    const operationsFilteredByStatus: TOperation[] = filterOperationsByStatus(
+      activeTab
+    )
+    const operationsFilteredByDateRange: TOperation[] = filerOperationsByDateRange()
     return allOperations.filter((operation) => {
       return (
         operationsFilteredBySearch.includes(operation) &&
