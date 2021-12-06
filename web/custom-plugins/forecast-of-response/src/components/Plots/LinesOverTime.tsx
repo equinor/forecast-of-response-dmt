@@ -22,8 +22,6 @@ export type TLineChartDataPoint = {
 export default (props: {
   data: TLineChartDataPoint[]
   graphNames: TGraphNames[]
-  warningLine: number
-  MaxLine: number
 }): JSX.Element => {
   const { data, graphNames, warningLine, MaxLine } = props
 
@@ -39,8 +37,6 @@ export default (props: {
           <Tooltip />
           <Legend />
           {/*TODO: Read threshold values from result file*/}
-          <ReferenceLine y={MaxLine} stroke="red" label="Max" />
-          <ReferenceLine y={warningLine} stroke="orange" label="Warning" />
           {graphNames &&
             graphNames.map((graphName: TGraphNames, index) => {
               if (graphName.plotType === PlotType.LINE) {
