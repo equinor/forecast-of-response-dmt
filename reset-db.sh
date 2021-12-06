@@ -14,6 +14,7 @@ MONGO_AZURE_URI=${MONGO_AZURE_URI:-}
 ## CLI arguments
 CREATE_DMSS_KEY="False"
 GIT_RESTORE="True"
+COMPOSE_DOWN="True"
 
 # Placeholders
 MONGO_AZURE_HOST=None
@@ -25,14 +26,18 @@ function print_help() {
     echo "$0: usage
 
     Arguments:
-      -h            Print this message
-      --token       A valid access token for DMT/FoR
-      --dmss-api    The URL of the DMSS API to run against
-      --create-key  Generate a new SECRET_KEY to encrypt the data with
-      --no-restore  Do not run 'git restore' on the modified files upon completion
+      -h                Print this message
+      --token           A valid access token for DMT/FoR
+      --dmss-api        The URL of the DMSS API to run against
+      --create-key      Generate a new SECRET_KEY to encrypt the data with
+      --no-restore      Do not run 'git restore' on the modified files upon completion
+      --keep-containers Do not run 'docker-compose down' upon completion
 
     Example:
-      $0 --token=\"eyJ0eX\" --dmss-api=\"https://dmss-[...].com\" --create-key --no-restore
+      Run with CLI arguments
+        $0 --token=\"eyJ0eX\" --dmss-api=\"https://dmss-[...].com\" --create-key --no-restore
+      Run with variables from the environment (see reset-db.env-template)
+        $0
     "
 }
 
@@ -57,6 +62,10 @@ for i in "$@"; do
     --no-restore)
       GIT_RESTORE="False"
       shift # past argument=value
+      ;;
+    --keep-containers)
+      COMPOSE_DOWN="False"
+      shift
       ;;
     *)
       echo "WARNING: Invalid argument '$i'"
@@ -131,6 +140,7 @@ function parse_mongo_conn_str() {
 function set_env_vars() {
     if [ "$CREATE_DMSS_KEY" == "True" ]; then
       sk_outfile_name="generated-secret-key.env"
+      sk_outfile_perms="0600"
       echo "Generating new DMSS SECRET_KEY.."
       create_key_output=$(docker-compose run --rm dmss create-key)
       SECRET_KEY=$(echo "$create_key_output" | tail -n 1)
@@ -139,7 +149,8 @@ function set_env_vars() {
       echo "  Make sure to add it to Radix! "
       echo "  =============================="
       echo "SECRET_KEY=$SECRET_KEY" > "$sk_outfile_name"
-      echo "Wrote secret key to '$sk_outfile_name'"
+      chmod "$sk_outfile_perms" "$sk_outfile_name"
+      echo "Wrote secret key to '$sk_outfile_name' with permissions '$sk_outfile_perms'"
     fi
 }
 
@@ -147,7 +158,7 @@ function print_vars() {
   echo "=== Variables ===
   Database: $MONGO_AZURE_USER:*****@$MONGO_AZURE_HOST:$MONGO_AZURE_PORT
   DMSS API: $DMSS_API
-  Key:      $SECRET_KEY
+  Key:      ${SECRET_KEY:0:3}***
   "
 }
 
@@ -292,28 +303,34 @@ function set_data_source_names() {
 }
 
 function update_compose_spec() {
-  TARGET_ENV='ENVIRONMENT: production'
+  TARGET_ENV="ENVIRONMENT: production"
+  TARGET_LOG="LOGGING_LEVEL: debug"
   echo "Updating compose spec.."
   if test -f "$COMPOSE_FILE"; then
     echo "  Updating volume mount"
     sed -i "s/dmss-system.local.json:/dmss-system.radix.json:/" "$COMPOSE_FILE"
     grep -Eq "^\s{6}- ./dmss-system.radix.json:" "$COMPOSE_FILE" && echo "    OK" || echo "    ERROR"
 
-    echo "  Updating ENVIRONMENT"
+    echo "  Updating ENVIRONMENT.."
     sed -i "s/ENVIRONMENT: \${DMSS_ENVIRONMENT:-local}/${TARGET_ENV}/" "$COMPOSE_FILE"
     dmss_service_spec=$(grep -EA 20 "^\s{2}dmss:" "$COMPOSE_FILE")
     echo "$dmss_service_spec" | grep -Eq "^\s{6}${TARGET_ENV}" && echo "    OK" || echo "    ERROR"
+
+    echo "  Updating LOGGING_LEVEL.."
+    sed -i "s/LOGGING_LEVEL: \".*\"$/${TARGET_LOG}/g" "$COMPOSE_FILE"
+    dmss_service_spec=$(grep -EA 20 "^\s{2}dmss:" "$COMPOSE_FILE")
+    echo "$dmss_service_spec" | grep -Eq "^\s{6}${TARGET_LOG}" && echo "    OK" || echo "    ERROR"
   fi
 }
 
-function build_and_run_images() {
-  echo "Building and running the Docker containers.."
-  docker-compose up -d --build
+function build_images() {
+  echo "Building the Docker images.."
+  docker-compose build --quiet && echo "    OK" || echo "    ERROR"
 }
 
 function dmss_reset_app() {
   echo "Resetting DMSS.."
-  docker-compose run dmss reset-app
+  docker-compose run --rm -e SECRET_KEY="$SECRET_KEY" dmss reset-app
 }
 
 function api_reset_app() {
@@ -329,6 +346,12 @@ function clean_up() {
   else
     echo "  Skipping 'git restore' due to '--no-restore' flag"
     echo "    Warning: Passwords may be stored in clear text in the modified files. Please avoid committing them to git."
+    echo "    Issue a manual 'git restore' with the following command:"
+    echo "      git restore $DMT_DS $DMT_DS_AZ $FoR_DS $FoR_DS_AZ $DMSS_SYSTEM $COMPOSE_FILE"
+  fi
+  if [ "$COMPOSE_DOWN" == "True" ]; then
+    echo "  Running 'docker-compose down'.."
+    docker-compose down && echo "    OK" || echo "    ERROR"
   fi
 }
 
@@ -343,7 +366,7 @@ function main() {
   set_database_password
   set_data_source_names
   update_compose_spec
-  build_and_run_images
+  build_images
   dmss_reset_app
   api_reset_app
   clean_up
