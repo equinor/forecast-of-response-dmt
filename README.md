@@ -77,42 +77,21 @@ docker-compose run --rm -e DMSS_API=https://dmss-forecast-of-response-test.radix
 ```
 
 ### How to reset database used in the forecast app
-
-Make the following changes to the FoR repo (updated 01.12.21)
-
-1. Delete the following data source files:
-   1. api/home/DMT/data_sources/DMT-DS.json
-   2. api/home/for/data_sources/ForecastDS.json
-2. Add the database password to the "password" property of the following files:
-   1. api/home/DMT/data_sources/DMT-DS-azure.json
-   2. api/home/for/data_sources/ForecastDS-azure.json
-   3. dmss-system.radix.json
-      1. The password can be retrieved from the instance page of the Azure Cosmos DB in the Azure Portal
-3. Update the data source names:
-   1. In DMT-DS-azure.json, set "name" to be "DMT-Internal"
-   2. In ForecastDS-azure.json, set "name" to be "ForecastDS"
-4. In docker-compose, make the following changes:
-   - for dmss service, set environment variable ENVIRONMENT to be "production"
-   - for dmss service, update the volumes file to be "dmss-system.radix.json" instead of "dmss-system.local.json"
-
-5. Set the necessary environment variables:
-   1. Set "MONGO_AZURE_URI" to the connection string of the Mongo instance.
-      1. MONGO_AZURE_URI="mongodb://..."
-         1. The connection string can be retrieved from the instance page of the Azure Cosmos DB in the Azure Portal
-         2. NB: Make sure to select the correct database for your environment
-            1. i.e. 'forecast-of-response' for 'test', or 'forecast-of-response-prod' for 'prod'
-   2. Set "SECRET_KEY" to the SECRET_KEY used in Radix
-      1. Optionally generate a new one by running `docker-compose run --rm dmss create-key`.
-      2. Make sure to update the value in Radix if creating a new key.
-6. Run commands from the main FoR folder:
-
-    ```bash
-    docker-compose up --build
-    # Note: Make sure the "SECRET_KEY" string is the same locally as in Radix
-    docker-compose run dmss reset-app
-    docker-compose run --rm -e DMSS_API=https://dmss-forecast-of-response-test.radix.equinor.com api --token="eyXXXX" reset-app
-    ```
-7. Remember to delete the passwords in all json files after you are finished! Also, you probably want to revert the changes made to the docker-compose and docker files
-
-Note: you need to have the same SECRET_KEY in your local .env file as used on in the DMSS service in radix (can be changed in the radix console). 
-
+1. Set the necessary environment variables:
+   1. Copy the env-template file `reset-db.env-template`:
+      1. `cp reset-db.env-template reset-db.env`
+   2. Modify the new file `reset-db.env` to set the environment variables:
+      1. `TOKEN`: A JWT (access token) from the Forecast of Response application.
+      2. `DMSS_API`: The full URL to the DMSS API for the environment you wish to reset.
+      3. `SECRET_KEY`: The secret key that was used to encrypt the data in the environment you wish to reset.
+         1. Note: If you wish to generate a new secret key, this value can be left blank.
+            1. NB: Make sure to run the script with `--create-key`.
+      4. `MONGO_AZURE_URI`: The Mongo connection string of the Mongo database for the environment you wish to reset.
+   3. Source the environment variables:
+      1. `source reset-db.env`
+2. Run the script:
+   1. Print help: `./reset-db.sh -h`
+   2. Run the script: `./reset-db.sh`
+   3. Run and create a new secret key: `./reset-db.sh --create-key`
+      1. NB: Make sure to set the new key in the Radix secrets for DMSS for the environment you wish to reset.
+      2. The new secret key is written to a file named `generated-secret-key.env`
