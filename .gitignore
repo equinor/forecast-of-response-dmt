@@ -2,7 +2,9 @@
 /.idea
 /.code
 /.venv
+/.history
 
 data/*
 node_modules
 /sima.lic
+/reset-db.env

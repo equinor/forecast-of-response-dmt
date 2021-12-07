@@ -1,0 +1,49 @@
+on:
+  # Enables manually triggers
+  workflow_dispatch:
+  push:
+    tags:
+      - "v**"
+
+env:
+  API_IMAGE: mariner.azurecr.io/for/api
+  WEB_IMAGE: mariner.azurecr.io/for/web
+
+jobs:
+  build-and-publish:
+    name: Build and deploy
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@master
+      - name: "Docker Login"
+        run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login mariner.azurecr.io --password-stdin --username ${{ secrets.DOCKER_USERNAME }}
+      - name: Pull latest
+        run: docker pull ${API_IMAGE}:latest && docker pull ${WEB_IMAGE}:latest
+      - name: "Build API"
+        run: docker build --cache-from ${API_IMAGE}:latest --tag ${API_IMAGE}:${GITHUB_REF#refs/*/} api
+      - name: "Build Web"
+        run: docker build --build-arg REDIRECT_URI=https://forecast-of-response.app.radix.equinor.com/ --build-arg AUTH_ENABLED=1 --build-arg AUTH_SCOPE=api://ee7dbf49-e358-4c9c-a7e4-fb6d56c02205/FoR_test_scope --build-arg CLIENT_ID=ee7dbf49-e358-4c9c-a7e4-fb6d56c02205 --cache-from ${WEB_IMAGE}:latest --tag ${WEB_IMAGE}:${GITHUB_REF#refs/*/} web
+      - name: "Push Docker images"
+        run: docker push ${API_IMAGE}:${GITHUB_REF#refs/*/} && docker push ${WEB_IMAGE}:${GITHUB_REF#refs/*/}
+
+  deploy-release-to-radix-prod-env:
+    needs: [build-and-publish]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Deploy on Radix
+        uses: equinor/radix-github-actions@master
+        env:
+          APP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.APP_SERVICE_ACCOUNT_TOKEN }}
+        with:
+          args: >
+            create job
+            deploy
+            --application forecast-of-response
+            --environment prod
+            --user stoo@equinor.com
+            --context production
+            --from-config
+            --token-environment
+            --follow

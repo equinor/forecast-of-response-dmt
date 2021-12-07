@@ -18,7 +18,15 @@
       "dimensions": "*",
       "contained": true,
       "optional": false
-    }
+    },
+    {
+      "name": "simposResults",
+      "type": "system/SIMOS/BlueprintAttribute",
+      "attributeType": "system/SIMOS/Entity",
+      "dimensions": "*",
+      "contained": true,
+      "optional": true
+    }    
   ]
 }
 

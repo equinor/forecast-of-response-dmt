@@ -45,13 +45,18 @@ const Dashboard = (): JSX.Element => {
   const dmssAPI = new DmssAPI(token)
   const [loading, setLoading] = useState<boolean>(false)
   const [coordinates, setCoordinates] = useState<CoordinateTuple[]>()
-  const [comments, commentsLoading] = useSearch(Blueprints.Comment)
-  const [operations, operationsLoading] = useSearch(Blueprints.OPERATION)
+  const [comments, commentsLoading, commentsError] = useSearch(
+    Blueprints.Comment
+  )
+  const [operations, operationsLoading, operationsError] = useSearch(
+    Blueprints.OPERATION
+  )
   const location = useLocation()
 
   useEffect(() => {
-    setLoading(true)
     if (operationsLoading) return
+    if (operationsError || commentsError) return
+    setLoading(true)
     Promise.all(
       operations.map(
         (operation: TOperation): CoordinateTuple => {
@@ -77,6 +82,9 @@ const Dashboard = (): JSX.Element => {
   }, [operations, operationsLoading])
 
   if (loading || operationsLoading || commentsLoading) return <LinearProgress />
+
+  if (operationsError || commentsError)
+    return <div style={{ color: 'red' }}>Failed to fetch data</div>
 
   return (
     <div style={{ display: 'flex', minHeight: '500px', maxHeight: '900px' }}>
