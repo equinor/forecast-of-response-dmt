@@ -12,7 +12,7 @@ import {
   Area,
 } from 'recharts'
 import { plotColors } from '../Design/Colors'
-import { PlotType, TGraphNames } from '../Result'
+import { PlotType, TGraphInfo } from '../Result'
 
 export type TLineChartDataPoint = {
   name: string
@@ -21,7 +21,7 @@ export type TLineChartDataPoint = {
 
 export default (props: {
   data: TLineChartDataPoint[]
-  graphNames: TGraphNames[]
+  graphNames: TGraphInfo[]
 }): JSX.Element => {
   const { data, graphNames, warningLine, MaxLine } = props
 
@@ -38,7 +38,7 @@ export default (props: {
           <Legend />
           {/*TODO: Read threshold values from result file*/}
           {graphNames &&
-            graphNames.map((graphName: TGraphNames, index) => {
+            graphNames.map((graphName: TGraphInfo, index) => {
               if (graphName.plotType === PlotType.LINE) {
                 return (
                   <Line

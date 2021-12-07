@@ -43,15 +43,15 @@ function calculateMapCenter(
 const Dashboard = (): JSX.Element => {
   const { token } = useContext(AuthContext)
   const dmssAPI = new DmssAPI(token)
-  const [loading, setLoading] = useState<boolean>(true)
+  const [loading, setLoading] = useState<boolean>(false)
   const [coordinates, setCoordinates] = useState<CoordinateTuple[]>()
   const [comments, commentsLoading] = useSearch(Blueprints.Comment)
-  const [operations] = useSearch(Blueprints.OPERATION)
+  const [operations, operationsLoading] = useSearch(Blueprints.OPERATION)
   const location = useLocation()
 
   useEffect(() => {
     setLoading(true)
-    if (!operations) return
+    if (operationsLoading) return
     Promise.all(
       operations.map(
         (operation: TOperation): CoordinateTuple => {
@@ -61,7 +61,7 @@ const Dashboard = (): JSX.Element => {
               documentId: operation.location._id,
             })
             .then((document): any => {
-              const location = document.document
+              const location = document
               return [
                 location.lat,
                 location.long,
@@ -72,13 +72,11 @@ const Dashboard = (): JSX.Element => {
         }
       )
     )
-      .then((coordinates: CoordinateTuple[]) => {
-        setCoordinates(coordinates)
-      })
+      .then((coordinates: CoordinateTuple[]) => setCoordinates(coordinates))
       .finally(() => setLoading(false))
-  }, [operations])
+  }, [operations, operationsLoading])
 
-  if (loading) return <LinearProgress />
+  if (loading || operationsLoading || commentsLoading) return <LinearProgress />
 
   return (
     <div style={{ display: 'flex', minHeight: '500px', maxHeight: '900px' }}>
@@ -95,28 +93,27 @@ const Dashboard = (): JSX.Element => {
             attribution='<a href="https://openstreetmap.org/copyright">OpenStreetMap</a>'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          {coordinates
-            ? coordinates.map((gridTuple: any) => {
-                return (
-                  <Marker
-                    key={gridTuple[2]}
-                    position={[gridTuple[0], gridTuple[1]]}
-                  >
-                    <Popup>
-                      <Link
-                        to={{
-                          pathname: `/for/operations/${DEFAULT_DATASOURCE_ID}/${gridTuple[3]}`,
-                          state: location.state,
-                        }}
-                      >
-                        {gridTuple[2]}
-                      </Link>
-                    </Popup>
-                    <Tooltip>{gridTuple[2]}</Tooltip>
-                  </Marker>
-                )
-              })
-            : null}
+          {coordinates.length > 0 &&
+            coordinates.map((gridTuple: any) => {
+              return (
+                <Marker
+                  key={gridTuple[2]}
+                  position={[gridTuple[0], gridTuple[1]]}
+                >
+                  <Popup>
+                    <Link
+                      to={{
+                        pathname: `/for/operations/${DEFAULT_DATASOURCE_ID}/${gridTuple[3]}`,
+                        state: location.state,
+                      }}
+                    >
+                      {gridTuple[2]}
+                    </Link>
+                  </Popup>
+                  <Tooltip>{gridTuple[2]}</Tooltip>
+                </Marker>
+              )
+            })}
         </StyledMapContainer>
       </CardWrapper>
       <CardWrapper style={{ margin: '0 20px', width: '30%', overflow: 'auto' }}>
