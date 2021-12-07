@@ -505,7 +505,7 @@ function SimulationConfigList(props: {
             <Accordion.Item key={index} isExpanded={index === 0}>
               <Accordion.Header>
                 {simulationConfig.name}
-                {Object.keys(simulationConfig?.cronJob).length > 0 && (
+                {Object.keys(simulationConfig?.cronJob || {}).length > 0 && (
                   <Chip variant="active">Schedule set</Chip>
                 )}
                 {simulationConfig.published && (
@@ -540,11 +540,6 @@ export default (props: {
   const [simulationConfigs, setSimulationConfigs] = useState<
     TSimulationConfig[]
   >(phase.simulationConfigs)
-
-  function closeCreateNewSim() {
-    setVisibleCreateSimScrim(false)
-    setCreateSimError('')
-  }
 
   function CreateSimErrorDialog() {
     return (

@@ -30,15 +30,15 @@ function GraphSelect(props: {
   variableRuns: any[]
   chartData: any
   setChartData: Function
-  graphNames: TGraphNames[]
-  setGraphNames: Function
+  graphInfo: TGraphInfo[]
+  setGraphInfo: Function
 }) {
   const {
     variableRuns,
     chartData,
     setChartData,
-    graphNames,
-    setGraphNames,
+    graphInfo,
+    setGraphInfo,
   } = props
   const [run, setRun] = useState<number>(0)
   const [response, setResponse] = useState<number>(0)
@@ -56,7 +56,7 @@ function GraphSelect(props: {
 
     const description = `${variableRuns[run].responses[response].statistics[statistic].description}`
 
-    if (graphNames.map((graph) => graph.name).includes(plotName)) return // Skip if trying to add an existing plot
+    if (graphInfo.map((graph) => graph.name).includes(plotName)) return // Skip if trying to add an existing plot
     let newDataDict: any = {}
 
     // Create a object for the chartData array (so we can lookup on timestamp)
@@ -88,8 +88,8 @@ function GraphSelect(props: {
       newDataDict[timestamp] = newDataPoint
     })
 
-    setGraphNames([
-      ...graphNames,
+    setGraphInfo([
+      ...graphInfo,
       { name: plotName, plotType: result?.plotType, description: description },
     ])
     setChartData(Object.values(newDataDict))
@@ -132,7 +132,7 @@ export enum PlotType {
   LINE = 'line',
 }
 
-export type TGraphNames = {
+export type TGraphInfo = {
   name: string
   plotType: PlotType
   description: string
@@ -140,7 +140,7 @@ export type TGraphNames = {
 
 export default (props: { result: any }) => {
   const { result } = props
-  const [graphNames, setGraphNames] = useState<TGraphNames[]>([])
+  const [graphInfo, setGraphInfo] = useState<TGraphInfo[]>([])
   const [variableRuns, setVariableRuns] = useState<any[]>([])
   const [chartData, setChartData] = useState<TLineChartDataPoint[]>([])
   const [document, isLoading, updateDocument, error] = useDocument(
@@ -161,7 +161,7 @@ export default (props: { result: any }) => {
       newDataDict[dataPoint.timestamp] = dataPoint
     })
 
-    setGraphNames(graphNames.filter((graph) => name !== graph.name))
+    setGraphInfo(graphInfo.filter((graph) => name !== graph.name))
     setChartData(Object.values(newDataDict))
   }
 
@@ -181,12 +181,12 @@ export default (props: { result: any }) => {
           variableRuns={variableRuns}
           chartData={chartData}
           setChartData={setChartData}
-          setGraphNames={setGraphNames}
-          graphNames={graphNames}
+          setGraphInfo={setGraphInfo}
+          graphInfo={graphInfo}
         />
-        {graphNames.length >= 1 && (
+        {graphInfo.length >= 1 && (
           <AddedGraphWrapper>
-            {graphNames.map((graph, index) => (
+            {graphInfo.map((graph, index) => (
               <Tooltip title={graph.description}>
                 <Chip
                   key={index}
@@ -202,7 +202,7 @@ export default (props: { result: any }) => {
           </AddedGraphWrapper>
         )}
       </div>
-      <LinesOverTime data={chartData} graphNames={graphNames} />
+      <LinesOverTime data={chartData} graphNames={graphInfo} />
     </ResultWrapper>
   )
 }
