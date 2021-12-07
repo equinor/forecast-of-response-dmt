@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -eu
+set -euo pipefail
 
 # Required variables
 ## CLI arguments (optionally specify in env)
@@ -96,7 +96,7 @@ if [ -z "$MONGO_AZURE_URI" ]; then
 fi
 
 # File paths
-DIR=$PWD
+DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd -P)
 ## Data sources
 DMT_DS_DIR=$DIR/api/home/DMT/data_sources
 DMT_DS=$DMT_DS_DIR/DMT-DS.json
@@ -338,7 +338,8 @@ function api_reset_app() {
   docker-compose run --rm -e DMSS_API="$DMSS_API" api --token="$TOKEN" reset-app
 }
 
-function clean_up() {
+function cleanup() {
+  trap - SIGINT SIGTERM ERR EXIT
   echo "Cleaning up.."
   if [ "$GIT_RESTORE" == "True" ]; then
     echo "  Running 'git restore' on modified JSON and docker(-compose) files.."
@@ -355,6 +356,8 @@ function clean_up() {
   fi
 }
 
+trap cleanup SIGINT SIGTERM ERR EXIT
+
 function main() {
   parse_mongo_conn_str
   set_env_vars
@@ -369,7 +372,7 @@ function main() {
   build_images
   dmss_reset_app
   api_reset_app
-  clean_up
+  #cleanup
 }
 
 main
