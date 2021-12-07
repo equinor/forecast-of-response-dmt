@@ -1,0 +1,17 @@
+{
+ "name" : "Header",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "packages",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/PackageInfo",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

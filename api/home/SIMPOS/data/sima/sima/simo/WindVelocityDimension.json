@@ -1,0 +1,7 @@
+{
+ "name" : "WindVelocityDimension",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["two", "one"],
+ "labels" : ["Two dimensional", "One dimensional"]
+}
+

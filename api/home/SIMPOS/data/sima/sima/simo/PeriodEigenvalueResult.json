@@ -1,0 +1,52 @@
+{
+ "name" : "PeriodEigenvalueResult",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "period",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Natural period",
+   "default" : "0.0"
+  }, {
+   "name" : "surge",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Value in surge ",
+   "default" : "0.0"
+  }, {
+   "name" : "sway",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Value in sway",
+   "default" : "0.0"
+  }, {
+   "name" : "heave",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Value in heave",
+   "default" : "0.0"
+  }, {
+   "name" : "roll",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Value in roll",
+   "default" : "0.0"
+  }, {
+   "name" : "pitch",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Value in pitch",
+   "default" : "0.0"
+  }, {
+   "name" : "yaw",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Value in yaw",
+   "default" : "0.0"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

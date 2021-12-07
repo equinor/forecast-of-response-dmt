@@ -1,0 +1,15 @@
+{
+ "name" : "SIM3DBottom",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "fileName",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "description" : "File with seabed geometry data"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

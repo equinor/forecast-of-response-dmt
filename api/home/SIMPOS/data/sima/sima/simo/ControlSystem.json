@@ -1,0 +1,145 @@
+{
+ "name" : "ControlSystem",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "relativeBody",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/SIMOBody",
+   "contained" : false,
+   "optional" : true
+  }, {
+   "name" : "xRef",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "X-coordinate of wanted position",
+   "default" : "0.0"
+  }, {
+   "name" : "yRef",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Y-coordinate of wanted position",
+   "default" : "0.0"
+  }, {
+   "name" : "dirRef",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Wanted heading",
+   "default" : "0.0"
+  }, {
+   "name" : "circleXRef",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "X-coordinate of circle center",
+   "default" : "0.0"
+  }, {
+   "name" : "circleYRef",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Y-coordinate of circle center ",
+   "default" : "0.0"
+  }, {
+   "name" : "circleRadius",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Radius of the circle",
+   "default" : "0.0"
+  }, {
+   "name" : "xLocal",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "X-coordinate of the point on the body which shall be positioned at the secified reference",
+   "default" : "0.0"
+  }, {
+   "name" : "yLocal",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Y-coordinate of the point on the body which shall be positioned at the specified reference",
+   "default" : "0.0"
+  }, {
+   "name" : "controlReference",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "enumType" : "/simo/ControlReference",
+   "description" : "Control Reference:\r\n Global:              Global position\r\n Body Relative:  Relative to another body\r\n Waypoint:        Wayoint reference",
+   "default" : "global"
+  }, {
+   "name" : "xyRelative",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "description" : "follow body position",
+   "default" : "true"
+  }, {
+   "name" : "dirRelative",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "description" : "Follow body heading",
+   "default" : "true"
+  }, {
+   "name" : "referenceCutOff",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Cut-off time in low-pass filter for position measurement of body to follow",
+   "default" : "0.0"
+  }, {
+   "name" : "controlConfigurations",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/DOFControlConfiguration",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "estimator",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/Estimator",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "intialXForce",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Initial x value on non-measured external forces acting on the body",
+   "default" : "0.0"
+  }, {
+   "name" : "intialYForce",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Initial y value on non-measured external forces acting on the body",
+   "default" : "0.0"
+  }, {
+   "name" : "intialMoment",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Initial value on non-measured external moment acting on the body",
+   "default" : "0.0"
+  }, {
+   "name" : "windCutOff",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Cut-off time in low-pass filter for wind measurements",
+   "default" : "0.0"
+  }, {
+   "name" : "windMeasurement",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "enumType" : "/simo/WindMeasurement",
+   "description" : "Flag for measurement of wind forces to be included in the controller",
+   "default" : "no"
+  }, {
+   "name" : "allocationSystem",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/AllocationSystem",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "guidanceSystem",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/GuidanceSystem",
+   "contained" : true,
+   "optional" : false
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

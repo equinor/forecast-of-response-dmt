@@ -1,0 +1,82 @@
+{
+ "name" : "SeaSurface",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "centerX",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Center of surface in x",
+   "default" : "0.0"
+  }, {
+   "name" : "centerY",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Center of surface in y",
+   "default" : "0.0"
+  }, {
+   "name" : "sizeX",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Size of surface in x",
+   "default" : "500.0"
+  }, {
+   "name" : "sizeY",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Size of surface in y",
+   "default" : "500.0"
+  }, {
+   "name" : "color",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/SIMAColor",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "transparency",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Transparency of surface",
+   "default" : "0.0"
+  }, {
+   "name" : "meshGridSize",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Size of grids in the mesh",
+   "default" : "100.0"
+  }, {
+   "name" : "showMesh",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "description" : "Show mesh grid on surface",
+   "default" : "false"
+  }, {
+   "name" : "z",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Depth of surface",
+   "default" : "-100.0"
+  }, {
+   "name" : "lcWaveLength",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Length of long-crested wave field",
+   "default" : "300.0"
+  }, {
+   "name" : "lcWaveWidth",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Width of long-crested wave field",
+   "default" : "100.0"
+  }, {
+   "name" : "lcWaveNumPoints",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "description" : "Number of points in long-crested wave field",
+   "default" : "61"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

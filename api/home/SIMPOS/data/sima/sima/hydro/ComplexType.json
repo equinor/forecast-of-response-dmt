@@ -1,0 +1,7 @@
+{
+ "name" : "ComplexType",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["real_imag", "amp_deg_phase", "amp_rad_phase"],
+ "labels" : ["Complex", "Amplitude Phase [deg]", "Amplitude Phase [rad]"]
+}
+

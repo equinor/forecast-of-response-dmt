@@ -1,0 +1,9 @@
+{
+ "name" : "I6DOF_Direction_Frequency_ComplexData",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : true,
+ "extends" : ["/NamedEntity"],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

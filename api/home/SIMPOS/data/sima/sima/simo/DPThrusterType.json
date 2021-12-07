@@ -1,0 +1,7 @@
+{
+ "name" : "DPThrusterType",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["fixed", "variable"],
+ "labels" : ["Fixed direction", "Variable direction"]
+}
+

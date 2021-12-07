@@ -1,0 +1,46 @@
+{
+ "name" : "APIWind",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "direction",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Wind propagation direction",
+   "default" : "0.0"
+  }, {
+   "name" : "frequencyParameter",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Frequency parameter",
+   "optional" : true
+  }, {
+   "name" : "layerThickness",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Surface Layer Thickness",
+   "optional" : true
+  }, {
+   "name" : "profileExponent",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Wind profile exponent",
+   "optional" : true
+  }, {
+   "name" : "averageVelocity",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Average velocity at reference height",
+   "default" : "0.0"
+  }, {
+   "name" : "friction",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Surface drag coefficient.\r\nAlso used for transverse gust spectrum, if specified in DYNMOD.",
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

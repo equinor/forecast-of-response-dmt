@@ -1,0 +1,7 @@
+{
+ "name" : "WindMeasurement",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["no", "with_lp", "without_lp"],
+ "labels" : ["No", "With LP", "Without LP"]
+}
+

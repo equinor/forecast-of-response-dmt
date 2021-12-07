@@ -1,0 +1,7 @@
+{
+ "name" : "RandomSeedGeneration",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["intrinsic", "ranlux", "rnsnlw"],
+ "labels" : ["Intrinsic", "RanLux", "RNSNLW"]
+}
+

@@ -1,0 +1,16 @@
+{
+ "name" : "CustomTable",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "table",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/post/SignalTable",
+   "contained" : false,
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

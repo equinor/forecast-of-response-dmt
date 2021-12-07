@@ -1,0 +1,7 @@
+{
+ "name" : "FixedBodyWaveParticleMethod",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["not_included", "velocity_only", "velocity_and_acceleration"],
+ "labels" : ["Not included", "Velocity only", "Velocity and acceleration"]
+}
+

@@ -1,0 +1,7 @@
+{
+ "name" : "SNCurveType",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["dnv_b1", "dnv_b1_air", "dnv_b2", "dnv_b2_air", "dnv_c", "dnv_c_air", "dnv_c1", "dnv_c1_air", "dnv_c2", "dnv_c2_air", "dnv_d", "dnv_d_air", "dnv_e", "dnv_e_air", "dnv_f", "dnv_f_air", "dnv_f1", "dnv_f1_air", "dnv_f3", "dnv_f3_air", "dnv_g", "dnv_g_air", "dnv_w1", "dnv_w1_air", "dnv_w2", "dnv_w2_air", "dnv_w3", "dnv_w3_air", "dnv_stud_chain", "dnv_studless_chain", "dnv_stranded_rope", "dnv_spiral_rope", "dnv_hs"],
+ "labels" : ["DNV B1 seawater cathodic protection", "DNV B1 air", "DNV B2 seawater cathodic protection", "DNV B2 air", "DNV C seawater cathodic protection", "DNV C air", "DNV C1 seawater cathodic protection", "DNV C1 air", "DNV C2 seawater cathodic protection", "DNV C2 air", "DNV D seawater cathodic protection", "DNV D air", "DNV E seawater cathodic protection", "DNV E air", "DNV F seawater cathodic protection", "DNV F air", "DNV F1 seawater cathodic protection", "DNV F1 air", "DNV F3 seawater cathodic protection", "DNV F3 air", "DNV G seawater cathodic protection", "DNV G air", "DNV W1 seawater cathodic protection", "DNV W1 air", "DNV W2 seawater cathodic protection", "DNV W2 air", "DNV W3 seawater cathodic protection", "DNV W3 air", "DNV Stud chain", "DNV Studless chain", "DNV Stranded rope", "DNV Spiral rope", "DNV High strength steel"]
+}
+

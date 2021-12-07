@@ -1,0 +1,53 @@
+{
+ "name" : "GuidanceSystem",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "guidance",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "enumType" : "/simo/Guidance",
+   "default" : "straight_lines"
+  }, {
+   "name" : "waypointReference",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "enumType" : "/simo/WaypointReference",
+   "default" : "local"
+  }, {
+   "name" : "headingReference",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "enumType" : "/simo/HeadingReference",
+   "default" : "tangential"
+  }, {
+   "name" : "startTime",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Start time for guidance system",
+   "default" : "200.0"
+  }, {
+   "name" : "maxAccelerationX",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Max. acceleration in local x-direction",
+   "default" : "0.0"
+  }, {
+   "name" : "maxAccelerationY",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Max. acceleration in local y-direction",
+   "default" : "0.0"
+  }, {
+   "name" : "waypoints",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/Waypoint",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

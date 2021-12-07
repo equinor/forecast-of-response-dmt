@@ -1,0 +1,34 @@
+{
+ "name" : "LiftAndDragForceCharacteristicItem",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "velocityDirection",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Velocity direction relative to rudder x-axis",
+   "default" : "0.0"
+  }, {
+   "name" : "forceX",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Quadratic force coefficient in rudder x-direction",
+   "default" : "0.0"
+  }, {
+   "name" : "forceY",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Quadratic force coefficient in rudder y-direction",
+   "default" : "0.0"
+  }, {
+   "name" : "momentZ",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Quadratic moment coefficient about rudder z-axis",
+   "default" : "0.0"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

@@ -1,0 +1,15 @@
+{
+ "name" : "FileSpecification",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "filename",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "description" : "Name of file to be included."
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

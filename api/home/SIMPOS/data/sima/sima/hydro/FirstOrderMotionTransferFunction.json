@@ -1,0 +1,98 @@
+{
+ "name" : "FirstOrderMotionTransferFunction",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "id",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string"
+  }, {
+   "name" : "nDir",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "default" : "0"
+  }, {
+   "name" : "directions",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "dimensions" : "*",
+   "default" : "0.0"
+  }, {
+   "name" : "nFreq",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "default" : "0"
+  }, {
+   "name" : "frequencies",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "dimensions" : "*",
+   "default" : "0.0"
+  }, {
+   "name" : "nDOF",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "default" : "0"
+  }, {
+   "name" : "nonZeroDofs",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "dimensions" : "*",
+   "default" : "true"
+  }, {
+   "name" : "realvalues",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "dimensions" : "*",
+   "default" : "0.0"
+  }, {
+   "name" : "imagValues",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "dimensions" : "*",
+   "default" : "0.0"
+  }, {
+   "name" : "symmetry",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "enumType" : "/hydro/DirectionSymmetry",
+   "default" : "no_symmetry"
+  }, {
+   "name" : "hfReference",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Transfer function reference position",
+   "default" : "0.0"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : [ {
+          "type": "system/SIMOS/UiRecipe",
+          "name": "First Order RAO",
+          "description": "SIMA SIMO Body view",
+          "plugin": "sima-model-view-FirstOrderMotionTransferFunction",
+          "attributes": []
+          },
+          {
+            "name": "Edit",
+            "type": "system/SIMOS/UiRecipe",
+            "description": "",
+            "plugin": "EDIT_PLUGIN",
+            "field": "",
+            "hideTab": true,
+            "options": [],
+            "attributes": []
+          },
+          {
+            "name": "Raw",
+            "type": "system/SIMOS/UiRecipe",
+            "description": "",
+            "plugin": "PREVIEW",
+            "field": "",
+            "hideTab": true,
+            "options": [],
+            "attributes": []
+          }
+        ]
+}
+

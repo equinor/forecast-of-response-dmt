@@ -1,0 +1,62 @@
+{
+ "name" : "WaveTimeSeries",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "scaleFactor",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Wave scale factor",
+   "default" : "1.0"
+  }, {
+   "name" : "refPointX",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Reference point X",
+   "default" : "0.0"
+  }, {
+   "name" : "refPointY",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Reference point Y",
+   "default" : "0.0"
+  }, {
+   "name" : "waterDepth",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Water depth in FULL scale",
+   "default" : "0.0"
+  }, {
+   "name" : "fileName",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string"
+  }, {
+   "name" : "filterInputTimeseries",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "description" : "Apply filtering to the wave signal",
+   "default" : "true"
+  }, {
+   "name" : "specifyLowerPeriod",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "description" : "Override default computation of lower cut off period",
+   "default" : "false"
+  }, {
+   "name" : "lowerCutOffPeriod",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Lower cut off period for filtering of wave signal",
+   "default" : "0.0"
+  }, {
+   "name" : "upperCutOffPeriod",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Upper cut off period for filtering of wave signal",
+   "default" : "40.0"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

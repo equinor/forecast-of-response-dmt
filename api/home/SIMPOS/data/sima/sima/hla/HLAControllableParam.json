@@ -1,0 +1,9 @@
+{
+ "name" : "HLAControllableParam",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

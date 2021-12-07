@@ -1,0 +1,17 @@
+{
+ "name" : "SIMAScriptTrigger",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "variable",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/Variable",
+   "contained" : false,
+   "optional" : true,
+   "description" : "Script will automatically update when variable value changes"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

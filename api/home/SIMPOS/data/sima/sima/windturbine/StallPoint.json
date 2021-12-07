@@ -1,0 +1,40 @@
+{
+ "name" : "StallPoint",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "angleZeroLift",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Angle of attack at zero lift (Typical value: -2 deg)",
+   "default" : "0.0"
+  }, {
+   "name" : "maxLinearClSlopePos",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Max linear CL slope (positive) (Typical value: 0.12/deg)",
+   "default" : "0.0"
+  }, {
+   "name" : "maxLinearClSlopeNeg",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Max linear CL slope (negative) (Typical value: 0.12/deg)",
+   "default" : "0.0"
+  }, {
+   "name" : "angleFullSeparationPos",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Angle of attack at full separation (positive) (Typical value: 20 deg)",
+   "default" : "0.0"
+  }, {
+   "name" : "angleFullSeparationNeg",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Angle of attack at full separation (negative) (Typical value: -20 deg)",
+   "default" : "0.0"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

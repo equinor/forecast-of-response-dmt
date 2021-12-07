@@ -1,0 +1,7 @@
+{
+ "name" : "Volume",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["add", "subtract"],
+ "labels" : ["Add", "Subtract"]
+}
+

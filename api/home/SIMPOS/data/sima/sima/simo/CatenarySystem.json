@@ -1,0 +1,45 @@
+{
+ "name" : "CatenarySystem",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "elongationCharacteristics",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/ElongationCharacteristic",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "lines",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/CatenaryLine",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "segmentedLineTypes",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/SegmentedLineType",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "buoys",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/BuoyType",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "directInputLineTypes",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/DirectInputLineType",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

@@ -1,0 +1,7 @@
+{
+ "name" : "RandomGenerator",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["legacy", "mersenne"],
+ "labels" : ["Legacy", "Mersenne twister"]
+}
+

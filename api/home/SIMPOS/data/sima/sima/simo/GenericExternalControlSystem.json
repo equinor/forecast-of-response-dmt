@@ -1,0 +1,61 @@
+{
+ "name" : "GenericExternalControlSystem",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "jarFile",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "description" : "Path to jar file"
+  }, {
+   "name" : "className",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "description" : "Class name of controller"
+  }, {
+   "name" : "measurementEntities",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/SignalEntity",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "feedbackEntities",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/SignalEntity",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "intParameters",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/NamedIntParameter",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "doubleParameters",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/NamedDoubleParameter",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "stringParameters",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/NamedStringParameter",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "libraryPaths",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/LibraryPaths",
+   "contained" : true,
+   "optional" : false
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

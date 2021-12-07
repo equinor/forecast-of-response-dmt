@@ -1,0 +1,59 @@
+{
+ "name" : "HorizontalAxisWindTurbine",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "controller",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/windturbine/HorizontalAxisWindTurbineController",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "momentCoupling",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/MomentCoupling",
+   "contained" : false,
+   "optional" : false
+  }, {
+   "name" : "referenceHeight",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Reference height for calculation of wind",
+   "default" : "0.0"
+  }, {
+   "name" : "windArea",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Wind area admittance function",
+   "default" : "0.0"
+  }, {
+   "name" : "outerAirfoilRadius",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Outer airfoil radius",
+   "default" : "0.0"
+  }, {
+   "name" : "coneAngle",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Cone angle",
+   "default" : "0.0"
+  }, {
+   "name" : "bladeItems",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/BladeItem",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "numBlades",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "description" : "Number of blades",
+   "default" : "0"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

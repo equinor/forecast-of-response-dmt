@@ -1,0 +1,17 @@
+{
+ "name" : "ModelOutputSpecification",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "reference",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/condition/ModelReferenceVariable",
+   "contained" : false,
+   "optional" : true,
+   "description" : "Model object to be included."
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

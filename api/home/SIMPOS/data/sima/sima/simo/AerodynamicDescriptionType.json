@@ -1,0 +1,7 @@
+{
+ "name" : "AerodynamicDescriptionType",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["drag"],
+ "labels" : ["Morison-like loading"]
+}
+

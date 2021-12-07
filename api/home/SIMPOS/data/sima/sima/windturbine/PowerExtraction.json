@@ -1,0 +1,7 @@
+{
+ "name" : "PowerExtraction",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["power", "torque"],
+ "labels" : ["Constant Power", "Constant Torque"]
+}
+

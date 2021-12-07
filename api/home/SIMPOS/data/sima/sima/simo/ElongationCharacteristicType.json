@@ -1,0 +1,7 @@
+{
+ "name" : "ElongationCharacteristicType",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["stress_strain", "tension_strain", "fibre_rope"],
+ "labels" : ["Stress-Strain", "Tension-Strain", "Fibre Rope Model"]
+}
+

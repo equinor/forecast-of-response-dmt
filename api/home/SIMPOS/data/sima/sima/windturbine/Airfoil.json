@@ -1,0 +1,65 @@
+{
+ "name" : "Airfoil",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "deepstallRegime",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "description" : "Whether or not a deep stall regime is to be used",
+   "default" : "false"
+  }, {
+   "name" : "inputStallPoints",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "default" : "false"
+  }, {
+   "name" : "upperTailAngle",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Tail angle between a line perpendicular to the flow and the line from the tip of the wedge, low (negative) angles of attack",
+   "default" : "0.0"
+  }, {
+   "name" : "lowerTailAngle",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "As upper tail angle, but for high (positive) angles of attack",
+   "default" : "0.0"
+  }, {
+   "name" : "upperNoseAngle",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Nose angle between a line perpendicular to the flow and the line from the tip of the wedge, low (negative) angles of attack",
+   "default" : "0.0"
+  }, {
+   "name" : "lowerNoseAngle",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "As upper nose angle, but for high (positive) angles of attack",
+   "default" : "0.0"
+  }, {
+   "name" : "noseRadiusRatio",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "The ratio of the nose radius to the chord of the airfoil.",
+   "default" : "0.0"
+  }, {
+   "name" : "reynoldItems",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/windturbine/ReynoldItem",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "points",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/windturbine/FoilPoint",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

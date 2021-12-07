@@ -1,0 +1,7 @@
+{
+ "name" : "WindForceMethod",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["relative", "static", "absolute"],
+ "labels" : ["Relative wind velocity", "Static forces only", "Absolute wind velocity"]
+}
+

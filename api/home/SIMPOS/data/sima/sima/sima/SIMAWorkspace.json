@@ -1,0 +1,32 @@
+{
+ "name" : "SIMAWorkspace",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "childFolders",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/TaskFolder",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "tasks",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/Task",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "productId",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string"
+  }, {
+   "name" : "dateAndTime",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

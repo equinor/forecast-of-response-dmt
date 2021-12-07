@@ -1,0 +1,17 @@
+{
+ "name" : "StatisticsMatrix",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "rows",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/post/StatisticsRow",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

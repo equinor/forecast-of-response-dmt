@@ -1,0 +1,7 @@
+{
+ "name" : "PipeType",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["cold_expanded", "seamless"],
+ "labels" : ["ColdExpanded/DSAW", "Seamless/ERW"]
+}
+

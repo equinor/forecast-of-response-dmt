@@ -1,0 +1,16 @@
+{
+ "name" : "PostprocessorOutputSlot",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "postprocessorOutput",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/post/PostWorkflowOutput",
+   "contained" : false,
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

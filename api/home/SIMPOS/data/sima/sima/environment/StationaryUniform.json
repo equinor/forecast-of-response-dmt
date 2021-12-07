@@ -1,0 +1,76 @@
+{
+ "name" : "StationaryUniform",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "direction",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Wind propagation direction",
+   "default" : "0.0"
+  }, {
+   "name" : "horizontalVelocity",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Horizontal wind velocity component",
+   "default" : "0.0"
+  }, {
+   "name" : "verticalVelocity",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Vertical wind velocity component",
+   "default" : "0.0"
+  }, {
+   "name" : "velocityProfiles",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/environment/ShearWindVelocityProfile",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "lowerEdgeZ",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Z coordinate of the lower edge of the wind field domain",
+   "default" : "0.0"
+  }, {
+   "name" : "domainResolution",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Domain resolution in Z- (vertical) direction",
+   "default" : "0.0"
+  }, {
+   "name" : "numGridPoints",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "description" : "Number of grid points in Z- (vertical) direction",
+   "default" : "0"
+  }, {
+   "name" : "shearProfile",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "enumType" : "/environment/ShearProfile",
+   "default" : "none"
+  }, {
+   "name" : "referenceHeight",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Reference height for which the horizontal and vertical wind velocity values are given.",
+   "default" : "0.0"
+  }, {
+   "name" : "windShearExponent",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Exponent in the power shear profile",
+   "default" : "0.0"
+  }, {
+   "name" : "roughnessLength",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "default" : "0.0"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

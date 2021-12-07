@@ -1,0 +1,7 @@
+{
+ "name" : "MannInputFormat",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["direct", "derived"],
+ "labels" : ["Direct input", "Derived input (IEC61400-1)"]
+}
+

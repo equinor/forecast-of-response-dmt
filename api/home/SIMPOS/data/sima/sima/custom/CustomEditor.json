@@ -1,0 +1,32 @@
+{
+ "name" : "CustomEditor",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "children",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/custom/CustomComponent",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "title",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string"
+  }, {
+   "name" : "editMode",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "description" : "When checked the custom editor will always be opened in edit mode and child elements will be added to the navigator ",
+   "default" : "false"
+  }, {
+   "name" : "showDescription",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "default" : "false"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

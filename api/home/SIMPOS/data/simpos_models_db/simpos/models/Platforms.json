@@ -1,0 +1,7 @@
+{
+  "name": "Platforms",
+  "type": "system/SIMOS/Enum",
+  "description": "",
+  "labels": ["p1", "p2", "p3"],
+  "values": ["p1", "p2", "p3"]
+}

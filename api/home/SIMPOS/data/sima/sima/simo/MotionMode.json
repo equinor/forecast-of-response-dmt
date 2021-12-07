@@ -1,0 +1,7 @@
+{
+ "name" : "MotionMode",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["x", "y", "z", "phi", "theta", "psi"],
+ "labels" : ["X", "Y", "Z", "PHI", "THETA", "PSI"]
+}
+

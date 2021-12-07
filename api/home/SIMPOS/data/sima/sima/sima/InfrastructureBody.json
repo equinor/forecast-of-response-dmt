@@ -1,0 +1,59 @@
+{
+ "name" : "InfrastructureBody",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "length",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Length",
+   "default" : "10.0"
+  }, {
+   "name" : "width",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Width",
+   "default" : "5.0"
+  }, {
+   "name" : "height",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Height",
+   "default" : "5.0"
+  }, {
+   "name" : "appearance",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/Appearance",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "initialPosition",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/Position",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "viewpoints",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/BodyViewpoint",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "utmX",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "UTM x coordinates",
+   "default" : "0.0"
+  }, {
+   "name" : "utmY",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "UTM y coordinates",
+   "default" : "0.0"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

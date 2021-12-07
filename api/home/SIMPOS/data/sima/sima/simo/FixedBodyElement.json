@@ -1,0 +1,134 @@
+{
+ "name" : "FixedBodyElement",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "volume",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Volume of element",
+   "default" : "0.0"
+  }, {
+   "name" : "mass",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Mass of element",
+   "default" : "0.0"
+  }, {
+   "name" : "waveIntegrationMethod",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "enumType" : "/simo/WaveIntegrationMethod",
+   "description" : "Parameter defining wave force integration method",
+   "default" : "actual_wave_elevation"
+  }, {
+   "name" : "loadType",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "enumType" : "/simo/LoadType",
+   "description" : "Include gravity and buoyancy forces?",
+   "default" : "gravity_and_buoyancy_included"
+  }, {
+   "name" : "waveParticleMethod",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "enumType" : "/simo/FixedBodyWaveParticleMethod",
+   "description" : "Include wave particle velocity and acceleration?",
+   "default" : "not_included"
+  }, {
+   "name" : "position",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/Point3",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "refPointXAxis",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/Point3",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "refPointXYPlane",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/Point3",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "zcoef",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Vertical position used as reference for depth dependency",
+   "default" : "0.0"
+  }, {
+   "name" : "depthDependentHydrodynamicCoefficients",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/DepthDependenthydrodynamicCoefficient",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "diffractedWave",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/hydro/DiffractedWave",
+   "contained" : false,
+   "optional" : true
+  }, {
+   "name" : "c2x",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Quadratic drag x",
+   "default" : "0.0"
+  }, {
+   "name" : "c2y",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Quadratic drag y",
+   "default" : "0.0"
+  }, {
+   "name" : "c2z",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Quadratic drag z",
+   "default" : "0.0"
+  }, {
+   "name" : "c1x",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Linear drag x",
+   "default" : "0.0"
+  }, {
+   "name" : "c1y",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Linear drag y",
+   "default" : "0.0"
+  }, {
+   "name" : "c1z",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Linear drag z",
+   "default" : "0.0"
+  }, {
+   "name" : "amx",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Added mass x",
+   "default" : "0.0"
+  }, {
+   "name" : "amy",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Added mass y",
+   "default" : "0.0"
+  }, {
+   "name" : "amz",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Added mass z",
+   "default" : "0.0"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

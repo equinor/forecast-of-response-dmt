@@ -1,0 +1,35 @@
+{
+ "name" : "AerodynamicDescription",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "quadraticLongitudinalDrag",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Quadratic longitudinal drag coefficient",
+   "default" : "0.0"
+  }, {
+   "name" : "quadraticTransverseY",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Quadratic transverse (Y) drag coefficient",
+   "default" : "0.0"
+  }, {
+   "name" : "quadraticTransverseZ",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Quadratic transverse (Z) drag coefficient",
+   "default" : "0.0"
+  }, {
+   "name" : "aerodynamicType",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "enumType" : "/simo/AerodynamicDescriptionType",
+   "description" : "Type of aerodynamic forces",
+   "default" : "drag"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

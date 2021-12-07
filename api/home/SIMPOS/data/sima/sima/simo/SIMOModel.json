@@ -1,0 +1,152 @@
+{
+ "name" : "SIMOModel",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "airfoils",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/windturbine/Airfoil",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "environments",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/environment/Environment",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "location",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/CommonLocation",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "bodies",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/SIMOBody",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "hydrodynamicCouplings",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/HydrodynamicCoupling",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "simpleWireCouplings",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/SimpleWireCoupling",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "fixedElongationCouplings",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/FixedElongationCoupling",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "dockingCones",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/DockingCone",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "pointFenders",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/PointFender",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "rollerFenders",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/RollerFender",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "ratchets",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/RatchetCoupling",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "multipleWireCouplings",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/MultipleWireCoupling",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "bumperGroups",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/BumperGroup",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "advancedBumpers",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/AdvancedBumper",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "liftLineCouplings",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/LiftLineCoupling",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "momentCouplings",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/MomentCoupling",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "sIMOStaticCalculationParameters",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/SIMOStaticCalculationParameters",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "sIMODynamicCalculationParameters",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/SIMODynamicCalculationParameters",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "stabilityCalculationParameters",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/StabilityCalculationParameters",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "simoFrequencyDomainCalculation",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/SIMOFrequencyDomainCalculation",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "fibreRopeModels",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/FibreRopeModel",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

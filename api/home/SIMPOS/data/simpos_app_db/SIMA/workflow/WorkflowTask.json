@@ -1,0 +1,394 @@
+{
+  "name" : "WorkflowTask",
+  "type" : "sima/sima/workflow/WorkflowTask",
+  "runNumber" : 0,
+  "workflows" : [{
+    "name" : "envs",
+    "type" : "sima/sima/workflow/Workflow",
+    "nodes" : [{
+      "name" : "signals",
+      "type" : "sima/sima/workflow/WorkflowOutput",
+      "x" : 369,
+      "y" : 114,
+      "h" : 0,
+      "w" : 0,
+      "inputSlot" : {
+       "name" : "in",
+       "__id" : "e34f04f0-cfa6-43f7-ac66-8252c8e795e0",
+       "type" : "sima/sima/post/InputSlot"
+      }
+     }, {
+      "name" : "Hs",
+      "type" : "sima/sima/workflow/RealNumberInput",
+      "x" : 24,
+      "y" : 150,
+      "h" : 0,
+      "w" : 0,
+      "outputSlot" : {
+       "name" : "out",
+       "__id" : "3cdbe9e8-e888-487e-a239-be2ac5de2391",
+       "type" : "sima/sima/workflow/VariableOutputSlot"
+      },
+      "specifyAdditionalProperties" : false,
+      "value" : 0.0,
+      "array" : true,
+      "values" : [5.0, 6.0, 7.0]
+     }, {
+      "name" : "Tp",
+      "type" : "sima/sima/workflow/RealNumberInput",
+      "x" : 24,
+      "y" : 230,
+      "h" : 0,
+      "w" : 0,
+      "outputSlot" : {
+       "name" : "out",
+       "__id" : "461494f5-7716-4bc4-8a64-647bf481c932",
+       "type" : "sima/sima/workflow/VariableOutputSlot"
+      },
+      "specifyAdditionalProperties" : false,
+      "value" : 0.0,
+      "array" : true,
+      "values" : [8.0, 9.0, 10.0]
+     }, {
+      "name" : "waveDir",
+      "type" : "sima/sima/workflow/RealNumberInput",
+      "x" : 24,
+      "y" : 80,
+      "h" : 0,
+      "w" : 0,
+      "outputSlot" : {
+       "name" : "out",
+       "__id" : "251fc1b5-ce14-4357-9ffe-337669f73819",
+       "type" : "sima/sima/workflow/VariableOutputSlot"
+      },
+      "specifyAdditionalProperties" : false,
+      "value" : 0.0,
+      "array" : false,
+      "values" : []
+     }, {
+      "type" : "sima/sima/workflow/WorkflowSetNode",
+      "name" : "Running SIMO",
+      "x" : 130,
+      "y" : 89,
+      "h" : 0,
+      "w" : 0,
+      "workflow" : {
+       "type" : "sima/sima/workflow/Workflow",
+       "__id" : "b82862c7-27ec-4ed3-82a2-481fbcfbc3a3"
+      },
+      "workflowOutputSlots" : [{
+        "name" : "res",
+        "__id" : "5269c70b-9bf8-4b09-abbc-cfb65cf6cb05",
+        "type" : "sima/sima/workflow/WorkflowOutputSlot",
+        "workflowOutput" : {
+         "type" : "sima/sima/workflow/WorkflowOutput",
+         "__id" : "937ce05e-2fe3-4500-97d4-ab3ad4d60dca"
+        }
+       }],
+      "workflowInputSlots" : [{
+        "name" : "waveDir",
+        "__id" : "48465cde-e5c6-4db4-97de-a7f03196fbb9",
+        "type" : "sima/sima/workflow/WorkflowInputSlot",
+        "workflowInput" : {
+         "type" : "sima/sima/workflow/RealNumberInput",
+         "__id" : "4aedea49-36b1-4335-8bc5-70a7f60f9cf7"
+        }
+       }],
+      "inputWorkflow" : false,
+      "setFolderName" : false,
+      "writeRunStatus" : false,
+      "input" : "From input",
+      "variableInputSetSlots" : [{
+        "name" : "Hs",
+        "__id" : "6cc505bf-a16b-49eb-9f42-79e55cef6c63",
+        "type" : "sima/sima/workflow/VariableInputSetSlot",
+        "parameter" : {
+         "type" : "sima/sima/workflow/RealNumberInput",
+         "__id" : "6afcc879-fc57-4432-96cb-727790f613b1"
+        }
+       }, {
+        "name" : "Tp",
+        "__id" : "d4b7aed0-d453-448d-aa84-6e3a2f36ad64",
+        "type" : "sima/sima/workflow/VariableInputSetSlot",
+        "parameter" : {
+         "type" : "sima/sima/workflow/RealNumberInput",
+         "__id" : "3f13e6d5-4297-4f42-bc59-3f5171662283"
+        }
+       }],
+      "iteration" : "Column",
+      "distribute" : false,
+      "iterateOverInput" : false
+     }],
+    "connections" : [{
+      "type" : "sima/sima/post/SlotConnection",
+      "useQuery" : false,
+      "toSlot" : {
+       "type" : "sima/sima/workflow/VariableInputSetSlot",
+       "__id" : "6cc505bf-a16b-49eb-9f42-79e55cef6c63"
+      },
+      "fromSlot" : {
+       "type" : "sima/sima/workflow/VariableOutputSlot",
+       "__id" : "3cdbe9e8-e888-487e-a239-be2ac5de2391"
+      }
+     }, {
+      "type" : "sima/sima/post/SlotConnection",
+      "useQuery" : false,
+      "toSlot" : {
+       "type" : "sima/sima/workflow/VariableInputSetSlot",
+       "__id" : "d4b7aed0-d453-448d-aa84-6e3a2f36ad64"
+      },
+      "fromSlot" : {
+       "type" : "sima/sima/workflow/VariableOutputSlot",
+       "__id" : "461494f5-7716-4bc4-8a64-647bf481c932"
+      }
+     }, {
+      "type" : "sima/sima/post/SlotConnection",
+      "useQuery" : false,
+      "toSlot" : {
+       "type" : "sima/sima/workflow/WorkflowInputSlot",
+       "__id" : "48465cde-e5c6-4db4-97de-a7f03196fbb9"
+      },
+      "fromSlot" : {
+       "type" : "sima/sima/workflow/VariableOutputSlot",
+       "__id" : "251fc1b5-ce14-4357-9ffe-337669f73819"
+      }
+     }, {
+      "type" : "sima/sima/post/SlotConnection",
+      "useQuery" : false,
+      "toSlot" : {
+       "type" : "sima/sima/post/InputSlot",
+       "__id" : "e34f04f0-cfa6-43f7-ac66-8252c8e795e0"
+      },
+      "fromSlot" : {
+       "type" : "sima/sima/workflow/WorkflowOutputSlot",
+       "__id" : "5269c70b-9bf8-4b09-abbc-cfb65cf6cb05"
+      }
+     }]
+   }, {
+    "name" : "runSimo",
+    "__id" : "b82862c7-27ec-4ed3-82a2-481fbcfbc3a3",
+    "type" : "sima/sima/workflow/Workflow",
+    "nodes" : [{
+      "name" : "res",
+      "__id" : "937ce05e-2fe3-4500-97d4-ab3ad4d60dca",
+      "type" : "sima/sima/workflow/WorkflowOutput",
+      "x" : 675,
+      "y" : 114,
+      "h" : 0,
+      "w" : 0,
+      "inputSlot" : {
+       "name" : "in",
+       "__id" : "34eafb35-fc11-4fc3-9f0a-3e2b41e0c4ac",
+       "type" : "sima/sima/post/InputSlot"
+      }
+     }, {
+      "type" : "sima/sima/post/AddConstantFilter",
+      "x" : 130,
+      "y" : 24,
+      "h" : 0,
+      "w" : 0,
+      "filterInputSlots" : [{
+        "name" : "in",
+        "__id" : "e6a87217-63cd-4618-8017-f47108d79951",
+        "type" : "sima/sima/post/InputSlot"
+       }],
+      "filterOutputSlots" : [{
+        "name" : "out",
+        "__id" : "f55e9439-ffb3-43fb-b5aa-294b5b5d08b6",
+        "type" : "sima/sima/post/OutputSlot"
+       }],
+      "renameOutput" : true,
+      "constant" : 10.0,
+      "axis" : "Y-Axis",
+      "shiftAxis" : false
+     }, {
+      "name" : "Hs",
+      "__id" : "6afcc879-fc57-4432-96cb-727790f613b1",
+      "type" : "sima/sima/workflow/RealNumberInput",
+      "x" : 130,
+      "y" : 114,
+      "h" : 0,
+      "w" : 0,
+      "outputSlot" : {
+       "name" : "out",
+       "__id" : "6a6c965f-c7a4-4f44-bcca-421ee61e59f7",
+       "type" : "sima/sima/workflow/VariableOutputSlot"
+      },
+      "specifyAdditionalProperties" : false,
+      "value" : 0.0,
+      "array" : false,
+      "values" : []
+     }, {
+      "name" : "Tp",
+      "__id" : "3f13e6d5-4297-4f42-bc59-3f5171662283",
+      "type" : "sima/sima/workflow/RealNumberInput",
+      "x" : 130,
+      "y" : 204,
+      "h" : 0,
+      "w" : 0,
+      "outputSlot" : {
+       "name" : "out",
+       "__id" : "5bc988af-59a8-469b-9a14-13853d1aff81",
+       "type" : "sima/sima/workflow/VariableOutputSlot"
+      },
+      "specifyAdditionalProperties" : false,
+      "value" : 0.0,
+      "array" : false,
+      "values" : []
+     }, {
+      "type" : "sima/sima/workflow/ConditionInputNode",
+      "name": "Platform",
+      "x" : 267,
+      "y" : 89,
+      "h" : 0,
+      "w" : 0,
+      "variableInputSlots" : [{
+        "name" : "waveDirection",
+        "__id" : "0aa8c1e3-5f7c-4896-bcdd-1a4e8b39f435",
+        "type" : "sima/sima/workflow/VariableInputSlot",
+        "variable" : {
+         "type" : "sima/sima/sima/DoubleVariable",
+         "__id" : "b0074dc6-c96f-4931-81f5-0506798a4034"
+        }
+       }, {
+        "name" : "significantWaveHeight",
+        "__id" : "4904c493-c54a-45f2-9a63-5371dddb9aa9",
+        "type" : "sima/sima/workflow/VariableInputSlot",
+        "variable" : {
+         "type" : "sima/sima/sima/DoubleVariable",
+         "__id" : "e91eb16c-287b-44c8-b592-7b7efbd53d9f"
+        }
+       }, {
+        "name" : "peakPeriod",
+        "__id" : "ee10b558-10b2-4c57-8d27-5da9911dcd67",
+        "type" : "sima/sima/workflow/VariableInputSlot",
+        "variable" : {
+         "type" : "sima/sima/sima/DoubleVariable",
+         "__id" : "3b18f20c-8b0e-458b-91c1-1e7fb4c4eca8"
+        }
+       }],
+      "condition" : {
+       "type" : "sima/sima/condition/SimpleCondition",
+       "__id" : "14a22aa8-53e8-4198-b393-804c64a60510"
+      },
+      "analysis" : "dynamic",
+      "outputSlot" : {
+       "name" : "out",
+       "__id" : "3164c2e7-99f7-47d4-94e9-312065661888",
+       "type" : "sima/sima/post/OutputSlot"
+      },
+      "inputCondition" : false,
+      "setFolderName" : false,
+      "addInputFiles" : false
+     }, {
+      "type" : "sima/sima/post/SignalSelectionOperation",
+      "x" : 528,
+      "y" : 114,
+      "h" : 0,
+      "w" : 0,
+      "inputSlot" : {
+       "name" : "in",
+       "__id" : "80d6c30b-ec8e-406c-bc76-23d5e03b0171",
+       "type" : "sima/sima/post/InputSlot"
+      },
+      "requirementOutputSlots" : [{
+        "name" : "out",
+        "__id" : "a27b97a8-1212-440d-9640-57ff7eeaf949",
+        "type" : "sima/sima/post/RequirementOutputSlot",
+        "useQuery" : false,
+        "userRequirements" : [{
+          "type" : "sima/sima/post/Requirement",
+          "attribute" : "path",
+          "value" : "*Dynamic"
+         }],
+        "flatten" : false
+       }]
+     }, {
+      "name" : "waveDir",
+      "__id" : "4aedea49-36b1-4335-8bc5-70a7f60f9cf7",
+      "type" : "sima/sima/workflow/RealNumberInput",
+      "x" : 24,
+      "y" : 24,
+      "h" : 0,
+      "w" : 0,
+      "outputSlot" : {
+       "name" : "out",
+       "__id" : "6d8d76ec-ccfb-4c71-bbf6-21ba04abb978",
+       "type" : "sima/sima/workflow/VariableOutputSlot"
+      },
+      "specifyAdditionalProperties" : false,
+      "value" : 0.0,
+      "array" : false,
+      "values" : []
+     }],
+    "connections" : [{
+      "type" : "sima/sima/post/SlotConnection",
+      "useQuery" : false,
+      "toSlot" : {
+       "type" : "sima/sima/post/InputSlot",
+       "__id" : "34eafb35-fc11-4fc3-9f0a-3e2b41e0c4ac"
+      },
+      "fromSlot" : {
+       "type" : "sima/sima/post/RequirementOutputSlot",
+       "__id" : "a27b97a8-1212-440d-9640-57ff7eeaf949"
+      }
+     }, {
+      "type" : "sima/sima/post/SlotConnection",
+      "useQuery" : false,
+      "toSlot" : {
+       "type" : "sima/sima/post/InputSlot",
+       "__id" : "80d6c30b-ec8e-406c-bc76-23d5e03b0171"
+      },
+      "fromSlot" : {
+       "type" : "sima/sima/post/OutputSlot",
+       "__id" : "3164c2e7-99f7-47d4-94e9-312065661888"
+      }
+     }, {
+      "type" : "sima/sima/post/SlotConnection",
+      "useQuery" : false,
+      "toSlot" : {
+       "type" : "sima/sima/post/InputSlot",
+       "__id" : "e6a87217-63cd-4618-8017-f47108d79951"
+      },
+      "fromSlot" : {
+       "type" : "sima/sima/workflow/VariableOutputSlot",
+       "__id" : "6d8d76ec-ccfb-4c71-bbf6-21ba04abb978"
+      }
+     }, {
+      "type" : "sima/sima/post/SlotConnection",
+      "useQuery" : false,
+      "toSlot" : {
+       "type" : "sima/sima/workflow/VariableInputSlot",
+       "__id" : "0aa8c1e3-5f7c-4896-bcdd-1a4e8b39f435"
+      },
+      "fromSlot" : {
+       "type" : "sima/sima/post/OutputSlot",
+       "__id" : "f55e9439-ffb3-43fb-b5aa-294b5b5d08b6"
+      }
+     }, {
+      "type" : "sima/sima/post/SlotConnection",
+      "useQuery" : false,
+      "toSlot" : {
+       "type" : "sima/sima/workflow/VariableInputSlot",
+       "__id" : "4904c493-c54a-45f2-9a63-5371dddb9aa9"
+      },
+      "fromSlot" : {
+       "type" : "sima/sima/workflow/VariableOutputSlot",
+       "__id" : "6a6c965f-c7a4-4f44-bcca-421ee61e59f7"
+      }
+     }, {
+      "type" : "sima/sima/post/SlotConnection",
+      "useQuery" : false,
+      "toSlot" : {
+       "type" : "sima/sima/workflow/VariableInputSlot",
+       "__id" : "ee10b558-10b2-4c57-8d27-5da9911dcd67"
+      },
+      "fromSlot" : {
+       "type" : "sima/sima/workflow/VariableOutputSlot",
+       "__id" : "5bc988af-59a8-469b-9a14-13853d1aff81"
+      }
+     }]
+   }]
+ }
+ 
+ 

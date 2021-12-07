@@ -1,0 +1,7 @@
+{
+ "name" : "BallastQuantityType",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["percentage", "volume"],
+ "labels" : ["%", "m^3"]
+}
+

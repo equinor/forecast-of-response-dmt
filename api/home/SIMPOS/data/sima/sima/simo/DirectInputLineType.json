@@ -1,0 +1,31 @@
+{
+ "name" : "DirectInputLineType",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "horisontalDistances",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/Distance",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "verticalDistances",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/Distance",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "items",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/TensionMap",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

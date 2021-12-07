@@ -1,0 +1,80 @@
+{
+ "name" : "BallastTank",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "tag",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string"
+  }, {
+   "name" : "x",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "x position in body local coordinate system",
+   "default" : "0.0"
+  }, {
+   "name" : "y",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "y position in body local coordinate system",
+   "default" : "0.0"
+  }, {
+   "name" : "z",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "z position in body local coordinate system",
+   "default" : "0.0"
+  }, {
+   "name" : "volumeTolerance",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Precision that should be reached by volume computation",
+   "default" : "0.001"
+  }, {
+   "name" : "permeabilityFactor",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Fraction of the tank volume that can be used to fill it with ballast fluid",
+   "default" : "1.0"
+  }, {
+   "name" : "initialBallastQuantity",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Initial ballast quantity.",
+   "default" : "0.0"
+  }, {
+   "name" : "quantityType",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "enumType" : "/simo/BallastQuantityType",
+   "default" : "percentage"
+  }, {
+   "name" : "ballastFluidDensity",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Density of the fluid used as ballast",
+   "default" : "1025.0"
+  }, {
+   "name" : "geometryPosition",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/Position",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "geometryFile",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "description" : "Geometry definition file ( STL or GDF)"
+  }, {
+   "name" : "state",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "enumType" : "/simo/BallastTankState",
+   "description" : "State of ballast tank",
+   "default" : "intact"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

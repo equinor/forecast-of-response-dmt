@@ -1,0 +1,7 @@
+{
+ "name" : "BottomContactOption",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["line_end_only", "seafloor_contact"],
+ "labels" : ["Line end only", "Seafloor contact"]
+}
+

@@ -1,0 +1,7 @@
+{
+ "name" : "LiftAndDragInterpolation",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["linear", "spline"],
+ "labels" : ["Linear", "Spline"]
+}
+
