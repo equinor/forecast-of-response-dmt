@@ -1,0 +1,7 @@
+{
+ "name" : "VolumeType",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["cone", "box"],
+ "labels" : ["Cone", "Box"]
+}
+

@@ -1,0 +1,21 @@
+{
+ "name" : "SIMOFederate",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "timeStep",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "optional" : true
+  }, {
+   "name" : "task",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/condition/ConditionTask",
+   "contained" : false,
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

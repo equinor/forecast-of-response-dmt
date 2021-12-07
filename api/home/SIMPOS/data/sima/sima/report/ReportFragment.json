@@ -1,0 +1,16 @@
+{
+ "name" : "ReportFragment",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "fragment",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/report/ReportFragmentReference",
+   "contained" : false,
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

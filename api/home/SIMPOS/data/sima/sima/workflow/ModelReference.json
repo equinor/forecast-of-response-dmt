@@ -1,0 +1,21 @@
+{
+ "name" : "ModelReference",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "model",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/MOAO",
+   "contained" : false,
+   "optional" : true
+  }, {
+   "name" : "reference",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "default" : "workflow"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

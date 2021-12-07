@@ -1,0 +1,7 @@
+{
+ "name" : "WaveParticleMethod",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["velocity_and_acceleration", "not_included", "velocity", "velocity_first_and_last_strip", "velocity_and_acceleration_first_and_last_strip"],
+ "labels" : ["Velocity and acceleration", "Not included", "Velocity", "Velocity (first and last strip only)", "Velocity and acceleration (first and last strip only)"]
+}
+

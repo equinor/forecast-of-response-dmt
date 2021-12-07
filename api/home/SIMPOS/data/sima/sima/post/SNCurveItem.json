@@ -1,0 +1,22 @@
+{
+ "name" : "SNCurveItem",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "negativeInverseSlope",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Negative inverse slope of S-N curve",
+   "default" : "0.0"
+  }, {
+   "name" : "transitionPointLog",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "log10 of number of cycles at transition point between preceding curve segment and this curve segment",
+   "default" : "0.0"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

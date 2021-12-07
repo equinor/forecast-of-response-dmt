@@ -1,0 +1,15 @@
+{
+ "name" : "WaveFromFile",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "fileName",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "description" : "Name of external file with specified wave data"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

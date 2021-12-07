@@ -1,0 +1,170 @@
+{
+ "name" : "HorizontalAxisWindTurbineController",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "kp",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Proportionnal gain K that will be used for zero blade pitch angle",
+   "default" : "0.0"
+  }, {
+   "name" : "ki",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Integral gain",
+   "default" : "0.0"
+  }, {
+   "name" : "filterPeriod",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Filter period for 1st order LP filter",
+   "default" : "0.0"
+  }, {
+   "name" : "ratedOmega",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Rated electrical omega",
+   "default" : "0.0"
+  }, {
+   "name" : "ratedTorque",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Rated electrical torque",
+   "default" : "0.0"
+  }, {
+   "name" : "gearBoxRatio",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Gear box ratio",
+   "default" : "0.0"
+  }, {
+   "name" : "maxPitchRate",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Maximum pitch rate",
+   "default" : "0.0"
+  }, {
+   "name" : "maxPitch",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Maximum pitch",
+   "default" : "0.0"
+  }, {
+   "name" : "maxTorqueRate",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Maximum torque rate",
+   "default" : "0.0"
+  }, {
+   "name" : "maxTorque",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Maximum torque",
+   "default" : "0.0"
+  }, {
+   "name" : "gainScheduling",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "enumType" : "/windturbine/TableFormat",
+   "default" : "default"
+  }, {
+   "name" : "gainItems",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/windturbine/GainItem",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "external",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "description" : "Use external controller",
+   "default" : "false"
+  }, {
+   "name" : "controllerFile",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "description" : "Path to controller file"
+  }, {
+   "name" : "className",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "description" : "Class name of controller"
+  }, {
+   "name" : "configuration",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "description" : "Configuration filename"
+  }, {
+   "name" : "libraryPaths",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/LibraryPaths",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "reg3MinPitch",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Minimum pitch angle for which electrical torque versus generator speed will stay in region 3",
+   "default" : "0.0"
+  }, {
+   "name" : "transitionalSpeed15",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Transitional generator speed between region 1 and 1.5",
+   "default" : "0.0"
+  }, {
+   "name" : "transitionalSpeed20",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Transitional generator speed between region 1.5 and 2",
+   "default" : "0.0"
+  }, {
+   "name" : "transitionalSpeed25",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Transitional generator speed between region 2 and 2.5",
+   "default" : "0.0"
+  }, {
+   "name" : "transitionalSpeed30",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Transitional generator speed between region 2.5 and 3",
+   "default" : "0.0"
+  }, {
+   "name" : "reg2Torque",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Generator torque constant in region 2",
+   "default" : "0.0"
+  }, {
+   "name" : "powerExtraction",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "enumType" : "/windturbine/PowerExtraction",
+   "default" : "power"
+  }, {
+   "name" : "minPitch",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Minimum pitch setting in pitch controller",
+   "default" : "0.0"
+  }, {
+   "name" : "sampleInterval",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Controller sample interval",
+   "default" : "0.0"
+  }, {
+   "name" : "controllerType",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "enumType" : "/windturbine/ControllerType",
+   "default" : "jar_file_controller"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

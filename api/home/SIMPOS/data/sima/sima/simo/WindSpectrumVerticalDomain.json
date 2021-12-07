@@ -1,0 +1,40 @@
+{
+ "name" : "WindSpectrumVerticalDomain",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "specifyVerticalDomain",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "description" : "Should a vertical grid for interpolation of wind velocity be specified?",
+   "default" : "false"
+  }, {
+   "name" : "numberOfLevels",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "description" : "Number of vertical levels to pre-generate wind time series for",
+   "default" : "0"
+  }, {
+   "name" : "zMinimum",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Lower limit of vertical domain",
+   "default" : "0.0"
+  }, {
+   "name" : "zMaximum",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Upper limit of vertical domain",
+   "default" : "0.0"
+  }, {
+   "name" : "allowOutsideDomain",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "description" : "Should computation of wind velocity outside specified limits be allowed?",
+   "default" : "false"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

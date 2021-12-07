@@ -1,0 +1,17 @@
+{
+ "name" : "HLAWinchGroup",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "winchConfigurations",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/hla/HLAWinchControlConfiguration",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : false
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

@@ -1,0 +1,16 @@
+{
+ "name" : "BodyForceComponentReference",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "source",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/BodyForceComponent",
+   "contained" : false,
+   "optional" : false
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

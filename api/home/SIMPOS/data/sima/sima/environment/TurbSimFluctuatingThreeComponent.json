@@ -1,0 +1,32 @@
+{
+ "name" : "TurbSimFluctuatingThreeComponent",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "direction",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Wind propagation direction",
+   "default" : "0.0"
+  }, {
+   "name" : "numSlices",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "description" : "Buffer size: Number of cross-sectional planes (slices) in memory",
+   "optional" : true
+  }, {
+   "name" : "windFileName",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "description" : "Path and filename for the binary wind file"
+  }, {
+   "name" : "sumFileName",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "description" : "Path and filename for the summary file from TurbSim"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

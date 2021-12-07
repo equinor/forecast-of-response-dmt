@@ -1,0 +1,16 @@
+{
+ "name" : "VariableInputSlot",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "variable",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/Variable",
+   "contained" : false,
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

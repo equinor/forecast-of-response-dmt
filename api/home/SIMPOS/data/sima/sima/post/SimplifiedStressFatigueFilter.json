@@ -1,0 +1,99 @@
+{
+ "name" : "SimplifiedStressFatigueFilter",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "x",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "default" : "0"
+  }, {
+   "name" : "y",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "default" : "0"
+  }, {
+   "name" : "h",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "default" : "0"
+  }, {
+   "name" : "w",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "default" : "0"
+  }, {
+   "name" : "controlSignalInputSlots",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/post/ControlSignalInputSlot",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "filterInputSlots",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/post/InputSlot",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "filterOutputSlots",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/post/OutputSlot",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "numberOfPoints",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "description" : "Number of points in the calculation",
+   "default" : "8"
+  }, {
+   "name" : "radius",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Distance from pipe center to a point in the pipe wall",
+   "default" : "0.0"
+  }, {
+   "name" : "innerRadius",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Inner radius of the pipe",
+   "default" : "0.0"
+  }, {
+   "name" : "outerRadius",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Outer radius of the pipe",
+   "default" : "0.0"
+  }, {
+   "name" : "numberOfCycles",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "description" : "Number of cycles",
+   "default" : "0"
+  }, {
+   "name" : "shape",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Shape parameter of stress distribution",
+   "default" : "0.0"
+  }, {
+   "name" : "intercept",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Intercept parameter of the SN curve",
+   "default" : "0.0"
+  }, {
+   "name" : "slope",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Slope parameter of the SN curve",
+   "default" : "0.0"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

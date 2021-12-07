@@ -1,0 +1,7 @@
+{
+ "name" : "AmplitudeType",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["single", "double"],
+ "labels" : ["Single", "Double"]
+}
+

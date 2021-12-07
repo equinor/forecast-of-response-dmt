@@ -1,0 +1,50 @@
+{
+ "name" : "YawController",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "yawControllerType",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "enumType" : "/windturbine/YawControllerType",
+   "default" : "none"
+  }, {
+   "name" : "timeStep",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "default" : "0.0"
+  }, {
+   "name" : "setPoint",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Desired yaw misalignment",
+   "default" : "0.0"
+  }, {
+   "name" : "yawRate",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "default" : "0.0"
+  }, {
+   "name" : "errorThreshold",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Yaw misalignment integrated error threshold",
+   "default" : "0.0"
+  }, {
+   "name" : "fastLowPassFilterPeriod",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Filter period for yaw misalignment signal. Used for determining if \"error threshold\" has been passed",
+   "default" : "0.0"
+  }, {
+   "name" : "slowLowPassFilterPeriod",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Filter period for yaw misalignment signal. Used to determine end time for yawing back to set point",
+   "default" : "0.0"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

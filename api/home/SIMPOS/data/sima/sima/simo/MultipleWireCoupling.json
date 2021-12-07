@@ -1,0 +1,17 @@
+{
+ "name" : "MultipleWireCoupling",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "parts",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/MultipleWireCouplingPart",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : false
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

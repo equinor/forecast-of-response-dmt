@@ -1,0 +1,16 @@
+{
+ "name" : "HLATableComponent",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "table",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/hla/HLADataTable",
+   "contained" : false,
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

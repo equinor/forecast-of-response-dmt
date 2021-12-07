@@ -1,0 +1,7 @@
+{
+ "name" : "WaveSpreadingType",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["unidirectional", "cosfunction"],
+ "labels" : ["Unidirectional", "Cos function"]
+}
+

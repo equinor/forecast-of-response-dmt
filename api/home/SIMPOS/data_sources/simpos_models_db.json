@@ -1,0 +1,15 @@
+{
+  "name": "simpos_models_db",
+  "repositories": {
+    "app_mooring_rep": {
+      "type": "mongo-db",
+      "host": "db",
+      "port": 27017,
+      "username": "maf",
+      "password": "maf",
+      "tls": false,
+      "database": "simpos_models_db",
+      "collection": "simpos_models_db"
+    }
+  }
+}

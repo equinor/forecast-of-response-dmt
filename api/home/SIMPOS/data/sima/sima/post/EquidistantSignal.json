@@ -1,0 +1,62 @@
+{
+ "name" : "EquidistantSignal",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "properties",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/post/SignalProperties",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "directInput",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "default" : "true"
+  }, {
+   "name" : "values",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "dimensions" : "*",
+   "default" : "0.0"
+  }, {
+   "name" : "xunit",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "description" : "Defines the unit of the x axis",
+   "default" : "s"
+  }, {
+   "name" : "yunit",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "description" : "Defines the unit of the y axis",
+   "default" : "-"
+  }, {
+   "name" : "offset",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "The offset of the x axis.",
+   "default" : "0.0"
+  }, {
+   "name" : "increment",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "The sample increment of the x axis",
+   "default" : "1.0"
+  }, {
+   "name" : "size",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "default" : "0"
+  }, {
+   "name" : "function",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "description" : "Apply the given function to each element of the input"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

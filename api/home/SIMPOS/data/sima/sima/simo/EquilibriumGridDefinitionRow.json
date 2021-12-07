@@ -1,0 +1,25 @@
+{
+ "name" : "EquilibriumGridDefinitionRow",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "minimumValue",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "default" : "-10.0"
+  }, {
+   "name" : "maximumValue",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "default" : "10.0"
+  }, {
+   "name" : "numberOfValues",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "default" : "11"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

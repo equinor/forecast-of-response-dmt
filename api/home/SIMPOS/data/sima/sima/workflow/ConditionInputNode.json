@@ -1,0 +1,115 @@
+{
+ "name" : "ConditionInputNode",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "x",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "default" : "0"
+  }, {
+   "name" : "y",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "default" : "0"
+  }, {
+   "name" : "h",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "default" : "0"
+  }, {
+   "name" : "w",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "default" : "0"
+  }, {
+   "name" : "controlSignalInputSlots",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/post/ControlSignalInputSlot",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "variableInputSlots",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/workflow/VariableInputSlot",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "modelReferenceInputSlot",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/workflow/ModelReferenceInputSlot",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "condition",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/Condition",
+   "contained" : false,
+   "optional" : true
+  }, {
+   "name" : "analysis",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string"
+  }, {
+   "name" : "outputSlot",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/post/OutputSlot",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "additionalFiles",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/workflow/FileSpecification",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "modelOutput",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/workflow/ModelOutputSpecification",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "modelInputSlots",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/workflow/ModelInputSlot",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "inputCondition",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "description" : "Set the condition input from the outside. Use a model reference as source.",
+   "default" : "false"
+  }, {
+   "name" : "setFolderName",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "description" : "Override the default folder name created. This folder will be relative to the running workflow. If left empty it will create the results directly in the workflow folder.",
+   "default" : "false"
+  }, {
+   "name" : "folderName",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string"
+  }, {
+   "name" : "addInputFiles",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "description" : "Add additional input files before running",
+   "default" : "false"
+  }, {
+   "name" : "fileInputSlot",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/post/InputSlot",
+   "contained" : true,
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

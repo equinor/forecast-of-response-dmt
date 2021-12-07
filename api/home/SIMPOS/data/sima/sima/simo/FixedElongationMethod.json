@@ -1,0 +1,7 @@
+{
+ "name" : "FixedElongationMethod",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["spring", "constant_tension_winch"],
+ "labels" : ["Spring", "Constant tension winch"]
+}
+

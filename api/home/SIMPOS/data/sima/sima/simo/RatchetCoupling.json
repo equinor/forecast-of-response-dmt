@@ -1,0 +1,84 @@
+{
+ "name" : "RatchetCoupling",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "endPoint1",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/SIMOBodyPoint",
+   "contained" : false,
+   "optional" : false
+  }, {
+   "name" : "endPoint2",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/SIMOBodyPoint",
+   "contained" : false,
+   "optional" : false
+  }, {
+   "name" : "_type",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "enumType" : "/simo/RatchetType",
+   "description" : "Ratchet type",
+   "default" : "tension"
+  }, {
+   "name" : "staticForce",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Static force in element",
+   "default" : "0.0"
+  }, {
+   "name" : "stiffness",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Element stiffness",
+   "default" : "0.0"
+  }, {
+   "name" : "startTime",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Time when dynamics in element will be activated",
+   "default" : "0.0"
+  }, {
+   "name" : "dampingCoefficient",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Damping coefficient",
+   "default" : "0.0"
+  }, {
+   "name" : "exponent",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Exponent in damping",
+   "default" : "0.0"
+  }, {
+   "name" : "minVelocity",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Velocity limit for damping force",
+   "default" : "0.0"
+  }, {
+   "name" : "failureMode",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "enumType" : "/simo/FailureMode",
+   "description" : "Failure mode of coupling element",
+   "default" : "none"
+  }, {
+   "name" : "failureTime",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Earliest possible time of failure",
+   "default" : "0.0"
+  }, {
+   "name" : "maximumForce",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Maximum force",
+   "default" : "0.0"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

@@ -1,0 +1,81 @@
+{
+ "name" : "TimeDependentVolumeMass",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "point",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/Point3",
+   "contained" : true,
+   "optional" : false,
+   "description" : "Mass point (local coordinates)."
+  }, {
+   "name" : "flowRates",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/FlowRateItem",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "vol0",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Volume of liquid at t=0",
+   "default" : "0.0"
+  }, {
+   "name" : "volMax",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Maximum allowable volume",
+   "default" : "0.0"
+  }, {
+   "name" : "volMin",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Minimum allowable volume",
+   "default" : "0.0"
+  }, {
+   "name" : "volRateMax",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Maximum allowable volume rate (HLA only)",
+   "default" : "0.0"
+  }, {
+   "name" : "volRateMin",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Minimum allowable volume rate (HLA only)",
+   "default" : "0.0"
+  }, {
+   "name" : "density",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Density of liquid in tank",
+   "default" : "0.0"
+  }, {
+   "name" : "vectorZ",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/Vector3",
+   "contained" : true,
+   "optional" : false,
+   "description" : "Vector defining portion z-axis in local system"
+  }, {
+   "name" : "vectorXZ",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/Vector3",
+   "contained" : true,
+   "optional" : false,
+   "description" : "Vector in local xz-plane def. portion x-axis"
+  }, {
+   "name" : "portions",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/VolumeMassPortion",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

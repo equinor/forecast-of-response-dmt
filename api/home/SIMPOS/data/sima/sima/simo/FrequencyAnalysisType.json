@@ -1,0 +1,7 @@
+{
+ "name" : "FrequencyAnalysisType",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["wave_frequency", "low_frequency", "low_and_wave_frequency"],
+ "labels" : ["Wave frequency", "Low frequency", "Low and wave frequency"]
+}
+

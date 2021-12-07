@@ -1,0 +1,26 @@
+{
+ "name" : "ExternalControlSetup",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "executable",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "description" : "Executable to run"
+  }, {
+   "name" : "arguments",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "description" : "Process arguments"
+  }, {
+   "name" : "port",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "description" : "Port number of the central unit for the external process",
+   "default" : "9876"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

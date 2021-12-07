@@ -1,0 +1,9 @@
+{
+ "name" : "DirectionDependable",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : true,
+ "extends" : ["/NamedEntity"],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

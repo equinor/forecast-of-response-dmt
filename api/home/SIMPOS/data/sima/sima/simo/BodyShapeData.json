@@ -1,0 +1,65 @@
+{
+ "name" : "BodyShapeData",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "lengthBetweenPerpendiculars",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Length between perpendiculars",
+   "default" : "0.0"
+  }, {
+   "name" : "maximumBeamAtWaterline",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Maximum beam at the waterline",
+   "default" : "0.0"
+  }, {
+   "name" : "draftAtAftPerpendicular",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Draft at aft perpendicular",
+   "default" : "0.0"
+  }, {
+   "name" : "draftAtForePerpendicular",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Draft at fore perpendicular",
+   "default" : "0.0"
+  }, {
+   "name" : "blockCoefficient",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Block coefficient, Cb = displacement / (LWL * BWL * T)",
+   "default" : "0.0"
+  }, {
+   "name" : "distanceAftPerpendicular",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Distance from aft perpendicular to the body fixed origin",
+   "default" : "0.0"
+  }, {
+   "name" : "distanceBaseline",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Distance from baseline to the body fixed origin",
+   "default" : "0.0"
+  }, {
+   "name" : "specifyWaterline",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "description" : "Should a waterline file be specified?",
+   "default" : "false"
+  }, {
+   "name" : "waterlinePoints",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/Point2",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

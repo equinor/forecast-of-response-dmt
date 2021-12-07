@@ -1,0 +1,22 @@
+{
+ "name" : "DoubleVariable",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "value",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "The current value for the variable",
+   "default" : "0.0"
+  }, {
+   "name" : "unit",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "description" : "unit of variable",
+   "default" : "-"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

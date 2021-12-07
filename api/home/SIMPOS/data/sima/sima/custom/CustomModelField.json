@@ -1,0 +1,43 @@
+{
+ "name" : "CustomModelField",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "label",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string"
+  }, {
+   "name" : "tooltip",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string"
+  }, {
+   "name" : "model",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/MOAO",
+   "contained" : false,
+   "optional" : true
+  }, {
+   "name" : "customTooltip",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "default" : "false"
+  }, {
+   "name" : "customLabel",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "default" : "false"
+  }, {
+   "name" : "readOnly",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "default" : "false"
+  }, {
+   "name" : "featureName",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

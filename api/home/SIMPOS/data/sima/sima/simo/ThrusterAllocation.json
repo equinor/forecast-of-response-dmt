@@ -1,0 +1,23 @@
+{
+ "name" : "ThrusterAllocation",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "weight",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Factor in weight function for thruster allocation",
+   "default" : "1.0"
+  }, {
+   "name" : "thruster",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/IThruster",
+   "contained" : false,
+   "optional" : true,
+   "description" : "Thruster controlled by the allocation system"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

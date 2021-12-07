@@ -1,0 +1,76 @@
+{
+ "name" : "DepthDependenthydrodynamicCoefficient",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "zd",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Vertical position",
+   "default" : "1.0"
+  }, {
+   "name" : "rvol",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Volume relative to fully submerged volume",
+   "default" : "1.0"
+  }, {
+   "name" : "ramx",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Relative added mass in 1. degree of freedom",
+   "default" : "1.0"
+  }, {
+   "name" : "ramy",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Relative added mass in 2. degree of freedom",
+   "default" : "1.0"
+  }, {
+   "name" : "ramz",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Relative added mass in 3. degree of freedom",
+   "default" : "1.0"
+  }, {
+   "name" : "rc11",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Relative linear drag in 1. degree of freedom",
+   "default" : "0.0"
+  }, {
+   "name" : "rc12",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Relative linear drag in 2. degree of freedom",
+   "default" : "0.0"
+  }, {
+   "name" : "rc13",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Relative linear drag in 3. degree of freedom",
+   "default" : "0.0"
+  }, {
+   "name" : "rc21",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Relative quadratic drag in 1. degree of freedom",
+   "default" : "0.0"
+  }, {
+   "name" : "rc22",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Relative quadrativ drag in 2. degree of freedom",
+   "default" : "0.0"
+  }, {
+   "name" : "rc23",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Relative quadratic drag in 3. degree of freedom",
+   "default" : "0.0"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

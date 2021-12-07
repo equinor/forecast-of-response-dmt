@@ -1,0 +1,54 @@
+{
+ "name" : "ConditionResultEntryContainer",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "properties",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/Property",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "resource",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string"
+  }, {
+   "name" : "relative",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "default" : "false"
+  }, {
+   "name" : "changeNumber",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "default" : "0"
+  }, {
+   "name" : "results",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/Result",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "entries",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/ResultEntry",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "modelOutputFile",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string"
+  }, {
+   "name" : "probability",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

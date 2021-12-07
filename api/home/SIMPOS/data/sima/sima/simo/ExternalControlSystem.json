@@ -1,0 +1,31 @@
+{
+ "name" : "ExternalControlSystem",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "intParameters",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/NamedIntParameter",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "doubleParameters",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/NamedDoubleParameter",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "stringParameters",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/NamedStringParameter",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

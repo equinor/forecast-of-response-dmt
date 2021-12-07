@@ -1,0 +1,22 @@
+{
+ "name" : "DistanceKey",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "horisontalDistance",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/Distance",
+   "contained" : false,
+   "optional" : true
+  }, {
+   "name" : "verticalDistance",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/Distance",
+   "contained" : false,
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

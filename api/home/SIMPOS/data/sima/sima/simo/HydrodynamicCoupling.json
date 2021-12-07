@@ -1,0 +1,28 @@
+{
+ "name" : "HydrodynamicCoupling",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "body1",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/SIMOBody",
+   "contained" : false,
+   "optional" : true
+  }, {
+   "name" : "body2",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/SIMOBody",
+   "contained" : false,
+   "optional" : true
+  }, {
+   "name" : "radiationData",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/hydro/CoupledRadiationDataGroup",
+   "contained" : true,
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

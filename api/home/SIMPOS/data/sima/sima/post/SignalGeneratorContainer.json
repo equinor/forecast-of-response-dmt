@@ -1,0 +1,31 @@
+{
+ "name" : "SignalGeneratorContainer",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "properties",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/post/SignalProperties",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "signals",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/post/GeneratorSignal",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "children",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/post/SignalGeneratorContainer",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

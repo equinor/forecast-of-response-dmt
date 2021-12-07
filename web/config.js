@@ -8,5 +8,6 @@ export default {
     // Custom plugins
     import('@dmt/dmt-app'),
     import('forecast-of-response'),
+    import('@sintef/simpos-ui'),
   ],
 }

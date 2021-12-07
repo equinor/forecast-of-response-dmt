@@ -1,0 +1,16 @@
+{
+ "name" : "HLASignalPlotComponent",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "plot",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/hla/HLASignalPlot",
+   "contained" : false,
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

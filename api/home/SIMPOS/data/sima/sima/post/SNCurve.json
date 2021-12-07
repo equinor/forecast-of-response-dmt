@@ -1,0 +1,71 @@
+{
+ "name" : "SNCurve",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "usePredefinedCurve",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "description" : "Use predefined SN-curve from selected standard",
+   "default" : "false"
+  }, {
+   "name" : "predefinedCurve",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "enumType" : "/post/SNCurveType",
+   "default" : "dnv_b1"
+  }, {
+   "name" : "negativeInverseSlope",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Negative inverse slope of the segment (first segment if several segments are given, or total curve if no more are given)",
+   "default" : "0.0"
+  }, {
+   "name" : "interceptStress",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Stress range resulting in failure after one cycle",
+   "default" : "0.0"
+  }, {
+   "name" : "thicknessExponent",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Thickness exponent on fatigue strength",
+   "default" : "1.0"
+  }, {
+   "name" : "referenceThicknessFactor",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "t/t_ref:  where t is thickness through which a crack will most likely grow and t_ref i reference thickness",
+   "default" : "1.0"
+  }, {
+   "name" : "curveItems",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/post/SNCurveItem",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "fatigueLimitIndicator",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "enumType" : "/post/FatigueLimitIndicator",
+   "default" : "stress_range"
+  }, {
+   "name" : "fatigueLimitStress",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Stress range level for which the SN curve becomes horizontal.",
+   "default" : "0.0"
+  }, {
+   "name" : "fatigueLimitCycles",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Logarithm of number of stress cycles for which the SN curve becomes horizontal.",
+   "default" : "0.0"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

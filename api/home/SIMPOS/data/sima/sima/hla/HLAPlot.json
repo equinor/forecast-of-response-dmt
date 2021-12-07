@@ -1,0 +1,58 @@
+{
+ "name" : "HLAPlot",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "curves",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "dimensions" : "*"
+  }, {
+   "name" : "crossPlotXAxisValues",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string"
+  }, {
+   "name" : "minMaxX",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/hla/Range",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "minMaxY",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/hla/Range",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "axisTitleX",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string"
+  }, {
+   "name" : "axisTitleY",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string"
+  }, {
+   "name" : "valueTypeX",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string"
+  }, {
+   "name" : "showTimeMarker",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "default" : "false"
+  }, {
+   "name" : "fadePrecedingCurves",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "default" : "false"
+  }, {
+   "name" : "fadePrecedingCurvesCount",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "default" : "5"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

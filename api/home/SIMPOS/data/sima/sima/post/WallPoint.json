@@ -1,0 +1,7 @@
+{
+ "name" : "WallPoint",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["outer_wall", "inner_wall"],
+ "labels" : ["Outer wall", "Inner wall"]
+}
+

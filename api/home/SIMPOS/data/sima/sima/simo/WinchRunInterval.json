@@ -1,0 +1,28 @@
+{
+ "name" : "WinchRunInterval",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "startTime",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Start time for running winch",
+   "default" : "0.0"
+  }, {
+   "name" : "stopTime",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Stop time for running winch",
+   "default" : "0.0"
+  }, {
+   "name" : "speed",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Winch run velocity (positive when paying out)",
+   "default" : "0.0"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

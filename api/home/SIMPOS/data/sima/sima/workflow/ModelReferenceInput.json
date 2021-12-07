@@ -1,0 +1,99 @@
+{
+ "name" : "ModelReferenceInput",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "x",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "default" : "0"
+  }, {
+   "name" : "y",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "default" : "0"
+  }, {
+   "name" : "h",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "default" : "0"
+  }, {
+   "name" : "w",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "default" : "0"
+  }, {
+   "name" : "controlSignalInputSlots",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/post/ControlSignalInputSlot",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "root",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string"
+  }, {
+   "name" : "resultId",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string"
+  }, {
+   "name" : "outputSlot",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/post/OutputSlot",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "properties",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/post/SignalProperties",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "specifyAdditionalProperties",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "description" : "Specify additional properties in the signal",
+   "default" : "false"
+  }, {
+   "name" : "model",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/MOAO",
+   "contained" : false,
+   "optional" : true
+  }, {
+   "name" : "reference",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "default" : "workflow"
+  }, {
+   "name" : "_type",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "default" : "workflow"
+  }, {
+   "name" : "useReference",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "description" : "Uses a soft link to the referenced model, meaning the relation is not cleared if the references object is deleted or does not exist",
+   "default" : "false"
+  }, {
+   "name" : "array",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "description" : "Create an array output",
+   "default" : "false"
+  }, {
+   "name" : "modelReferences",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/workflow/ModelReference",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

@@ -1,0 +1,97 @@
+{
+ "name" : "DockingConePositioning",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "localPoint",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/Point3",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "globalPoint",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/Point3",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "failureMode",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "enumType" : "/simo/ActivationFailureMode",
+   "description" : "Failure mode:\r\n - No failure\r\n - Failure by exceeding the breaking strength after specified time\r\n - Activation of element after specified time if absolute value of force is below breaking strength",
+   "default" : "none"
+  }, {
+   "name" : "failureTime",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Earliest possible time of failure",
+   "default" : "0.0"
+  }, {
+   "name" : "breakingStrength",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Breaking strength",
+   "default" : "0.0"
+  }, {
+   "name" : "dampingExponent",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Exponent of velocity in damping term",
+   "default" : "1.0"
+  }, {
+   "name" : "dampingInterpolation",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "enumType" : "/simo/Interpolation",
+   "description" : "Interpolation method for damping",
+   "default" : "linear"
+  }, {
+   "name" : "forceInterpolation",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "enumType" : "/simo/Interpolation",
+   "description" : "Interpolation method for force",
+   "default" : "linear"
+  }, {
+   "name" : "velocityLimit",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Velocity limit for friction force",
+   "default" : "0.0"
+  }, {
+   "name" : "numberOfPoints",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "default" : "0"
+  }, {
+   "name" : "crossSections",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/DockingConeCrossSection",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "directionVector",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/Vector3",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "maxRadialDistance",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Maximum radial distance at entry",
+   "default" : "0.0"
+  }, {
+   "name" : "friction",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Friction coefficient",
+   "default" : "0.0"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

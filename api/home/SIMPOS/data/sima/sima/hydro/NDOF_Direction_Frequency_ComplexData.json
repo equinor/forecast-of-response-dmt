@@ -1,0 +1,59 @@
+{
+ "name" : "NDOF_Direction_Frequency_ComplexData",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "id",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string"
+  }, {
+   "name" : "nDir",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "default" : "0"
+  }, {
+   "name" : "directions",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "dimensions" : "*",
+   "default" : "0.0"
+  }, {
+   "name" : "nFreq",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "default" : "0"
+  }, {
+   "name" : "frequencies",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "dimensions" : "*",
+   "default" : "0.0"
+  }, {
+   "name" : "nDOF",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "default" : "0"
+  }, {
+   "name" : "nonZeroDofs",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "dimensions" : "*",
+   "default" : "true"
+  }, {
+   "name" : "realvalues",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "dimensions" : "*",
+   "default" : "0.0"
+  }, {
+   "name" : "imagValues",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "dimensions" : "*",
+   "default" : "0.0"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

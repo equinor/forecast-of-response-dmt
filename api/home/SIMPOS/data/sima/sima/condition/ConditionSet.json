@@ -1,0 +1,59 @@
+{
+ "name" : "ConditionSet",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "changeNumber",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "default" : "0"
+  }, {
+   "name" : "resultContainer",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/ResultContainer",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "selection",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/ConditionSelectable",
+   "contained" : false,
+   "optional" : true
+  }, {
+   "name" : "variableItems",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/VariableItem",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "probabilityVariable",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/DoubleVariable",
+   "contained" : false,
+   "optional" : true,
+   "description" : "Used to set a probability for single runs"
+  }, {
+   "name" : "variableItemSets",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/condition/VariableItemSet",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "inputFromFile",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "description" : "Specify variable values from file.",
+   "default" : "false"
+  }, {
+   "name" : "path",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "description" : "Import variable values from file. Expected file format:\r\n' any comment specified with '\r\n'Hs    Tp     seed : values specified in rows ( Need to match the variables specified)  \r\n1.0      2.0    3\r\n4.0      5.0    4\r\n'any comment\r\n           "
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

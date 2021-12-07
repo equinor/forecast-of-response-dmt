@@ -1,0 +1,39 @@
+{
+ "name" : "NonlinearBuoyancyCorrection",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "fileName",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "description" : "Name of geometry file (\".gdf\"-file)"
+  }, {
+   "name" : "location",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/Point3",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "minZ",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Minimum vertical range value to be used given in \".gdf\" file system",
+   "default" : "0.0"
+  }, {
+   "name" : "maxZ",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Maximum vertical range value to be used given in \".gdf\" file system",
+   "default" : "0.0"
+  }, {
+   "name" : "correctionMethod",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "enumType" : "/simo/NonlinearBuoyancyCorrectionMethod",
+   "default" : "mwl"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

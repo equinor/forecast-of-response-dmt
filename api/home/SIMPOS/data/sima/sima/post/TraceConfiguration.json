@@ -1,0 +1,57 @@
+{
+ "name" : "TraceConfiguration",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "path",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string"
+  }, {
+   "name" : "label",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "optional" : true
+  }, {
+   "name" : "color",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/SIMAColor",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "lineStyle",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "enumType" : "/post/LineStyle",
+   "default" : "solid"
+  }, {
+   "name" : "lineWidth",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "default" : "1"
+  }, {
+   "name" : "pointStyle",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "enumType" : "/post/PointStyle",
+   "default" : "none"
+  }, {
+   "name" : "showStatistics",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "default" : "true"
+  }, {
+   "name" : "pointSize",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "default" : "1"
+  }, {
+   "name" : "specifyPath",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "default" : "false"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

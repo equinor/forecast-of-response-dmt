@@ -1,0 +1,63 @@
+{
+ "name" : "Kalman",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "lineTension",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "enumType" : "/simo/KalmanLineTension",
+   "description" : "Flag for measurement of line tensions to be included in the controller",
+   "default" : "none"
+  }, {
+   "name" : "estimationMethod",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "enumType" : "/simo/KalmanEstimationMethod",
+   "description" : "Estimation method flag",
+   "default" : "current"
+  }, {
+   "name" : "WFStartingPeriod",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Starting period for wave frequency estimation",
+   "default" : "0.0"
+  }, {
+   "name" : "nominalVelocity",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Nominal velocity, used when linearizing nonlinear damping forces",
+   "optional" : true
+  }, {
+   "name" : "lineCharacteristicItems",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/LineCharacteristicItem",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "hawserForceMeasurements",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/HawserForceMeasurement",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "stiffnessMatrix",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/hydro/I3DOF2_Data",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "lines",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/LineMeasurementItem",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

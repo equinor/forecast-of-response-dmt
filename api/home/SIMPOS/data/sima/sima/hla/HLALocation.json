@@ -1,0 +1,77 @@
+{
+ "name" : "HLALocation",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "initialViewpoint",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/InitialViewpoint",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "initialRotationpoint",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/Point3",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "viewpoints",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/NamedViewpoint",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "relativeCompassAngle",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Relative angle between analysis x-axis and north direction in anti-clockwise direction",
+   "default" : "0.0"
+  }, {
+   "name" : "utmX",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Offset of local coordinate system origin (X) relative to UTM (Easting).",
+   "default" : "0.0"
+  }, {
+   "name" : "utmY",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Offset of local coordinate system origin (Y) relative to UTM (Northing).",
+   "default" : "0.0"
+  }, {
+   "name" : "gridZone",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "description" : "Zone consists of a number from [01-60] and a letter from [C-Z], or just one of [A,B,Y,Z] if on the antarctic or arctic pole."
+  }, {
+   "name" : "infrastructureBodies",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/InfrastructureBody",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "seaSurface",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/environment/SeaSurface",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "flatBottom",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/FlatBottom",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "sim3DBottom",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/hla/SIM3DBottom",
+   "contained" : true,
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

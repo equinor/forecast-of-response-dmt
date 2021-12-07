@@ -1,0 +1,39 @@
+{
+ "name" : "ColumnConfiguration",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "path",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string"
+  }, {
+   "name" : "header",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "description" : "Column header. The default value is the header,legend or name attribute of the signal",
+   "optional" : true
+  }, {
+   "name" : "label",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "description" : "Column label. The default value is the unit of the y axis, or the label attribute, or ylabel + unit if specified",
+   "optional" : true
+  }, {
+   "name" : "format",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "description" : "Column number format. Please refer to https://docs.oracle.com/javase/tutorial/i18n/format/decimalFormat.html for a description",
+   "optional" : true,
+   "default" : "0.####E0"
+  }, {
+   "name" : "fontSize",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "description" : "Column font size. Will be used when renderin the table in a report,etc.",
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

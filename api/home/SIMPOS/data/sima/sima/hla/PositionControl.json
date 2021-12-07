@@ -1,0 +1,20 @@
+{
+ "name" : "PositionControl",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "hlaObjectId",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string"
+  }, {
+   "name" : "reference",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/Position",
+   "contained" : true,
+   "optional" : false
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

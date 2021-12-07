@@ -1,0 +1,71 @@
+{
+ "name" : "Jonswap6P",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "direction",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Average wave propagation direction",
+   "default" : "0.0"
+  }, {
+   "name" : "spreadingExponent",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Exponent  ? in cos spreading function",
+   "optional" : true
+  }, {
+   "name" : "numDirections",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "description" : "Number of directions in spreading function, must be odd",
+   "default" : "11"
+  }, {
+   "name" : "spreadingType",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "enumType" : "/environment/WaveSpreadingType",
+   "description" : "Wave spreading code",
+   "default" : "unidirectional"
+  }, {
+   "name" : "omega",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Peak frequency, ?p",
+   "default" : "0.0"
+  }, {
+   "name" : "alpha",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Spectrum parameter ?",
+   "default" : "0.008"
+  }, {
+   "name" : "beta",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Form parameter, ?",
+   "optional" : true
+  }, {
+   "name" : "gamma",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Peakedness parameter, ?",
+   "optional" : true
+  }, {
+   "name" : "sigmaa",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Spectrum parameter ?a",
+   "optional" : true
+  }, {
+   "name" : "sigmab",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Spectrum parameter ?b",
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

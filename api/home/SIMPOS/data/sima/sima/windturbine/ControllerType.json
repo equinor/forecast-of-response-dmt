@@ -1,0 +1,7 @@
+{
+ "name" : "ControllerType",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["jar_file_controller", "bladed_controller"],
+ "labels" : ["Java based controller", "Bladed style controller"]
+}
+

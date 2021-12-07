@@ -1,0 +1,7 @@
+{
+ "name" : "LoadType",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["gravity_and_buoyancy_included", "gravity_and_buoyancy_not_included"],
+ "labels" : ["Gravity and buoyancy included", "Gravity and buoyancy NOT included"]
+}
+

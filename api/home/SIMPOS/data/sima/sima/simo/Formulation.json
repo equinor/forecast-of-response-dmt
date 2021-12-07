@@ -1,0 +1,7 @@
+{
+ "name" : "Formulation",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["simo_41", "simo_40"],
+ "labels" : ["SIMO 4.1", "SIMO 4.0"]
+}
+

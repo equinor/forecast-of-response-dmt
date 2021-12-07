@@ -1,0 +1,40 @@
+{
+ "name" : "NPDWind",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "direction",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Wind propagation direction",
+   "default" : "0.0"
+  }, {
+   "name" : "profileExponent",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Wind profile exponent",
+   "optional" : true
+  }, {
+   "name" : "averageVelocity",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Average velocity at reference height",
+   "default" : "0.0"
+  }, {
+   "name" : "friction",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Surface drag coefficient.\r\nAlso used for transverse gust spectrum, if specified in DYNMOD.",
+   "optional" : true
+  }, {
+   "name" : "referenceHeight",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Reference height for wind velocity, fixed = 10 m.",
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

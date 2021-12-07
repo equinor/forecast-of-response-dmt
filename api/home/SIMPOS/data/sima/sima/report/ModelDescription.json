@@ -1,0 +1,21 @@
+{
+ "name" : "ModelDescription",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "object",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/MOAO",
+   "contained" : false,
+   "optional" : true
+  }, {
+   "name" : "caption",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "description" : "Caption"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

@@ -1,0 +1,23 @@
+{
+ "name" : "GuidePointSpecification",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "guidePoint",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/GuidePoint",
+   "contained" : false,
+   "optional" : false,
+   "description" : "Guide point"
+  }, {
+   "name" : "enteredOnLine",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "description" : "Guide point entered on line",
+   "default" : "true"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

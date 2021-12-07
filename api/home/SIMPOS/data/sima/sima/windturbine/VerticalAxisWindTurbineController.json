@@ -1,0 +1,115 @@
+{
+ "name" : "VerticalAxisWindTurbineController",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "sampleInterval",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Controller sample interval",
+   "default" : "0.0"
+  }, {
+   "name" : "startupLength",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Length of time for using start-up control logic",
+   "default" : "0.0"
+  }, {
+   "name" : "filterPeriodRotorSpeed",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Filter period for 1st order LP filter for rotor speed",
+   "default" : "0.0"
+  }, {
+   "name" : "filterPeriodWindSpeed",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Filter period for 1st order LP filter for wind speed",
+   "default" : "0.0"
+  }, {
+   "name" : "filterRadialFrequency",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Radial frequency removed by notch filter. For value < 0 no notch filter will be applied",
+   "default" : "0.0"
+  }, {
+   "name" : "notchFilterWidth",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Width parameter in notch filter",
+   "default" : "0.0"
+  }, {
+   "name" : "gearBoxRatio",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Gear box ratio (N rotations of high speed shaft for one roation of the low speed shaft, i.e. generator versus rotor)",
+   "default" : "0.0"
+  }, {
+   "name" : "maxTorque",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Maximum torque",
+   "default" : "0.0"
+  }, {
+   "name" : "maxTorqueRate",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Maximum torque rate",
+   "default" : "0.0"
+  }, {
+   "name" : "proportionalGain",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Proportional gain K that will be used for zero blade pitch angle",
+   "default" : "0.0"
+  }, {
+   "name" : "initialIntegratorGainRatio",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Initial value of integrator gain",
+   "default" : "0.0"
+  }, {
+   "name" : "finalIntegratorGainRatio",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Final value of integrator gain",
+   "default" : "0.0"
+  }, {
+   "name" : "integratorRelaxationTime",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Time period for relaxing the integrator gain after the startup period",
+   "default" : "0.0"
+  }, {
+   "name" : "windRotorSpeed",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "enumType" : "/windturbine/TableFormat",
+   "description" : "Wind speed / rotor speed table",
+   "default" : "default"
+  }, {
+   "name" : "gainScheduling",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string",
+   "enumType" : "/windturbine/TableFormat",
+   "default" : "default"
+  }, {
+   "name" : "windRotorSpeedItems",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/windturbine/WindRotorSpeedItem",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "gainSchedulingItems",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/windturbine/GainSchedulingItem",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

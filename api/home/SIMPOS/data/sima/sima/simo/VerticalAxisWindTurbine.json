@@ -1,0 +1,77 @@
+{
+ "name" : "VerticalAxisWindTurbine",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "controller",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/windturbine/VerticalAxisWindTurbineController",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "momentCoupling",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/MomentCoupling",
+   "contained" : false,
+   "optional" : false
+  }, {
+   "name" : "referenceHeight",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Reference height for calculation of wind",
+   "default" : "0.0"
+  }, {
+   "name" : "windArea",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Wind area admittance function",
+   "default" : "0.0"
+  }, {
+   "name" : "radius",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Blade radius at lowest node",
+   "default" : "0.0"
+  }, {
+   "name" : "elevation",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Elevation of the lowest node",
+   "default" : "0.0"
+  }, {
+   "name" : "offset",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Tangential offset of the first blade node",
+   "default" : "0.0"
+  }, {
+   "name" : "bladeItems",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/VerticalBladeItem",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "numBlades",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "description" : "Number of blades",
+   "default" : "0"
+  }, {
+   "name" : "numAzimuthalElements",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "description" : "Number of azimuthal elements for aerodynamic calculation",
+   "default" : "0"
+  }, {
+   "name" : "prandtlFactor",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Prandtl factor",
+   "default" : "-1.0"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

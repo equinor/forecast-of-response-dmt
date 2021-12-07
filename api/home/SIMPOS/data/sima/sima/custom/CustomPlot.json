@@ -1,0 +1,25 @@
+{
+ "name" : "CustomPlot",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "output",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/post/OutputNode",
+   "contained" : false,
+   "optional" : true
+  }, {
+   "name" : "path",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string"
+  }, {
+   "name" : "showTree",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "default" : "false"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

@@ -1,0 +1,7 @@
+{
+ "name" : "Orientation",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["portrait", "landscape"],
+ "labels" : ["Portrait", "Landscape"]
+}
+

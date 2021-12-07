@@ -1,0 +1,23 @@
+{
+ "name" : "ModelInputSlot",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "reference",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/condition/ModelReferenceVariable",
+   "contained" : false,
+   "optional" : true,
+   "description" : "Model reference to be replaced"
+  }, {
+   "name" : "replaceChildren",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "description" : "If checked the children of the reference will replaced",
+   "default" : "false"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

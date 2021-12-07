@@ -1,0 +1,27 @@
+{
+ "name" : "TableColumn",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "header",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "string"
+  }, {
+   "name" : "headerStyle",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/report/TableCellStyle",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "cells",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/report/TableCell",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

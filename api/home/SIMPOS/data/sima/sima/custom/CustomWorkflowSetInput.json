@@ -1,0 +1,16 @@
+{
+ "name" : "CustomWorkflowSetInput",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "workflowSet",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/workflow/WorkflowSetNode",
+   "contained" : false,
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

@@ -1,0 +1,17 @@
+{
+ "name" : "FrequencyDomainBodyItem",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "body",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/simo/SIMOBody",
+   "contained" : false,
+   "optional" : true,
+   "description" : "Selected body to compute eigenvalues for"
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

@@ -1,0 +1,7 @@
+{
+ "name" : "EquilibriumGridType",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["roll_and_pitch_angles", "azimuth_and_rotation_angles", "azimuth_vector_comoponents"],
+ "labels" : ["Roll and pitch angles", "Azimuth and rotation angles", "Azimuth vector components"]
+}
+

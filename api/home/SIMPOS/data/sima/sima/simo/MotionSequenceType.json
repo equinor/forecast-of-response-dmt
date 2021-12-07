@@ -1,0 +1,7 @@
+{
+ "name" : "MotionSequenceType",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["tstop", "deltapos", "vseq"],
+ "labels" : ["Compute stop time", "Compute change in position during sequence", "Compute sequence travelling speed"]
+}
+

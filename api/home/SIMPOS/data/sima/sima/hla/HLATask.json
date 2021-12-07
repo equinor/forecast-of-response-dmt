@@ -1,0 +1,89 @@
+{
+ "name" : "HLATask",
+ "type" : "system/SIMOS/Blueprint",
+ "abstract" : false,
+ "extends" : ["/NamedEntity"],
+ "attributes" : [{
+   "name" : "doubleVariables",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/DoubleVariable",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "integerVariables",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/IntegerVariable",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "stringVariables",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/StringVariable",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "runNumber",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "integer",
+   "default" : "0"
+  }, {
+   "name" : "scripts",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/sima/SIMAScript",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "model",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/hla/HLAModel",
+   "contained" : true,
+   "optional" : false
+  }, {
+   "name" : "federates",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/hla/HLAFederate",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "accelerationFactor",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "number",
+   "description" : "Acceleration factor. (1 means real time)",
+   "default" : "1.0"
+  }, {
+   "name" : "restartAutomatically",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "boolean",
+   "description" : "If automatic restart is checked, the HLA federation will be restarted when it ends (even if it ends because of an error)",
+   "default" : "false"
+  }, {
+   "name" : "dataTables",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/hla/HLADataTable",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "plots",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/hla/HLASignalPlot",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }, {
+   "name" : "controlPanels",
+   "type" : "system/SIMOS/BlueprintAttribute",
+   "attributeType" : "/hla/ControlPanel",
+   "dimensions" : "*",
+   "contained" : true,
+   "optional" : true
+  }],
+ "storageRecipes" : [],
+ "uiRecipes" : []
+}
+

@@ -1,0 +1,7 @@
+{
+ "name" : "HeadingReference",
+ "type" : "system/SIMOS/Enum",
+ "values" : ["tangential", "fixed"],
+ "labels" : ["Tangential to path", "Globally fixed"]
+}
+
