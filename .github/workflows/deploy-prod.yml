@@ -23,7 +23,15 @@ jobs:
       - name: "Build API"
         run: docker build --cache-from ${API_IMAGE}:latest --tag ${API_IMAGE}:${GITHUB_REF#refs/*/} api
       - name: "Build Web"
-        run: docker build --build-arg REDIRECT_URI=https://forecast-of-response.app.radix.equinor.com/ --build-arg AUTH_ENABLED=1 --build-arg AUTH_SCOPE=api://ee7dbf49-e358-4c9c-a7e4-fb6d56c02205/FoR_test_scope --build-arg CLIENT_ID=ee7dbf49-e358-4c9c-a7e4-fb6d56c02205 --cache-from ${WEB_IMAGE}:latest --tag ${WEB_IMAGE}:${GITHUB_REF#refs/*/} web
+        run: |
+          docker build \
+          --build-arg REDIRECT_URI=https://forecast-of-response.app.radix.equinor.com/ \
+          --build-arg AUTH_ENABLED=1 \
+          --build-arg AUTH_SCOPE=api://ee7dbf49-e358-4c9c-a7e4-fb6d56c02205/FoR_test_scope \
+          --build-arg CLIENT_ID=ee7dbf49-e358-4c9c-a7e4-fb6d56c02205 \
+          --cache-from ${WEB_IMAGE}:latest \
+          --tag ${WEB_IMAGE}:${GITHUB_REF#refs/*/} \
+          web
       - name: "Push Docker images"
         run: docker push ${API_IMAGE}:${GITHUB_REF#refs/*/} && docker push ${WEB_IMAGE}:${GITHUB_REF#refs/*/}
 
