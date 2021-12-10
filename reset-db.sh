@@ -345,7 +345,7 @@ function build_images() {
 
 function dmss_reset_app() {
   echo "Resetting DMSS.."
-  docker-compose run --rm -e SECRET_KEY="$SECRET_KEY" dmss reset-app
+  docker-compose run --rm -e SECRET_KEY="$SECRET_KEY" -e MONGO_AZURE_URI="$MONGO_AZURE_URI" dmss reset-app
 }
 
 function api_reset_app() {
