@@ -43,7 +43,7 @@ function calculateMapCenter(
 const Dashboard = (): JSX.Element => {
   const { token } = useContext(AuthContext)
   const dmssAPI = new DmssAPI(token)
-  const [loading, setLoading] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(true)
   const [coordinates, setCoordinates] = useState<CoordinateTuple[]>()
   const [comments, commentsLoading, commentsError] = useSearch(
     Blueprints.Comment
@@ -56,7 +56,6 @@ const Dashboard = (): JSX.Element => {
   useEffect(() => {
     if (operationsLoading) return
     if (operationsError || commentsError) return
-    setLoading(true)
     Promise.all(
       operations.map(
         (operation: TOperation): CoordinateTuple => {
@@ -65,7 +64,7 @@ const Dashboard = (): JSX.Element => {
               dataSourceId: DEFAULT_DATASOURCE_ID,
               documentId: operation.location._id,
             })
-            .then((document): any => {
+            .then((document: any) => {
               const location = document
               return [
                 location.lat,
