@@ -26,6 +26,7 @@ spec:
         - SCHEDULER_REDIS_PASSWORD
         - SIMA_LICENSE
       variables:
+        JOB_SERVICE_ENABLED: 1
         SCHEDULER_REDIS_PORT: 6380
         SCHEDULER_REDIS_SSL: "true"
         DMSS_API: http://dmss:5000

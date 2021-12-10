@@ -10,7 +10,8 @@ services:
     depends_on:
       - dmss
     environment:
-      LOGGING_LEVEL: WARNING
+      JOB_SERVICE_ENABLED: 1
+      LOGGING_LEVEL: DEBUG
       ENVIRONMENT: local
       DMSS_API: http://dmss:5000
       # Used for callback from Azure Container Job
@@ -70,8 +71,8 @@ services:
     environment:
 #      MONGO_AZURE_URI: ${MONGO_AZURE_URI}
       SECRET_KEY: ${SECRET_KEY}
-      LOGGING_LEVEL: "warning"
-#      LOGGING_LEVEL: "debug"
+#      LOGGING_LEVEL: "warning"
+      LOGGING_LEVEL: "debug"
       ENVIRONMENT: ${DMSS_ENVIRONMENT:-local}
 #      AUTH_ENABLED: "True"
       AUTH_ENABLED: "False"
