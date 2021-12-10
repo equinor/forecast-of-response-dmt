@@ -41,6 +41,18 @@ function print_help() {
     "
 }
 
+function setup_colors() {
+  if [[ -t 2 ]] && [[ -z "${NO_COLOR-}" ]] && [[ "${TERM-}" != "dumb" ]]; then
+    NOFORMAT='\033[0m' RED='\033[0;31m' GREEN='\033[0;32m' ORANGE='\033[0;33m' BLUE='\033[0;34m' PURPLE='\033[0;35m' CYAN='\033[0;36m' YELLOW='\033[1;33m'
+  else
+    NOFORMAT='' RED='' GREEN='' ORANGE='' BLUE='' PURPLE='' CYAN='' YELLOW=''
+  fi
+}
+
+msg() {
+  echo >&2 -e "${1-}"
+}
+
 for i in "$@"; do
   case $i in
     -h)
@@ -144,13 +156,16 @@ function set_env_vars() {
       echo "Generating new DMSS SECRET_KEY.."
       create_key_output=$(docker-compose run --rm dmss create-key)
       SECRET_KEY=$(echo "$create_key_output" | tail -n 1)
-      echo "  =============================="
-      echo "  New SECRET_KEY: $SECRET_KEY   "
-      echo "  Make sure to add it to Radix! "
-      echo "  =============================="
       echo "SECRET_KEY=$SECRET_KEY" > "$sk_outfile_name"
       chmod "$sk_outfile_perms" "$sk_outfile_name"
       echo "Wrote secret key to '$sk_outfile_name' with permissions '$sk_outfile_perms'"
+      echo " /==========================================\ "
+      echo "/               NEW SECRET KEY               \\"
+      msg "${ORANGE} $SECRET_KEY ${NOFORMAT}"
+      echo "\       Make sure to add it to Radix!        /"
+      echo " \==========================================/"
+      msg "${ORANGE}BEFORE CONTINUING, please do the following:\n1. Update the 'SECRET_KEY' secret of the DMSS app in the Radix environment you wish to reset.\n2. Restart the DMSS service in Radix.\n${NOFORMAT}"
+      read -p "Once DMSS has restarted, press [Return] to continue" </dev/tty
     fi
 }
 
@@ -330,7 +345,7 @@ function build_images() {
 
 function dmss_reset_app() {
   echo "Resetting DMSS.."
-  docker-compose run --rm -e SECRET_KEY="$SECRET_KEY" dmss reset-app
+  docker-compose run --rm -e SECRET_KEY="$SECRET_KEY" -e MONGO_AZURE_URI="$MONGO_AZURE_URI" dmss reset-app
 }
 
 function api_reset_app() {
@@ -372,7 +387,7 @@ function main() {
   build_images
   dmss_reset_app
   api_reset_app
-  #cleanup
 }
 
+setup_colors
 main
