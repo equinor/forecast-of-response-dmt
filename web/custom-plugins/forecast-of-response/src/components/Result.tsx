@@ -8,6 +8,9 @@ import { plotColors } from './Design/Colors'
 import { DEFAULT_DATASOURCE_ID } from '../const'
 import { StyledSelect } from './Input'
 import { IconWrapper } from './Other'
+import DirectionPlot from './Plots/DirectionPlot'
+import LinesOverTimeVictory from './Plots/LinesOverTimeVictory'
+import ArrowPlots from './Plots/ArrowPlots'
 
 const ResultWrapper = styled.div`
   display: flex;
@@ -23,7 +26,6 @@ const AddedGraphWrapper = styled.div`
 
 const GraphSelectorWrapper = styled.div`
   display: flex;
-  margin: 15px 15px;
 `
 
 function GraphSelect(props: {
@@ -90,7 +92,12 @@ function GraphSelect(props: {
 
     setGraphInfo([
       ...graphInfo,
-      { name: plotName, plotType: result?.plotType, description: description },
+      {
+        name: plotName,
+        plotType: result?.plotType,
+        unit: result?.unit,
+        description: description,
+      },
     ])
     setChartData(Object.values(newDataDict))
   }
@@ -120,7 +127,10 @@ function GraphSelect(props: {
           )
         )}
       </StyledSelect>
-      <Button style={{ width: '120px' }} onClick={() => addGraph()}>
+      <Button
+        style={{ width: '120px', marginLeft: '10px' }}
+        onClick={() => addGraph()}
+      >
         Add graph
       </Button>
     </GraphSelectorWrapper>
@@ -130,10 +140,12 @@ function GraphSelect(props: {
 export enum PlotType {
   SHADED = 'shaded',
   LINE = 'line',
+  ARROW = 'arrow',
 }
 
 export type TGraphInfo = {
   name: string
+  unit: string
   plotType: PlotType
   description: string
 }
@@ -202,7 +214,8 @@ export default (props: { result: any }) => {
           </AddedGraphWrapper>
         )}
       </div>
-      <LinesOverTime data={chartData} graphNames={graphInfo} />
+      <LinesOverTime data={chartData} graphInfo={graphInfo} />
+      <ArrowPlots data={chartData} graphInfo={graphInfo} />
     </ResultWrapper>
   )
 }

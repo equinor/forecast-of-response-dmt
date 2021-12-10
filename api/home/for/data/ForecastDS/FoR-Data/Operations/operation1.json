@@ -124,8 +124,8 @@
             },
             {
               "type": "ForecastDS/FoR-BP/Blueprints/ResultFile",
-              "_id": "cf81daa9-9787-462e-b92b-104f71b80712",
-              "name": "ShouldBeRemoved_result"
+              "_id": "cf81daa9-9787-462e-b92b-104f71b80713",
+              "name": "result_weather_data"
             }
           ],
           "variables": [

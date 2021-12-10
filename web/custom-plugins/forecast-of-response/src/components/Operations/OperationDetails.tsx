@@ -154,13 +154,14 @@ export default (props: { operation: TOperation }): JSX.Element => {
               <Table.Cell>
                 <FlexWrapper>
                   None
-                  <StatusDot status={'None'} />
+                  <StatusDot status={undefined} />
                 </FlexWrapper>
               </Table.Cell>
             </Table.Row>
           )}
         </Table.Body>
       </Table>
+
       <h4>Comments</h4>
       <CommentsWrapper>
         {comments.map((comment: TComment, index: number) => (
