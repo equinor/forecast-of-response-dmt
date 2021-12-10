@@ -56,6 +56,7 @@ spec:
         - MONGO_AZURE_URI
         - SECRET_KEY
       variables:
+        LOGGING_LEVEL: "debug"
         AUTH_ENABLED: "True"
         ENVIRONMENT: production
         OAUTH_WELL_KNOWN: https://login.microsoftonline.com/3aa4a235-b6e2-48d5-9195-7fcf05b459b0/v2.0/.well-known/openid-configuration
