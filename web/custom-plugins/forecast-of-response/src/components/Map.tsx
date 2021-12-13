@@ -8,6 +8,7 @@ export const StyledMapContainer = styled(MapContainer)`
   height: 100%;
   width: 100%;
   border: darkgrey 1px solid;
+  z-index: 1;
 `
 
 const ClickMarkerColor = '#f68506'

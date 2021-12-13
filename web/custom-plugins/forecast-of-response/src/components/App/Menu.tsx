@@ -49,6 +49,7 @@ export default (props: { appRootPath: string }): JSX.Element => {
         <Menu.Item
           key={menuUrl[1]}
           icon={<Icon name="library" size={iconSize} />}
+          disabled={true}
         >
           <Link
             to={{ pathname: menuUrl[1], state: { menuCollapsed: collapsed } }}

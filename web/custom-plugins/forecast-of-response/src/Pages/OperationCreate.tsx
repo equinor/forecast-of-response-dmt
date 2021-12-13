@@ -277,7 +277,7 @@ const OperationCreate = (): JSX.Element => {
             }}
           />
           <Wrapper>
-            <Heading text="Time periode" variant="h4" />
+            <Heading text="Time period" variant="h4" />
             <DateRangePicker
               setDateRange={(dateRange: Date[]) => {
                 setError(undefined)
