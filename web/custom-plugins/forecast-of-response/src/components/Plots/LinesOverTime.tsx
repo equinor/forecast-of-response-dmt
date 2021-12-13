@@ -32,14 +32,6 @@ const CustomCheckbox = styled(Checkbox)`
   }
 `
 
-type RotatedArrowProps = {
-  datum: any
-  x: number
-  y: number
-  attributeNameForData: string
-  color: string
-}
-
 export default (props: {
   data: TLineChartDataPoint[]
   graphInfo: TGraphInfo[]
@@ -62,67 +54,6 @@ export default (props: {
   const chartWidth: number = 800
   const plotHeight: number = 200
   //TODO: Read threshold values from result file
-
-  const getVictoryLine = (
-    graphInfo: TGraphInfo,
-    index: number,
-    plotData: TLineChartDataPoint[]
-  ) => {
-    return (
-      <VictoryLine
-        key={index}
-        interpolation="natural"
-        style={{
-          data: { stroke: plotColors[index], strokeWidth: 1 },
-        }}
-        data={plotData}
-        y={graphInfo.name}
-        x={'timestamp'}
-      />
-    )
-  }
-  //todo fix types any
-  const getVictoryLineScatterPlot = (
-    plotData: any,
-    style: any,
-    graphInfo: any
-  ) => {
-    return (
-      <VictoryScatter
-        data={plotData}
-        style={style}
-        size={1.5}
-        y={graphInfo.name}
-        x={'timestamp'}
-        labels={({ datum }) => {
-          return `${datum.timestamp} \n ${graphInfo.name}: ${datum[
-            graphInfo.name
-          ].toFixed(2)} ${graphInfo.unit}`
-        }}
-        labelComponent={victoryTooltip} //
-      />
-    )
-  }
-  //size, label, labelcomponent
-  const getVictoryAreaScatterPlot = (
-    plotData: any,
-    style: any,
-    graphInfo: any
-  ) => {
-    return (
-      <VictoryScatter
-        size={0}
-        data={plotData}
-        style={style}
-        labels={({ datum }) => {
-          return `${datum.x} \n ${graphInfo.name}: ${datum.y0.toFixed(
-            2
-          )} - ${datum.y.toFixed(2)}  ${graphInfo.unit}`
-        }}
-        labelComponent={viewTooltipForShadedPlot ? victoryTooltip : <div />}
-      />
-    )
-  }
 
   const getAreaPlotData = (
     data: TLineChartDataPoint[],
@@ -160,23 +91,6 @@ export default (props: {
     }
   }
 
-  const getVictoryAreaPlot = (plotData: any, index: number) => {
-    return (
-      <VictoryArea
-        data={plotData}
-        interpolation="natural"
-        style={{
-          data: {
-            fill: plotColors[index],
-            fillOpacity: 0.6,
-            stroke: plotColors[index],
-            strokeWidth: 1,
-          },
-        }}
-      />
-    )
-  }
-
   return (
     <div
       style={{
@@ -207,10 +121,34 @@ export default (props: {
         {graphInfo &&
           graphInfo.map((graphInfo: TGraphInfo, index) => {
             if (graphInfo.plotType === PlotType.LINE) {
-              return getVictoryLine(graphInfo, index, data)
+              return (
+                <VictoryLine
+                  key={index}
+                  interpolation="natural"
+                  style={{
+                    data: { stroke: plotColors[index], strokeWidth: 1 },
+                  }}
+                  data={data}
+                  y={graphInfo.name}
+                  x={'timestamp'}
+                />
+              )
             } else if (graphInfo.plotType === PlotType.SHADED) {
               const plotData = getAreaPlotData(data, graphInfo)
-              return getVictoryAreaPlot(plotData, index)
+              return (
+                <VictoryArea
+                  data={plotData}
+                  interpolation="natural"
+                  style={{
+                    data: {
+                      fill: plotColors[index],
+                      fillOpacity: 0.6,
+                      stroke: plotColors[index],
+                      strokeWidth: 1,
+                    },
+                  }}
+                />
+              )
             } else {
               return <div></div>
             }
@@ -220,18 +158,38 @@ export default (props: {
           graphInfo.map((graphInfo: TGraphInfo, index) => {
             if (graphInfo.plotType === PlotType.LINE) {
               const linePlotScatterStyle = getScatterStyle(plotColors[index], 6)
-              return getVictoryLineScatterPlot(
-                data,
-                linePlotScatterStyle,
-                graphInfo
+              return (
+                <VictoryScatter
+                  data={data}
+                  style={linePlotScatterStyle}
+                  size={1.5}
+                  y={graphInfo.name}
+                  x={'timestamp'}
+                  labels={({ datum }) => {
+                    return `${datum.timestamp} \n ${graphInfo.name}: ${datum[
+                      graphInfo.name
+                    ].toFixed(2)} ${graphInfo.unit}`
+                  }}
+                  labelComponent={victoryTooltip} //
+                />
               )
             } else if (graphInfo.plotType === PlotType.SHADED) {
               const plotData = getAreaPlotData(data, graphInfo)
               const scatterPlotStyle = getScatterStyle(plotColors[index], 4)
-              return getVictoryAreaScatterPlot(
-                plotData,
-                scatterPlotStyle,
-                graphInfo
+              return (
+                <VictoryScatter
+                  size={0}
+                  data={plotData}
+                  style={scatterPlotStyle}
+                  labels={({ datum }) => {
+                    return `${datum.x} \n ${graphInfo.name}: ${datum.y0.toFixed(
+                      2
+                    )} - ${datum.y.toFixed(2)}  ${graphInfo.unit}`
+                  }}
+                  labelComponent={
+                    viewTooltipForShadedPlot ? victoryTooltip : <div />
+                  }
+                />
               )
             } else {
               return <div></div>
