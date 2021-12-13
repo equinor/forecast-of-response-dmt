@@ -41,16 +41,8 @@
             }
       ],
       "status": "Ongoing",
-      "activeForecast": {
-        "name": "test1",
-        "type": "ForecastDS/FoR-BP/Blueprints/Simulation",
-        "description": "",
-        "progress": "Running",
-        "result": {},
-        "started": "2021-06-27 13:45:37.352574",
-        "ended": "2021-06-27 13:45:37.352574"
-      },
       "workflowTask": "someTask",
+      "workflow": "myWorkflow",
       "simulationConfigs": [{
         "name": "test1config",
         "type": "ForecastDS/FoR-BP/Blueprints/SimulationConfig",

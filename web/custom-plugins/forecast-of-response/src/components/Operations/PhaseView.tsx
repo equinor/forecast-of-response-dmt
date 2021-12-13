@@ -1,9 +1,9 @@
 import React, { useContext, useState } from 'react'
 import {
+  TBlob,
   TCronJob,
   TPhase,
   TSimulationConfig,
-  TStask,
   TVariable,
 } from '../../Types'
 import {
@@ -208,10 +208,19 @@ function NewSimulationConfig(props: {
 function SingleSimulationConfig(props: {
   simulationConfig: TSimulationConfig
   dottedId: string
-  stask: TStask
+  stask: TBlob
   publishSimulation: Function
+  simaTask: string
+  simaWorkflow: string
 }) {
-  const { simulationConfig, dottedId, stask, publishSimulation } = props
+  const {
+    simulationConfig,
+    dottedId,
+    stask,
+    publishSimulation,
+    simaTask,
+    simaWorkflow,
+  } = props
   const [selectedJob, setSelectedJob] = useState<number>(0)
   const [selectedResult, setSelectedResult] = useState<number>(0)
   const [loadingJob, setLoadingJob] = useState<boolean>(false)
@@ -220,9 +229,8 @@ function SingleSimulationConfig(props: {
     false
   )
   const [cronJob, setCronJob] = useState<any>({ ...simulationConfig?.cronJob })
-  // Reverse these two lists, so to show newest first
-  const [jobs, setJobs] = useState<any[]>([...simulationConfig.jobs].reverse())
-  const results = [...simulationConfig.results].reverse()
+  const [jobs, setJobs] = useState<any[]>([...simulationConfig.jobs])
+  const results = [...simulationConfig.results]
 
   const [viewJobDetails, setViewJobDetails] = useState<boolean>(false)
 
@@ -261,9 +269,13 @@ function SingleSimulationConfig(props: {
     setLoadingJob(true)
     removeCronJob()
     const cronJob = createContainerJob(
-      `${DEFAULT_DATASOURCE_ID}/${stask.blob._blob_id}`,
-      stask.workflowTask,
-      `${DEFAULT_DATASOURCE_ID}/${dottedId}.results`,
+      `${DEFAULT_DATASOURCE_ID}/${stask.blob._blob_id}`, // STask
+      simaTask, //Sima task in STask
+      simaWorkflow, // Sima workflow in task
+      true, // Use remote compute service
+      `${dottedId.substring(0, dottedId.indexOf('.'))}.SIMAComputeConnectInfo`, // Id of compute cfg
+      dottedId, // Reference to Sima job input entity
+      `${DEFAULT_DATASOURCE_ID}/${dottedId}.results`, // Reference for results upload destination
       cronValue
     )
     dmssAPI.generatedDmssApi
@@ -309,9 +321,13 @@ function SingleSimulationConfig(props: {
   function saveAndStartJob() {
     setLoadingJob(true)
     const newJob: any = createContainerJob(
-      `${DEFAULT_DATASOURCE_ID}/${stask.blob._blob_id}`,
-      stask.workflowTask,
-      `${DEFAULT_DATASOURCE_ID}/${dottedId}.results`
+      `${DEFAULT_DATASOURCE_ID}/${stask._blob_id}`, // STask
+      simaTask, //Sima task in STask
+      simaWorkflow, // Sima workflow in task
+      true, // Use remote compute service
+      `${dottedId.substring(0, dottedId.indexOf('.'))}.SIMAComputeConnectInfo`, // Id of compute cfg
+      dottedId, // Reference to Sima job input entity
+      `${DEFAULT_DATASOURCE_ID}/${dottedId}.results` // Reference for results upload destination
     )
     dmssAPI.generatedDmssApi
       .explorerAdd({
@@ -473,9 +489,18 @@ function SimulationConfigList(props: {
   setSimulationConfigs: (simConfig: TSimulationConfig[]) => void
   simulationConfigs: TSimulationConfig[]
   dottedId: string
-  stask: TStask
+  stask: TBlob
+  simaTask: string
+  simaWorkflow: string
 }) {
-  const { setSimulationConfigs, simulationConfigs, dottedId, stask } = props
+  const {
+    setSimulationConfigs,
+    simulationConfigs,
+    dottedId,
+    stask,
+    simaTask,
+    simaWorkflow,
+  } = props
   const { token } = useContext(AuthContext)
   const dmssAPI = new DmssAPI(token)
 
@@ -519,6 +544,8 @@ function SimulationConfigList(props: {
                   dottedId={`${dottedId}.${index}`}
                   stask={stask}
                   publishSimulation={publishSimulation}
+                  simaTask={simaTask}
+                  simaWorkflow={simaWorkflow}
                 />
               </Accordion.Panel>
             </Accordion.Item>
@@ -532,7 +559,7 @@ function SimulationConfigList(props: {
 export default (props: {
   phase: TPhase
   dottedId: string
-  stask: TStask
+  stask: TBlob
 }): JSX.Element => {
   const { phase, dottedId, stask } = props
   const [visibleCreateSimScrim, setVisibleCreateSimScrim] = useState(false)
@@ -584,6 +611,8 @@ export default (props: {
         simulationConfigs={simulationConfigs}
         dottedId={`${dottedId}.simulationConfigs`}
         stask={stask}
+        simaTask={phase.workflowTask}
+        simaWorkflow={phase.workflow}
       />
     </>
   )

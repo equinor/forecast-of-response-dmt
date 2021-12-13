@@ -7,6 +7,8 @@
     {
       "name": "phase1",
       "type": "ForecastDS/FoR-BP/Blueprints/Phase",
+      "workflowTask": "someTask",
+      "workflow": "myWorkflow",
       "defaultVariables": [
                                 {
               "type": "ForecastDS/FoR-BP/Blueprints/Variable",
@@ -36,8 +38,7 @@
               "valueType":  "string",
               "unit": "VariableUnit"
             }
-      ],
-      "workflowTask": "someTask"
+      ]
     }
   ]
  }

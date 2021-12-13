@@ -68,6 +68,8 @@ export type TSimulationConfig = {
 export type TPhase = {
   simulationConfigs?: TSimulationConfig[]
   name: string
+  workflowTask: string
+  workflow: string
   start?: Date
   end?: Date
   status?: OperationStatus
@@ -87,17 +89,13 @@ export type TBlob = {
   name: string
   type: string
 }
-export type TStask = {
-  workflowTask: string
-  blob: TBlob
-}
 
 export type TOperation = {
   _id?: string
   type?: string
   name: string
   label: string
-  stask: TStask
+  stask: TBlob
   description?: string
   creator: string
   start?: Date

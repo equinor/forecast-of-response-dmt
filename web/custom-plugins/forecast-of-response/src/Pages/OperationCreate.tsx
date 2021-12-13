@@ -118,13 +118,8 @@ const createOperationEntity = (
     description: config.description,
     type: Blueprints.OPERATION,
     stask: {
-      type: Blueprints.STASK,
       name: stask.name,
-      workflowTask: '',
-      blob: {
-        name: stask.name,
-        type: 'system/SIMOS/Blob',
-      },
+      type: 'system/SIMOS/Blob',
     },
     creator: user,
     location: location,
