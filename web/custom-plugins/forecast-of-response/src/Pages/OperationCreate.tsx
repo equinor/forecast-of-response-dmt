@@ -18,7 +18,7 @@ import { getUsername } from '../utils/auth'
 const CreateOperationWrapper = styled.div`
   justify-content: space-between;
   display: flex;
-  height: 700px;
+  height: 800px;
 `
 
 const MapWrapper = styled.div`
@@ -36,7 +36,7 @@ const InputGroupWrapper = styled.div`
   flex-direction: column;
   justify-content: space-between;
   height: available;
-  max-height: 700px;
+  max-height: 800px;
   margin: 0 50px;
   width: 80%;
 `
@@ -199,13 +199,13 @@ const onClickCreate = (
               })
           } else {
             console.error(err)
-            setError('An error occurred')
+            setError(`An error occurred (${err}) `)
           }
         })
     })
     .catch((err: any) => {
       console.error(err)
-      setError('An error occurred') // TODO: Improve
+      setError(`An error occurred (${err})`) // TODO: Improve
     })
 }
 
@@ -218,7 +218,7 @@ const OperationCreate = (): JSX.Element => {
     label: '',
     dateRange: [],
   })
-
+  //todo add option to create label for an operation
   const [isNewEntity, setIsNewEntity] = useState<{
     location: boolean
     config: boolean
@@ -231,6 +231,7 @@ const OperationCreate = (): JSX.Element => {
   >()
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [mapClickPos, setMapClickPos] = useState<[number, number] | undefined>()
+  const [isNewLocation, setIsNewLocation] = useState(false)
 
   // TODO: Upon clicking cancel, ask for confirmation and whether it should be saved as a draft
   // TODO: Add "Save as Draft" button?
@@ -240,17 +241,53 @@ const OperationCreate = (): JSX.Element => {
     filename: string
   ) => {
     //todo the type checking can be improved... required attributes is defined in the type TConfig.
-    const hasRequiredAttirbutes =
-      'name' in newOperationConfig &&
-      'simaVersion' in newOperationConfig &&
-      'phases' in newOperationConfig
-    if (hasRequiredAttirbutes) {
-      setError(undefined)
-      setOperationConfig(newOperationConfig)
+    if (!newOperationConfig) {
+      setError('Invalid operation config.')
     } else {
-      setError(
-        `Could not parse content of the configuration file ${filename}. Do the file have all required attributes?`
-      )
+      const hasRequiredAttirbutes =
+        'name' in newOperationConfig &&
+        'simaVersion' in newOperationConfig &&
+        'phases' in newOperationConfig
+      if (hasRequiredAttirbutes) {
+        setError(undefined)
+        setOperationConfig(newOperationConfig)
+      } else {
+        setError(
+          `Could not parse content of the configuration file ${filename}. Do the file have all required attributes?`
+        )
+      }
+    }
+  }
+  const updateLocation = (newLocation: TLocation | undefined) => {
+    isValidOperationLocation(newLocation)
+    setOperationLocation(newLocation)
+  }
+
+  const isValidOperationLocation = (newLocation: TLocation | undefined) => {
+    if (newLocation && newLocation.name === '')
+      setError('Location name cannot be emtpy!')
+    if (
+      newLocation &&
+      newLocation.name !== '' &&
+      newLocation.lat &&
+      newLocation.long
+    ) {
+      setError('')
+      return true
+    } else {
+      return false
+    }
+  }
+
+  const isValidOperationMeta = () => {
+    if (
+      operationMeta &&
+      operationMeta.name !== '' &&
+      operationMeta.dateRange.length !== 0
+    ) {
+      return true
+    } else {
+      return false
     }
   }
 
@@ -264,7 +301,7 @@ const OperationCreate = (): JSX.Element => {
               const format = new RegExp('^[A-Za-z0-9-_ ]+$')
               if (!format.test(operationName)) {
                 setError(
-                  'Invalid operation name! (you cannot use any special characters).'
+                  'Invalid operation name! (you cannot have empty name or use any special characters).'
                 )
               } else {
                 setError(undefined)
@@ -277,7 +314,7 @@ const OperationCreate = (): JSX.Element => {
             }}
           />
           <Wrapper>
-            <Heading text="Time periode" variant="h4" />
+            <Heading text="Time period" variant="h4" />
             <DateRangePicker
               setDateRange={(dateRange: Date[]) => {
                 setError(undefined)
@@ -302,58 +339,61 @@ const OperationCreate = (): JSX.Element => {
           <SelectSTask setSTask={setSTask} isLoading={isLoading} />
           <SelectOperationLocation
             location={operationLocation}
-            setLocation={setOperationLocation}
+            setLocation={updateLocation}
             setIsNewLocation={(isNew: boolean) => {
               setError(undefined)
+              setIsNewLocation(isNew)
               setIsNewEntity({ ...isNewEntity, location: isNew })
             }}
             mapClickPos={mapClickPos}
           />
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+
+              marginTop: '30px',
+            }}
+          >
+            <Button
+              onClick={() => {
+                onClickCreate(
+                  operationMeta,
+                  operationLocation,
+                  operationConfig,
+                  SIMACompute,
+                  sTask,
+                  isNewEntity,
+                  setError,
+                  token,
+                  user
+                )
+              }}
+              disabled={
+                !(
+                  sTask &&
+                  isValidOperationLocation(operationLocation) &&
+                  isValidOperationMeta() &&
+                  operationConfig &&
+                  !error
+                )
+              }
+            >
+              Create operation
+            </Button>
+          </div>
         </InputGroupWrapper>
         <MapWrapper>
           <ClickableMap
             location={operationLocation}
             zoom={5}
             setClickPos={setMapClickPos}
+            disableClick={!isNewLocation}
           />
         </MapWrapper>
       </CreateOperationWrapper>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          flexDirection: 'row',
-          marginTop: '30px',
-        }}
-      >
-        <Button
-          onClick={() => {
-            onClickCreate(
-              operationMeta,
-              operationLocation,
-              operationConfig,
-              SIMACompute,
-              sTask,
-              isNewEntity,
-              setError,
-              token,
-              user
-            )
-          }}
-          disabled={
-            !(
-              sTask &&
-              operationLocation &&
-              operationMeta &&
-              operationConfig &&
-              !error
-            )
-          }
-        >
-          Create operation
-        </Button>
-      </div>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+
+      {error && <p style={{ color: 'red', paddingTop: '10px' }}>{error}</p>}
     </>
   )
 }

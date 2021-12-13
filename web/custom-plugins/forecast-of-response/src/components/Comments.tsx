@@ -42,18 +42,15 @@ const CompactCommentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding: 7px;
-  border: darkgrey 2px solid;
+  border: darkgrey 1px solid;
   border-radius: 5px;
   margin: 5px;
+  margin-bottom: 10px;
 `
 
 const CompactMessageWrapper = styled.div`
   max-height: 100px;
-  overflow-y: scroll;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
+  overflow: auto;
 `
 
 export const CompactCommentView = (props: { comment: TComment }) => {
@@ -66,7 +63,7 @@ export const CompactCommentView = (props: { comment: TComment }) => {
         </IconWrapper>
         <b>{comment.author}</b>
       </CommentHeaderWrapper>
-      <b style={{ width: 'fit-content' }}>
+      <b style={{ width: 'fit-content', paddingBottom: '5px' }}>
         {new Date(comment.date).toLocaleString(navigator.language)}
       </b>
       <div style={{ borderBottom: 'black 1px solid', width: 'fit-content' }}>
