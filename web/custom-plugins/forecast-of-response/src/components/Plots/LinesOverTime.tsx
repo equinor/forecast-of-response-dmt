@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 import { plotColors } from '../Design/Colors'
 import { PlotType, TGraphInfo } from '../Result'
@@ -7,18 +7,17 @@ import {
   VictoryAxis,
   VictoryChart,
   VictoryGroup,
-  VictoryLabel,
   VictoryLine,
   VictoryScatter,
   VictoryTheme,
   VictoryTooltip,
   VictoryVoronoiContainer,
 } from 'victory'
-import { Icon } from '@equinor/eds-core-react'
 import { Checkbox } from 'antd'
 import styled from 'styled-components'
 export type TLineChartDataPoint = {
-  name: string
+  // @ts-ignore
+  timestamp: string
   [key: string]: number | number[]
 }
 
@@ -61,12 +60,18 @@ export default (props: {
   ) => {
     const plotData = data.map((dataPoint: TLineChartDataPoint) => {
       if (Array.isArray(dataPoint[graphInfo.name])) {
+        const x = dataPoint.timestamp
+        //@ts-ignore - ok since the if check makes sure dataPoint[graphInfo.name] is an array
+        const y = dataPoint[graphInfo.name][1]
+        //@ts-ignore - ok since the if check makes sure dataPoint[graphInfo.name] is an array
+        const y0 = dataPoint[graphInfo.name][0]
         return {
-          x: dataPoint.timestamp,
-          //@ts-ignore
-          y0: dataPoint[graphInfo.name][0],
-          //@ts-ignore
-          y: dataPoint[graphInfo.name][1],
+          x: x,
+          y0: y0,
+          y: y,
+          customLabel: `${x} \n ${graphInfo.name}: ${y0.toFixed(
+            2
+          )} - ${y.toFixed(2)}  ${graphInfo.unit}`,
         }
       } else {
         throw new Error(
@@ -74,6 +79,20 @@ export default (props: {
             dataPoint[graphInfo.name]
           } to be an array)`
         )
+      }
+    })
+    return plotData
+  }
+  const getLinePlotData = (
+    data: TLineChartDataPoint[],
+    graphInfo: TGraphInfo
+  ) => {
+    const plotData = data.map((dataPoint: TLineChartDataPoint) => {
+      return {
+        ...dataPoint,
+        customLabel: `${dataPoint.timeStamp} \n ${graphInfo.name}: ${dataPoint[
+          graphInfo.name
+        ].toFixed(2)} ${graphInfo.unit}`,
       }
     })
     return plotData
@@ -108,6 +127,19 @@ export default (props: {
         height={plotHeight}
         theme={VictoryTheme.material}
         domainPadding={{ y: 15 }}
+        containerComponent={
+          <VictoryVoronoiContainer
+            labels={({ datum }) => {
+              return datum.childName === 'AreaScatter'
+                ? viewTooltipForShadedPlot
+                  ? `${datum.customLabel}`
+                  : ''
+                : `${datum.customLabel}`
+            }}
+            labelComponent={victoryTooltip}
+            voronoiBlacklist={['Line', 'Area']}
+          />
+        }
       >
         <VictoryAxis
           fixLabelOverlap={true}
@@ -121,78 +153,59 @@ export default (props: {
         {graphInfo &&
           graphInfo.map((graphInfo: TGraphInfo, index) => {
             if (graphInfo.plotType === PlotType.LINE) {
-              return (
-                <VictoryLine
-                  key={index}
-                  interpolation="natural"
-                  style={{
-                    data: { stroke: plotColors[index], strokeWidth: 1 },
-                  }}
-                  data={data}
-                  y={graphInfo.name}
-                  x={'timestamp'}
-                />
-              )
-            } else if (graphInfo.plotType === PlotType.SHADED) {
-              const plotData = getAreaPlotData(data, graphInfo)
-              return (
-                <VictoryArea
-                  data={plotData}
-                  interpolation="natural"
-                  style={{
-                    data: {
-                      fill: plotColors[index],
-                      fillOpacity: 0.6,
-                      stroke: plotColors[index],
-                      strokeWidth: 1,
-                    },
-                  }}
-                />
-              )
-            } else {
-              return <div></div>
-            }
-          })}
-
-        {graphInfo &&
-          graphInfo.map((graphInfo: TGraphInfo, index) => {
-            if (graphInfo.plotType === PlotType.LINE) {
               const linePlotScatterStyle = getScatterStyle(plotColors[index], 6)
+              const plotData = getLinePlotData(data, graphInfo)
               return (
-                <VictoryScatter
-                  data={data}
-                  style={linePlotScatterStyle}
-                  size={1.5}
-                  y={graphInfo.name}
-                  x={'timestamp'}
-                  labels={({ datum }) => {
-                    return `${datum.timestamp} \n ${graphInfo.name}: ${datum[
-                      graphInfo.name
-                    ].toFixed(2)} ${graphInfo.unit}`
-                  }}
-                  labelComponent={victoryTooltip} //
-                />
+                <VictoryGroup key={index}>
+                  <VictoryLine
+                    name={'Line'}
+                    key={index}
+                    interpolation="natural"
+                    style={{
+                      data: { stroke: plotColors[index], strokeWidth: 1 },
+                    }}
+                    data={plotData}
+                    y={graphInfo.name}
+                    x={'timestamp'}
+                  />
+                  <VictoryScatter
+                    name="LineScatter"
+                    data={plotData}
+                    style={linePlotScatterStyle}
+                    size={1.5}
+                    y={graphInfo.name}
+                    x={'timestamp'}
+                  />
+                </VictoryGroup>
               )
             } else if (graphInfo.plotType === PlotType.SHADED) {
               const plotData = getAreaPlotData(data, graphInfo)
               const scatterPlotStyle = getScatterStyle(plotColors[index], 4)
               return (
-                <VictoryScatter
-                  size={0}
-                  data={plotData}
-                  style={scatterPlotStyle}
-                  labels={({ datum }) => {
-                    return `${datum.x} \n ${graphInfo.name}: ${datum.y0.toFixed(
-                      2
-                    )} - ${datum.y.toFixed(2)}  ${graphInfo.unit}`
-                  }}
-                  labelComponent={
-                    viewTooltipForShadedPlot ? victoryTooltip : <div />
-                  }
-                />
+                <VictoryGroup key={index}>
+                  <VictoryArea
+                    name={'Area'}
+                    data={plotData}
+                    interpolation="natural"
+                    style={{
+                      data: {
+                        fill: plotColors[index],
+                        fillOpacity: 0.6,
+                        stroke: plotColors[index],
+                        strokeWidth: 1,
+                      },
+                    }}
+                  />
+                  <VictoryScatter
+                    name={'AreaScatter'}
+                    size={0}
+                    data={plotData}
+                    style={scatterPlotStyle}
+                  />
+                </VictoryGroup>
               )
             } else {
-              return <div></div>
+              return <div key={index}></div>
             }
           })}
       </VictoryChart>

@@ -73,6 +73,7 @@ export default (props: {
             const tooltipOffset: number = 30
             return (
               <VictoryChart
+                key={index}
                 width={chartWidth}
                 height={arrowPlotHeight}
                 containerComponent={<VictoryVoronoiContainer />}
@@ -122,7 +123,7 @@ export default (props: {
               </VictoryChart>
             )
           } else {
-            return <div></div>
+            return <div key={index}></div>
           }
         })}
     </div>
