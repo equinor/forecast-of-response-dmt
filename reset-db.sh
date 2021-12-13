@@ -15,27 +15,32 @@ MONGO_AZURE_URI=${MONGO_AZURE_URI:-}
 CREATE_DMSS_KEY="False"
 GIT_RESTORE="True"
 COMPOSE_DOWN="True"
+DRY_RUN="False"
 
 # Placeholders
 MONGO_AZURE_HOST=None
 MONGO_AZURE_PORT=None
 MONGO_AZURE_USER=None
 MONGO_AZURE_PW=None
+PACKAGES=()
+DATA_SOURCES=()
 
 function print_help() {
-    echo "$0: usage
+    echo "usage: $0 [-h] [-t=] [-u=] [-c] [-n] [-k] [-d]
 
     Arguments:
-      -h                Print this message
-      --token           A valid access token for DMT/FoR
-      --dmss-api        The URL of the DMSS API to run against
-      --create-key      Generate a new SECRET_KEY to encrypt the data with
-      --no-restore      Do not run 'git restore' on the modified files upon completion
-      --keep-containers Do not run 'docker-compose down' upon completion
+      -h, --help            Print this message
+      -t, --token           A valid access token for DMT/FoR
+      -u, --dmss-api        The URL of the DMSS API to run against
+      -c, --create-key      Generate a new SECRET_KEY to encrypt the data with
+      -n, --no-restore      Do not run 'git restore' on the modified files upon completion
+      -k, --keep-containers Do not run 'docker-compose down' upon completion
+      -d, --dry-run         Do not make any changes to the remote DB, but simulate changes to files on disk.
+                            Useful to run with '--no-restore' to inspect changes before pushing.
 
     Example:
       Run with CLI arguments
-        $0 --token=\"eyJ0eX\" --dmss-api=\"https://dmss-[...].com\" --create-key --no-restore
+        $0 --token=\"eyJ0eX\" --dmss-api=\"https://dmss-[...].com\" --create-key --no-restore --dry-run
       Run with variables from the environment (see reset-db.env-template)
         $0
     "
@@ -55,28 +60,32 @@ msg() {
 
 for i in "$@"; do
   case $i in
-    -h)
+    -h | --help)
       print_help
       exit 0
       ;;
-    --token=*)
+    -t | --token=*)
       TOKEN="${i#*=}"
       shift # past argument=value
       ;;
-    --dmss-api=*)
+    -u | --dmss-api=*)
       DMSS_API="${i#*=}"
       shift # past argument=value
       ;;
-    --create-key)
+    -c | --create-key)
       CREATE_DMSS_KEY="True"
       shift # past argument=value
       ;;
-    --no-restore)
+    -n | --no-restore)
       GIT_RESTORE="False"
       shift # past argument=value
       ;;
-    --keep-containers)
+    -k | --keep-containers)
       COMPOSE_DOWN="False"
+      shift
+      ;;
+    -d | --dry-run)
+      DRY_RUN="True"
       shift
       ;;
     *)
@@ -109,16 +118,26 @@ fi
 
 # File paths
 DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd -P)
+DS_DIR=$DIR/api/home
+SIMPOS_DS_DIR=$DS_DIR/SIMPOS/data_sources
 ## Data sources
-DMT_DS_DIR=$DIR/api/home/DMT/data_sources
-DMT_DS=$DMT_DS_DIR/DMT-DS.json
-DMT_DS_AZ=$DMT_DS_DIR/DMT-DS-azure.json
-FoR_DS_DIR=$DIR/api/home/for/data_sources
-FoR_DS=$FoR_DS_DIR/ForecastDS.json
-FoR_DS_AZ=$FoR_DS_DIR/ForecastDS-azure.json
+DMT_DS=$DS_DIR/DMT/data_sources/DMT-DS-azure.json
+FoR_DS=$DS_DIR/for/data_sources/ForecastDS-azure.json
+SIMA_DS=$SIMPOS_DS_DIR/sima.json
+SIMPOS_APP_DB_DS=$SIMPOS_DS_DIR/simpos_app_db.json
+SIMPOS_MDL_DB_DS=$SIMPOS_DS_DIR/simpos_models_db.json
 
 DMSS_SYSTEM=$DIR/dmss-system.radix.json
 COMPOSE_FILE=$DIR/docker-compose.yml
+
+DATA_SOURCES=("$DMT_DS" "$FoR_DS" "$SIMA_DS" "$SIMPOS_APP_DB_DS" "$SIMPOS_MDL_DB_DS")
+
+function discover_packages() {
+  #api/home/<AppName>/data/<DataSource>/<Package>
+  IFS=$'\n'
+  PACKAGES=($(find "$DS_DIR" -maxdepth 4 -type d -iwholename "*api/home/*/data/*/*"))
+  unset IFS
+}
 
 function parse_mongo_conn_str() {
   if [[ "$MONGO_AZURE_URI" =~ ^mongodb:\/\/[^\/\,]+:{1}[^\/\,]*@{1}.*$ ]]; then
@@ -177,35 +196,21 @@ function print_vars() {
   "
 }
 
-function delete_data_source_defs() {
-    echo "Deleting data source definitions.."
-    if test -f "$DMT_DS"; then
-        echo "  Deleting DMT-DS.json"
-        rm "$DMT_DS"
-        test ! -f "$DMT_DS" && echo "    OK" || echo "    ERROR"
-    fi
-    if test -f "$FoR_DS"; then
-        echo "  Deleting ForecastDS.json"
-        rm "$FoR_DS"
-        test ! -f "$FoR_DS" && echo "    OK" || echo "    ERROR"
-    fi
-}
-
 function set_database_host() {
     SED_PATTERN="s/\"host\":.*\",/\"host\": \"$MONGO_AZURE_HOST\",/"
     GREP_PATTERN="^\s{1,}\"host\": \"$MONGO_AZURE_HOST\","
 
     echo "Setting database hosts.."
     if [ -n "$MONGO_AZURE_HOST" ]; then
-      if test -f "$DMT_DS_AZ"; then
+      if test -f "$DMT_DS"; then
           echo "  Updating DMT-DS-azure.json"
-          sed -i "$SED_PATTERN" "$DMT_DS_AZ"
-          grep -Eq "$GREP_PATTERN" "$DMT_DS_AZ" && echo "    OK" || echo "    ERROR"
+          sed -i "$SED_PATTERN" "$DMT_DS"
+          grep -Eq "$GREP_PATTERN" "$DMT_DS" && echo "    OK" || echo "    ERROR"
       fi
-      if test -f "$FoR_DS_AZ"; then
+      if test -f "$FoR_DS"; then
           echo "  Updating ForecastDS-azure.json"
-          sed -i "$SED_PATTERN" "$FoR_DS_AZ"
-          grep -Eq "$GREP_PATTERN" "$FoR_DS_AZ" && echo "    OK" || echo "    ERROR"
+          sed -i "$SED_PATTERN" "$FoR_DS"
+          grep -Eq "$GREP_PATTERN" "$FoR_DS" && echo "    OK" || echo "    ERROR"
       fi
       if test -f "$DMSS_SYSTEM"; then
           echo "  Updating dmss-system.radix.json"
@@ -224,15 +229,15 @@ function set_database_port() {
 
     echo "Setting database ports.."
     if [ -n "$MONGO_AZURE_PORT" ]; then
-      if test -f "$DMT_DS_AZ"; then
+      if test -f "$DMT_DS"; then
           echo "  Updating DMT-DS-azure.json"
-          sed -i "$SED_PATTERN" "$DMT_DS_AZ"
-          grep -Eq "$GREP_PATTERN" "$DMT_DS_AZ" && echo "    OK" || echo "    ERROR"
+          sed -i "$SED_PATTERN" "$DMT_DS"
+          grep -Eq "$GREP_PATTERN" "$DMT_DS" && echo "    OK" || echo "    ERROR"
       fi
-      if test -f "$FoR_DS_AZ"; then
+      if test -f "$FoR_DS"; then
           echo "  Updating ForecastDS-azure.json"
-          sed -i "$SED_PATTERN" "$FoR_DS_AZ"
-          grep -Eq "$GREP_PATTERN" "$FoR_DS_AZ" && echo "    OK" || echo "    ERROR"
+          sed -i "$SED_PATTERN" "$FoR_DS"
+          grep -Eq "$GREP_PATTERN" "$FoR_DS" && echo "    OK" || echo "    ERROR"
       fi
       if test -f "$DMSS_SYSTEM"; then
           echo "  Updating dmss-system.radix.json"
@@ -251,15 +256,15 @@ function set_database_username() {
 
     echo "Setting database usernames.."
     if [ -n "$MONGO_AZURE_USER" ]; then
-      if test -f "$DMT_DS_AZ"; then
+      if test -f "$DMT_DS"; then
           echo "  Updating DMT-DS-azure.json"
-          sed -i "$SED_PATTERN" "$DMT_DS_AZ"
-          grep -Eq "$GREP_PATTERN" "$DMT_DS_AZ" && echo "    OK" || echo "    ERROR"
+          sed -i "$SED_PATTERN" "$DMT_DS"
+          grep -Eq "$GREP_PATTERN" "$DMT_DS" && echo "    OK" || echo "    ERROR"
       fi
-      if test -f "$FoR_DS_AZ"; then
+      if test -f "$FoR_DS"; then
           echo "  Updating ForecastDS-azure.json"
-          sed -i "$SED_PATTERN" "$FoR_DS_AZ"
-          grep -Eq "$GREP_PATTERN" "$FoR_DS_AZ" && echo "    OK" || echo "    ERROR"
+          sed -i "$SED_PATTERN" "$FoR_DS"
+          grep -Eq "$GREP_PATTERN" "$FoR_DS" && echo "    OK" || echo "    ERROR"
       fi
       if test -f "$DMSS_SYSTEM"; then
           echo "  Updating dmss-system.radix.json"
@@ -278,15 +283,15 @@ function set_database_password() {
 
     echo "Setting database passwords.."
     if [ -n "$MONGO_AZURE_PW" ]; then
-      if test -f "$DMT_DS_AZ"; then
+      if test -f "$DMT_DS"; then
           echo "  Updating DMT-DS-azure.json"
-          sed -i "$SED_PATTERN" "$DMT_DS_AZ"
-          grep -Eq "$GREP_PATTERN" "$DMT_DS_AZ" && echo "    OK" || echo "    ERROR"
+          sed -i "$SED_PATTERN" "$DMT_DS"
+          grep -Eq "$GREP_PATTERN" "$DMT_DS" && echo "    OK" || echo "    ERROR"
       fi
-      if test -f "$FoR_DS_AZ"; then
+      if test -f "$FoR_DS"; then
           echo "  Updating ForecastDS-azure.json"
-          sed -i "$SED_PATTERN" "$FoR_DS_AZ"
-          grep -Eq "$GREP_PATTERN" "$FoR_DS_AZ" && echo "    OK" || echo "    ERROR"
+          sed -i "$SED_PATTERN" "$FoR_DS"
+          grep -Eq "$GREP_PATTERN" "$FoR_DS" && echo "    OK" || echo "    ERROR"
       fi
       if test -f "$DMSS_SYSTEM"; then
           echo "  Updating dmss-system.radix.json"
@@ -301,19 +306,19 @@ function set_database_password() {
 
 function set_data_source_names() {
   echo "Setting data source names.."
-  if test -f "$DMT_DS_AZ"; then
+  if test -f "$DMT_DS"; then
     NEW_NAME="DMT-Internal"
     OLD_NAME="Test$NEW_NAME"
     echo "  Updating DMT-DS-azure.json"
-    sed -i "s/\"name\": \"$OLD_NAME\",/\"name\": \"$NEW_NAME\",/" "$DMT_DS_AZ"
-    grep -Eq "^\s{1,}\"name\": \"$NEW_NAME\"," "$DMT_DS_AZ" && echo "    OK" || echo "    ERROR"
+    sed -i "s/\"name\": \"$OLD_NAME\",/\"name\": \"$NEW_NAME\",/" "$DMT_DS"
+    grep -Eq "^\s{1,}\"name\": \"$NEW_NAME\"," "$DMT_DS" && echo "    OK" || echo "    ERROR"
   fi
-  if test -f "$FoR_DS_AZ"; then
+  if test -f "$FoR_DS"; then
     NEW_NAME="ForecastDS"
     OLD_NAME="Test$NEW_NAME"
     echo "  Updating ForecastDS-azure.json"
-    sed -i "s/\"name\": \"$OLD_NAME\",/\"name\": \"$NEW_NAME\",/" "$FoR_DS_AZ"
-    grep -Eq "^\s{1,}\"name\": \"$NEW_NAME\"," "$FoR_DS_AZ" && echo "    OK" || echo "    ERROR"
+    sed -i "s/\"name\": \"$OLD_NAME\",/\"name\": \"$NEW_NAME\",/" "$FoR_DS"
+    grep -Eq "^\s{1,}\"name\": \"$NEW_NAME\"," "$FoR_DS" && echo "    OK" || echo "    ERROR"
   fi
 }
 
@@ -345,12 +350,39 @@ function build_images() {
 
 function dmss_reset_app() {
   echo "Resetting DMSS.."
-  docker-compose run --rm -e SECRET_KEY="$SECRET_KEY" -e MONGO_AZURE_URI="$MONGO_AZURE_URI" dmss reset-app
+  if [ "$DRY_RUN" == "False" ]; then
+    docker-compose run --rm -e SECRET_KEY="$SECRET_KEY" -e MONGO_AZURE_URI="$MONGO_AZURE_URI" dmss reset-app && echo "    OK" || echo "    ERROR"
+  else
+    echo "    Skipping (dry run)"
+  fi
 }
 
 function api_reset_app() {
   echo "Resetting the API.."
-  docker-compose run --rm -e DMSS_API="$DMSS_API" api --token="$TOKEN" reset-app
+  for data_source in "${DATA_SOURCES[@]}"; do
+    echo "  Importing data source '$data_source'"
+    if [ "$DRY_RUN" == "False" ]; then
+      docker-compose run --rm -e DMSS_API="$DMSS_API" api --token="$TOKEN" import-data-source "$data_source" && echo "    OK" || echo "    ERROR"
+    else
+      echo "    Skipping (dry run)"
+    fi
+  done
+
+  unique_packages=()
+  for package in "${PACKAGES[@]}"; do
+    destination=$(echo "$package" | grep -Po '.*/api/home/[a-zA-Z0-9]{1,}/data/*\K[^/]*')
+    # shellcheck disable=SC2076
+    if [[ ! " ${completed[*]} " =~ " ${destination} " ]]; then
+      echo "  Resetting package '$destination'"
+      if [ "$DRY_RUN" == "False" ]; then
+        docker-compose run --rm -e DMSS_API="$DMSS_API" api --token="$TOKEN" reset-package "$package" "$destination" && echo "    OK" || echo "    ERROR"
+      else
+        echo "    Skipping (dry run)"
+      fi
+      completed+=("$destination")
+    fi
+  done
+
 }
 
 function cleanup() {
@@ -358,12 +390,12 @@ function cleanup() {
   echo "Cleaning up.."
   if [ "$GIT_RESTORE" == "True" ]; then
     echo "  Running 'git restore' on modified JSON and docker(-compose) files.."
-    git restore "$DMT_DS" "$DMT_DS_AZ" "$FoR_DS" "$FoR_DS_AZ" "$DMSS_SYSTEM" "$COMPOSE_FILE" && echo "    OK" || echo "    ERROR"
+    git restore "$DMT_DS" "$FoR_DS" "$SIMA_DS" "$SIMPOS_APP_DB_DS" "$SIMPOS_MDL_DB_DS" "$DMSS_SYSTEM" "$COMPOSE_FILE" && echo "    OK" || echo "    ERROR"
   else
     echo "  Skipping 'git restore' due to '--no-restore' flag"
-    echo "    Warning: Passwords may be stored in clear text in the modified files. Please avoid committing them to git."
-    echo "    Issue a manual 'git restore' with the following command:"
-    echo "      git restore $DMT_DS $DMT_DS_AZ $FoR_DS $FoR_DS_AZ $DMSS_SYSTEM $COMPOSE_FILE"
+    msg "${RED}   Warning: Passwords may be stored in clear text in the modified files. Please avoid committing them to git.${NOFORMAT}"
+    msg "${RED}   Issue a manual 'git restore' with the following command:"
+    msg "${ORANGE}      git restore $DMT_DS $FoR_DS $SIMA_DS $SIMPOS_APP_DB_DS $SIMPOS_MDL_DB_DS $DMSS_SYSTEM $COMPOSE_FILE ${NOFORMAT}"
   fi
   if [ "$COMPOSE_DOWN" == "True" ]; then
     echo "  Running 'docker-compose down'.."
@@ -374,10 +406,10 @@ function cleanup() {
 trap cleanup SIGINT SIGTERM ERR EXIT
 
 function main() {
+  discover_packages
   parse_mongo_conn_str
   set_env_vars
   print_vars
-  delete_data_source_defs
   set_database_host
   set_database_port
   set_database_username
