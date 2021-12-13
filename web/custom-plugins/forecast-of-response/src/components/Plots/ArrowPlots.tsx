@@ -10,11 +10,7 @@ import {
   VictoryVoronoiContainer,
 } from 'victory'
 import { Icon } from '@equinor/eds-core-react'
-
-export type TLineChartDataPoint = {
-  name: string
-  [key: string]: number | number[]
-}
+import { TLineChartDataPoint } from './LinesOverTime'
 
 type RotatedArrowProps = {
   datum: any
