@@ -7,50 +7,29 @@ import {
   VictoryAxis,
   VictoryChart,
   VictoryGroup,
-  VictoryLabel,
   VictoryLine,
   VictoryScatter,
   VictoryTheme,
   VictoryTooltip,
   VictoryVoronoiContainer,
 } from 'victory'
-import { Checkbox, Icon } from '@equinor/eds-core-react'
-
+import { Checkbox } from 'antd'
+import styled from 'styled-components'
 export type TLineChartDataPoint = {
-  name: string
+  // @ts-ignore
+  timestamp: string
   [key: string]: number | number[]
 }
 
-type RotatedArrowProps = {
-  datum: any
-  x: number
-  y: number
-  attributeNameForData: string
-  color: string
-}
-
-//RotatedArrow must be class component to get correct props from VicotryChart
-class RotatedArrow extends React.Component<RotatedArrowProps> {
-  render() {
-    const { datum, x, y, attributeNameForData, color } = this.props
-    const iconWidth: 16 | 24 | 32 | 40 | 48 = 16
-
-    //offset to center the arrows in the plot - this value depends on height of plot window
-    const yAxisOffset: number = 25
-    const translation: string = `${x - iconWidth / 2}, ${
-      y + yAxisOffset - iconWidth / 2
-    }`
-    const rotation: string = `${datum[attributeNameForData]}, ${
-      iconWidth / 2
-    }, ${iconWidth / 2}`
-
-    return (
-      <g transform={`translate(${translation}) rotate(${rotation})`}>
-        <Icon name="arrow_up" size={iconWidth} color={color} />
-      </g>
-    )
+//using a custom checkbox style since EDS checkbox has a black border that cannot be removed
+const CustomCheckbox = styled(Checkbox)`
+  padding-top: 10px;
+  padding-left: 20px;
+  & .ant-checkbox-checked .ant-checkbox-inner {
+    background-color: #007079;
+    border-color: #007079;
   }
-}
+`
 
 export default (props: {
   data: TLineChartDataPoint[]
@@ -65,6 +44,7 @@ export default (props: {
   const victoryTooltip = (
     <VictoryTooltip
       style={{ fontSize: fontSize }}
+      centerOffset={{ y: -10 }}
       flyoutPadding={({ text }) =>
         text.length > 1 ? { top: 10, bottom: 10, left: 15, right: 15 } : 7
       }
@@ -73,22 +53,93 @@ export default (props: {
   const chartWidth: number = 800
   const plotHeight: number = 200
   //TODO: Read threshold values from result file
+
+  const getAreaPlotData = (
+    data: TLineChartDataPoint[],
+    graphInfo: TGraphInfo
+  ) => {
+    const plotData = data.map((dataPoint: TLineChartDataPoint) => {
+      if (Array.isArray(dataPoint[graphInfo.name])) {
+        const x = dataPoint.timestamp
+        //@ts-ignore - ok since the if check makes sure dataPoint[graphInfo.name] is an array
+        const y = dataPoint[graphInfo.name][1]
+        //@ts-ignore - ok since the if check makes sure dataPoint[graphInfo.name] is an array
+        const y0 = dataPoint[graphInfo.name][0]
+        return {
+          x: x,
+          y0: y0,
+          y: y,
+          customLabel: `${x} \n ${graphInfo.name}: ${y0.toFixed(
+            2
+          )} - ${y.toFixed(2)}  ${graphInfo.unit}`,
+        }
+      } else {
+        throw new Error(
+          `Data for plot not in correct format! (Expected ${
+            dataPoint[graphInfo.name]
+          } to be an array)`
+        )
+      }
+    })
+    return plotData
+  }
+  const getLinePlotData = (
+    data: TLineChartDataPoint[],
+    graphInfo: TGraphInfo
+  ) => {
+    const plotData = data.map((dataPoint: TLineChartDataPoint) => {
+      return {
+        ...dataPoint,
+        customLabel: `${dataPoint.timeStamp} \n ${graphInfo.name}: ${dataPoint[
+          graphInfo.name
+        ].toFixed(2)} ${graphInfo.unit}`,
+      }
+    })
+    return plotData
+  }
+
+  const getScatterStyle = (color: string, strokeWidth: number) => {
+    return {
+      data: {
+        fill: color,
+        fillOpacity: 1,
+        strokeOpacity: 0,
+        strokeWidth: strokeWidth,
+      },
+      labels: { fill: color },
+    }
+  }
+
   return (
     <div
       style={{
         width: '100%',
       }}
     >
-      <Checkbox
+      <CustomCheckbox
         onChange={() => setViewTooltipForShadedPlot(!viewTooltipForShadedPlot)}
-        label="View tooltip for shaded plots"
-      ></Checkbox>
+      >
+        View tooltip for shaded plots
+      </CustomCheckbox>
+
       <VictoryChart
         width={chartWidth}
         height={plotHeight}
         theme={VictoryTheme.material}
         domainPadding={{ y: 15 }}
-        containerComponent={<VictoryVoronoiContainer />}
+        containerComponent={
+          <VictoryVoronoiContainer
+            labels={({ datum }) => {
+              return datum.childName === 'AreaScatter'
+                ? viewTooltipForShadedPlot
+                  ? `${datum.customLabel}`
+                  : ''
+                : `${datum.customLabel}`
+            }}
+            labelComponent={victoryTooltip}
+            voronoiBlacklist={['Line', 'Area']}
+          />
+        }
       >
         <VictoryAxis
           fixLabelOverlap={true}
@@ -98,67 +149,42 @@ export default (props: {
           dependentAxis
           style={{ tickLabels: { fontSize: fontSize } }}
         />
+
         {graphInfo &&
           graphInfo.map((graphInfo: TGraphInfo, index) => {
-            const linePlotScatterStyle = {
-              data: {
-                fill: plotColors[index],
-                fillOpacity: 1,
-                strokeOpacity: 0,
-                strokeWidth: 6,
-              },
-              labels: { fill: plotColors[index] },
-            }
             if (graphInfo.plotType === PlotType.LINE) {
+              const linePlotScatterStyle = getScatterStyle(plotColors[index], 6)
+              const plotData = getLinePlotData(data, graphInfo)
               return (
-                <VictoryGroup>
+                <VictoryGroup key={index}>
                   <VictoryLine
+                    name={'Line'}
                     key={index}
                     interpolation="natural"
                     style={{
                       data: { stroke: plotColors[index], strokeWidth: 1 },
                     }}
-                    data={data}
+                    data={plotData}
                     y={graphInfo.name}
                     x={'timestamp'}
                   />
                   <VictoryScatter
-                    data={data}
+                    name="LineScatter"
+                    data={plotData}
                     style={linePlotScatterStyle}
                     size={1.5}
                     y={graphInfo.name}
                     x={'timestamp'}
-                    labels={({ datum }) => {
-                      return `${datum.timestamp} \n ${graphInfo.name}: ${datum[
-                        graphInfo.name
-                      ].toFixed(2)} ${graphInfo.unit}`
-                    }}
-                    labelComponent={victoryTooltip}
                   />
                 </VictoryGroup>
               )
             } else if (graphInfo.plotType === PlotType.SHADED) {
-              const plotData = data.map((dataPoint: TLineChartDataPoint) => {
-                if (Array.isArray(dataPoint[graphInfo.name])) {
-                  return {
-                    x: dataPoint.timestamp,
-                    //@ts-ignore
-                    y0: dataPoint[graphInfo.name][0],
-                    //@ts-ignore
-                    y: dataPoint[graphInfo.name][1],
-                  }
-                } else {
-                  throw new Error(
-                    `Data for plot not in correct format! (Expected ${
-                      dataPoint[graphInfo.name]
-                    } to be an array)`
-                  )
-                }
-              })
-
+              const plotData = getAreaPlotData(data, graphInfo)
+              const scatterPlotStyle = getScatterStyle(plotColors[index], 4)
               return (
-                <VictoryGroup>
+                <VictoryGroup key={index}>
                   <VictoryArea
+                    name={'Area'}
                     data={plotData}
                     interpolation="natural"
                     style={{
@@ -171,27 +197,15 @@ export default (props: {
                     }}
                   />
                   <VictoryScatter
+                    name={'AreaScatter'}
                     size={0}
                     data={plotData}
-                    style={{
-                      data: { fillOpacity: 0 },
-                      labels: { fill: plotColors[index] },
-                    }}
-                    labels={({ datum }) => {
-                      return `${datum.x} \n ${
-                        graphInfo.name
-                      }: ${datum.y0.toFixed(2)} - ${datum.y.toFixed(2)}  ${
-                        graphInfo.unit
-                      }`
-                    }}
-                    labelComponent={
-                      viewTooltipForShadedPlot ? victoryTooltip : <div />
-                    }
+                    style={scatterPlotStyle}
                   />
                 </VictoryGroup>
               )
             } else {
-              return <div></div>
+              return <div key={index}></div>
             }
           })}
       </VictoryChart>

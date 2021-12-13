@@ -8,8 +8,7 @@ import { plotColors } from './Design/Colors'
 import { DEFAULT_DATASOURCE_ID } from '../const'
 import { StyledSelect } from './Input'
 import { IconWrapper } from './Other'
-import DirectionPlot from './Plots/DirectionPlot'
-import LinesOverTimeVictory from './Plots/LinesOverTimeVictory'
+
 import ArrowPlots from './Plots/ArrowPlots'
 
 const ResultWrapper = styled.div`
@@ -112,7 +111,7 @@ function GraphSelect(props: {
         ))}
       </StyledSelect>
       <StyledSelect onChange={(e: Event) => setResponse(e.target.value)}>
-        {variableRuns[run].responses.map((response: any, index) => (
+        {variableRuns[run].responses.map((response: any, index: number) => (
           <option key={index} value={index}>
             {response.name}
           </option>
@@ -120,7 +119,7 @@ function GraphSelect(props: {
       </StyledSelect>
       <StyledSelect onChange={(e: Event) => setStatistic(e.target.value)}>
         {variableRuns[run].responses[response].statistics.map(
-          (statistic: any, index) => (
+          (statistic: any, index: number) => (
             <option key={index} value={index}>
               {statistic.name}
             </option>
@@ -199,7 +198,7 @@ export default (props: { result: any }) => {
         {graphInfo.length >= 1 && (
           <AddedGraphWrapper>
             {graphInfo.map((graph, index) => (
-              <Tooltip title={graph.description}>
+              <Tooltip title={graph.description} key={index}>
                 <Chip
                   key={index}
                   style={{ margin: '10px 5px', cursor: 'help' }}
