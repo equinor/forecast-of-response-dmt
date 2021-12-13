@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { plotColors } from '../Design/Colors'
 import { PlotType, TGraphInfo } from '../Result'
@@ -14,12 +14,23 @@ import {
   VictoryTooltip,
   VictoryVoronoiContainer,
 } from 'victory'
-import { Checkbox, Icon } from '@equinor/eds-core-react'
-
+import { Icon } from '@equinor/eds-core-react'
+import { Checkbox } from 'antd'
+import styled from 'styled-components'
 export type TLineChartDataPoint = {
   name: string
   [key: string]: number | number[]
 }
+
+//using a custom checkbox style since EDS checkbox has a black border that cannot be removed
+const CustomCheckbox = styled(Checkbox)`
+  padding-top: 10px;
+  padding-left: 20px;
+  & .ant-checkbox-checked .ant-checkbox-inner {
+    background-color: #007079;
+    border-color: #007079;
+  }
+`
 
 type RotatedArrowProps = {
   datum: any
@@ -27,29 +38,6 @@ type RotatedArrowProps = {
   y: number
   attributeNameForData: string
   color: string
-}
-
-//RotatedArrow must be class component to get correct props from VicotryChart
-class RotatedArrow extends React.Component<RotatedArrowProps> {
-  render() {
-    const { datum, x, y, attributeNameForData, color } = this.props
-    const iconWidth: 16 | 24 | 32 | 40 | 48 = 16
-
-    //offset to center the arrows in the plot - this value depends on height of plot window
-    const yAxisOffset: number = 25
-    const translation: string = `${x - iconWidth / 2}, ${
-      y + yAxisOffset - iconWidth / 2
-    }`
-    const rotation: string = `${datum[attributeNameForData]}, ${
-      iconWidth / 2
-    }, ${iconWidth / 2}`
-
-    return (
-      <g transform={`translate(${translation}) rotate(${rotation})`}>
-        <Icon name="arrow_up" size={iconWidth} color={color} />
-      </g>
-    )
-  }
 }
 
 export default (props: {
@@ -65,6 +53,7 @@ export default (props: {
   const victoryTooltip = (
     <VictoryTooltip
       style={{ fontSize: fontSize }}
+      centerOffset={{ y: -10 }}
       flyoutPadding={({ text }) =>
         text.length > 1 ? { top: 10, bottom: 10, left: 15, right: 15 } : 7
       }
@@ -73,22 +62,25 @@ export default (props: {
   const chartWidth: number = 800
   const plotHeight: number = 200
   //TODO: Read threshold values from result file
+
   return (
     <div
       style={{
         width: '100%',
       }}
     >
-      <Checkbox
+      <CustomCheckbox
         onChange={() => setViewTooltipForShadedPlot(!viewTooltipForShadedPlot)}
-        label="View tooltip for shaded plots"
-      ></Checkbox>
+      >
+        View tooltip for shaded plots
+      </CustomCheckbox>
+
       <VictoryChart
         width={chartWidth}
         height={plotHeight}
         theme={VictoryTheme.material}
         domainPadding={{ y: 15 }}
-        containerComponent={<VictoryVoronoiContainer />}
+        containerComponent={<VictoryVoronoiContainer radius={1} />}
       >
         <VictoryAxis
           fixLabelOverlap={true}
@@ -104,7 +96,8 @@ export default (props: {
               data: {
                 fill: plotColors[index],
                 fillOpacity: 1,
-                strokeOpacity: 0,
+                strokeOpacity: 1,
+                stroke: 'red',
                 strokeWidth: 6,
               },
               labels: { fill: plotColors[index] },
@@ -133,7 +126,7 @@ export default (props: {
                         graphInfo.name
                       ].toFixed(2)} ${graphInfo.unit}`
                     }}
-                    labelComponent={victoryTooltip}
+                    labelComponent={victoryTooltip} //
                   />
                 </VictoryGroup>
               )
@@ -174,7 +167,12 @@ export default (props: {
                     size={0}
                     data={plotData}
                     style={{
-                      data: { fillOpacity: 0 },
+                      data: {
+                        fill: plotColors[index],
+                        fillOpacity: 1,
+                        strokeOpacity: 0,
+                        strokeWidth: 4,
+                      },
                       labels: { fill: plotColors[index] },
                     }}
                     labels={({ datum }) => {
