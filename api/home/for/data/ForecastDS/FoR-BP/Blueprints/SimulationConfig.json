@@ -21,7 +21,7 @@
     },
     {
       "name": "jobs",
-      "attributeType": "DMT-Internal/DMT/AzureContainerInstanceJob",
+      "attributeType": "DMT-Internal/DMT/Jobs/Container",
       "type": "system/SIMOS/BlueprintAttribute",
       "optional": true,
       "dimensions": "*"

@@ -212,6 +212,7 @@ function SingleSimulationConfig(props: {
   publishSimulation: Function
   simaTask: string
   simaWorkflow: string
+  configBlob: TBlob
 }) {
   const {
     simulationConfig,
@@ -220,6 +221,7 @@ function SingleSimulationConfig(props: {
     publishSimulation,
     simaTask,
     simaWorkflow,
+    configBlob,
   } = props
   const [selectedJob, setSelectedJob] = useState<number>(0)
   const [selectedResult, setSelectedResult] = useState<number>(0)
@@ -269,11 +271,11 @@ function SingleSimulationConfig(props: {
     setLoadingJob(true)
     removeCronJob()
     const cronJob = createContainerJob(
-      `${DEFAULT_DATASOURCE_ID}/${stask.blob._blob_id}`, // STask
+      `${DEFAULT_DATASOURCE_ID}/${stask._blob_id}`, // STask
       simaTask, //Sima task in STask
       simaWorkflow, // Sima workflow in task
       true, // Use remote compute service
-      `${dottedId.substring(0, dottedId.indexOf('.'))}.SIMAComputeConnectInfo`, // Id of compute cfg
+      `${DEFAULT_DATASOURCE_ID}/${configBlob._blob_id}`, // Id of compute cfg
       dottedId, // Reference to Sima job input entity
       `${DEFAULT_DATASOURCE_ID}/${dottedId}.results`, // Reference for results upload destination
       cronValue
@@ -325,7 +327,7 @@ function SingleSimulationConfig(props: {
       simaTask, //Sima task in STask
       simaWorkflow, // Sima workflow in task
       true, // Use remote compute service
-      `${dottedId.substring(0, dottedId.indexOf('.'))}.SIMAComputeConnectInfo`, // Id of compute cfg
+      `${DEFAULT_DATASOURCE_ID}/${configBlob._blob_id}`,
       dottedId, // Reference to Sima job input entity
       `${DEFAULT_DATASOURCE_ID}/${dottedId}.results` // Reference for results upload destination
     )
@@ -492,6 +494,7 @@ function SimulationConfigList(props: {
   stask: TBlob
   simaTask: string
   simaWorkflow: string
+  configBlob: TBlob
 }) {
   const {
     setSimulationConfigs,
@@ -500,6 +503,7 @@ function SimulationConfigList(props: {
     stask,
     simaTask,
     simaWorkflow,
+    configBlob,
   } = props
   const { token } = useContext(AuthContext)
   const dmssAPI = new DmssAPI(token)
@@ -546,6 +550,7 @@ function SimulationConfigList(props: {
                   publishSimulation={publishSimulation}
                   simaTask={simaTask}
                   simaWorkflow={simaWorkflow}
+                  configBlob={configBlob}
                 />
               </Accordion.Panel>
             </Accordion.Item>
@@ -560,8 +565,9 @@ export default (props: {
   phase: TPhase
   dottedId: string
   stask: TBlob
+  configBlob: TBlob
 }): JSX.Element => {
-  const { phase, dottedId, stask } = props
+  const { phase, dottedId, stask, configBlob } = props
   const [visibleCreateSimScrim, setVisibleCreateSimScrim] = useState(false)
   const [createSimError, setCreateSimError] = useState<string>('')
   const [simulationConfigs, setSimulationConfigs] = useState<
@@ -613,6 +619,7 @@ export default (props: {
         stask={stask}
         simaTask={phase.workflowTask}
         simaWorkflow={phase.workflow}
+        configBlob={configBlob}
       />
     </>
   )

@@ -15,7 +15,8 @@ services:
       ENVIRONMENT: local
       DMSS_API: http://dmss:5000
       # Used for callback from Azure Container Job
-      PUBLIC_DMSS_API: https://dmss-forecast-of-response-test.radix.equinor.com
+      PUBLIC_DMSS_API: http://dmss:5000
+#      PUBLIC_DMSS_API: https://dmss-forecast-of-response-test.radix.equinor.com
 #      SCHEDULER_REDIS_PASSWORD: ${SCHEDULER_REDIS_PASSWORD}
       SCHEDULER_ENVS_TO_EXPORT: "PUBLIC_DMSS_API,SIMA_LICENSE"
       SCHEDULER_REDIS_HOST: job-store
@@ -30,9 +31,14 @@ services:
 # $(cat ./sima.lic)
     volumes:
       - ./api/home/:/code/home
+#      - /var/run/docker.sock:/var/run/docker.sock  # Needed for docker-in-docker jobs
+    networks:
+      - for-network
 
   job-store:
     image: redis:6.2.5-alpine
+    networks:
+      - for-network
 
   web:
     build:
@@ -51,6 +57,8 @@ services:
       - ./web/custom-plugins/:/code/custom-plugins
       - ./web/config.js:/code/app/config.js
       - ./web/actions.js:/code/app/actions.js
+    networks:
+      - for-network
 
   db:
     image: mongo:3.4
@@ -62,6 +70,8 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: maf
       MONGO_INITDB_ROOT_PASSWORD: maf
+    networks:
+      - for-network
 
   dmss:
     image: mariner.azurecr.io/dmss:${DMSS_VERSION:-latest}
@@ -86,6 +96,8 @@ services:
       - db
     ports:
       - "5010:5000"
+    networks:
+      - for-network
 
   nginx:
     links:
@@ -97,6 +109,8 @@ services:
     image: mariner.azurecr.io/dmt/nginx:${DMT_VERSION:-latest}
     ports:
       - "9000:8080"
+    networks:
+      - for-network
 
   db-ui:
     image: mongo-express:0.49
@@ -108,3 +122,9 @@ services:
       ME_CONFIG_MONGODB_ADMINUSERNAME: maf
       ME_CONFIG_MONGODB_ADMINPASSWORD: maf
       ME_CONFIG_MONGODB_ENABLE_ADMIN: "true"
+    networks:
+      - for-network
+
+networks:
+  for-network:
+    driver: bridge

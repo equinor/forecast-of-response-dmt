@@ -96,6 +96,7 @@ export type TOperation = {
   name: string
   label: string
   stask: TBlob
+  SIMAComputeConnectInfo: TBlob
   description?: string
   creator: string
   start?: Date

@@ -63,6 +63,7 @@ export default (): JSX.Element => {
                     phase={phase}
                     dottedId={`${operation._id}.phases.${index}`}
                     stask={operation.stask}
+                    configBlob={operation.SIMAComputeConnectInfo}
                   />
                 ) : (
                   <OperatorPhaseView phase={phase} />

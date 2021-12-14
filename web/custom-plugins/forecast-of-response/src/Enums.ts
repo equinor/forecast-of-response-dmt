@@ -26,6 +26,7 @@ export enum Blueprints {
   VARIABLE = 'ForecastDS/FoR-BP/Blueprints/Variable',
   AZ_CONTAINER_JOB = 'DMT-Internal/DMT/AzureContainerInstanceJob',
   AZ_CONTAINER_JOB_CLASSIC = 'DMT-Internal/DMT/AzureContainerInstanceJobClassic',
+  LOCAL_CONTAINER_JOB = 'DMT-Internal/DMT/Jobs/Container',
   AZ_CRON_CONTAINER_JOB_CLASSIC = 'DMT-Internal/DMT/CronAzureContainerInstanceJobClassic',
   LOCATION = 'ForecastDS/FoR-BP/Blueprints/Location',
   STASK = 'ForecastDS/FoR-BP/Blueprints/STask',
