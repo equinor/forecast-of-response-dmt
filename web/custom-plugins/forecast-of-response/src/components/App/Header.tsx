@@ -14,7 +14,7 @@ const Icons = styled.div`
   }
 `
 
-const ClickableIcon = styled.div`
+export const ClickableIcon = styled.div`
   &:hover {
     color: gray;
     cursor: pointer;

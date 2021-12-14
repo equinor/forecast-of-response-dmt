@@ -14,7 +14,7 @@ const PageHeading = styled.div`
 `
 
 const PageContent = styled.div`
-  padding: 10px;
+  padding: 20px;
   background-color: ${backgroundColorDefault};
 `
 

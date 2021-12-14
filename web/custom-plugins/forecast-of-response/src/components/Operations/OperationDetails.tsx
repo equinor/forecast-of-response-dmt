@@ -1,7 +1,15 @@
 import React, { useContext, useState } from 'react'
 import { TOperation } from '../Types'
 import { getUsername } from '../../utils/auth'
-import { Button, Card, Label, Table, Typography } from '@equinor/eds-core-react'
+import {
+  Button,
+  Card,
+  Label,
+  Scrim,
+  Table,
+  Typography,
+  Dialog,
+} from '@equinor/eds-core-react'
 import { StatusDot } from '../Other'
 import styled from 'styled-components'
 import { LocationOnMap } from '../Map'
@@ -47,7 +55,7 @@ export default (props: { operation: TOperation }): JSX.Element => {
   }
 
   return (
-    <Card style={{ border: 'solid 1px', maxWidth: '1200px' }}>
+    <Card style={{ maxWidth: '1200px' }}>
       <Card.Header>
         <Card.HeaderTitle>
           <Typography variant="h5">
@@ -101,15 +109,19 @@ export default (props: { operation: TOperation }): JSX.Element => {
               setViewACL(!viewACL)
             }}
           >
-            {viewACL ? 'Hide access panel' : 'Open access panel'}
+            Open access panel
           </Button>
         )}
       </Card.Actions>
       {viewACL && (
-        <AccessControlList
-          documentId={operation._id}
-          dataSourceId={DEFAULT_DATASOURCE_ID}
-        />
+        <Scrim isDismissable onClose={() => setViewACL(false)}>
+          <Dialog style={{ width: '100%' }}>
+            <AccessControlList
+              documentId={operation._id}
+              dataSourceId={DEFAULT_DATASOURCE_ID}
+            />
+          </Dialog>
+        </Scrim>
       )}
       <Table density="comfortable" style={{ width: '100%' }}>
         <Table.Caption>

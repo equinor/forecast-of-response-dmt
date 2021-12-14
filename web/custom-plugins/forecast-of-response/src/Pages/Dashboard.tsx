@@ -85,7 +85,13 @@ const Dashboard = (): JSX.Element => {
     return <div style={{ color: 'red' }}>Failed to fetch data</div>
 
   return (
-    <div style={{ display: 'flex', minHeight: '500px', maxHeight: '900px' }}>
+    <div
+      style={{
+        display: 'flex',
+        minHeight: '500px',
+        maxHeight: '900px',
+      }}
+    >
       <CardWrapper style={{ width: '70%' }}>
         <h3 style={{ margin: '15px' }}>
           Ongoing operations ({operations.length})
@@ -116,7 +122,6 @@ const Dashboard = (): JSX.Element => {
                       {gridTuple[2]}
                     </Link>
                   </Popup>
-                  <Tooltip>{gridTuple[2]}</Tooltip>
                 </Marker>
               )
             })}
