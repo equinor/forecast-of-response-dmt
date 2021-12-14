@@ -15,27 +15,32 @@ MONGO_AZURE_URI=${MONGO_AZURE_URI:-}
 CREATE_DMSS_KEY="False"
 GIT_RESTORE="True"
 COMPOSE_DOWN="True"
+DRY_RUN="False"
 
 # Placeholders
 MONGO_AZURE_HOST=None
 MONGO_AZURE_PORT=None
 MONGO_AZURE_USER=None
 MONGO_AZURE_PW=None
+PACKAGES=()
+DATA_SOURCES=()
 
 function print_help() {
-    echo "$0: usage
+    echo "usage: $0 [-h] [-t=] [-u=] [-c] [-n] [-k] [-d]
 
     Arguments:
-      -h                Print this message
-      --token           A valid access token for DMT/FoR
-      --dmss-api        The URL of the DMSS API to run against
-      --create-key      Generate a new SECRET_KEY to encrypt the data with
-      --no-restore      Do not run 'git restore' on the modified files upon completion
-      --keep-containers Do not run 'docker-compose down' upon completion
+      -h, --help            Print this message
+      -t, --token           A valid access token for DMT/FoR
+      -u, --dmss-api        The URL of the DMSS API to run against
+      -c, --create-key      Generate a new SECRET_KEY to encrypt the data with
+      -n, --no-restore      Do not run 'git restore' on the modified files upon completion
+      -k, --keep-containers Do not run 'docker-compose down' upon completion
+      -d, --dry-run         Do not make any changes to the remote DB, but simulate changes to files on disk.
+                            Useful to run with '--no-restore' to inspect changes before pushing.
 
     Example:
       Run with CLI arguments
-        $0 --token=\"eyJ0eX\" --dmss-api=\"https://dmss-[...].com\" --create-key --no-restore
+        $0 --token=\"eyJ0eX\" --dmss-api=\"https://dmss-[...].com\" --create-key --no-restore --dry-run
       Run with variables from the environment (see reset-db.env-template)
         $0
     "
@@ -53,74 +58,117 @@ msg() {
   echo >&2 -e "${1-}"
 }
 
+info() {
+  msg "${CYAN}$1${NOFORMAT}"
+}
+
+fatal() {
+  msg "${RED}$1${NOFORMAT}"
+  exit 1
+}
+
+warn() {
+  msg "${ORANGE}$1${NOFORMAT}"
+}
+
+err() {
+  msg "${RED}    ERROR${NOFORMAT}"
+}
+
+ok() {
+  msg "${GREEN}    OK${NOFORMAT}"
+}
+
 for i in "$@"; do
   case $i in
-    -h)
+    -h | --help)
       print_help
       exit 0
       ;;
-    --token=*)
+    -t | --token=*)
       TOKEN="${i#*=}"
       shift # past argument=value
       ;;
-    --dmss-api=*)
+    -u | --dmss-api=*)
       DMSS_API="${i#*=}"
       shift # past argument=value
       ;;
-    --create-key)
+    -c | --create-key)
       CREATE_DMSS_KEY="True"
       shift # past argument=value
       ;;
-    --no-restore)
+    -n | --no-restore)
       GIT_RESTORE="False"
       shift # past argument=value
       ;;
-    --keep-containers)
+    -k | --keep-containers)
       COMPOSE_DOWN="False"
       shift
       ;;
+    -d | --dry-run)
+      DRY_RUN="True"
+      shift
+      ;;
     *)
-      echo "WARNING: Invalid argument '$i'"
+      warn "WARNING: Invalid argument '$i'"
       ;;
   esac
 done
 
 if [ -z "$TOKEN" ]; then
-  echo "Missing required variable 'TOKEN'. You must either provide the environment variable 'TOKEN',
+  fatal "Missing required variable 'TOKEN'. You must either provide the environment variable 'TOKEN',
   or run the script with '--token=\"eyJ0eX...\"'. Exiting."
-  exit 1
 fi
 if [ -z "$DMSS_API" ]; then
-  echo "Missing required variable 'DMSS_API'. You must either provide the environment variable 'DMSS_API',
+  fatal "Missing required variable 'DMSS_API'. You must either provide the environment variable 'DMSS_API',
   or run the script with '--dmss-api=\"https://dmss-...\"'. Exiting."
-  exit 1
 fi
 if [ -z "$SECRET_KEY" ]; then
   if [ "$CREATE_DMSS_KEY" == "False" ]; then
-    echo "Missing required environment variable 'SECRET_KEY'."
-    echo "You must either provide the environment variable 'SECRET_KEY', or run the script with '--create-key'. Exiting."
-    exit 1
+    warn "Missing required environment variable 'SECRET_KEY'."
+    fatal "You must either provide the environment variable 'SECRET_KEY', or run the script with '--create-key'. Exiting."
   fi
 fi
 if [ -z "$MONGO_AZURE_URI" ]; then
-  echo "Missing required variable 'MONGO_AZURE_URI'. Exiting."
-  exit 1
+  fatal "Missing required variable 'MONGO_AZURE_URI'. Exiting."
 fi
 
 # File paths
 DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd -P)
+DS_DIR=$DIR/api/home
+SIMPOS_DS_DIR=$DS_DIR/SIMPOS/data_sources
+CONTAINER_DS_DIR=/code/home
 ## Data sources
-DMT_DS_DIR=$DIR/api/home/DMT/data_sources
-DMT_DS=$DMT_DS_DIR/DMT-DS.json
-DMT_DS_AZ=$DMT_DS_DIR/DMT-DS-azure.json
-FoR_DS_DIR=$DIR/api/home/for/data_sources
-FoR_DS=$FoR_DS_DIR/ForecastDS.json
-FoR_DS_AZ=$FoR_DS_DIR/ForecastDS-azure.json
+DMT_DS=$DS_DIR/DMT/data_sources/DMT-DS.json
+FoR_DS=$DS_DIR/for/data_sources/ForecastDS.json
+SIMA_DS=$SIMPOS_DS_DIR/sima.json
+SIMPOS_APP_DB_DS=$SIMPOS_DS_DIR/simpos_app_db.json
+SIMPOS_MDL_DB_DS=$SIMPOS_DS_DIR/simpos_models_db.json
 
 DMSS_SYSTEM=$DIR/dmss-system.radix.json
 COMPOSE_FILE=$DIR/docker-compose.yml
 
+# The data source paths to work with.
+#DATA_SOURCES=("$DMT_DS" "$FoR_DS" "$SIMA_DS" "$SIMPOS_APP_DB_DS" "$SIMPOS_MDL_DB_DS")
+
+function discover_packages() {
+  info "Discovering packages.."
+  #api/home/<AppName>/data/<DataSource>/<Package>
+  IFS=$'\n'
+  PACKAGES=($(find "$DS_DIR" -maxdepth 4 -type d -iwholename "*api/home/*/data/*/*"))
+  unset IFS
+}
+
+function discover_data_sources() {
+  info "Discovering data sources.."
+  #api/home/<AppName>/data_sources/<DataSource>.json
+  IFS=$'\n'
+  DATA_SOURCES=($(find "$DS_DIR" -maxdepth 3 -type f -iwholename "*api/home/*/data_sources/*.json"))
+  unset IFS
+}
+
 function parse_mongo_conn_str() {
+  info "Parsing Mongo connection string.."
   if [[ "$MONGO_AZURE_URI" =~ ^mongodb:\/\/[^\/\,]+:{1}[^\/\,]*@{1}.*$ ]]; then
     stripped_conn_str=$(echo "$MONGO_AZURE_URI" | awk -F'://' '{ print $2 }' | awk -F'/' '{ print $1 }')
     MONGO_AZURE_USER=$(echo "$stripped_conn_str" | awk -F':' '{ print $1 }')
@@ -128,24 +176,19 @@ function parse_mongo_conn_str() {
     MONGO_AZURE_HOST=$(echo "$stripped_conn_str" | awk -F':' '{ print $2 }' | awk -F'@' '{ print $2 }')
     MONGO_AZURE_PORT=$(echo "$stripped_conn_str" | awk -F':' '{ print $3 }')
     if [ -z "$MONGO_AZURE_USER" ]; then
-      echo "Failed to extract the username from the Mongo connection string ('MONGO_AZURE_URI'). Exiting."
-      exit 1
+      fatal "Failed to extract the username from the Mongo connection string ('MONGO_AZURE_URI'). Exiting."
     fi
     if [ -z "$MONGO_AZURE_PW" ]; then
-      echo "Failed to extract the password from the Mongo connection string ('MONGO_AZURE_URI'). Exiting."
-      exit 1
+      fatal "Failed to extract the password from the Mongo connection string ('MONGO_AZURE_URI'). Exiting."
     fi
     if [ -z "$MONGO_AZURE_HOST" ]; then
-      echo "Failed to extract the hostname from the Mongo connection string ('MONGO_AZURE_URI'). Exiting."
-      exit 1
+      fatal "Failed to extract the hostname from the Mongo connection string ('MONGO_AZURE_URI'). Exiting."
     fi
     if [ -z "$MONGO_AZURE_PORT" ]; then
-      echo "Failed to extract the port from the Mongo connection string ('MONGO_AZURE_URI'). Exiting."
-      exit 1
+      fatal "Failed to extract the port from the Mongo connection string ('MONGO_AZURE_URI'). Exiting."
     fi
   else
-    echo "Environment variable 'MONGO_AZURE_URI' is not a valid mongo connection string. Exiting."
-    exit 1
+    fatal "Environment variable 'MONGO_AZURE_URI' is not a valid mongo connection string. Exiting."
   fi
 }
 
@@ -177,98 +220,107 @@ function print_vars() {
   "
 }
 
-function delete_data_source_defs() {
-    echo "Deleting data source definitions.."
-    if test -f "$DMT_DS"; then
-        echo "  Deleting DMT-DS.json"
-        rm "$DMT_DS"
-        test ! -f "$DMT_DS" && echo "    OK" || echo "    ERROR"
-    fi
-    if test -f "$FoR_DS"; then
-        echo "  Deleting ForecastDS.json"
-        rm "$FoR_DS"
-        test ! -f "$FoR_DS" && echo "    OK" || echo "    ERROR"
-    fi
-}
-
 function set_database_host() {
     SED_PATTERN="s/\"host\":.*\",/\"host\": \"$MONGO_AZURE_HOST\",/"
     GREP_PATTERN="^\s{1,}\"host\": \"$MONGO_AZURE_HOST\","
 
-    echo "Setting database hosts.."
+    info "Setting database hosts.."
     if [ -n "$MONGO_AZURE_HOST" ]; then
-      if test -f "$DMT_DS_AZ"; then
-          echo "  Updating DMT-DS-azure.json"
-          sed -i "$SED_PATTERN" "$DMT_DS_AZ"
-          grep -Eq "$GREP_PATTERN" "$DMT_DS_AZ" && echo "    OK" || echo "    ERROR"
-      fi
-      if test -f "$FoR_DS_AZ"; then
-          echo "  Updating ForecastDS-azure.json"
-          sed -i "$SED_PATTERN" "$FoR_DS_AZ"
-          grep -Eq "$GREP_PATTERN" "$FoR_DS_AZ" && echo "    OK" || echo "    ERROR"
-      fi
+      for data_source in "${DATA_SOURCES[@]}"; do
+        echo "  Updating $data_source"
+        if test -f "$data_source"; then
+          sed -i "$SED_PATTERN" "$data_source"
+          grep -Eq "$GREP_PATTERN" "$data_source" && ok || err
+        else
+          warn "    The file does not exist"
+        fi
+      done
       if test -f "$DMSS_SYSTEM"; then
           echo "  Updating dmss-system.radix.json"
           sed -i "$SED_PATTERN" "$DMSS_SYSTEM"
-          grep -Eq "$GREP_PATTERN" "$DMSS_SYSTEM" && echo "    OK" || echo "    ERROR"
+          grep -Eq "$GREP_PATTERN" "$DMSS_SYSTEM" && ok || err
+      else
+        warn "   The file does not exist"
       fi
     else
-      echo "Missing required variable 'MONGO_AZURE_HOST'. Exiting."
-      exit 1
+      fatal "Missing required variable 'MONGO_AZURE_HOST'. Exiting."
     fi
 }
 
 function set_database_port() {
-    SED_PATTERN="s/\"port\": \d{2,5},/\"port\": $MONGO_AZURE_PORT,/"
+    SED_PATTERN="s/\"port\": ([[:digit:]]{1,5}),/\"port\": $MONGO_AZURE_PORT,/"
     GREP_PATTERN="^\s{1,}\"port\": $MONGO_AZURE_PORT,"
 
-    echo "Setting database ports.."
+    info "Setting database ports.."
     if [ -n "$MONGO_AZURE_PORT" ]; then
-      if test -f "$DMT_DS_AZ"; then
-          echo "  Updating DMT-DS-azure.json"
-          sed -i "$SED_PATTERN" "$DMT_DS_AZ"
-          grep -Eq "$GREP_PATTERN" "$DMT_DS_AZ" && echo "    OK" || echo "    ERROR"
-      fi
-      if test -f "$FoR_DS_AZ"; then
-          echo "  Updating ForecastDS-azure.json"
-          sed -i "$SED_PATTERN" "$FoR_DS_AZ"
-          grep -Eq "$GREP_PATTERN" "$FoR_DS_AZ" && echo "    OK" || echo "    ERROR"
-      fi
+      for data_source in "${DATA_SOURCES[@]}"; do
+        echo "  Updating $data_source"
+        if test -f "$data_source"; then
+          sed -E -i "$SED_PATTERN" "$data_source"
+          grep -Eq "$GREP_PATTERN" "$data_source" && ok || err
+        else
+          warn "    The file does not exist"
+        fi
+      done
       if test -f "$DMSS_SYSTEM"; then
           echo "  Updating dmss-system.radix.json"
           sed -i "$SED_PATTERN" "$DMSS_SYSTEM"
-          grep -Eq "$GREP_PATTERN" "$DMSS_SYSTEM" && echo "    OK" || echo "    ERROR"
+          grep -Eq "$GREP_PATTERN" "$DMSS_SYSTEM" && ok || err
+      else
+        warn "    The file does not exist"
       fi
     else
-      echo "Missing required variable 'MONGO_AZURE_HOST'. Exiting."
-      exit 1
+      fatal "Missing required variable 'MONGO_AZURE_PORT'. Exiting."
     fi
+}
+
+function set_database_tls() {
+    SED_PATTERN="s/\"tls\": (true|false),/\"tls\": true,/"
+    GREP_PATTERN="^\s{1,}\"tls\": true,"
+
+    info "Setting database TLS mode.."
+    for data_source in "${DATA_SOURCES[@]}"; do
+        echo "  Updating $data_source"
+        if test -f "$data_source"; then
+          sed -E -i "$SED_PATTERN" "$data_source"
+          grep -Eq "$GREP_PATTERN" "$data_source" && ok || err
+        else
+          warn "    The file does not exist"
+        fi
+      done
+      if test -f "$DMSS_SYSTEM"; then
+          echo "  Updating dmss-system.radix.json"
+          sed -i "$SED_PATTERN" "$DMSS_SYSTEM"
+          grep -Eq "$GREP_PATTERN" "$DMSS_SYSTEM" && ok || err
+      else
+        warn "    The file does not exist"
+      fi
 }
 
 function set_database_username() {
     SED_PATTERN="s/\"username\":.*\",/\"username\": \"$MONGO_AZURE_USER\",/"
     GREP_PATTERN="^\s{1,}\"username\": \"$MONGO_AZURE_USER\","
 
-    echo "Setting database usernames.."
+    info "Setting database usernames.."
     if [ -n "$MONGO_AZURE_USER" ]; then
-      if test -f "$DMT_DS_AZ"; then
-          echo "  Updating DMT-DS-azure.json"
-          sed -i "$SED_PATTERN" "$DMT_DS_AZ"
-          grep -Eq "$GREP_PATTERN" "$DMT_DS_AZ" && echo "    OK" || echo "    ERROR"
-      fi
-      if test -f "$FoR_DS_AZ"; then
-          echo "  Updating ForecastDS-azure.json"
-          sed -i "$SED_PATTERN" "$FoR_DS_AZ"
-          grep -Eq "$GREP_PATTERN" "$FoR_DS_AZ" && echo "    OK" || echo "    ERROR"
-      fi
+      for data_source in "${DATA_SOURCES[@]}"; do
+        echo "  Updating $data_source"
+        if test -f "$data_source"; then
+          sed -i "$SED_PATTERN" "$data_source"
+          grep -Eq "$GREP_PATTERN" "$data_source" && ok || err
+        else
+          warn "    The file does not exist"
+        fi
+      done
       if test -f "$DMSS_SYSTEM"; then
           echo "  Updating dmss-system.radix.json"
           sed -i "$SED_PATTERN" "$DMSS_SYSTEM"
-          grep -Eq "$GREP_PATTERN" "$DMSS_SYSTEM" && echo "    OK" || echo "    ERROR"
+          grep -Eq "$GREP_PATTERN" "$DMSS_SYSTEM" && ok || err
+      else
+        warn "    The file does not exist"
       fi
     else
-      echo "Missing required variable 'MONGO_AZURE_USER'. Exiting."
-      exit 1
+      fatal "- Missing required variable 'MONGO_AZURE_USER'. Exiting."
     fi
 }
 
@@ -276,117 +328,149 @@ function set_database_password() {
     SED_PATTERN="s/\"password\":.*\",/\"password\": \"$MONGO_AZURE_PW\",/"
     GREP_PATTERN="^\s{1,}\"password\": \"$MONGO_AZURE_PW\","
 
-    echo "Setting database passwords.."
+    info "Setting database passwords.."
     if [ -n "$MONGO_AZURE_PW" ]; then
-      if test -f "$DMT_DS_AZ"; then
-          echo "  Updating DMT-DS-azure.json"
-          sed -i "$SED_PATTERN" "$DMT_DS_AZ"
-          grep -Eq "$GREP_PATTERN" "$DMT_DS_AZ" && echo "    OK" || echo "    ERROR"
-      fi
-      if test -f "$FoR_DS_AZ"; then
-          echo "  Updating ForecastDS-azure.json"
-          sed -i "$SED_PATTERN" "$FoR_DS_AZ"
-          grep -Eq "$GREP_PATTERN" "$FoR_DS_AZ" && echo "    OK" || echo "    ERROR"
-      fi
+      for data_source in "${DATA_SOURCES[@]}"; do
+        echo "  Updating $data_source"
+        if test -f "$data_source"; then
+          sed -i "$SED_PATTERN" "$data_source"
+          grep -Eq "$GREP_PATTERN" "$data_source" && ok || err
+        else
+          warn "    The file does not exist"
+        fi
+      done
       if test -f "$DMSS_SYSTEM"; then
           echo "  Updating dmss-system.radix.json"
           sed -i "$SED_PATTERN" "$DMSS_SYSTEM"
-          grep -Eq "$GREP_PATTERN" "$DMSS_SYSTEM" && echo "    OK" || echo "    ERROR"
+          grep -Eq "$GREP_PATTERN" "$DMSS_SYSTEM" && ok || err
+      else
+        warn "    The file does not exist"
       fi
     else
-      echo "Missing required variable 'MONGO_AZURE_PW'. Exiting."
-      exit 1
+      fatal "- Missing required variable 'MONGO_AZURE_PW'. Exiting."
     fi
 }
 
 function set_data_source_names() {
-  echo "Setting data source names.."
-  if test -f "$DMT_DS_AZ"; then
-    NEW_NAME="DMT-Internal"
-    OLD_NAME="Test$NEW_NAME"
-    echo "  Updating DMT-DS-azure.json"
-    sed -i "s/\"name\": \"$OLD_NAME\",/\"name\": \"$NEW_NAME\",/" "$DMT_DS_AZ"
-    grep -Eq "^\s{1,}\"name\": \"$NEW_NAME\"," "$DMT_DS_AZ" && echo "    OK" || echo "    ERROR"
-  fi
-  if test -f "$FoR_DS_AZ"; then
-    NEW_NAME="ForecastDS"
-    OLD_NAME="Test$NEW_NAME"
-    echo "  Updating ForecastDS-azure.json"
-    sed -i "s/\"name\": \"$OLD_NAME\",/\"name\": \"$NEW_NAME\",/" "$FoR_DS_AZ"
-    grep -Eq "^\s{1,}\"name\": \"$NEW_NAME\"," "$FoR_DS_AZ" && echo "    OK" || echo "    ERROR"
-  fi
+  info "Removing 'Test'-prefix from data source names.."
+  for data_source in "${DATA_SOURCES[@]}"; do
+    echo "  Updating $data_source"
+    if test -f "$data_source"; then
+      if grep -Eq '"name": "Test.*",' "$data_source"; then
+        sed -i -E "s/\"name\": \"Test/\"name\": \"/" "$data_source"
+      fi
+      grep -Eq '"name": "Test.*",' "$data_source" && err || ok
+    fi
+  done
 }
 
 function update_compose_spec() {
   TARGET_ENV="ENVIRONMENT: production"
   TARGET_LOG="LOGGING_LEVEL: debug"
-  echo "Updating compose spec.."
+  info "Updating compose spec.."
   if test -f "$COMPOSE_FILE"; then
     echo "  Updating volume mount"
     sed -i "s/dmss-system.local.json:/dmss-system.radix.json:/" "$COMPOSE_FILE"
-    grep -Eq "^\s{6}- ./dmss-system.radix.json:" "$COMPOSE_FILE" && echo "    OK" || echo "    ERROR"
+    grep -Eq "^\s{6}- ./dmss-system.radix.json:" "$COMPOSE_FILE" && ok || err
 
     echo "  Updating ENVIRONMENT.."
     sed -i "s/ENVIRONMENT: \${DMSS_ENVIRONMENT:-local}/${TARGET_ENV}/" "$COMPOSE_FILE"
     dmss_service_spec=$(grep -EA 20 "^\s{2}dmss:" "$COMPOSE_FILE")
-    echo "$dmss_service_spec" | grep -Eq "^\s{6}${TARGET_ENV}" && echo "    OK" || echo "    ERROR"
+    echo "$dmss_service_spec" | grep -Eq "^\s{6}${TARGET_ENV}" && ok || err
 
     echo "  Updating LOGGING_LEVEL.."
     sed -i "s/LOGGING_LEVEL: \".*\"$/${TARGET_LOG}/g" "$COMPOSE_FILE"
     dmss_service_spec=$(grep -EA 20 "^\s{2}dmss:" "$COMPOSE_FILE")
-    echo "$dmss_service_spec" | grep -Eq "^\s{6}${TARGET_LOG}" && echo "    OK" || echo "    ERROR"
+    echo "$dmss_service_spec" | grep -Eq "^\s{6}${TARGET_LOG}" && ok || err
   fi
 }
 
 function build_images() {
-  echo "Building the Docker images.."
-  docker-compose build --quiet && echo "    OK" || echo "    ERROR"
+  info "Building the Docker images.."
+  docker-compose build api --quiet && ok || err
 }
 
 function dmss_reset_app() {
-  echo "Resetting DMSS.."
-  docker-compose run --rm -e SECRET_KEY="$SECRET_KEY" -e MONGO_AZURE_URI="$MONGO_AZURE_URI" dmss reset-app
+  info "Resetting DMSS.."
+  if [ "$DRY_RUN" == "False" ]; then
+    docker-compose run --rm -e SECRET_KEY="$SECRET_KEY" -e MONGO_AZURE_URI="$MONGO_AZURE_URI" dmss reset-app && ok || err
+  else
+    echo "    Skipping (dry run)"
+  fi
 }
 
-function api_reset_app() {
-  echo "Resetting the API.."
-  docker-compose run --rm -e DMSS_API="$DMSS_API" api --token="$TOKEN" reset-app
+function import_data_sources() {
+  info "Importing data sources.."
+  for data_source in "${DATA_SOURCES[@]}"; do
+    ds_dir=$(echo "$DS_DIR" | sed 's/\//\\\//g')
+    container_path="${data_source/$ds_dir/$CONTAINER_DS_DIR}"
+    echo "  Importing data source '$container_path'"
+    if [ "$DRY_RUN" == "False" ]; then
+      docker-compose run --rm -e DMSS_API="$DMSS_API" api --token="$TOKEN" import-data-source "$container_path" && ok || err
+    else
+      echo "    Skipping (dry run)"
+    fi
+  done
+}
+
+function import_packages() {
+  completed=()
+  info "Importing packages.."
+  for package in "${PACKAGES[@]}"; do
+    ds_dir=$(echo "$DS_DIR" | sed 's/\//\\\//g')
+    container_path="${package/$ds_dir/$CONTAINER_DS_DIR}"
+    destination=$(echo "$package" | grep -Po '.*/api/home/[a-zA-Z0-9]{1,}/data/*\K[^/].*')
+    # shellcheck disable=SC2076
+    if [[ ! " ${completed[*]} " =~ " ${destination} " ]]; then
+      echo "  Resetting package '$destination'"
+      if [ "$DRY_RUN" == "False" ]; then
+        docker-compose run --rm -e MONGO_AZURE_URI="$MONGO_AZURE_URI" -e DMSS_API="$DMSS_API" api --token="$TOKEN" reset-package "$container_path" "$destination" && ok || err
+      else
+        echo "    Skipping (dry run)"
+      fi
+      completed+=("$destination")
+    fi
+  done
+
 }
 
 function cleanup() {
   trap - SIGINT SIGTERM ERR EXIT
-  echo "Cleaning up.."
+  info "Cleaning up.."
   if [ "$GIT_RESTORE" == "True" ]; then
     echo "  Running 'git restore' on modified JSON and docker(-compose) files.."
-    git restore "$DMT_DS" "$DMT_DS_AZ" "$FoR_DS" "$FoR_DS_AZ" "$DMSS_SYSTEM" "$COMPOSE_FILE" && echo "    OK" || echo "    ERROR"
+    git restore "$DMT_DS" "$FoR_DS" "$SIMA_DS" "$SIMPOS_APP_DB_DS" "$SIMPOS_MDL_DB_DS" "$DMSS_SYSTEM" "$COMPOSE_FILE" && ok || err
   else
     echo "  Skipping 'git restore' due to '--no-restore' flag"
-    echo "    Warning: Passwords may be stored in clear text in the modified files. Please avoid committing them to git."
-    echo "    Issue a manual 'git restore' with the following command:"
-    echo "      git restore $DMT_DS $DMT_DS_AZ $FoR_DS $FoR_DS_AZ $DMSS_SYSTEM $COMPOSE_FILE"
+    warn "  WARNING: Passwords may be stored in clear text in the modified files. Please avoid committing them to git."
+    warn "    Issue a manual 'git restore' with the following command:"
+    info "     git restore $DMT_DS $FoR_DS $SIMA_DS $SIMPOS_APP_DB_DS $SIMPOS_MDL_DB_DS $DMSS_SYSTEM $COMPOSE_FILE"
   fi
   if [ "$COMPOSE_DOWN" == "True" ]; then
     echo "  Running 'docker-compose down'.."
-    docker-compose down && echo "    OK" || echo "    ERROR"
+    docker-compose down && ok || err
   fi
 }
 
 trap cleanup SIGINT SIGTERM ERR EXIT
 
 function main() {
+  discover_packages
+  discover_data_sources
   parse_mongo_conn_str
   set_env_vars
   print_vars
-  delete_data_source_defs
   set_database_host
   set_database_port
+  set_database_tls
   set_database_username
   set_database_password
   set_data_source_names
   update_compose_spec
   build_images
   dmss_reset_app
-  api_reset_app
+  import_data_sources
+  import_packages
 }
 
 setup_colors
