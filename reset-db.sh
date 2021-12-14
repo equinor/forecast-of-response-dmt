@@ -139,8 +139,8 @@ DS_DIR=$DIR/api/home
 SIMPOS_DS_DIR=$DS_DIR/SIMPOS/data_sources
 CONTAINER_DS_DIR=/code/home
 ## Data sources
-DMT_DS=$DS_DIR/DMT/data_sources/DMT-DS-azure.json
-FoR_DS=$DS_DIR/for/data_sources/ForecastDS-azure.json
+DMT_DS=$DS_DIR/DMT/data_sources/DMT-DS.json
+FoR_DS=$DS_DIR/for/data_sources/ForecastDS.json
 SIMA_DS=$SIMPOS_DS_DIR/sima.json
 SIMPOS_APP_DB_DS=$SIMPOS_DS_DIR/simpos_app_db.json
 SIMPOS_MDL_DB_DS=$SIMPOS_DS_DIR/simpos_models_db.json
@@ -149,13 +149,21 @@ DMSS_SYSTEM=$DIR/dmss-system.radix.json
 COMPOSE_FILE=$DIR/docker-compose.yml
 
 # The data source paths to work with.
-DATA_SOURCES=("$DMT_DS" "$FoR_DS" "$SIMA_DS" "$SIMPOS_APP_DB_DS" "$SIMPOS_MDL_DB_DS")
+#DATA_SOURCES=("$DMT_DS" "$FoR_DS" "$SIMA_DS" "$SIMPOS_APP_DB_DS" "$SIMPOS_MDL_DB_DS")
 
 function discover_packages() {
   info "Discovering packages.."
   #api/home/<AppName>/data/<DataSource>/<Package>
   IFS=$'\n'
   PACKAGES=($(find "$DS_DIR" -maxdepth 4 -type d -iwholename "*api/home/*/data/*/*"))
+  unset IFS
+}
+
+function discover_data_sources() {
+  info "Discovering data sources.."
+  #api/home/<AppName>/data_sources/<DataSource>.json
+  IFS=$'\n'
+  DATA_SOURCES=($(find "$DS_DIR" -maxdepth 3 -type f -iwholename "*api/home/*/data_sources/*.json"))
   unset IFS
 }
 
@@ -266,6 +274,29 @@ function set_database_port() {
     fi
 }
 
+function set_database_tls() {
+    SED_PATTERN="s/\"tls\": (true|false),/\"tls\": true,/"
+    GREP_PATTERN="^\s{1,}\"tls\": true,"
+
+    info "Setting database TLS mode.."
+    for data_source in "${DATA_SOURCES[@]}"; do
+        echo "  Updating $data_source"
+        if test -f "$data_source"; then
+          sed -E -i "$SED_PATTERN" "$data_source"
+          grep -Eq "$GREP_PATTERN" "$data_source" && ok || err
+        else
+          warn "    The file does not exist"
+        fi
+      done
+      if test -f "$DMSS_SYSTEM"; then
+          echo "  Updating dmss-system.radix.json"
+          sed -i "$SED_PATTERN" "$DMSS_SYSTEM"
+          grep -Eq "$GREP_PATTERN" "$DMSS_SYSTEM" && ok || err
+      else
+        warn "    The file does not exist"
+      fi
+}
+
 function set_database_username() {
     SED_PATTERN="s/\"username\":.*\",/\"username\": \"$MONGO_AZURE_USER\",/"
     GREP_PATTERN="^\s{1,}\"username\": \"$MONGO_AZURE_USER\","
@@ -321,21 +352,16 @@ function set_database_password() {
 }
 
 function set_data_source_names() {
-  info "Setting data source names.."
-  if test -f "$DMT_DS"; then
-    NEW_NAME="DMT-Internal"
-    OLD_NAME="Test$NEW_NAME"
-    echo "  Updating DMT-DS-azure.json"
-    sed -i "s/\"name\": \"$OLD_NAME\",/\"name\": \"$NEW_NAME\",/" "$DMT_DS"
-    grep -Eq "^\s{1,}\"name\": \"$NEW_NAME\"," "$DMT_DS" && ok || err
-  fi
-  if test -f "$FoR_DS"; then
-    NEW_NAME="ForecastDS"
-    OLD_NAME="Test$NEW_NAME"
-    echo "  Updating ForecastDS-azure.json"
-    sed -i "s/\"name\": \"$OLD_NAME\",/\"name\": \"$NEW_NAME\",/" "$FoR_DS"
-    grep -Eq "^\s{1,}\"name\": \"$NEW_NAME\"," "$FoR_DS" && ok || err
-  fi
+  info "Removing 'Test'-prefix from data source names.."
+  for data_source in "${DATA_SOURCES[@]}"; do
+    echo "  Updating $data_source"
+    if test -f "$data_source"; then
+      if grep -Eq '"name": "Test.*",' "$data_source"; then
+        sed -i -E "s/\"name\": \"Test/\"name\": \"/" "$data_source"
+      fi
+      grep -Eq '"name": "Test.*",' "$data_source" && err || ok
+    fi
+  done
 }
 
 function update_compose_spec() {
@@ -361,7 +387,7 @@ function update_compose_spec() {
 
 function build_images() {
   info "Building the Docker images.."
-  docker-compose build --quiet && ok || err
+  docker-compose build api --quiet && ok || err
 }
 
 function dmss_reset_app() {
@@ -373,8 +399,8 @@ function dmss_reset_app() {
   fi
 }
 
-function api_reset_app() {
-  info "Resetting the API.."
+function import_data_sources() {
+  info "Importing data sources.."
   for data_source in "${DATA_SOURCES[@]}"; do
     ds_dir=$(echo "$DS_DIR" | sed 's/\//\\\//g')
     container_path="${data_source/$ds_dir/$CONTAINER_DS_DIR}"
@@ -385,8 +411,11 @@ function api_reset_app() {
       echo "    Skipping (dry run)"
     fi
   done
+}
 
-  unique_packages=()
+function import_packages() {
+  completed=()
+  info "Importing packages.."
   for package in "${PACKAGES[@]}"; do
     ds_dir=$(echo "$DS_DIR" | sed 's/\//\\\//g')
     container_path="${package/$ds_dir/$CONTAINER_DS_DIR}"
@@ -427,18 +456,21 @@ trap cleanup SIGINT SIGTERM ERR EXIT
 
 function main() {
   discover_packages
+  discover_data_sources
   parse_mongo_conn_str
   set_env_vars
   print_vars
   set_database_host
   set_database_port
+  set_database_tls
   set_database_username
   set_database_password
   set_data_source_names
   update_compose_spec
   build_images
   dmss_reset_app
-  api_reset_app
+  import_data_sources
+  import_packages
 }
 
 setup_colors
