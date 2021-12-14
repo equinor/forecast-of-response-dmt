@@ -9,6 +9,7 @@ import {
   Table,
   Typography,
   Dialog,
+  Icon,
 } from '@equinor/eds-core-react'
 import { StatusDot } from '../Other'
 import styled from 'styled-components'
@@ -18,6 +19,7 @@ import { CommentInput, CommentView } from '../Comments'
 import { AccessControlList, AuthContext } from '@dmt/common'
 import { DEFAULT_DATASOURCE_ID } from '../../const'
 import { hasExpertRole } from '../../utils/auth'
+import { ClickableIcon } from '../App/Header'
 
 const FlexWrapper = styled.div`
   display: flex;
@@ -115,7 +117,19 @@ export default (props: { operation: TOperation }): JSX.Element => {
       </Card.Actions>
       {viewACL && (
         <Scrim isDismissable onClose={() => setViewACL(false)}>
-          <Dialog style={{ width: '100%' }}>
+          <Dialog style={{ width: '100%', padding: '20px' }}>
+            <div style={{}}>
+              <ClickableIcon
+                style={{
+                  paddingTop: '7px',
+                  position: 'absolute',
+                  paddingLeft: '590px',
+                }}
+                onClick={() => setViewACL(false)}
+              >
+                <Icon name="close" size={24} title="Close" />
+              </ClickableIcon>
+            </div>
             <AccessControlList
               documentId={operation._id}
               dataSourceId={DEFAULT_DATASOURCE_ID}

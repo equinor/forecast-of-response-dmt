@@ -36,8 +36,8 @@ const StyledLink = styled(Link)`
   }
 `
 
-export default (props: { appName: string }): JSX.Element => {
-  const { appName } = props
+export default (props: { appName: string; homeUrl: string }): JSX.Element => {
+  const { appName, homeUrl } = props
   const [visibleUserInfo, setVisibleUserInfo] = useState<boolean>(false)
   const { tokenData } = useContext(AuthContext)
   return (
@@ -46,7 +46,7 @@ export default (props: { appName: string }): JSX.Element => {
         <StyledLink
           style={{ display: 'flex' }}
           to={{
-            pathname: `/for`,
+            pathname: `/${homeUrl}`,
           }}
         >
           <Icon name="waves" size={32} />

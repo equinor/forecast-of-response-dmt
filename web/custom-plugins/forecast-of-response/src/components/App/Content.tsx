@@ -22,7 +22,7 @@ export default (props: TContent): JSX.Element => {
   const { heading, content } = props
 
   return (
-    <Content style={{ margin: '4px 0px 10px 0px' }}>
+    <Content style={{ margin: '0px 0px 10px 0px' }}>
       <PageHeading>
         <Heading text={heading} />
       </PageHeading>

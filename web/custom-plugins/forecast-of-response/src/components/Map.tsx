@@ -1,7 +1,7 @@
 import { TLocation } from '../Types'
 import { MapContainer, Marker, TileLayer, useMapEvents } from 'react-leaflet'
 import Leaflet from 'leaflet'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 export const StyledMapContainer = styled(MapContainer)`
@@ -40,6 +40,7 @@ interface IClickableMap {
   location: TLocation | undefined
   zoom: number
   setClickPos: Function
+  disableClick: boolean
 }
 
 function MapEventHandlerComponent({ setClickLocation }: any) {
@@ -70,24 +71,32 @@ export const ClickableMap = ({
   location,
   zoom,
   setClickPos,
+  disableClick,
 }: IClickableMap): JSX.Element => {
-  const marker = [location?.lat || 60, location?.long || 4]
-  const [clickLocation, setClickLocation] = useState<[number, number]>()
+  const getMarkerFromLocation = (
+    location: TLocation | undefined
+  ): [number, number] => {
+    return [location?.lat || 60, location?.long || 40]
+  }
 
   return (
-    <StyledMapContainer center={marker} zoom={zoom} scrollWheelZoom={true}>
+    <StyledMapContainer
+      center={getMarkerFromLocation(location)}
+      zoom={zoom}
+      scrollWheelZoom={true}
+    >
       <TileLayer
         attribution='<a href="https://openstreetmap.org/copyright">OpenStreetMap</a>'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <Marker position={marker}></Marker>
-      {clickLocation && <Marker position={clickLocation} icon={icon}></Marker>}
-      <MapEventHandlerComponent
-        setClickLocation={(v: [number, number]) => {
-          setClickPos(v)
-          setClickLocation(v)
-        }}
-      />
+      <Marker position={getMarkerFromLocation(location)}></Marker>
+      {!disableClick && (
+        <MapEventHandlerComponent
+          setClickLocation={(v: [number, number]) => {
+            setClickPos(v)
+          }}
+        />
+      )}
     </StyledMapContainer>
   )
 }

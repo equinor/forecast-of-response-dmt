@@ -28,7 +28,7 @@ const SelectSIMACompute = (props: {
         </label>
         <div
           style={{
-            marginLeft: '5px',
+            marginLeft: '15px',
             alignSelf: 'flex-end',
           }}
         >
