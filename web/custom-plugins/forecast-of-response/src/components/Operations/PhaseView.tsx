@@ -274,9 +274,9 @@ function SingleSimulationConfig(props: {
       `${DEFAULT_DATASOURCE_ID}/${stask._blob_id}`, // STask
       simaTask, //Sima task in STask
       simaWorkflow, // Sima workflow in task
-      true, // Use remote compute service
-      `${DEFAULT_DATASOURCE_ID}/${configBlob._blob_id}`, // Id of compute cfg
       dottedId, // Reference to Sima job input entity
+      `${DEFAULT_DATASOURCE_ID}/${configBlob._blob_id}`, // Id of compute cfg
+      true, // Use remote compute service
       `${DEFAULT_DATASOURCE_ID}/${dottedId}.results`, // Reference for results upload destination
       cronValue
     )
@@ -326,9 +326,9 @@ function SingleSimulationConfig(props: {
       `${DEFAULT_DATASOURCE_ID}/${stask._blob_id}`, // STask
       simaTask, //Sima task in STask
       simaWorkflow, // Sima workflow in task
-      true, // Use remote compute service
-      `${DEFAULT_DATASOURCE_ID}/${configBlob._blob_id}`,
       dottedId, // Reference to Sima job input entity
+      `${DEFAULT_DATASOURCE_ID}/${configBlob._blob_id}`,
+      true, // Use remote compute service
       `${DEFAULT_DATASOURCE_ID}/${dottedId}.results` // Reference for results upload destination
     )
     dmssAPI.generatedDmssApi
