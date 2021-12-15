@@ -258,21 +258,14 @@ const OperationCreate = (): JSX.Element => {
       }
     }
   }
-  const updateLocation = (newLocation: TLocation | undefined) => {
-    isValidOperationLocation(newLocation)
-    setOperationLocation(newLocation)
-  }
 
-  const isValidOperationLocation = (newLocation: TLocation | undefined) => {
-    if (newLocation && newLocation.name === '')
-      setError('Location name cannot be emtpy!')
+  const isValidOperationLocation = () => {
     if (
-      newLocation &&
-      newLocation.name !== '' &&
-      newLocation.lat &&
-      newLocation.long
+      operationLocation &&
+      operationLocation.name !== '' &&
+      operationLocation.lat &&
+      operationLocation.long
     ) {
-      setError('')
       return true
     } else {
       return false
@@ -339,7 +332,8 @@ const OperationCreate = (): JSX.Element => {
           <SelectSTask setSTask={setSTask} isLoading={isLoading} />
           <SelectOperationLocation
             location={operationLocation}
-            setLocation={updateLocation}
+            setLocation={setOperationLocation}
+            setError={setError}
             setIsNewLocation={(isNew: boolean) => {
               setError(undefined)
               setIsNewLocation(isNew)
@@ -372,7 +366,7 @@ const OperationCreate = (): JSX.Element => {
               disabled={
                 !(
                   sTask &&
-                  isValidOperationLocation(operationLocation) &&
+                  isValidOperationLocation() &&
                   isValidOperationMeta() &&
                   operationConfig &&
                   !error

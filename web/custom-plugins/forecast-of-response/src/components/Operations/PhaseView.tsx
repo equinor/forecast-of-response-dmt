@@ -74,7 +74,7 @@ const CloseSummaryButton = styled.div`
 `
 
 const JobDetailsLink = styled.div`
-  color: blue;
+  color: #007079;
   cursor: pointer;
   text-decoration: underline;
   margin-left: 10px;

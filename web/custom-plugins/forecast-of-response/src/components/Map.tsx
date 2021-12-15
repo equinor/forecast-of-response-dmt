@@ -76,7 +76,7 @@ export const ClickableMap = ({
   const getMarkerFromLocation = (
     location: TLocation | undefined
   ): [number, number] => {
-    return [location?.lat || 60, location?.long || 40]
+    return [location?.lat || 60, location?.long || 4]
   }
 
   return (

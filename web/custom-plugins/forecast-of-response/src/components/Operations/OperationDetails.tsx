@@ -117,23 +117,24 @@ export default (props: { operation: TOperation }): JSX.Element => {
       </Card.Actions>
       {viewACL && (
         <Scrim isDismissable onClose={() => setViewACL(false)}>
-          <Dialog style={{ width: '100%', padding: '20px' }}>
-            <div style={{}}>
+          <Dialog style={{ width: '100%' }}>
+            <div>
               <ClickableIcon
                 style={{
-                  paddingTop: '7px',
                   position: 'absolute',
-                  paddingLeft: '590px',
+                  paddingLeft: '650px',
                 }}
                 onClick={() => setViewACL(false)}
               >
                 <Icon name="close" size={24} title="Close" />
               </ClickableIcon>
             </div>
-            <AccessControlList
-              documentId={operation._id}
-              dataSourceId={DEFAULT_DATASOURCE_ID}
-            />
+            <div style={{ padding: '40px' }}>
+              <AccessControlList
+                documentId={operation._id}
+                dataSourceId={DEFAULT_DATASOURCE_ID}
+              />
+            </div>
           </Dialog>
         </Scrim>
       )}
