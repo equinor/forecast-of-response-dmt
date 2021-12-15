@@ -19,12 +19,13 @@ const SelectLocationWrapper = styled.div`
 `
 
 const SelectLocation = (props: {
+  location: TLocation
   setLocation: Function
-  setIsNewLocation: Function
 }): JSX.Element => {
-  const { setLocation, setIsNewLocation } = props
+  const { location, setLocation } = props
   const [locations, setLocations] = useState<TLocation[]>([])
   const [searchResult] = useSearch(Blueprints.LOCATION)
+
   /**
    * Set locations when the search has completed
    */
@@ -41,19 +42,21 @@ const SelectLocation = (props: {
         id="operationLocationSelector"
         label="Select location"
         value={
-          locations.length &&
-          `${locations[0].name} - ${locations[0].lat},${locations[0].long}`
+          location
+            ? `${location.name} - ${location.lat.toFixed(
+                7
+              )},  ${location.long.toFixed(7)}`
+            : ''
         }
-        items={locations?.map(
-          (loc: TLocation) => `${loc.name} - ${loc.lat},${loc.long}`
-        )}
+        items={locations?.map((loc: TLocation) => {
+          return `${loc.name} - ${loc.lat},  ${loc.long}`
+        })}
         handleSelectedItemChange={(event: any) => {
           // Parse formatted location string to identify actual location. Show error in console if selectedItem is invalid
-          if (!event.selectedItem) {
-            console.error('Error: a location must be selected')
-          } else {
+          if (event.selectedItem) {
             const [locationName] = event.selectedItem.split(' - ')
-            setIsNewLocation(false)
+            // setIsNewLocation(false)
+            console.log('loc nam', locationName)
             setLocation(
               locations.find((loc: TLocation) => loc.name === locationName)
             )
@@ -68,10 +71,17 @@ const SelectOperationLocation = (props: {
   location: TLocation | undefined
   setLocation: Function
   setIsNewLocation: Function
+  setError: Function
   mapClickPos: [number, number] | undefined
 }): JSX.Element => {
   const [selectLocationType, setSelectLocationType] = useState<string>('select')
-  const { location, setLocation, setIsNewLocation, mapClickPos } = props
+  const {
+    location,
+    setLocation,
+    setIsNewLocation,
+    mapClickPos,
+    setError,
+  } = props
 
   useEffect(() => {
     if (mapClickPos !== undefined) {
@@ -112,10 +122,7 @@ const SelectOperationLocation = (props: {
       </LocationButtonsGrid>
 
       {selectLocationType === 'select' ? (
-        <SelectLocation
-          setLocation={setLocation}
-          setIsNewLocation={setIsNewLocation}
-        />
+        <SelectLocation setLocation={setLocation} location={location} />
       ) : (
         <div style={{ paddingTop: '15px' }}>
           <TextField
@@ -123,6 +130,11 @@ const SelectOperationLocation = (props: {
             placeholder="Location name"
             label="Location name"
             onChange={(event: any) => {
+              if (!event.target.value) {
+                setError('Location name cannot be empty.')
+              } else {
+                setError('')
+              }
               setLocation({ ...location, name: event.target.value })
             }}
           />
