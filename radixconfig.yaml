@@ -12,14 +12,19 @@ spec:
         from: master
   components:
     - name: web
-      image: mariner.azurecr.io/for/web:latest
+      image: mariner.azurecr.io/for/web:{imageTagName}
+      environmentConfig:
+        - environment: test
+          imageTagName: latest
+        - environment: prod
+          imageTagName: production
       alwaysPullImageOnDeploy: true
       ports:
         - name: http
           port: 3000
 
     - name: api
-      image: mariner.azurecr.io/for/api:latest
+      image: mariner.azurecr.io/for/api:{imageTagName}
       alwaysPullImageOnDeploy: true
       secrets:
         - AZURE_SP_SECRET
@@ -38,10 +43,12 @@ spec:
         AZURE_JOB_CLIENT_ID: ee7dbf49-e358-4c9c-a7e4-fb6d56c02205
       environmentConfig:
         - environment: test
+          imageTagName: latest
           variables:
             SCHEDULER_REDIS_HOST: dmt-scheduler.redis.cache.windows.net
             PUBLIC_DMSS_API: https://dmss-forecast-of-response-test.radix.equinor.com
         - environment: prod
+          imageTagName: production
           variables:
             SCHEDULER_REDIS_HOST: dmt-scheduler-prod.redis.cache.windows.net
             PUBLIC_DMSS_API: https://dmss-forecast-of-response-prod.radix.equinor.com

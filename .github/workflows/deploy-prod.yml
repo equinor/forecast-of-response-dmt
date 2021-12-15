@@ -20,9 +20,9 @@ jobs:
         run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login mariner.azurecr.io --password-stdin --username ${{ secrets.DOCKER_USERNAME }}
       - name: Pull latest
         run: docker pull ${API_IMAGE}:latest && docker pull ${WEB_IMAGE}:latest
-      - name: "Build API"
+      - name: "Build API with git tag"
         run: docker build --cache-from ${API_IMAGE}:latest --tag ${API_IMAGE}:${GITHUB_REF#refs/*/} api
-      - name: "Build Web"
+      - name: "Build Web with git tag"
         run: |
           docker build \
           --build-arg REDIRECT_URI=https://forecast-of-response.app.radix.equinor.com/ \
@@ -32,8 +32,18 @@ jobs:
           --cache-from ${WEB_IMAGE}:latest \
           --tag ${WEB_IMAGE}:${GITHUB_REF#refs/*/} \
           web
+      - name: "Tag Web image with 'production'"
+        run: |
+          docker tag ${WEB_IMAGE}:${GITHUB_REF#refs/*/} ${WEB_IMAGE}:production
+      - name: "Tag API image with 'production'"
+        run: |
+          docker tag ${API_IMAGE}:${GITHUB_REF#refs/*/} ${API_IMAGE}:production
       - name: "Push Docker images"
-        run: docker push ${API_IMAGE}:${GITHUB_REF#refs/*/} && docker push ${WEB_IMAGE}:${GITHUB_REF#refs/*/}
+        run: |
+          docker push ${API_IMAGE}:${GITHUB_REF#refs/*/} && \
+          docker push ${WEB_IMAGE}:${GITHUB_REF#refs/*/} && \
+          docker push ${WEB_IMAGE}:production && \
+          docker push ${API_IMAGE}:production
 
   deploy-release-to-radix-prod-env:
     needs: [build-and-publish]
