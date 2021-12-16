@@ -6,12 +6,13 @@ export const CustomScrim = (props: {
   closeScrim: Function
   children: any
   header: string
+  width?: number
 }) => {
-  const { closeScrim, children, header } = props
+  const { closeScrim, children, header, width } = props
   console.log(props.header)
   return (
     <Scrim isDismissable onClose={closeScrim}>
-      <Dialog style={{ width: '100%' }}>
+      <Dialog style={{ width: width ? width : '100%' }}>
         <div
           style={{
             display: 'flex',
