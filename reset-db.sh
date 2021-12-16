@@ -136,20 +136,9 @@ fi
 # File paths
 DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd -P)
 DS_DIR=$DIR/api/home
-SIMPOS_DS_DIR=$DS_DIR/SIMPOS/data_sources
 CONTAINER_DS_DIR=/code/home
-## Data sources
-DMT_DS=$DS_DIR/DMT/data_sources/DMT-DS.json
-FoR_DS=$DS_DIR/for/data_sources/ForecastDS.json
-SIMA_DS=$SIMPOS_DS_DIR/sima.json
-SIMPOS_APP_DB_DS=$SIMPOS_DS_DIR/simpos_app_db.json
-SIMPOS_MDL_DB_DS=$SIMPOS_DS_DIR/simpos_models_db.json
-
 DMSS_SYSTEM=$DIR/dmss-system.radix.json
 COMPOSE_FILE=$DIR/docker-compose.yml
-
-# The data source paths to work with.
-#DATA_SOURCES=("$DMT_DS" "$FoR_DS" "$SIMA_DS" "$SIMPOS_APP_DB_DS" "$SIMPOS_MDL_DB_DS")
 
 function discover_packages() {
   info "Discovering packages.."
@@ -387,7 +376,7 @@ function update_compose_spec() {
 
 function build_images() {
   info "Building the Docker images.."
-  docker-compose build api --quiet && ok || err
+  docker-compose build --quiet api  && ok || err
 }
 
 function dmss_reset_app() {
@@ -439,7 +428,7 @@ function cleanup() {
   info "Cleaning up.."
   if [ "$GIT_RESTORE" == "True" ]; then
     echo "  Running 'git restore' on modified JSON and docker(-compose) files.."
-    git restore "$DMT_DS" "$FoR_DS" "$SIMA_DS" "$SIMPOS_APP_DB_DS" "$SIMPOS_MDL_DB_DS" "$DMSS_SYSTEM" "$COMPOSE_FILE" && ok || err
+    git restore api/home/* docker-compose.yml dmss-system.radix.json && ok || err
   else
     echo "  Skipping 'git restore' due to '--no-restore' flag"
     warn "  WARNING: Passwords may be stored in clear text in the modified files. Please avoid committing them to git."
