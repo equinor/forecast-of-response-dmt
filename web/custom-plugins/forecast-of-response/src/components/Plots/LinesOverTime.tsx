@@ -23,7 +23,6 @@ export type TLineChartDataPoint = {
 
 //using a custom checkbox style since EDS checkbox has a black border that cannot be removed
 const CustomCheckbox = styled(Checkbox)`
-  padding-top: 10px;
   padding-left: 20px;
   & .ant-checkbox-checked .ant-checkbox-inner {
     background-color: #007079;
@@ -90,7 +89,7 @@ export default (props: {
     const plotData = data.map((dataPoint: TLineChartDataPoint) => {
       return {
         ...dataPoint,
-        customLabel: `${dataPoint.timeStamp} \n ${graphInfo.name}: ${dataPoint[
+        customLabel: `${dataPoint.timestamp} \n ${graphInfo.name}: ${dataPoint[
           graphInfo.name
         ].toFixed(2)} ${graphInfo.unit}`,
       }

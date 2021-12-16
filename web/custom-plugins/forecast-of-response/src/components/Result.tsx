@@ -178,7 +178,8 @@ export default (props: { result: any }) => {
 
   if (isLoading) return <Progress.Linear style={{ margin: '20px' }} />
 
-  if (!variableRuns.length) return <>No variableRuns in result</>
+  if (!variableRuns.length)
+    return <div style={{ paddingTop: '10px' }}>No variableRuns in result</div>
 
   if (error) {
     NotificationManager.error(error.message)
@@ -195,13 +196,13 @@ export default (props: { result: any }) => {
           setGraphInfo={setGraphInfo}
           graphInfo={graphInfo}
         />
-        {graphInfo.length >= 1 && (
+        {graphInfo.length >= 1 ? (
           <AddedGraphWrapper>
             {graphInfo.map((graph, index) => (
               <Tooltip title={graph.description} key={index}>
                 <Chip
                   key={index}
-                  style={{ margin: '10px 5px', cursor: 'help' }}
+                  style={{ margin: '10px 5px', cursor: 'help', zIndex: 1 }}
                   variant="active"
                   onDelete={() => removeGraph(graph.name)}
                 >
@@ -211,6 +212,8 @@ export default (props: { result: any }) => {
               </Tooltip>
             ))}
           </AddedGraphWrapper>
+        ) : (
+          <div style={{ height: '30px' }}></div>
         )}
       </div>
       <LinesOverTime data={chartData} graphInfo={graphInfo} />
