@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react'
 import { Button, Scrim, TopBar } from '@equinor/eds-core-react'
 import styled from 'styled-components'
 import Icon from '../Design/Icons'
+import { Link } from 'react-router-dom'
 import { AuthContext } from '@dmt/common'
 
 const Icons = styled.div`
@@ -13,29 +14,50 @@ const Icons = styled.div`
   }
 `
 
-const ClickableIcon = styled.div`
+export const ClickableIcon = styled.div`
   &:hover {
     color: gray;
     cursor: pointer;
   }
 `
 
-export default (props: { appName: string }): JSX.Element => {
-  const { appName } = props
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: black;
+  &:focus,
+  &:hover {
+    text-decoration: none;
+    color: black;
+  }
+  &:visited,
+  &:link,
+  &:active {
+    text-decoration: none;
+  }
+`
+
+export default (props: { appName: string; homeUrl: string }): JSX.Element => {
+  const { appName, homeUrl } = props
   const [visibleUserInfo, setVisibleUserInfo] = useState<boolean>(false)
   const { tokenData } = useContext(AuthContext)
   return (
     <TopBar>
       <TopBar.Header>
-        <Icon name="waves" size={24} />
-        {appName}
+        <StyledLink
+          style={{ display: 'flex' }}
+          to={{
+            pathname: `/${homeUrl}`,
+          }}
+        >
+          <Icon name="waves" size={32} />
+          <h4 style={{ paddingTop: 9, paddingLeft: 10 }}>{appName}</h4>
+        </StyledLink>
       </TopBar.Header>
       <TopBar.Actions>
         <Icons>
           <ClickableIcon onClick={() => setVisibleUserInfo(true)}>
             <Icon name="account_circle" size={24} title="user" />
           </ClickableIcon>
-          <Icon name="notifications" size={24} title="notifications" />
         </Icons>
       </TopBar.Actions>
       {visibleUserInfo && (

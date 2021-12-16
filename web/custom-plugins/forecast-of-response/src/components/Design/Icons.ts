@@ -19,6 +19,7 @@ import {
   save,
   waves,
   arrow_up,
+  close,
 } from '@equinor/eds-icons'
 
 Icon.add({
@@ -41,6 +42,7 @@ Icon.add({
   delete_to_trash,
   save,
   arrow_up,
+  close,
 })
 
 export default Icon

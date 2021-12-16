@@ -22,11 +22,10 @@ L.Icon.Default.mergeOptions({
 })
 
 const CardWrapper = styled.div`
-  border: darkgrey 1px solid;
+  border: #e6e6e6 1px solid;
   border-radius: 4px;
   display: flex;
   flex-direction: column;
-  box-shadow: darkgrey 0 2px 8px 2px;
 `
 
 type CoordinateTuple = [number, number, string, string] // [lat, long, operationName, operationId]
@@ -86,9 +85,15 @@ const Dashboard = (): JSX.Element => {
     return <div style={{ color: 'red' }}>Failed to fetch data</div>
 
   return (
-    <div style={{ display: 'flex', minHeight: '500px', maxHeight: '900px' }}>
+    <div
+      style={{
+        display: 'flex',
+        minHeight: '500px',
+        maxHeight: '900px',
+      }}
+    >
       <CardWrapper style={{ width: '70%' }}>
-        <h3 style={{ margin: '5px' }}>
+        <h3 style={{ margin: '15px' }}>
           Ongoing operations ({operations.length})
         </h3>
         <StyledMapContainer
@@ -117,18 +122,23 @@ const Dashboard = (): JSX.Element => {
                       {gridTuple[2]}
                     </Link>
                   </Popup>
-                  <Tooltip>{gridTuple[2]}</Tooltip>
                 </Marker>
               )
             })}
         </StyledMapContainer>
       </CardWrapper>
-      <CardWrapper style={{ margin: '0 20px', width: '30%', overflow: 'auto' }}>
-        <h3 style={{ margin: '5px' }}>Comments</h3>
+      <CardWrapper
+        style={{
+          margin: '0px 40px 0px 40px',
+          width: '30%',
+          overflow: 'auto',
+        }}
+      >
+        <h3 style={{ margin: '15px' }}>Comments</h3>
         {commentsLoading ? (
           <DotProgress color="primary" />
         ) : (
-          <>
+          <div style={{ paddingLeft: '10px', paddingRight: '10px' }}>
             {comments ? (
               comments.map((comment: TComment) => {
                 return (
@@ -138,7 +148,7 @@ const Dashboard = (): JSX.Element => {
             ) : (
               <>No comments yet</>
             )}
-          </>
+          </div>
         )}
       </CardWrapper>
     </div>

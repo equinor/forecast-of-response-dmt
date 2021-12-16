@@ -19,12 +19,13 @@ const SelectLocationWrapper = styled.div`
 `
 
 const SelectLocation = (props: {
+  location: TLocation
   setLocation: Function
-  setIsNewLocation: Function
 }): JSX.Element => {
-  const { setLocation, setIsNewLocation } = props
+  const { location, setLocation } = props
   const [locations, setLocations] = useState<TLocation[]>([])
   const [searchResult] = useSearch(Blueprints.LOCATION)
+
   /**
    * Set locations when the search has completed
    */
@@ -41,19 +42,25 @@ const SelectLocation = (props: {
         id="operationLocationSelector"
         label="Select location"
         value={
-          locations.length &&
-          `${locations[0].name} - ${locations[0].lat},${locations[0].long}`
+          location
+            ? `${location.name} - ${location.lat.toFixed(
+                7
+              )},  ${location.long.toFixed(7)}`
+            : ''
         }
-        items={locations?.map(
-          (loc: TLocation) => `${loc.name} - ${loc.lat},${loc.long}`
-        )}
+        items={locations?.map((loc: TLocation) => {
+          return `${loc.name} - ${loc.lat},  ${loc.long}`
+        })}
         handleSelectedItemChange={(event: any) => {
-          // Parse formatted location string to identify actual loc
-          const [locationName] = event.selectedItem.split(' - ')
-          setIsNewLocation(false)
-          setLocation(
-            locations.find((loc: TLocation) => loc.name === locationName)
-          )
+          // Parse formatted location string to identify actual location. Show error in console if selectedItem is invalid
+          if (event.selectedItem) {
+            const [locationName] = event.selectedItem.split(' - ')
+            // setIsNewLocation(false)
+            console.log('loc nam', locationName)
+            setLocation(
+              locations.find((loc: TLocation) => loc.name === locationName)
+            )
+          }
         }}
       />
     </div>
@@ -64,48 +71,77 @@ const SelectOperationLocation = (props: {
   location: TLocation | undefined
   setLocation: Function
   setIsNewLocation: Function
+  setError: Function
   mapClickPos: [number, number] | undefined
 }): JSX.Element => {
   const [selectLocationType, setSelectLocationType] = useState<string>('select')
-  const { location, setLocation, setIsNewLocation, mapClickPos } = props
+  const {
+    location,
+    setLocation,
+    setIsNewLocation,
+    mapClickPos,
+    setError,
+  } = props
 
+  useEffect(() => {
+    if (mapClickPos !== undefined) {
+      setLocation({
+        ...location,
+        lat: mapClickPos[0],
+        long: mapClickPos[1],
+      })
+    }
+  }, [mapClickPos])
   return (
     <SelectLocationWrapper>
       <Heading text="Location" variant="h4" />
       <LocationButtonsGrid>
         <Button
           variant={selectLocationType === 'select' ? 'contained' : 'outlined'}
-          onClick={() => setSelectLocationType('select')}
+          onClick={() => {
+            setSelectLocationType('select')
+            setIsNewLocation(false)
+          }}
         >
           Select existing
         </Button>
         <Button
           variant={selectLocationType === 'add' ? 'contained' : 'outlined'}
-          onClick={() => setSelectLocationType('add')}
+          onClick={() => {
+            setSelectLocationType('add')
+            setIsNewLocation(true)
+            setLocation({
+              lat: location?.lat || 0,
+              long: location?.long || 0,
+              name: '',
+            })
+          }}
         >
           New
         </Button>
       </LocationButtonsGrid>
 
       {selectLocationType === 'select' ? (
-        <SelectLocation
-          setLocation={setLocation}
-          setIsNewLocation={setIsNewLocation}
-        />
+        <SelectLocation setLocation={setLocation} location={location} />
       ) : (
-        <>
+        <div style={{ paddingTop: '15px' }}>
           <TextField
             id="operationLocationName"
             placeholder="Location name"
             label="Location name"
             onChange={(event: any) => {
-              setIsNewLocation(true)
+              if (!event.target.value) {
+                setError('Location name cannot be empty.')
+              } else {
+                setError('')
+              }
               setLocation({ ...location, name: event.target.value })
             }}
           />
           <TextField
             id="lat-input"
             label="Latitude"
+            type="number"
             onChange={(event: any) =>
               setLocation({ ...location, lat: event.target.value })
             }
@@ -114,6 +150,7 @@ const SelectOperationLocation = (props: {
           <TextField
             id="long-input"
             label="Longitude"
+            type="number"
             onChange={(event: any) => {
               setLocation({
                 ...location,
@@ -122,21 +159,10 @@ const SelectOperationLocation = (props: {
             }}
             value={location?.long || ''}
           />
-          <div style={{ width: '150px', marginTop: '10px' }}>
-            <Button
-              disabled={!mapClickPos}
-              onClick={() =>
-                setLocation({
-                  ...location,
-                  lat: mapClickPos[0],
-                  long: mapClickPos[1],
-                })
-              }
-            >
-              Use map pin
-            </Button>
+          <div style={{ width: '100%  ', marginTop: '10px' }}>
+            (You can also click on the map to change location)
           </div>
-        </>
+        </div>
       )}
     </SelectLocationWrapper>
   )

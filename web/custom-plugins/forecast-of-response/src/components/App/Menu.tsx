@@ -23,6 +23,7 @@ export default (props: { appRootPath: string }): JSX.Element => {
   ]
   return (
     <Sider
+      style={{ borderRight: '#E6E6E6 1px solid', minHeight: '100vh' }}
       theme="light"
       width="250"
       collapsible
@@ -41,14 +42,10 @@ export default (props: { appRootPath: string }): JSX.Element => {
             Dashboard
           </Link>
         </Menu.Item>
-        {/*<SubMenu*/}
-        {/*  key="sub1"*/}
-        {/*  icon={<Icon name="library" size={24} />}*/}
-        {/*  title="Library"*/}
-        {/*>*/}
         <Menu.Item
           key={menuUrl[1]}
           icon={<Icon name="library" size={iconSize} />}
+          disabled={true}
         >
           <Link
             to={{ pathname: menuUrl[1], state: { menuCollapsed: collapsed } }}

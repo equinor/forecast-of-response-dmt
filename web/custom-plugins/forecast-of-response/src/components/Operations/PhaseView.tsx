@@ -46,31 +46,42 @@ const StyledHeaderButton = styled(Button)`
   margin: 0 20px;
 `
 
-const SummaryButton = styled.div`
-  z-index: 100;
+const OpenSummaryButton = styled.div`
   display: flex;
   padding: 5px;
   height: 40px;
   width: 40px;
-  box-shadow: ${(props: any) =>
-    props.expanded ? 0 : 'darkgrey -2px 2px 6px 1px'};
+  box-shadow: lightgrey -2px 2px 6px 1px};
   cursor: pointer;
   position: absolute;
-  right: ${(props: any) => (props.expanded ? '210px' : 0)};
+  right: 0;
+  align-items: center;
+  justify-content: center;
+  background-color: ${lightGray};
+`
+const CloseSummaryButton = styled.div`
+  display: flex;
+  padding: 5px;
+  height: 40px;
+  width: 40px;
+  box-shadow: 0;
+  cursor: pointer;
+  position: absolute;
+  right: 210px;
   align-items: center;
   justify-content: center;
   background-color: ${lightGray};
 `
 
 const JobDetailsLink = styled.div`
-  color: blue;
+  color: #007079;
   cursor: pointer;
   text-decoration: underline;
   margin-left: 10px;
 `
 
 const SummaryWrapper = styled.div`
-  z-index: 100;
+  z-index: 10;
   position: absolute;
   display: flex;
   width: min-content;
@@ -80,12 +91,11 @@ const SummaryWrapper = styled.div`
 `
 
 const SummaryContentWrapper = styled.div`
-  z-index: 100;
   display: flex;
   flex-flow: column;
   width: 250px;
   height: 600px;
-  box-shadow: darkgrey -2px 2px 6px 1px;
+  box-shadow: lightgrey -2px 2px 6px 1px;
   padding: 40px;
   justify-content: space-around;
 `
@@ -375,38 +385,36 @@ function SingleSimulationConfig(props: {
     >
       <SummaryWrapper>
         {showSummary && (
-          <SummaryContentWrapper>
-            <h3>Summary</h3>
-            <h4>Values:</h4>
-            {simulationConfig.variables.length &&
-              simulationConfig.variables.map((variable: TVariable) => (
-                <label key={variable.name}>
-                  {variable.name}: {variable.value}
-                </label>
-              ))}
-            <h4>Reoccurring job:</h4>
-            <label>
-              {simulationConfig?.cronJob
-                ? simulationConfig.cronJob.cron
-                : 'Not configured'}
-            </label>
-            <h4>Last published:</h4>
-            <label>Not implemented</label>
-            <h4>Author:</h4>
-            <label>Not implemented</label>
-          </SummaryContentWrapper>
+          <div>
+            <CloseSummaryButton onClick={() => setShowSummary(false)}>
+              <Icon name="last_page" size={24} />
+            </CloseSummaryButton>
+            <SummaryContentWrapper>
+              <h3>Summary</h3>
+              <h4>Values:</h4>
+              {simulationConfig.variables.length &&
+                simulationConfig.variables.map((variable: TVariable) => (
+                  <label key={variable.name}>
+                    {variable.name}: {variable.value}
+                  </label>
+                ))}
+              <h4>Reoccurring job:</h4>
+              <label>
+                {simulationConfig?.cronJob
+                  ? simulationConfig.cronJob.cron
+                  : 'Not configured'}
+              </label>
+              <h4>Last published:</h4>
+              <label>Not implemented</label>
+              <h4>Author:</h4>
+              <label>Not implemented</label>
+            </SummaryContentWrapper>
+          </div>
         )}
-        <SummaryButton
-          onClick={() => setShowSummary(!showSummary)}
-          expanded={showSummary}
-        >
-          {showSummary ? (
-            <Icon name="last_page" size={24} />
-          ) : (
-            <Icon name="first_page" size={24} />
-          )}
-        </SummaryButton>
       </SummaryWrapper>
+      <OpenSummaryButton onClick={() => setShowSummary(true)}>
+        <Icon name="first_page" size={24} />
+      </OpenSummaryButton>
       <SimHeaderWrapper>
         <StyledHeaderButton onClick={() => saveAndStartJob()}>
           Run simulation

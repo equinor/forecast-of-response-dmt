@@ -167,7 +167,7 @@ const OperationOverview = (props: DmtSettings): JSX.Element => {
           <Grid>
             <SearchInput onChange={handleSearch} />
             <DateRangePicker setDateRange={setDateRange} />
-            <div style={{ paddingTop: '16px' }}>
+            <div style={{ paddingTop: '13px' }}>
               <Link
                 to={{
                   pathname: `/${settings.name}/operations/new`,
