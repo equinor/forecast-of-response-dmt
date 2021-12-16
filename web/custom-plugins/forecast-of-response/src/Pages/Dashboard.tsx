@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Marker, Popup, TileLayer, Tooltip } from 'react-leaflet'
+import { Marker, Popup, TileLayer } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
 import styled from 'styled-components'
@@ -11,7 +11,7 @@ import { AuthContext, DmssAPI } from '@dmt/common'
 import { StyledMapContainer } from '../components/Map'
 import { Link, useLocation } from 'react-router-dom'
 import { DEFAULT_DATASOURCE_ID } from '../const'
-import { DotProgress, LinearProgress } from '@equinor/eds-core-react'
+import { DotProgress } from '@equinor/eds-core-react'
 
 delete L.Icon.Default.prototype._getIconUrl
 
@@ -79,8 +79,6 @@ const Dashboard = (): JSX.Element => {
       .finally(() => setLoading(false))
   }, [operations, operationsLoading])
 
-  if (loading || operationsLoading || commentsLoading) return <LinearProgress />
-
   if (operationsError || commentsError)
     return <div style={{ color: 'red' }}>Failed to fetch data</div>
 
@@ -88,14 +86,22 @@ const Dashboard = (): JSX.Element => {
     <div
       style={{
         display: 'flex',
-        minHeight: '500px',
+        minHeight: '760px',
         maxHeight: '900px',
       }}
     >
       <CardWrapper style={{ width: '70%' }}>
-        <h3 style={{ margin: '15px' }}>
-          Ongoing operations ({operations.length})
-        </h3>
+        {operationsLoading ? (
+          <div style={{ margin: '15px' }}>
+            <h3>Loading ongoing operations</h3>
+            <DotProgress color="primary" />
+          </div>
+        ) : (
+          <h3 style={{ margin: '15px' }}>
+            Ongoing operations ({operations.length})
+          </h3>
+        )}
+
         <StyledMapContainer
           center={calculateMapCenter(coordinates)}
           zoom={5}
@@ -105,7 +111,10 @@ const Dashboard = (): JSX.Element => {
             attribution='<a href="https://openstreetmap.org/copyright">OpenStreetMap</a>'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          {coordinates.length > 0 &&
+          {!operationsLoading &&
+            !loading &&
+            coordinates &&
+            coordinates.length > 0 &&
             coordinates.map((gridTuple: any) => {
               return (
                 <Marker
@@ -136,7 +145,7 @@ const Dashboard = (): JSX.Element => {
       >
         <h3 style={{ margin: '15px' }}>Comments</h3>
         {commentsLoading ? (
-          <DotProgress color="primary" />
+          <DotProgress color="primary" style={{ margin: '15px' }} />
         ) : (
           <div style={{ paddingLeft: '10px', paddingRight: '10px' }}>
             {comments ? (

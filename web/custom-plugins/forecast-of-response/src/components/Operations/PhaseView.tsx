@@ -32,6 +32,7 @@ import Icon from '../Design/Icons'
 import { JobLog } from '../Jobs'
 import { CreateReoccurringJob } from '../ReoccurringJob'
 import { createContainerJob } from '../../utils/createContainerJob'
+import { CustomScrim } from '../CustomScrim'
 
 const SimHeaderWrapper = styled.div`
   display: flex;
@@ -433,7 +434,10 @@ function SingleSimulationConfig(props: {
           Publish this simulation
         </StyledHeaderButton>
         {visibleReoccurringJob && (
-          <Scrim onClose={() => setVisibleReoccurringJob(false)} isDismissable>
+          <CustomScrim
+            closeScrim={() => setVisibleReoccurringJob(false)}
+            header={'Set a schedule for the job'}
+          >
             <CreateReoccurringJob
               close={() => setVisibleReoccurringJob(false)}
               removeJob={() => removeCronJob()}
@@ -442,8 +446,20 @@ function SingleSimulationConfig(props: {
               }}
               cronJob={cronJob}
             />
-          </Scrim>
+          </CustomScrim>
         )}
+        {/*{visibleReoccurringJob && (*/}
+        {/*  <Scrim onClose={() => setVisibleReoccurringJob(false)} isDismissable>*/}
+        {/*    <CreateReoccurringJob*/}
+        {/*      close={() => setVisibleReoccurringJob(false)}*/}
+        {/*      removeJob={() => removeCronJob()}*/}
+        {/*      setCronJob={cronValue => {*/}
+        {/*        saveAndStartCronJob(cronValue)*/}
+        {/*      }}*/}
+        {/*      cronJob={cronJob}*/}
+        {/*    />*/}
+        {/*  </Scrim>*/}
+        {/*)}*/}
       </SimHeaderWrapper>
       {loadingJob && <Progress.Linear />}
       <div

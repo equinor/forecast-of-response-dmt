@@ -20,6 +20,7 @@ import { AccessControlList, AuthContext } from '@dmt/common'
 import { DEFAULT_DATASOURCE_ID } from '../../const'
 import { hasExpertRole } from '../../utils/auth'
 import { ClickableIcon } from '../App/Header'
+import { CustomScrim } from '../CustomScrim'
 
 const FlexWrapper = styled.div`
   display: flex;
@@ -116,27 +117,15 @@ export default (props: { operation: TOperation }): JSX.Element => {
         )}
       </Card.Actions>
       {viewACL && (
-        <Scrim isDismissable onClose={() => setViewACL(false)}>
-          <Dialog style={{ width: '100%' }}>
-            <div>
-              <ClickableIcon
-                style={{
-                  position: 'absolute',
-                  paddingLeft: '650px',
-                }}
-                onClick={() => setViewACL(false)}
-              >
-                <Icon name="close" size={24} title="Close" />
-              </ClickableIcon>
-            </div>
-            <div style={{ padding: '40px' }}>
-              <AccessControlList
-                documentId={operation._id}
-                dataSourceId={DEFAULT_DATASOURCE_ID}
-              />
-            </div>
-          </Dialog>
-        </Scrim>
+        <CustomScrim
+          header={'Access control'}
+          closeScrim={() => setViewACL(false)}
+        >
+          <AccessControlList
+            documentId={operation._id}
+            dataSourceId={DEFAULT_DATASOURCE_ID}
+          />
+        </CustomScrim>
       )}
       <Table density="comfortable" style={{ width: '100%' }}>
         <Table.Caption>
