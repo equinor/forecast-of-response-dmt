@@ -133,9 +133,6 @@ export const CommentInput = (props: {
         dottedId: `${operationId}.comments`,
         body: newComment,
       })
-      .then(
-        (x: any) => new Promise((resolve) => setTimeout(() => resolve(x), 1000))
-      )
       .then(() => {
         handleNewComment(newComment)
         setMessage('')

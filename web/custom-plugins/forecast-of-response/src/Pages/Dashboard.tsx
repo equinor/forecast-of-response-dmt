@@ -87,7 +87,7 @@ const Dashboard = (): JSX.Element => {
       style={{
         display: 'flex',
         minHeight: '760px',
-        maxHeight: '900px',
+        maxHeight: '760px',
       }}
     >
       <CardWrapper style={{ width: '70%' }}>
