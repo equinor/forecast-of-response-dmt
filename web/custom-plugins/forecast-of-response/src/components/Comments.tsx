@@ -2,7 +2,12 @@ import React, { ChangeEvent, useContext, useState } from 'react'
 import styled from 'styled-components'
 import { TComment } from '../Types'
 import { colorFromString } from '../utils/colorFromString'
-import { Button, TextField } from '@equinor/eds-core-react'
+import {
+  Button,
+  CircularProgress,
+  DotProgress,
+  TextField,
+} from '@equinor/eds-core-react'
 import { DmssAPI, AuthContext } from '@dmt/common'
 import { DEFAULT_DATASOURCE_ID } from '../const'
 import { Blueprints } from '../Enums'
@@ -110,6 +115,7 @@ export const CommentInput = (props: {
   const [message, setMessage] = useState<string>('')
   const { token, tokenData } = useContext(AuthContext)
   const dmssAPI = new DmssAPI(token)
+  const [loading, setLoading] = useState<boolean>(false)
 
   function handlePost() {
     // TODO: When we can import model contained data, remove 'name' attribute from Comment
@@ -120,15 +126,22 @@ export const CommentInput = (props: {
       date: new Date().toISOString(),
       message: message,
     }
+    setLoading(true)
     dmssAPI.generatedDmssApi
       .explorerAdd({
         dataSourceId: DEFAULT_DATASOURCE_ID,
         dottedId: `${operationId}.comments`,
         body: newComment,
       })
+      .then(
+        (x: any) => new Promise((resolve) => setTimeout(() => resolve(x), 1000))
+      )
       .then(() => {
         handleNewComment(newComment)
         setMessage('')
+      })
+      .finally(() => {
+        setLoading(false)
       })
   }
 
@@ -156,9 +169,15 @@ export const CommentInput = (props: {
           <Button color="danger" onClick={() => setMessage('')}>
             Cancel
           </Button>
-          <Button disabled={message === ''} onClick={() => handlePost()}>
-            Comment
-          </Button>
+          {loading ? (
+            <div style={{ paddingTop: '8px', paddingRight: '20px' }}>
+              <DotProgress color="primary" />
+            </div>
+          ) : (
+            <Button disabled={message === ''} onClick={() => handlePost()}>
+              Comment
+            </Button>
+          )}
         </div>
       </InputWrapper>
     </>
