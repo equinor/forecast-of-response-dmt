@@ -48,7 +48,6 @@ const SelectSIMACompute = (props: {
               const fileEnding = file.name.split('.')[
                 file.name.split('.').length - 1
               ]
-              console.log('ending', fileEnding)
               if (fileEnding === 'yaml' || fileEnding === 'yml') {
                 setFileName(file.name)
                 setSIMAComputeConfig(file)
