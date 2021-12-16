@@ -45,7 +45,11 @@ const SelectSIMACompute = (props: {
             setError('')
             if (event.target.files.length >= 1) {
               const file = event.target.files[0]
-              if (file.type === 'application/x-yaml') {
+              const fileEnding = file.name.split('.')[
+                file.name.split('.').length - 1
+              ]
+              console.log('ending', fileEnding)
+              if (fileEnding === 'yaml' || fileEnding === 'yml') {
                 setFileName(file.name)
                 setSIMAComputeConfig(file)
               } else {
