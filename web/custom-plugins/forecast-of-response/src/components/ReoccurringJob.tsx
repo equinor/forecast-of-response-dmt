@@ -20,22 +20,18 @@ function generateSelectableTimes(): string[] {
   return selectableTimes
 }
 
-const Wrapper = styled.div`
+const InputWrapper = styled.div`
+  flex-direction: row;
   display: flex;
-  background-color: #ffffff;
-  padding: 1rem;
-  flex-direction: column;
-  height: 300px;
-  width: 400px;
-  justify-content: space-between;
+  column-gap: 10px;
+  padding-top: 20px;
 `
 
-const InputWrapper = styled.div`
+const ButtonWrapper = styled.div`
   display: flex;
-  flex-direction: column;
-  height: inherit;
-  justify-content: space-around;
-  margin: 20px;
+  justify-content: center;
+  column-gap: 30px;
+  margin-top: 30px;
 `
 
 export function CreateReoccurringJob(props: {
@@ -53,6 +49,16 @@ export function CreateReoccurringJob(props: {
   const [interval, setInterval] = useState<Interval>(Interval.DAILY)
   const [hour, setHour] = useState<string>('23')
   const [minute, setMinute] = useState<string>('30')
+
+  const getLabel = () => {
+    if (interval === 'Weekly') {
+      return <small>Will run on sunday in every week</small>
+    } else if (interval === 'Monthly') {
+      return <small>Will run on the 1st on every month</small>
+    } else {
+      return <small> </small>
+    }
+  }
 
   useEffect(() => {
     let newMinute = minute
@@ -73,20 +79,18 @@ export function CreateReoccurringJob(props: {
     setSchedule(`${newMinute} ${newHour} ${dayOfMonth} ${month} ${dayOfWeek}`)
   }, [interval, hour, minute])
   return (
-    <Wrapper>
-      <h3>Set a schedule for the job</h3>
-      <InputWrapper>
+    <div>
+      <div>
+        <div style={{ paddingBottom: '10px' }}>
+          {Object.keys(cronJob).length > 0
+            ? 'A Cron job is already running. You can update it here.'
+            : ''}
+        </div>
         <DateRangePicker
           setDateRange={(dateRange: [Date, Date]) => setDateRange(dateRange)}
           value={dateRange}
         />
-        <div
-          style={{
-            flexDirection: 'row',
-            display: 'flex',
-            justifyContent: 'space-between',
-          }}
-        >
+        <InputWrapper>
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <Label label="Interval" />
             <StyledSelect onChange={(e: Event) => setInterval(e.target.value)}>
@@ -96,15 +100,8 @@ export function CreateReoccurringJob(props: {
                 </option>
               ))}
             </StyledSelect>
-
-            {interval === 'Weekly' && (
-              <small>Will run on sunday in every week</small>
-            )}
-            {interval === 'Monthly' && (
-              <small>Will run on the 1st on every month</small>
-            )}
           </div>
-          <div>
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
             <Label label="Time" />
             <StyledSelect
               onChange={(e: Event) => {
@@ -121,19 +118,10 @@ export function CreateReoccurringJob(props: {
               ))}
             </StyledSelect>
           </div>
-        </div>
-      </InputWrapper>
-
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-around',
-          margin: '10px',
-        }}
-      >
-        <Button color={'secondary'} onClick={() => close()}>
-          Close
-        </Button>
+        </InputWrapper>
+      </div>
+      <div style={{ paddingTop: '10px', height: '20px' }}>{getLabel()}</div>
+      <ButtonWrapper>
         <Button
           disabled={Object.keys(cronJob).length === 0}
           color="danger"
@@ -157,7 +145,7 @@ export function CreateReoccurringJob(props: {
         >
           Set
         </Button>
-      </div>
-    </Wrapper>
+      </ButtonWrapper>
+    </div>
   )
 }

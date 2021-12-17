@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import Icon from '../Design/Icons'
 import { Link } from 'react-router-dom'
 import { AuthContext } from '@dmt/common'
+import { CustomScrim } from '../CustomScrim'
 
 const Icons = styled.div`
   display: flex;
@@ -61,20 +62,24 @@ export default (props: { appName: string; homeUrl: string }): JSX.Element => {
         </Icons>
       </TopBar.Actions>
       {visibleUserInfo && (
-        <Scrim onClose={() => setVisibleUserInfo(false)} isDismissable>
-          <div
-            style={{
-              backgroundColor: '#fff',
-              padding: '1rem',
-              maxWidth: '600px',
-            }}
-          >
-            <pre style={{ whiteSpace: 'pre-line' }}>
-              {JSON.stringify(tokenData || '', null, 2)}
-            </pre>
-            <Button onClick={() => setVisibleUserInfo(false)}>Close</Button>
-          </div>
-        </Scrim>
+        <CustomScrim
+          header={'User info'}
+          closeScrim={() => setVisibleUserInfo(false)}
+        >
+          <pre style={{ whiteSpace: 'pre-line' }}>
+            {JSON.stringify(
+              {
+                name: tokenData?.name,
+                preferred_username: tokenData?.preferred_username,
+                roles: tokenData?.roles,
+                scope: tokenData?.scp,
+                token_issuer: tokenData?.iss,
+              } || '',
+              null,
+              2
+            )}
+          </pre>
+        </CustomScrim>
       )}
     </TopBar>
   )

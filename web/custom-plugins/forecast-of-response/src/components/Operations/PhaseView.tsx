@@ -32,6 +32,7 @@ import Icon from '../Design/Icons'
 import { JobLog } from '../Jobs'
 import { CreateReoccurringJob } from '../ReoccurringJob'
 import { createContainerJob } from '../../utils/createContainerJob'
+import { CustomScrim } from '../CustomScrim'
 
 const SimHeaderWrapper = styled.div`
   display: flex;
@@ -181,7 +182,7 @@ function NewSimulationConfig(props: {
             <Table.Row key={defaultVal.name}>
               <Table.Cell>{defaultVal.name}</Table.Cell>
               <Table.Cell>{defaultVal.value}</Table.Cell>
-              <Table.Cell>
+              <Table.Cell style={{ paddingRight: '0px' }}>
                 <Input
                   placeholder={defaultVal.value}
                   type={defaultVal.unit}
@@ -200,12 +201,9 @@ function NewSimulationConfig(props: {
         style={{
           display: 'flex',
           justifyContent: 'space-around',
-          margin: '10px',
+          marginTop: '20px',
         }}
       >
-        <Button color="secondary" onClick={() => close()}>
-          Close
-        </Button>
         <Button variant="outlined" color="danger" onClick={() => resetValues()}>
           Reset
         </Button>
@@ -433,7 +431,11 @@ function SingleSimulationConfig(props: {
           Publish this simulation
         </StyledHeaderButton>
         {visibleReoccurringJob && (
-          <Scrim onClose={() => setVisibleReoccurringJob(false)} isDismissable>
+          <CustomScrim
+            closeScrim={() => setVisibleReoccurringJob(false)}
+            header={'Set a schedule for the job'}
+            width={500}
+          >
             <CreateReoccurringJob
               close={() => setVisibleReoccurringJob(false)}
               removeJob={() => removeCronJob()}
@@ -442,7 +444,7 @@ function SingleSimulationConfig(props: {
               }}
               cronJob={cronJob}
             />
-          </Scrim>
+          </CustomScrim>
         )}
       </SimHeaderWrapper>
       {loadingJob && <Progress.Linear />}
@@ -600,7 +602,10 @@ export default (props: {
         </Button>
       </div>
       {visibleCreateSimScrim && (
-        <Scrim onClose={() => setVisibleCreateSimScrim(false)} isDismissable>
+        <CustomScrim
+          closeScrim={() => setVisibleCreateSimScrim(false)}
+          header={'Create new simulation'}
+        >
           <div style={{ backgroundColor: '#fff', padding: '1rem' }}>
             {createSimError && <CreateSimErrorDialog />}
             <NewSimulationConfig
@@ -616,8 +621,27 @@ export default (props: {
               }}
             />
           </div>
-        </Scrim>
+        </CustomScrim>
       )}
+      {/*{visibleCreateSimScrim && (*/}
+      {/*  <Scrim onClose={() => setVisibleCreateSimScrim(false)} isDismissable>*/}
+      {/*    <div style={{ backgroundColor: '#fff', padding: '1rem' }}>*/}
+      {/*      {createSimError && <CreateSimErrorDialog />}*/}
+      {/*      <NewSimulationConfig*/}
+      {/*        defaultVars={phase.defaultVariables}*/}
+      {/*        dottedId={`${dottedId}.simulationConfigs`}*/}
+      {/*        setVisibleCreateSimScrim={setVisibleCreateSimScrim}*/}
+      {/*        setCreateSimError={setCreateSimError}*/}
+      {/*        setSimulationConfigs={setSimulationConfigs}*/}
+      {/*        simulationConfigs={simulationConfigs}*/}
+      {/*        close={() => {*/}
+      {/*          setCreateSimError('')*/}
+      {/*          setVisibleCreateSimScrim(false)*/}
+      {/*        }}*/}
+      {/*      />*/}
+      {/*    </div>*/}
+      {/*  </Scrim>*/}
+      {/*)}*/}
 
       <Divider />
       <SimulationConfigList

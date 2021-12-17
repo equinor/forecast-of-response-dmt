@@ -56,7 +56,6 @@ const SelectLocation = (props: {
           if (event.selectedItem) {
             const [locationName] = event.selectedItem.split(' - ')
             // setIsNewLocation(false)
-            console.log('loc nam', locationName)
             setLocation(
               locations.find((loc: TLocation) => loc.name === locationName)
             )
