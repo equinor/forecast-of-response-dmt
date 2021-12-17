@@ -96,7 +96,11 @@ export default (props: { operation: TOperation }): JSX.Element => {
           </FlexWrapper>
           <FlexWrapper>
             <Label label="STask:" />
-            {operation.stask?.blob?.name || 'None'}
+            {operation.stask?.name || 'None'}
+          </FlexWrapper>
+          <FlexWrapper>
+            <Label label="ComputeService configuration:" />
+            {operation?.SIMAComputeConnectInfo.name || 'None'}
           </FlexWrapper>
         </div>
         <LocationWrapper>
