@@ -16,37 +16,18 @@ import SelectSIMACompute from '../components/Operations/SelectSIMACompute'
 import { getUsername } from '../utils/auth'
 
 const CreateOperationWrapper = styled.div`
-  justify-content: space-between;
   display: flex;
-  height: 800px;
+  justify-content: space-betwe en;
 `
 
 const MapWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  margin: 0 50px;
-  width: 80%;
-  max-width: 900px;
-  height: available;
-`
-
-const InputGroupWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: available;
-  max-height: 800px;
-  margin: 0 50px;
-  width: 80%;
+  width: 50%;
+  padding-right: 40px;
+  height: 650px;
 `
 
 const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: min-content;
-  min-width: fit-content;
-  max-width: 400px;
+  padding-top: 20px;
 `
 
 const SelectOperationName = (props: {
@@ -54,18 +35,17 @@ const SelectOperationName = (props: {
 }): JSX.Element => {
   const { setOperationName } = props
   return (
-    <Wrapper>
+    <div style={{ maxWidth: '400px' }}>
       <Heading text="Name" variant="h4" />
       <TextField
-        id="operationName"
-        placeholder="OperationName"
-        label="Name"
+        id="operationame"
+        placeholder="Operation name"
         helperText="Provide the name of the operation to create"
         onChange={(event: any) => {
           setOperationName(event.target.value)
         }}
       />
-    </Wrapper>
+    </div>
   )
 }
 
@@ -143,6 +123,7 @@ const createOperationEntity = (
 }
 
 const onClickCreate = (
+  setLoading: Function,
   operationMeta: TOperationMeta,
   operationLocation: TLocation,
   operationConfig: TConfig,
@@ -163,10 +144,26 @@ const onClickCreate = (
     getIds.push(getEntityId(operationConfig, token, isNewEntity.config))
   }
 
+  const handleApiError = (error: any) => {
+    // @ts-ignore
+    if (typeof error.json !== 'function') {
+      setError(`An error occurred: ${error}`)
+    }
+    return error.json().then((response: any) => {
+      setError(
+        `An error occurred: ${
+          response.message || response.detail || JSON.stringify(response)
+        }`
+      )
+    })
+    setLoading(false)
+  }
+
   Promise.all(getIds)
     .then((documentIds: string[]) => {
       if (isNewEntity.location) operationLocation._id = documentIds[0]
       if (isNewEntity.config) operationConfig._id = documentIds[1]
+      setLoading(true)
       createOperationEntity(
         operationMeta.name,
         operationMeta.label,
@@ -185,27 +182,14 @@ const onClickCreate = (
           )
           // @ts-ignore
           document.location = newLocation
+          setLoading(false)
         })
         .catch((err: any) => {
-          if (err.json) {
-            err
-              .json()
-              .then((jsonErr: any) => {
-                setError(jsonErr.message)
-                console.error(jsonErr)
-              })
-              .catch((nestedErr: any) => {
-                console.log(nestedErr)
-              })
-          } else {
-            console.error(err)
-            setError(`An error occurred (${err}) `)
-          }
+          handleApiError(err)
         })
     })
     .catch((err: any) => {
-      console.error(err)
-      setError(`An error occurred (${err})`) // TODO: Improve
+      handleApiError(err)
     })
 }
 
@@ -232,8 +216,6 @@ const OperationCreate = (): JSX.Element => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [mapClickPos, setMapClickPos] = useState<[number, number] | undefined>()
   const [isNewLocation, setIsNewLocation] = useState(false)
-
-  // TODO: Upon clicking cancel, ask for confirmation and whether it should be saved as a draft
   // TODO: Add "Save as Draft" button?
 
   const storeAndCheckOperationConfig = (
@@ -253,7 +235,7 @@ const OperationCreate = (): JSX.Element => {
         setOperationConfig(newOperationConfig)
       } else {
         setError(
-          `Could not parse content of the configuration file ${filename}. Do the file have all required attributes?`
+          `Could not parse content of the configuration file ${filename}. Does the file have all required attributes?`
         )
       }
     }
@@ -286,9 +268,8 @@ const OperationCreate = (): JSX.Element => {
 
   return (
     <>
-      {isLoading && <Progress.Linear />}
       <CreateOperationWrapper>
-        <InputGroupWrapper>
+        <div style={{ width: '50%' }}>
           <SelectOperationName
             setOperationName={(operationName: string) => {
               const format = new RegExp('^[A-Za-z0-9-_ ]+$')
@@ -315,43 +296,51 @@ const OperationCreate = (): JSX.Element => {
               }}
             />
           </Wrapper>
-          <SelectOperationConfig
-            setOperationConfig={storeAndCheckOperationConfig}
-            setIsNewConfig={(isNew: boolean) => {
-              setError(undefined)
-              setIsNewEntity({ ...isNewEntity, config: isNew })
-            }}
-            isLoading={isLoading}
-            setError={setError}
-            setIsLoading={setIsLoading}
-          />
-          <SelectSIMACompute
-            setSIMAComputeConfig={setSIMACompute}
-            setError={setError}
-          />
-          <SelectSTask setSTask={setSTask} isLoading={isLoading} />
-          <SelectOperationLocation
-            location={operationLocation}
-            setLocation={setOperationLocation}
-            setError={setError}
-            setIsNewLocation={(isNew: boolean) => {
-              setError(undefined)
-              setIsNewLocation(isNew)
-              setIsNewEntity({ ...isNewEntity, location: isNew })
-            }}
-            mapClickPos={mapClickPos}
-          />
+          <Wrapper>
+            <SelectOperationConfig
+              setOperationConfig={storeAndCheckOperationConfig}
+              setIsNewConfig={(isNew: boolean) => {
+                setError(undefined)
+                setIsNewEntity({ ...isNewEntity, config: isNew })
+              }}
+              isLoading={isLoading}
+              setError={setError}
+              setIsLoading={setIsLoading}
+            />
+          </Wrapper>
+          <Wrapper>
+            <SelectSIMACompute
+              setSIMAComputeConfig={setSIMACompute}
+              setError={setError}
+            />
+          </Wrapper>
+          <Wrapper>
+            <SelectSTask setSTask={setSTask} />
+          </Wrapper>
+          <Wrapper>
+            <SelectOperationLocation
+              location={operationLocation}
+              setLocation={setOperationLocation}
+              setError={setError}
+              setIsNewLocation={(isNew: boolean) => {
+                setError(undefined)
+                setIsNewLocation(isNew)
+                setIsNewEntity({ ...isNewEntity, location: isNew })
+              }}
+              mapClickPos={mapClickPos}
+            />
+          </Wrapper>
           <div
             style={{
+              paddingTop: '40px',
               display: 'flex',
               justifyContent: 'center',
-
-              marginTop: '30px',
             }}
           >
             <Button
               onClick={() => {
                 onClickCreate(
+                  setIsLoading,
                   operationMeta,
                   operationLocation,
                   operationConfig,
@@ -366,6 +355,7 @@ const OperationCreate = (): JSX.Element => {
               disabled={
                 !(
                   sTask &&
+                  SIMACompute &&
                   isValidOperationLocation() &&
                   isValidOperationMeta() &&
                   operationConfig &&
@@ -373,10 +363,16 @@ const OperationCreate = (): JSX.Element => {
                 )
               }
             >
-              Create operation
+              {(isLoading && <Progress.Dots color="neutral" />) ||
+                'Create operation'}
             </Button>
           </div>
-        </InputGroupWrapper>
+          <Wrapper>
+            {error && (
+              <p style={{ color: 'red', paddingTop: '10px' }}>{error}</p>
+            )}
+          </Wrapper>
+        </div>
         <MapWrapper>
           <ClickableMap
             location={operationLocation}
@@ -386,8 +382,6 @@ const OperationCreate = (): JSX.Element => {
           />
         </MapWrapper>
       </CreateOperationWrapper>
-
-      {error && <p style={{ color: 'red', paddingTop: '10px' }}>{error}</p>}
     </>
   )
 }

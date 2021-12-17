@@ -8,8 +8,6 @@ import styled from 'styled-components'
 import { Blueprints } from '../../Enums'
 
 const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
   height: min-content;
   max-width: 400px;
 `
@@ -117,19 +115,14 @@ const SelectOperationConfig = (props: {
                 }
               }}
             />
-            <div style={{ display: 'flex', flexDirection: 'row' }}>
+            <div>
               <label htmlFor="operationConfigUpload">
                 <Button as="span" variant="outlined">
                   {(isLoading && <Progress.Dots color="primary" />) ||
                     'Upload configuration'}
                 </Button>
               </label>
-              <div
-                style={{
-                  marginLeft: '5px',
-                  alignSelf: 'flex-end',
-                }}
-              >
+              <div>
                 Selected: <i>{fileName || 'None...'}</i>
               </div>
             </div>

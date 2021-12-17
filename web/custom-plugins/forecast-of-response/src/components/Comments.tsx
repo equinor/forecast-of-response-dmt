@@ -6,6 +6,7 @@ import {
   Button,
   CircularProgress,
   DotProgress,
+  Progress,
   TextField,
 } from '@equinor/eds-core-react'
 import { DmssAPI, AuthContext } from '@dmt/common'
@@ -166,15 +167,9 @@ export const CommentInput = (props: {
           <Button color="danger" onClick={() => setMessage('')}>
             Cancel
           </Button>
-          {loading ? (
-            <div style={{ paddingTop: '8px', paddingRight: '20px' }}>
-              <DotProgress color="primary" />
-            </div>
-          ) : (
-            <Button disabled={message === ''} onClick={() => handlePost()}>
-              Comment
-            </Button>
-          )}
+          <Button disabled={message === ''} onClick={() => handlePost()}>
+            {(loading && <Progress.Dots color="neutral" />) || 'Comment'}
+          </Button>
         </div>
       </InputWrapper>
     </>

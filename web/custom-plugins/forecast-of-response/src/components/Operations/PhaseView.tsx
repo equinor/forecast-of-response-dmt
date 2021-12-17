@@ -105,6 +105,7 @@ const SummaryContentWrapper = styled.div`
 `
 
 function NewSimulationConfig(props: {
+  setLoading: Function
   defaultVars: TVariable[]
   dottedId: string
   setVisibleCreateSimScrim: (isVisible: boolean) => void
@@ -114,6 +115,7 @@ function NewSimulationConfig(props: {
   close: Function
 }) {
   const {
+    setLoading,
     defaultVars,
     dottedId,
     setVisibleCreateSimScrim,
@@ -132,6 +134,7 @@ function NewSimulationConfig(props: {
   function createSimulation(variables: TVariable[]) {
     setVisibleCreateSimScrim(false)
     setCreateSimError('')
+    setLoading(true)
     const newSimConf: TSimulationConfig = {
       type: Blueprints.SIMULATION_CONFIG,
       name: simConfigName !== '' ? simConfigName : 'New Simulation',
@@ -154,6 +157,9 @@ function NewSimulationConfig(props: {
           setVisibleCreateSimScrim(true)
           setCreateSimError(result.message)
         })
+      })
+      .finally(() => {
+        setLoading(false)
       })
   }
 
@@ -598,12 +604,13 @@ function SimulationConfigList(props: {
 }
 
 export default (props: {
+  setLoading: Function
   phase: TPhase
   dottedId: string
   stask: TBlob
   configBlob: TBlob
 }): JSX.Element => {
-  const { phase, dottedId, stask, configBlob } = props
+  const { setLoading, phase, dottedId, stask, configBlob } = props
   const [visibleCreateSimScrim, setVisibleCreateSimScrim] = useState(false)
   const [createSimError, setCreateSimError] = useState<string>('')
   const [simulationConfigs, setSimulationConfigs] = useState<
@@ -635,6 +642,7 @@ export default (props: {
           <div style={{ backgroundColor: '#fff', padding: '1rem' }}>
             {createSimError && <CreateSimErrorDialog />}
             <NewSimulationConfig
+              setLoading={setLoading}
               defaultVars={phase.defaultVariables}
               dottedId={`${dottedId}.simulationConfigs`}
               setVisibleCreateSimScrim={setVisibleCreateSimScrim}
@@ -649,26 +657,6 @@ export default (props: {
           </div>
         </CustomScrim>
       )}
-      {/*{visibleCreateSimScrim && (*/}
-      {/*  <Scrim onClose={() => setVisibleCreateSimScrim(false)} isDismissable>*/}
-      {/*    <div style={{ backgroundColor: '#fff', padding: '1rem' }}>*/}
-      {/*      {createSimError && <CreateSimErrorDialog />}*/}
-      {/*      <NewSimulationConfig*/}
-      {/*        defaultVars={phase.defaultVariables}*/}
-      {/*        dottedId={`${dottedId}.simulationConfigs`}*/}
-      {/*        setVisibleCreateSimScrim={setVisibleCreateSimScrim}*/}
-      {/*        setCreateSimError={setCreateSimError}*/}
-      {/*        setSimulationConfigs={setSimulationConfigs}*/}
-      {/*        simulationConfigs={simulationConfigs}*/}
-      {/*        close={() => {*/}
-      {/*          setCreateSimError('')*/}
-      {/*          setVisibleCreateSimScrim(false)*/}
-      {/*        }}*/}
-      {/*      />*/}
-      {/*    </div>*/}
-      {/*  </Scrim>*/}
-      {/*)}*/}
-
       <Divider />
       <SimulationConfigList
         setSimulationConfigs={setSimulationConfigs}
