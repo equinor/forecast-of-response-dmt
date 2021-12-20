@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import LinesOverTime, { TLineChartDataPoint } from './Plots/LinesOverTime'
-import { Button, Chip, Progress, Tooltip } from '@equinor/eds-core-react'
+import { Button, Chip, Icon, Progress, Tooltip } from '@equinor/eds-core-react'
 import { NotificationManager } from 'react-notifications'
 import styled from 'styled-components'
 import { useDocument } from '@dmt/common'
@@ -33,6 +33,8 @@ function GraphSelect(props: {
   setChartData: Function
   graphInfo: TGraphInfo[]
   setGraphInfo: Function
+  index?: string
+  deleteResultGraph?: Function
 }) {
   const {
     variableRuns,
@@ -40,6 +42,8 @@ function GraphSelect(props: {
     setChartData,
     graphInfo,
     setGraphInfo,
+    index,
+    deleteResultGraph,
   } = props
   const [run, setRun] = useState<number>(0)
   const [response, setResponse] = useState<number>(0)
@@ -132,6 +136,19 @@ function GraphSelect(props: {
       >
         Add graph
       </Button>
+      {index ? (
+        <Button
+          style={{ marginLeft: 'auto', marginRight: 0 }}
+          variant="ghost_icon"
+          onClick={() => {
+            deleteResultGraph(index)
+          }}
+        >
+          <Icon name="close" title="close graph"></Icon>
+        </Button>
+      ) : (
+        <></>
+      )}
     </GraphSelectorWrapper>
   )
 }
@@ -149,8 +166,13 @@ export type TGraphInfo = {
   description: string
 }
 
-export default (props: { result: any }) => {
-  const { result } = props
+export default (props: {
+  result: any
+  index?: string
+  deleteResultGraph?: Function
+  addResultGraph?: Function
+}) => {
+  const { result, index, deleteResultGraph, addResultGraph } = props
   const [graphInfo, setGraphInfo] = useState<TGraphInfo[]>([])
   const [variableRuns, setVariableRuns] = useState<any[]>([])
   const [chartData, setChartData] = useState<TLineChartDataPoint[]>([])
@@ -195,6 +217,8 @@ export default (props: { result: any }) => {
           setChartData={setChartData}
           setGraphInfo={setGraphInfo}
           graphInfo={graphInfo}
+          index={index}
+          deleteResultGraph={deleteResultGraph}
         />
         {graphInfo.length >= 1 ? (
           <AddedGraphWrapper>
@@ -218,6 +242,19 @@ export default (props: { result: any }) => {
       </div>
       <LinesOverTime data={chartData} graphInfo={graphInfo} />
       <ArrowPlots data={chartData} graphInfo={graphInfo} />
+      {index ? (
+        <></>
+      ) : (
+        <Button
+          style={{ width: '240px', marginLeft: '10px' }}
+          variant="outlined"
+          onClick={() => {
+            addResultGraph()
+          }}
+        >
+          Add extra graph window
+        </Button>
+      )}
     </ResultWrapper>
   )
 }

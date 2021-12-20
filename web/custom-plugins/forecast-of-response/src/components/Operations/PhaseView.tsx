@@ -14,7 +14,6 @@ import {
   Input,
   Label,
   Progress,
-  Scrim,
   Table,
   TextField,
   Typography,
@@ -243,10 +242,22 @@ function SingleSimulationConfig(props: {
   const results = [...simulationConfig.results]
 
   const [viewJobDetails, setViewJobDetails] = useState<boolean>(false)
+  const [resultGraphs, setResultGraphs] = useState<any>({})
 
   const { token } = useContext(AuthContext)
   const jobAPI = new JobApi(token)
   const dmssAPI = new DmssAPI(token)
+
+  const addResultGraph = () => {
+    const index: string = (Math.random() * 100).toString()
+    setResultGraphs({ ...resultGraphs, [index]: true })
+  }
+
+  const deleteResultGraph = (index: string) => {
+    const graphs: any = resultGraphs
+    delete graphs[index]
+    setResultGraphs({ ...graphs })
+  }
 
   function removeCronJob() {
     const success = () => NotificationManager.success('Removed reoccurring job')
@@ -489,9 +500,18 @@ function SingleSimulationConfig(props: {
             </option>
           ))}
         </StyledSelect>
-        {results[selectedResult]?._id && (
-          <Result result={results[selectedResult]} />
-        )}
+        <Result
+          result={results[selectedResult]}
+          addResultGraph={addResultGraph}
+        />
+        {resultGraphs &&
+          Object.keys(resultGraphs).map((index: string) => (
+            <Result
+              result={results[selectedResult]}
+              index={index}
+              deleteResultGraph={deleteResultGraph}
+            />
+          ))}
       </div>
     </div>
   )
