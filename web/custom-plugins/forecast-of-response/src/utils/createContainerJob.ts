@@ -8,7 +8,6 @@ import {
 } from '../const'
 
 export function createContainerJob(
-  token: string,
   staskBlobId: string,
   task: string,
   workflow: string,
@@ -29,7 +28,6 @@ export function createContainerJob(
     image: 'publicMSA.azurecr.io/dmt-job/srs:latest',
     command: [
       '/code/init.sh',
-      `--token=${token}`,
       `--stask=${staskBlobId}`,
       `--task=${task}`,
       `--workflow=${workflow}`,
