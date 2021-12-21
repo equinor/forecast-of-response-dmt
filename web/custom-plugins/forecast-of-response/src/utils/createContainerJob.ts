@@ -1,4 +1,4 @@
-import { TCronJob, TSimulation } from '../Types'
+import { TCronJob, TJob } from '../Types'
 import { Blueprints } from '../Enums'
 import { poorMansUUID } from './uuid'
 import {
@@ -12,12 +12,12 @@ export function createContainerJob(
   staskBlobId: string,
   task: string,
   workflow: string,
-  remoteRun?: boolean = false,
-  computeServiceConfigBlobId?: string,
   inputId: string,
   targetId: string,
+  remoteRun: boolean = false,
+  computeServiceConfigBlobId?: string,
   cronJob?: TCronJob
-): TSimulation {
+): TJob {
   const runRemote: string[] = remoteRun
     ? ['--remote-run', `--compute-service-cfg=${computeServiceConfigBlobId}`]
     : []

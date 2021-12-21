@@ -55,10 +55,19 @@ export type StringMap = {
   [key: string]: string
 }
 
+export type TJob = {
+  name: string
+  image: string
+  command: string[]
+  type: string
+  subnetId?: string
+  logAnalyticsWorkspaceResourceId?: string
+}
+
 export type TSimulationConfig = {
   name: string
   variables: TVariable[]
-  jobs: any[]
+  jobs: TJob[]
   results: any[]
   cronJob: any
   published: boolean
