@@ -279,7 +279,6 @@ function SingleSimulationConfig(props: {
     setLoadingJob(true)
     removeCronJob()
     const cronJob = createContainerJob(
-      token,
       `${DEFAULT_DATASOURCE_ID}/${stask._blob_id}`, // STask
       simaTask, //Sima task in STask
       simaWorkflow, // Sima workflow in task
