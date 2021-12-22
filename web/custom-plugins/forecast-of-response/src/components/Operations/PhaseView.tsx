@@ -22,7 +22,11 @@ import { NotificationManager } from 'react-notifications'
 import styled from 'styled-components'
 import JobApi from '../../utils/JobApi'
 import { AuthContext, DmssAPI } from '@dmt/common'
-import { DEFAULT_DATASOURCE_ID, RESULT_FOLDER_NAME } from '../../const'
+import {
+  DEFAULT_DATASOURCE_ID,
+  ENTITIES,
+  RESULT_FOLDER_NAME,
+} from '../../const'
 import { Blueprints } from '../../Enums'
 import { lightGray, primaryGray } from '../Design/Colors'
 import { StyledSelect } from '../Input'
@@ -294,7 +298,7 @@ function SingleSimulationConfig(props: {
       simaTask, //Sima task in STask
       simaWorkflow, // Sima workflow in task
       dottedId, // Reference to Sima job input entity
-      `${DEFAULT_DATASOURCE_ID}/${RESULT_FOLDER_NAME}`, //folder where result file should be uploaded (must be a root folder)
+      `${DEFAULT_DATASOURCE_ID}/${ENTITIES}/${RESULT_FOLDER_NAME}`, //folder where result file should be uploaded
       true, // Use remote compute service
       `${DEFAULT_DATASOURCE_ID}/${configBlob._blob_id}`, //id of compute config
       cronValue
@@ -346,7 +350,7 @@ function SingleSimulationConfig(props: {
       simaTask, //Sima task in STask
       simaWorkflow, // Sima workflow in task
       dottedId, // Reference to Sima job input entity
-      `${DEFAULT_DATASOURCE_ID}/${RESULT_FOLDER_NAME}`, //root folder to put result file from a run
+      `${DEFAULT_DATASOURCE_ID}/${ENTITIES}/${RESULT_FOLDER_NAME}`, //folder where result file should be uploaded
       true, // Use remote compute service
       `${DEFAULT_DATASOURCE_ID}/${configBlob._blob_id}` //id of compute config
     )
