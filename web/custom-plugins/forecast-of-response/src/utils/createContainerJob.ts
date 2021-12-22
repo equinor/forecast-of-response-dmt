@@ -12,7 +12,7 @@ export function createContainerJob(
   task: string,
   workflow: string,
   inputId: string,
-  targetId: string,
+  targetRootFolder: string, //the folder to store result files (must be a root folder, example: ForecastDS/Results
   remoteRun: boolean = false,
   computeServiceConfigBlobId?: string,
   cronJob?: TCronJob
@@ -32,7 +32,7 @@ export function createContainerJob(
       `--task=${task}`,
       `--workflow=${workflow}`,
       `--input=${DEFAULT_DATASOURCE_ID}/${inputId}`,
-      `--target=${targetId}`,
+      `--target=${targetRootFolder}`,
       ...runRemote,
     ],
     subnetId: AzureContainerInstancesOmniaSubnetId,
