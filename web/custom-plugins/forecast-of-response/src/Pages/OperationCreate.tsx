@@ -133,6 +133,7 @@ const onClickCreate = (
   token: string,
   user: string
 ) => {
+  setLoading(true)
   const getIds = []
   // Prepare the uncontained entities for the Operation
   operationLocation.type = Blueprints.LOCATION
@@ -162,7 +163,7 @@ const onClickCreate = (
     .then((documentIds: string[]) => {
       if (isNewEntity.location) operationLocation._id = documentIds[0]
       if (isNewEntity.config) operationConfig._id = documentIds[1]
-      setLoading(true)
+
       createOperationEntity(
         operationMeta.name,
         operationMeta.label,
@@ -302,9 +303,7 @@ const OperationCreate = (): JSX.Element => {
                 setError(undefined)
                 setIsNewEntity({ ...isNewEntity, config: isNew })
               }}
-              isLoading={isLoading}
               setError={setError}
-              setIsLoading={setIsLoading}
             />
           </Wrapper>
           <Wrapper>

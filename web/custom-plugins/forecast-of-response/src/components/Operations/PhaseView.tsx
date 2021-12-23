@@ -524,6 +524,7 @@ function SingleSimulationConfig(props: {
         {resultGraphs &&
           Object.keys(resultGraphs).map((index: string) => (
             <Result
+              key={index}
               result={results[selectedResult]}
               index={index}
               deleteResultGraph={deleteResultGraph}

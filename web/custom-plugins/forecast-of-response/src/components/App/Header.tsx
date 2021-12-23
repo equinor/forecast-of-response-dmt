@@ -57,7 +57,7 @@ export default (props: { appName: string; homeUrl: string }): JSX.Element => {
       <TopBar.Actions>
         <Icons>
           <ClickableIcon onClick={() => setVisibleUserInfo(true)}>
-            <Icon name="account_circle" size={24} title="user" />
+            <Icon name="account_circle" size={24} title="User" />
           </ClickableIcon>
         </Icons>
       </TopBar.Actions>

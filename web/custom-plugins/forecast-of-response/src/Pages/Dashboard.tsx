@@ -91,7 +91,7 @@ const Dashboard = (): JSX.Element => {
       }}
     >
       <CardWrapper style={{ width: '70%' }}>
-        {operationsLoading ? (
+        {operationsLoading || loading ? (
           <div style={{ margin: '15px' }}>
             <h3>Loading ongoing operations</h3>
             <DotProgress color="primary" />
