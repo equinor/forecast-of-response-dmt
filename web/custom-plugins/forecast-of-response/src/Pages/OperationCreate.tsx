@@ -146,6 +146,7 @@ const onClickCreate = (
 
   const handleApiError = (error: any) => {
     // @ts-ignore
+    setLoading(false)
     if (typeof error.json !== 'function') {
       setError(`An error occurred: ${error}`)
     }
@@ -156,9 +157,8 @@ const onClickCreate = (
         }`
       )
     })
-    setLoading(false)
   }
-
+  setLoading(true)
   Promise.all(getIds)
     .then((documentIds: string[]) => {
       if (isNewEntity.location) operationLocation._id = documentIds[0]
