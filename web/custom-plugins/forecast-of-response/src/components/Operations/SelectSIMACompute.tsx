@@ -42,7 +42,10 @@ const SelectSIMACompute = (props: {
                 file.name.split('.').length - 1
               ]
               setFileName(file.name)
-              if (fileEnding === 'yaml' || fileEnding === 'yml') {
+              if (
+                fileEnding.toLowerCase() === 'yaml' ||
+                fileEnding.toLowerCase() === 'yml'
+              ) {
                 setSIMAComputeConfig(file)
               } else {
                 setError(

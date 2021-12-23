@@ -35,21 +35,14 @@ const readFile = (file: Blob): Promise<string> => {
 const SelectOperationConfig = (props: {
   setOperationConfig: Function
   setIsNewConfig: Function
-  isLoading: boolean
-  setIsLoading: Function
   setError: Function
 }): JSX.Element => {
   const [operationConfigs, setOperationConfigs] = useState<TConfig[]>([])
   const [searchResult, isLoadingSearch, hasError] = useSearch(Blueprints.CONFIG)
   const [fileName, setFileName] = useState<string>()
   const [uploadNew, setUploadNew] = useState<boolean>(true)
-  const {
-    setOperationConfig,
-    setIsNewConfig,
-    isLoading,
-    setIsLoading,
-    setError,
-  } = props
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const { setOperationConfig, setIsNewConfig, setError } = props
 
   /**
    * Set operation configs when the search has completed
