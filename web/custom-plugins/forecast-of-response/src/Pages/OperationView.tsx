@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { AuthContext, useDocument } from '@dmt/common'
-import { Tabs } from '@equinor/eds-core-react'
+import { Progress, Tabs } from '@equinor/eds-core-react'
 import { TOperation, TPhase } from '../Types'
 import OperationDetails from '../components/Operations/OperationDetails'
 import PhaseView from '../components/Operations/PhaseView'
@@ -10,6 +10,9 @@ import OperatorPhaseView from '../components/Operations/OperatorPhaseView'
 
 export default (): JSX.Element => {
   const { data_source, entity_id } = useParams()
+  const [loadingNewSimulation, setLoadingNewSimulation] = useState<boolean>(
+    false
+  )
   const [document, isLoading, updateDocument, error] = useDocument(
     data_source,
     entity_id
@@ -28,7 +31,7 @@ export default (): JSX.Element => {
     console.error(error.message)
     return (
       <div style={{ color: 'red' }}>
-        Failed to fetch the document. See console for details.
+        Failed to fetch the document. {error.message}.
       </div>
     )
   }
@@ -60,6 +63,7 @@ export default (): JSX.Element => {
               <Tabs.Panel key={phase.name}>
                 {hasExpertRole(tokenData) ? (
                   <PhaseView
+                    setLoading={setLoadingNewSimulation}
                     phase={phase}
                     dottedId={`${operation._id}.phases.${index}`}
                     stask={operation.stask}
@@ -75,6 +79,16 @@ export default (): JSX.Element => {
           )}
         </Tabs.Panels>
       </Tabs>
+      {loadingNewSimulation && (
+        <Progress.Circular
+          style={{
+            display: 'block',
+            marginLeft: 'auto',
+            marginRight: 'auto',
+            marginTop: '50px',
+          }}
+        />
+      )}
     </>
   )
 }

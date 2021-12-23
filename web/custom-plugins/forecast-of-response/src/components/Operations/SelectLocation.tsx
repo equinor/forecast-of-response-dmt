@@ -20,21 +20,10 @@ const SelectLocationWrapper = styled.div`
 
 const SelectLocation = (props: {
   location: TLocation
+  locations: TLocation[]
   setLocation: Function
 }): JSX.Element => {
-  const { location, setLocation } = props
-  const [locations, setLocations] = useState<TLocation[]>([])
-  const [searchResult] = useSearch(Blueprints.LOCATION)
-
-  /**
-   * Set locations when the search has completed
-   */
-  useEffect(() => {
-    if (searchResult) {
-      setLocations(searchResult)
-      setLocation(searchResult.length && searchResult[0])
-    }
-  }, [searchResult, locations])
+  const { location, locations, setLocation } = props
 
   return (
     <div style={{ maxWidth: '400px', paddingTop: '10px' }}>
@@ -55,7 +44,6 @@ const SelectLocation = (props: {
           // Parse formatted location string to identify actual location. Show error in console if selectedItem is invalid
           if (event.selectedItem) {
             const [locationName] = event.selectedItem.split(' - ')
-            // setIsNewLocation(false)
             setLocation(
               locations.find((loc: TLocation) => loc.name === locationName)
             )
@@ -74,6 +62,18 @@ const SelectOperationLocation = (props: {
   mapClickPos: [number, number] | undefined
 }): JSX.Element => {
   const [selectLocationType, setSelectLocationType] = useState<string>('select')
+  const [locations, setLocations] = useState<TLocation[]>([])
+  const [searchResult] = useSearch(Blueprints.LOCATION)
+
+  /**
+   * Set locations when the search has completed
+   */
+  useEffect(() => {
+    if (searchResult) {
+      setLocations(searchResult)
+      setLocation(searchResult.length && searchResult[0])
+    }
+  }, [searchResult])
   const {
     location,
     setLocation,
@@ -99,6 +99,7 @@ const SelectOperationLocation = (props: {
           variant={selectLocationType === 'select' ? 'contained' : 'outlined'}
           onClick={() => {
             setSelectLocationType('select')
+            setLocation(locations[0])
             setIsNewLocation(false)
           }}
         >
@@ -121,7 +122,11 @@ const SelectOperationLocation = (props: {
       </LocationButtonsGrid>
 
       {selectLocationType === 'select' ? (
-        <SelectLocation setLocation={setLocation} location={location} />
+        <SelectLocation
+          setLocation={setLocation}
+          location={location}
+          locations={locations}
+        />
       ) : (
         <div style={{ paddingTop: '15px' }}>
           <TextField

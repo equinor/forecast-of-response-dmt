@@ -4,8 +4,6 @@ import { Heading } from '../Design/Fonts'
 import styled from 'styled-components'
 
 const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
   height: min-content;
   max-width: 400px;
 `
@@ -20,18 +18,13 @@ const SelectSIMACompute = (props: {
   return (
     <Wrapper>
       <Heading text="SIMA Compute" variant="h4" />
-      <div style={{ display: 'flex', flexDirection: 'row' }}>
+      <div>
         <label htmlFor="SIMAComputeUpload">
           <Button as="span" variant="outlined">
             Upload SIMA Compute
           </Button>
         </label>
-        <div
-          style={{
-            marginLeft: '15px',
-            alignSelf: 'flex-end',
-          }}
-        >
+        <div>
           Selected: <i>{fileName || 'None...'}</i>
         </div>
       </div>
@@ -48,8 +41,8 @@ const SelectSIMACompute = (props: {
               const fileEnding = file.name.split('.')[
                 file.name.split('.').length - 1
               ]
+              setFileName(file.name)
               if (fileEnding === 'yaml' || fileEnding === 'yml') {
-                setFileName(file.name)
                 setSIMAComputeConfig(file)
               } else {
                 setError(
