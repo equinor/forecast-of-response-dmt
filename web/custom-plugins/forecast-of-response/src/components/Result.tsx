@@ -182,9 +182,10 @@ export default (props: {
   )
 
   useEffect(() => {
-    if (document && Object.keys(document).length)
+    if (!isLoading && document && Object.keys(document).length) {
       setVariableRuns(document.variableRuns)
-  }, [document])
+    }
+  }, [document, isLoading])
 
   function removeGraph(name: string) {
     let newDataDict: any = {}

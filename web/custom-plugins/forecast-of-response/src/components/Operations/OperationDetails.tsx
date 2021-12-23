@@ -100,7 +100,7 @@ export default (props: { operation: TOperation }): JSX.Element => {
           </FlexWrapper>
           <FlexWrapper>
             <Label label="ComputeService configuration:" />
-            {operation?.SIMAComputeConnectInfo.name || 'None'}
+            {operation?.SIMAComputeConnectInfo?.name || 'None'}
           </FlexWrapper>
         </div>
         <LocationWrapper>

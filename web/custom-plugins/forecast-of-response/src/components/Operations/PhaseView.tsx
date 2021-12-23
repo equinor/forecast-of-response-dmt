@@ -504,10 +504,12 @@ function SingleSimulationConfig(props: {
             </option>
           ))}
         </StyledSelect>
-        <Result
-          result={results[selectedResult]}
-          addResultGraph={addResultGraph}
-        />
+        {results[selectedResult]?._id && (
+          <Result
+            result={results[selectedResult]}
+            addResultGraph={addResultGraph}
+          />
+        )}
         {resultGraphs &&
           Object.keys(resultGraphs).map((index: string) => (
             <Result
