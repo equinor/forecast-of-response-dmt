@@ -400,7 +400,12 @@ function SingleSimulationConfig(props: {
 
   return (
     <div
-      style={{ display: 'flex', flexDirection: 'column', position: 'relative' }}
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        position: 'relative',
+        marginBottom: '30px',
+      }}
     >
       <SummaryWrapper>
         {showSummary && (
@@ -478,7 +483,7 @@ function SingleSimulationConfig(props: {
             display: 'flex',
             flexDirection: 'row',
             alignItems: 'self-end',
-            marginBottom: '15px',
+            marginBottom: '30px',
           }}
         >
           <StyledSelect

@@ -25,6 +25,7 @@ const AddedGraphWrapper = styled.div`
 
 const GraphSelectorWrapper = styled.div`
   display: flex;
+  padding-top: 20px;
 `
 
 function GraphSelect(props: {
