@@ -17,7 +17,6 @@ import { getUsername } from '../utils/auth'
 
 const CreateOperationWrapper = styled.div`
   display: flex;
-  justify-content: space-betwe en;
 `
 
 const MapWrapper = styled.div`
