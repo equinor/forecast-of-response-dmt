@@ -6,6 +6,7 @@ import styled from 'styled-components'
 import { TCronJob } from '../Types'
 
 enum Interval {
+  HOURLY = 'Hourly',
   DAILY = 'Daily',
   WEEKLY = 'Weekly',
   MONTHLY = 'Monthly',
@@ -46,8 +47,9 @@ export function CreateReoccurringJob(props: {
     null,
     null,
   ])
-  const [interval, setInterval] = useState<Interval>(Interval.DAILY)
+  const [interval, setInterval] = useState<Interval>(Interval.HOURLY)
   const [hour, setHour] = useState<string>('23')
+  const [hourStep, setHourStep] = useState<string>('1')
   const [minute, setMinute] = useState<string>('30')
 
   const getLabel = () => {
@@ -55,8 +57,8 @@ export function CreateReoccurringJob(props: {
       return <small>Will run on sunday in every week</small>
     } else if (interval === 'Monthly') {
       return <small>Will run on the 1st on every month</small>
-    } else {
-      return <small> </small>
+    } else if (interval === 'Hourly') {
+      return <small>Will run every {hourStep} hour</small>
     }
   }
 
@@ -75,15 +77,17 @@ export function CreateReoccurringJob(props: {
       case Interval.MONTHLY:
         dayOfMonth = '1'
         break
+      case Interval.HOURLY:
+        newHour = `*/${hourStep}`
     }
     setSchedule(`${newMinute} ${newHour} ${dayOfMonth} ${month} ${dayOfWeek}`)
-  }, [interval, hour, minute])
+  }, [interval, hour, minute, hourStep])
   return (
     <div>
       <div>
         <div style={{ paddingBottom: '10px' }}>
           {Object.keys(cronJob).length > 0
-            ? 'A Cron job is already running. You can update it here.'
+            ? 'A job is already scheduled. You can update it here.'
             : ''}
         </div>
         <DateRangePicker
@@ -93,7 +97,10 @@ export function CreateReoccurringJob(props: {
         <InputWrapper>
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <Label label="Interval" />
-            <StyledSelect onChange={(e: Event) => setInterval(e.target.value)}>
+            <StyledSelect
+              onChange={(e: Event) => setInterval(e.target.value)}
+              value={interval}
+            >
               {Object.entries(Interval).map(([key, value]: any) => (
                 <option key={key} value={value}>
                   {value}
@@ -101,23 +108,41 @@ export function CreateReoccurringJob(props: {
               ))}
             </StyledSelect>
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <Label label="Time" />
-            <StyledSelect
-              onChange={(e: Event) => {
-                const hourAndMinute = e.target.value
-                const [newHour, newMinute] = hourAndMinute.split(':')
-                setMinute(newMinute)
-                setHour(newHour)
-              }}
-            >
-              {generateSelectableTimes().map((value: string, index) => (
-                <option key={index} value={value}>
-                  {value}
-                </option>
-              ))}
-            </StyledSelect>
-          </div>
+          {interval !== Interval.HOURLY && (
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+              <Label label="Time" />
+              <StyledSelect
+                onChange={(e: Event) => {
+                  const hourAndMinute = e.target.value
+                  const [newHour, newMinute] = hourAndMinute.split(':')
+                  setMinute(newMinute)
+                  setHour(newHour)
+                }}
+              >
+                {generateSelectableTimes().map((value: string, index) => (
+                  <option key={index} value={value}>
+                    {value}
+                  </option>
+                ))}
+              </StyledSelect>
+            </div>
+          )}
+          {interval === Interval.HOURLY && (
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+              <Label label="Hour step" />
+              <StyledSelect
+                onChange={(e: Event) => {
+                  setHourStep(e.target.value)
+                }}
+              >
+                {[...Array(12).keys()].map((value: number, index) => (
+                  <option key={index} value={value + 1}>
+                    {value + 1}
+                  </option>
+                ))}
+              </StyledSelect>
+            </div>
+          )}
         </InputWrapper>
       </div>
       <div style={{ paddingTop: '10px', height: '20px' }}>{getLabel()}</div>

@@ -424,7 +424,7 @@ function SingleSimulationConfig(props: {
                 ))}
               <h4>Reoccurring job:</h4>
               <label>
-                {simulationConfig?.cronJob
+                {simulationConfig?.cronJob?.cron
                   ? simulationConfig.cronJob.cron
                   : 'Not configured'}
               </label>
