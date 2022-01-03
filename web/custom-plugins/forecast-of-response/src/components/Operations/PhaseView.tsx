@@ -258,6 +258,8 @@ function SingleSimulationConfig(props: {
   const jobAPI = new JobApi(token)
   const dmssAPI = new DmssAPI(token)
 
+  const result_dotted_id = `${dottedId}.results` //todo check if this is correct
+
   const addResultGraph = () => {
     const index: string = (Math.random() * 100).toString()
     setResultGraphs({ ...resultGraphs, [index]: true })
@@ -306,6 +308,7 @@ function SingleSimulationConfig(props: {
       dottedId, // Reference to Sima job input entity
       `${DEFAULT_DATASOURCE_ID}/${ENTITIES}/${RESULT_FOLDER_NAME}`, //folder where result file should be uploaded
       true, // Use remote compute service
+      result_dotted_id,
       `${DEFAULT_DATASOURCE_ID}/${configBlob._blob_id}`, //id of compute config
       cronValue
     )
@@ -358,6 +361,7 @@ function SingleSimulationConfig(props: {
       dottedId, // Reference to Sima job input entity
       `${DEFAULT_DATASOURCE_ID}/${ENTITIES}/${RESULT_FOLDER_NAME}`, //folder where result file should be uploaded
       true, // Use remote compute service
+      result_dotted_id,
       `${DEFAULT_DATASOURCE_ID}/${configBlob._blob_id}` //id of compute config
     )
     dmssAPI.generatedDmssApi

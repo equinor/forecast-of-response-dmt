@@ -230,12 +230,16 @@ const OperationCreate = (): JSX.Element => {
         'name' in newOperationConfig &&
         'simaVersion' in newOperationConfig &&
         'phases' in newOperationConfig
-      if (hasRequiredAttirbutes) {
+      if (newOperationConfig['type'] !== Blueprints.CONFIG) {
+        setError(
+          `The configuration file has wrong type attribute. The type must be ${Blueprints.CONFIG}`
+        )
+      } else if (hasRequiredAttirbutes) {
         setError(undefined)
         setOperationConfig(newOperationConfig)
       } else {
         setError(
-          `Could not parse content of the configuration file ${filename}. Does the file have all required attributes?`
+          `Could not parse content of the configuration file ${filename}. Does the file have the required attributes 'name', 'simaVersion' and 'phases'?`
         )
       }
     }
