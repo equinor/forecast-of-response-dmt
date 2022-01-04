@@ -57,6 +57,7 @@ export type StringMap = {
 
 export type TJob = {
   name: string
+  label?: string
   image: string
   command: string[]
   type: string

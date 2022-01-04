@@ -7,6 +7,12 @@
     {
       "attributeType": "string",
       "type": "system/SIMOS/BlueprintAttribute",
+      "name": "label",
+      "optional": true
+    },
+    {
+      "attributeType": "string",
+      "type": "system/SIMOS/BlueprintAttribute",
       "name": "image"
     },
     {

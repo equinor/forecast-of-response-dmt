@@ -4,6 +4,7 @@ import { AuthContext } from '@dmt/common'
 import JobApi from '../utils/JobApi'
 import { SimulationStatus } from '../Enums'
 import { Button, Label } from '@equinor/eds-core-react'
+import Icons from './Design/Icons'
 
 const StyledPre = styled.pre`
   display: flex;
@@ -25,12 +26,15 @@ function colorFromStatus(status: string): string {
 
 const SimStatusWrapper = styled.div`
   display: flex;
-  height: 20px;
+  justify-content: center;
+  align-items: center;
+  font-size: large;
+  height: 35px;
   align-content: baseline;
   border-radius: 5px;
-  padding: 0 3px 3px 0;
+  padding: 0 10px;
   margin-left: 10px;
-  border: ${(props: any) => `${colorFromStatus(props.status)} 2px solid`};
+  border: ${(props: any) => `${colorFromStatus(props.status)} 3px solid`};
   color: ${(props: any) => colorFromStatus(props.status)};
 `
 
@@ -68,14 +72,18 @@ export const JobLog = (props: { jobId: string }) => {
         flexDirection: 'column',
       }}
     >
-      <div style={{ display: 'flex', flexDirection: 'row' }}>
+      <div
+        style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}
+      >
         <Label label="Status:" />
         <SimStatusWrapper status={jobStatus}>{jobStatus}</SimStatusWrapper>
         <Button
           onClick={() => setRefreshCount(refreshCount + 1)}
+          variant="outlined"
           style={{ marginLeft: '100px' }}
         >
           Refresh logs
+          <Icons name="refresh" title="refresh" />
         </Button>
       </div>
       <Label style={{ paddingTop: '10px' }} label="Logs:" />

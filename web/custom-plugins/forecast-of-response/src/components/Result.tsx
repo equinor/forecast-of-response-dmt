@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import LinesOverTime, { TLineChartDataPoint } from './Plots/LinesOverTime'
-import { Button, Chip, Icon, Progress, Tooltip } from '@equinor/eds-core-react'
+import { Button, Chip, Progress, Tooltip } from '@equinor/eds-core-react'
 import { NotificationManager } from 'react-notifications'
 import styled from 'styled-components'
 import { useDocument } from '@dmt/common'
@@ -10,6 +10,7 @@ import { StyledSelect } from './Input'
 import { IconWrapper } from './Other'
 
 import ArrowPlots from './Plots/ArrowPlots'
+import Icons from './Design/Icons'
 
 const ResultWrapper = styled.div`
   display: flex;
@@ -132,10 +133,11 @@ function GraphSelect(props: {
         )}
       </StyledSelect>
       <Button
-        style={{ width: '120px', marginLeft: '10px' }}
+        style={{ width: '140px', marginLeft: '10px' }}
         onClick={() => addGraph()}
       >
         Add graph
+        <Icons name="add" title="add" />
       </Button>
       {index ? (
         <Button
@@ -145,7 +147,7 @@ function GraphSelect(props: {
             deleteResultGraph(index)
           }}
         >
-          <Icon name="close" title="close graph"></Icon>
+          <Icons name="close" title="close graph" />
         </Button>
       ) : (
         <></>
@@ -248,13 +250,14 @@ export default (props: {
         <></>
       ) : (
         <Button
-          style={{ width: '240px', marginLeft: '10px' }}
+          style={{ width: '140px', marginLeft: '10px' }}
           variant="outlined"
           onClick={() => {
             addResultGraph()
           }}
         >
-          Add extra graph window
+          Add plot
+          <Icons name="add" title="add" />
         </Button>
       )}
     </ResultWrapper>
