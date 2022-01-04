@@ -1,6 +1,8 @@
 export const DEFAULT_DATASOURCE_ID = 'ForecastDS'
 export const BLUEPRINTS = 'FoR-BP'
 export const ENTITIES = 'FoR-Data'
+export const LocationPackage = 'FoR-Data/Locations'
+export const ConfigsPackage = 'FoR-Data/Configs'
 export const RESULT_FOLDER_NAME = 'Results'
 export const OperationsLocation = 'FoR-Data/Operations'
 export const AzureContainerInstancesOmniaSubnetId =

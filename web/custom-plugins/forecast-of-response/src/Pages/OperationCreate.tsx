@@ -3,7 +3,12 @@ import { Button, Progress, TextField } from '@equinor/eds-core-react'
 import { AuthContext } from '@dmt/common'
 import { Blueprints, OperationStatus } from '../Enums'
 import { addToPath } from '../utils/insertDocument'
-import { DEFAULT_DATASOURCE_ID, OperationsLocation } from '../const'
+import {
+  ConfigsPackage,
+  DEFAULT_DATASOURCE_ID,
+  LocationPackage,
+  OperationsLocation,
+} from '../const'
 import DateRangePicker from '../components/DateRangePicker'
 import { Heading } from '../components/Design/Fonts'
 import { TConfig, TLocation, TOperationMeta } from '../Types'
@@ -57,10 +62,11 @@ const SelectOperationName = (props: {
 const getEntityId = (
   entity: TLocation | TConfig,
   token: string,
-  isNew: boolean = false
+  isNew: boolean = false,
+  path: string
 ): PromiseLike<string> => {
   if (isNew) {
-    return addToPath(entity, token)
+    return addToPath(entity, token, [], DEFAULT_DATASOURCE_ID, path)
   } else {
     return new Promise((resolve: any) => {
       resolve(entity._id)
@@ -137,11 +143,15 @@ const onClickCreate = (
   const getIds = []
   // Prepare the uncontained entities for the Operation
   operationLocation.type = Blueprints.LOCATION
-  getIds.push(getEntityId(operationLocation, token, isNewEntity.location))
+  getIds.push(
+    getEntityId(operationLocation, token, isNewEntity.location, LocationPackage)
+  )
   if (operationConfig) {
     // Optional
     operationConfig.type = Blueprints.CONFIG
-    getIds.push(getEntityId(operationConfig, token, isNewEntity.config))
+    getIds.push(
+      getEntityId(operationConfig, token, isNewEntity.config, ConfigsPackage)
+    )
   }
 
   const handleApiError = (error: any) => {
@@ -354,10 +364,10 @@ const OperationCreate = (): JSX.Element => {
                   user
                 )
               }}
+              // SIMACompute is left out on purpose. It is optional
               disabled={
                 !(
                   sTask &&
-                  SIMACompute &&
                   isValidOperationLocation() &&
                   isValidOperationMeta() &&
                   operationConfig &&
