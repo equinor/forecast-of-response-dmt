@@ -261,12 +261,12 @@ function SingleSimulationConfig(props: {
 
   const result_dotted_id = `${dottedId}.results` //todo check if this is correct
 
-  const addResultGraph = () => {
+  const addPlotWindow = () => {
     const index: string = (Math.random() * 100).toString()
     setResultGraphs({ ...resultGraphs, [index]: true })
   }
 
-  const deleteResultGraph = (index: string) => {
+  const removePlotWindow = (index: string) => {
     const graphs: any = resultGraphs
     delete graphs[index]
     setResultGraphs({ ...graphs })
@@ -525,7 +525,7 @@ function SingleSimulationConfig(props: {
         {results[selectedResult]?._id && (
           <Result
             result={results[selectedResult]}
-            addResultGraph={addResultGraph}
+            addResultGraph={addPlotWindow}
           />
         )}
         {resultGraphs &&
@@ -534,9 +534,19 @@ function SingleSimulationConfig(props: {
               key={index}
               result={results[selectedResult]}
               index={index}
-              deleteResultGraph={deleteResultGraph}
+              deleteResultGraph={removePlotWindow}
             />
           ))}
+        <Button
+          style={{ width: '140px', marginLeft: '10px' }}
+          variant="outlined"
+          onClick={() => {
+            addPlotWindow()
+          }}
+        >
+          Add plot
+          <Icons name="add" title="add" />
+        </Button>
       </div>
     </div>
   )

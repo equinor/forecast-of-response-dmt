@@ -173,9 +173,8 @@ export default (props: {
   result: any
   index?: string
   deleteResultGraph?: Function
-  addResultGraph?: Function
 }) => {
-  const { result, index, deleteResultGraph, addResultGraph } = props
+  const { result, index, deleteResultGraph } = props
   const [graphInfo, setGraphInfo] = useState<TGraphInfo[]>([])
   const [variableRuns, setVariableRuns] = useState<any[]>([])
   const [chartData, setChartData] = useState<TLineChartDataPoint[]>([])
@@ -224,7 +223,7 @@ export default (props: {
           index={index}
           deleteResultGraph={deleteResultGraph}
         />
-        {graphInfo.length >= 1 ? (
+        {graphInfo.length >= 1 && (
           <AddedGraphWrapper>
             {graphInfo.map((graph, index) => (
               <Tooltip title={graph.description} key={index}>
@@ -240,26 +239,10 @@ export default (props: {
               </Tooltip>
             ))}
           </AddedGraphWrapper>
-        ) : (
-          <div style={{ height: '30px' }}></div>
         )}
       </div>
       <LinesOverTime data={chartData} graphInfo={graphInfo} />
       <ArrowPlots data={chartData} graphInfo={graphInfo} />
-      {index ? (
-        <></>
-      ) : (
-        <Button
-          style={{ width: '140px', marginLeft: '10px' }}
-          variant="outlined"
-          onClick={() => {
-            addResultGraph()
-          }}
-        >
-          Add plot
-          <Icons name="add" title="add" />
-        </Button>
-      )}
     </ResultWrapper>
   )
 }

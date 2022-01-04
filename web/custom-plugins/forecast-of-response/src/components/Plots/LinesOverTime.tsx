@@ -13,36 +13,23 @@ import {
   VictoryTooltip,
   VictoryVoronoiContainer,
 } from 'victory'
-import { Checkbox } from 'antd'
-import styled from 'styled-components'
+
 export type TLineChartDataPoint = {
   // @ts-ignore
   timestamp: string
   [key: string]: number | number[]
 }
 
-//using a custom checkbox style since EDS checkbox has a black border that cannot be removed
-const CustomCheckbox = styled(Checkbox)`
-  padding-left: 20px;
-  & .ant-checkbox-checked .ant-checkbox-inner {
-    background-color: #007079;
-    border-color: #007079;
-  }
-`
-
 export default (props: {
   data: TLineChartDataPoint[]
   graphInfo: TGraphInfo[]
 }): JSX.Element => {
   const { data, graphInfo } = props
-  const [
-    viewTooltipForShadedPlot,
-    setViewTooltipForShadedPlot,
-  ] = useState<boolean>(false)
   const fontSize: number = 8
   const victoryTooltip = (
     <VictoryTooltip
       style={{ fontSize: fontSize }}
+      pointerLength={-60}
       centerOffset={{ y: -10 }}
       flyoutPadding={({ text }) =>
         text.length > 1 ? { top: 10, bottom: 10, left: 15, right: 15 } : 7
@@ -113,28 +100,18 @@ export default (props: {
     <div
       style={{
         width: '100%',
+        maxWidth: '1200px',
       }}
     >
-      <CustomCheckbox
-        onChange={() => setViewTooltipForShadedPlot(!viewTooltipForShadedPlot)}
-      >
-        View tooltip for shaded plots
-      </CustomCheckbox>
-
       <VictoryChart
         width={chartWidth}
         height={plotHeight}
         theme={VictoryTheme.material}
         domainPadding={{ y: 15 }}
+        padding={{ top: 5, bottom: 25, right: 5, left: 55 }}
         containerComponent={
           <VictoryVoronoiContainer
-            labels={({ datum }) => {
-              return datum.childName === 'AreaScatter'
-                ? viewTooltipForShadedPlot
-                  ? `${datum.customLabel}`
-                  : ''
-                : `${datum.customLabel}`
-            }}
+            labels={({ datum }) => datum.customLabel}
             labelComponent={victoryTooltip}
             voronoiBlacklist={['Line', 'Area']}
           />
