@@ -36,6 +36,7 @@ import { JobLog } from '../Jobs'
 import { CreateReoccurringJob } from '../ReoccurringJob'
 import { createContainerJob } from '../../utils/createContainerJob'
 import { CustomScrim } from '../CustomScrim'
+import Icons from '../Design/Icons'
 
 const SimHeaderWrapper = styled.div`
   display: flex;
@@ -442,11 +443,13 @@ function SingleSimulationConfig(props: {
       <SimHeaderWrapper>
         <StyledHeaderButton onClick={() => saveAndStartJob()}>
           Run simulation
+          <Icons name="play" title="play" />
         </StyledHeaderButton>
         <StyledHeaderButton
           onClick={() => setVisibleReoccurringJob(!visibleReoccurringJob)}
         >
-          Configure reoccurring job
+          Configure schedule
+          <Icons name="time" title="time" />
         </StyledHeaderButton>
         <StyledHeaderButton
           onClick={() =>
@@ -454,7 +457,7 @@ function SingleSimulationConfig(props: {
             publishSimulation(parseInt(dottedId.split('.').slice(-1)[0]))
           }
         >
-          Publish this simulation
+          Publish simulation
         </StyledHeaderButton>
         {visibleReoccurringJob && (
           <CustomScrim
@@ -491,7 +494,7 @@ function SingleSimulationConfig(props: {
           >
             {jobs.map((job: any, index) => (
               <option key={index} value={index}>
-                {job.name}
+                {job?.label || job.name}
               </option>
             ))}
           </StyledSelect>
@@ -637,7 +640,8 @@ export default (props: {
     <>
       <div style={{ display: 'flex', flexFlow: 'row-reverse' }}>
         <Button onClick={() => setVisibleCreateSimScrim(true)}>
-          Create new simulation
+          Create configuration
+          <Icons name="add" title="add" />
         </Button>
       </div>
       {visibleCreateSimScrim && (

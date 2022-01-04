@@ -20,6 +20,11 @@ import {
   waves,
   arrow_up,
   close,
+  add_box,
+  add,
+  refresh,
+  play,
+  time,
 } from '@equinor/eds-icons'
 
 Icon.add({
@@ -43,6 +48,11 @@ Icon.add({
   save,
   arrow_up,
   close,
+  add_box,
+  add,
+  refresh,
+  play,
+  time,
 })
 
 export default Icon

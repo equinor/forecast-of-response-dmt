@@ -23,6 +23,7 @@ export function createContainerJob(
   // window.crypto.randomUUID() is not supported in firefox yet.
   let newSim = {
     name: poorMansUUID(),
+    label: new Date().toLocaleString(navigator.language),
     type: Blueprints.AZ_CONTAINER_JOB_CLASSIC,
     // type: Blueprints.LOCAL_CONTAINER_JOB, // For local testing
     image: 'publicMSA.azurecr.io/dmt-job/srs:latest',
