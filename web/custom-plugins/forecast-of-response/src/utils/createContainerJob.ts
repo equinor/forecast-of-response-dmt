@@ -14,6 +14,7 @@ export function createContainerJob(
   inputId: string,
   targetFolder: string, //the folder to store result files
   remoteRun: boolean = false,
+  resultLinkTarget: string,
   computeServiceConfigBlobId?: string,
   cronJob?: TCronJob
 ): TJob {
@@ -33,6 +34,7 @@ export function createContainerJob(
       `--workflow=${workflow}`,
       `--input=${DEFAULT_DATASOURCE_ID}/${inputId}`,
       `--target=${targetFolder}`,
+      `--result-link-target=${resultLinkTarget}`,
       ...runRemote,
     ],
     subnetId: AzureContainerInstancesOmniaSubnetId,

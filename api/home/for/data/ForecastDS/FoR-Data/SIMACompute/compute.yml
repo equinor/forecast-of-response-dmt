@@ -1,9 +1,9 @@
 scs:
   name: "scs"
-  # Address to use when contacting the SIMA Compute Service using SSH tunnel
-  uri: http://st-lcmadm01.st.statoil.no:8088
+  # IP for http://st-lcmadm01.st.statoil.no:8088 to use when contacting the SIMA Compute Service using SSH tunnel
+  uri: "http://10.14.75.11:8088"
   # Remote address for the SIMA Compute Service – for users inside the firewall
-  url: http://st-lcmadm01.st.statoil.no:8088
+  url: "http://10.14.75.11:8088"
   username: ---
   password: ---
   max_concurrent_condition_runs: "16"
