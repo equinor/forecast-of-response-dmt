@@ -171,10 +171,11 @@ export type TGraphInfo = {
 
 export default (props: {
   result: any
+  addPlotWindow?: Function
   index?: string
   deleteResultGraph?: Function
 }) => {
-  const { result, index, deleteResultGraph } = props
+  const { result, addPlotWindow, index, deleteResultGraph } = props
   const [graphInfo, setGraphInfo] = useState<TGraphInfo[]>([])
   const [variableRuns, setVariableRuns] = useState<any[]>([])
   const [chartData, setChartData] = useState<TLineChartDataPoint[]>([])
@@ -212,37 +213,49 @@ export default (props: {
   }
 
   return (
-    <ResultWrapper>
-      <div>
-        <GraphSelect
-          variableRuns={variableRuns}
-          chartData={chartData}
-          setChartData={setChartData}
-          setGraphInfo={setGraphInfo}
-          graphInfo={graphInfo}
-          index={index}
-          deleteResultGraph={deleteResultGraph}
-        />
-        {graphInfo.length >= 1 && (
-          <AddedGraphWrapper>
-            {graphInfo.map((graph, index) => (
-              <Tooltip title={graph.description} key={index}>
-                <Chip
-                  key={index}
-                  style={{ margin: '10px 5px', cursor: 'help', zIndex: 1 }}
-                  variant="active"
-                  onDelete={() => removeGraph(graph.name)}
-                >
-                  <IconWrapper color={plotColors[index]}>&#9679;</IconWrapper>
-                  {graph.name}
-                </Chip>
-              </Tooltip>
-            ))}
-          </AddedGraphWrapper>
-        )}
-      </div>
-      <LinesOverTime data={chartData} graphInfo={graphInfo} />
-      <ArrowPlots data={chartData} graphInfo={graphInfo} />
-    </ResultWrapper>
+    <div>
+      <ResultWrapper>
+        <div>
+          <GraphSelect
+            variableRuns={variableRuns}
+            chartData={chartData}
+            setChartData={setChartData}
+            setGraphInfo={setGraphInfo}
+            graphInfo={graphInfo}
+            index={index}
+            deleteResultGraph={deleteResultGraph}
+          />
+          {graphInfo.length >= 1 && (
+            <AddedGraphWrapper>
+              {graphInfo.map((graph, index) => (
+                <Tooltip title={graph.description} key={index}>
+                  <Chip
+                    key={index}
+                    style={{ margin: '10px 5px', cursor: 'help', zIndex: 1 }}
+                    variant="active"
+                    onDelete={() => removeGraph(graph.name)}
+                  >
+                    <IconWrapper color={plotColors[index]}>&#9679;</IconWrapper>
+                    {graph.name}
+                  </Chip>
+                </Tooltip>
+              ))}
+            </AddedGraphWrapper>
+          )}
+        </div>
+        <LinesOverTime data={chartData} graphInfo={graphInfo} />
+        <ArrowPlots data={chartData} graphInfo={graphInfo} />
+      </ResultWrapper>
+      {addPlotWindow && (
+        <Button
+          style={{ width: '140px', marginLeft: '10px' }}
+          variant="outlined"
+          onClick={() => addPlotWindow()}
+        >
+          Add plot
+          <Icons name="add" title="add" />
+        </Button>
+      )}
+    </div>
   )
 }
