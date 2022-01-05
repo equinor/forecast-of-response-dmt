@@ -151,6 +151,7 @@ function NewSimulationConfig(props: {
         dataSourceId: DEFAULT_DATASOURCE_ID,
         dottedId: `${dottedId}`,
         body: newSimConf,
+        updateUncontained: false,
       })
       .then(() => setSimulationConfigs([...simulationConfigs, newSimConf]))
       .catch((e: Error) => {
@@ -402,7 +403,6 @@ function SingleSimulationConfig(props: {
         setLoadingJob(false)
       })
   }
-
   return (
     <div
       style={{
@@ -525,7 +525,7 @@ function SingleSimulationConfig(props: {
         {results[selectedResult]?._id && (
           <Result
             result={results[selectedResult]}
-            addResultGraph={addPlotWindow}
+            addPlotWindow={addPlotWindow}
           />
         )}
         {resultGraphs &&
@@ -537,16 +537,6 @@ function SingleSimulationConfig(props: {
               deleteResultGraph={removePlotWindow}
             />
           ))}
-        <Button
-          style={{ width: '140px', marginLeft: '10px' }}
-          variant="outlined"
-          onClick={() => {
-            addPlotWindow()
-          }}
-        >
-          Add plot
-          <Icons name="add" title="add" />
-        </Button>
       </div>
     </div>
   )
