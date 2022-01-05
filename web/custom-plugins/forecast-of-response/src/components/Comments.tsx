@@ -129,7 +129,7 @@ export const CommentInput = (props: {
       message: message,
     }
     setLoading(true)
-
+    //todo the functionality for adding new comment should be improved (note: using dmssAPI.explorerAdd cuased erors with deletion of result data for an operation)
     //upload the comment entity to the comment package
     addToPath(newComment, token, [], DEFAULT_DATASOURCE_ID, CommentPackage)
       .then((uid: string) => {
