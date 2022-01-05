@@ -68,7 +68,10 @@ pre-commit run -a
 
 The Forecast of Response application is deployed to Radix, using the config defined in radixconfig.yaml.
 This deployment is connected to an Azure mongo database in Azure called forecast-of-response
- in the MSARGDev resource group, and also an azure storage account called forecastofresponse in the same resource group
+in the MSARGDev resource group, and also an azure storage account called forecastofresponse in the same
+resource group
+
+
 
 ### Reset a deployed package
 
@@ -97,8 +100,14 @@ docker-compose run --rm -e DMSS_API=https://dmss-forecast-of-response-test.radix
       2. The new secret key is written to a file named `generated-secret-key.env`
    
 
-#### Prod URL
+_Prod URL_  
 DMSS_API=https://dmss-forecast-of-response-prod.radix.equinor.com
 
-#### Test URL
+_Test URL_  
 DMSS_API=https://dmss-forecast-of-response-test.radix.equinor.com
+
+#### First time configuration
+
+A fresh database has the permissions `{dmss_admin: WRITE, other: READ}`.  
+To allow all expert users to create operations, use the DMT application to update the permissions on the FoR-Data package recursively, granting the role `expert: WRITE`.  
+Note: This will make all new operations editable by all experts. This can be changed on any individual operation.
