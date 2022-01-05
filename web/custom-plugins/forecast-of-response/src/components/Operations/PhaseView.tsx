@@ -151,6 +151,7 @@ function NewSimulationConfig(props: {
         dataSourceId: DEFAULT_DATASOURCE_ID,
         dottedId: `${dottedId}`,
         body: newSimConf,
+        updateUncontained: false,
       })
       .then(() => setSimulationConfigs([...simulationConfigs, newSimConf]))
       .catch((e: Error) => {

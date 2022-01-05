@@ -10,11 +10,12 @@ import {
   TextField,
 } from '@equinor/eds-core-react'
 import { DmssAPI, AuthContext } from '@dmt/common'
-import { DEFAULT_DATASOURCE_ID } from '../const'
+import { CommentPackage, DEFAULT_DATASOURCE_ID } from '../const'
 import { Blueprints } from '../Enums'
 import { IconWrapper } from './Other'
 import { poorMansUUID } from '../utils/uuid'
 import { getUsername } from '../utils/auth'
+import { addToPath } from '../utils/insertDocument'
 
 const CommentHeaderWrapper = styled.div`
   display: flex;
@@ -128,17 +129,33 @@ export const CommentInput = (props: {
       message: message,
     }
     setLoading(true)
-    dmssAPI.generatedDmssApi
-      .explorerAdd({
-        dataSourceId: DEFAULT_DATASOURCE_ID,
-        dottedId: `${operationId}.comments`,
-        body: newComment,
+
+    //upload the comment entity to the comment package
+    addToPath(newComment, token, [], DEFAULT_DATASOURCE_ID, CommentPackage)
+      .then((uid: string) => {
+        const referenceObject = {
+          name: newComment.name,
+          id: uid,
+          type: newComment.type,
+        }
+        const dottedID = `${operationId}.comments`
+
+        //insert a reference to the operation's comments list.
+        dmssAPI
+          .insertDocumentReference({
+            dataSourceId: DEFAULT_DATASOURCE_ID,
+            documentDottedId: dottedID,
+            reference: referenceObject,
+          })
+          .then(() => {
+            handleNewComment(newComment)
+            setMessage('')
+          })
+          .finally(() => {
+            setLoading(false)
+          })
       })
-      .then(() => {
-        handleNewComment(newComment)
-        setMessage('')
-      })
-      .finally(() => {
+      .catch(() => {
         setLoading(false)
       })
   }
