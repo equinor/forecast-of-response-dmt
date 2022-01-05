@@ -423,6 +423,30 @@ function import_packages() {
 
 }
 
+function change_access_for_comment_package() {
+  info "Give write access for all users to the comments package, to allow operators to add comments to an operation"
+
+  DATASOURCE="ForecastDS"
+  COMMENTS_PACKAGE_PATH="FoR-Data%2FComments"
+
+  COMMENT_ENTITY="$(curl -H "Authorization: Bearer $TOKEN"  -X 'GET' \
+  "$DMSS_API/api/v1/documents-by-path/$DATASOURCE?path=$COMMENTS_PACKAGE_PATH" \
+  -H 'accept: application/json') "
+
+  COMMENT_PACKAGE_ID="$(echo "$COMMENT_ENTITY" | jq -r '._id')"
+
+  COMMENT_PACKAGE_ACL="$(curl -H "Authorization: Bearer $TOKEN"  -X 'GET' \
+  "$DMSS_API/api/v1/acl/$DATASOURCE/$COMMENT_PACKAGE_ID" \
+  -H 'accept: application/json') "
+  NEW_COMMENT_PACKAGE_ACL="$(echo "$COMMENT_PACKAGE_ACL" | jq '.others = "WRITE"')"
+
+  RESPONSE="$(curl -H "Authorization: Bearer $TOKEN"  -X 'PUT' \
+  "$DMSS_API/api/v1/acl/$DATASOURCE/$COMMENT_PACKAGE_ID" \
+  -H 'Content-Type: application/json' -d "$NEW_COMMENT_PACKAGE_ACL") "
+  echo "Response from updating the ACL is" $RESPONSE
+
+}
+
 function cleanup() {
   trap - SIGINT SIGTERM ERR EXIT
   info "Cleaning up.."
@@ -433,7 +457,7 @@ function cleanup() {
     echo "  Skipping 'git restore' due to '--no-restore' flag"
     warn "  WARNING: Passwords may be stored in clear text in the modified files. Please avoid committing them to git."
     warn "    Issue a manual 'git restore' with the following command:"
-    info "     git restore $DMT_DS $FoR_DS $SIMA_DS $SIMPOS_APP_DB_DS $SIMPOS_MDL_DB_DS $DMSS_SYSTEM $COMPOSE_FILE"
+    #info "     git restore $DMT_DS $FoR_DS $SIMA_DS $SIMPOS_APP_DB_DS $SIMPOS_MDL_DB_DS $DMSS_SYSTEM $COMPOSE_FILE"
   fi
   if [ "$COMPOSE_DOWN" == "True" ]; then
     echo "  Running 'docker-compose down'.."
@@ -460,6 +484,7 @@ function main() {
   dmss_reset_app
   import_data_sources
   import_packages
+  change_access_for_comment_package
 }
 
 setup_colors

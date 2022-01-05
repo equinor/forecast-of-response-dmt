@@ -82,7 +82,7 @@ docker-compose run --rm -e DMSS_API=https://dmss-forecast-of-response-test.radix
       1. `cp reset-db.env-template reset-db.env`
    2. Modify the new file `reset-db.env` to set the environment variables:
       1. `TOKEN`: A JWT (access token) from the Forecast of Response application.
-      2. `DMSS_API`: The full URL to the DMSS API for the environment you wish to reset.
+      2. `DMSS_API`: The full URL to the DMSS API for the environment you wish to reset. (The URL should not have a "/" at the end)
       3. `SECRET_KEY`: The secret key that was used to encrypt the data in the environment you wish to reset.
          1. Note: If you wish to generate a new secret key, this value can be left blank.
             1. NB: Make sure to run the script with `--create-key`.
@@ -91,7 +91,8 @@ docker-compose run --rm -e DMSS_API=https://dmss-forecast-of-response-test.radix
       1. `source reset-db.env`
 2. Run the script:
    1. Print help: `./reset-db.sh -h`
-   2. Run the script: `./reset-db.sh`
+   2. Run the script: `./reset-db.sh` (To be able to update the access control list for the comments package, you need to install jq ( sudo apt install jq
+))
    3. Run and create a new secret key: `./reset-db.sh --create-key`
       1. NB: Make sure to set the new key in the Radix secrets for DMSS for the environment you wish to reset.
       2. The new secret key is written to a file named `generated-secret-key.env`
