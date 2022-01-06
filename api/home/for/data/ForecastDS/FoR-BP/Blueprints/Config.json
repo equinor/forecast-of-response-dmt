@@ -1,7 +1,7 @@
 {
   "name": "Config",
   "type": "system/SIMOS/Blueprint",
-  "extends": ["system/SIMOS/DefaultUiRecipes","system/SIMOS/NamedEntity"],
+  "extends": ["system/SIMOS/DefaultUiRecipes", "system/SIMOS/NamedEntity"],
   "description": "Configuration for operations",
   "attributes": [
     {
@@ -15,6 +15,5 @@
       "attributeType": "/Blueprints/Phase",
       "dimensions": "*"
     }
-  ],
-    "uiRecipes": []
+  ]
 }

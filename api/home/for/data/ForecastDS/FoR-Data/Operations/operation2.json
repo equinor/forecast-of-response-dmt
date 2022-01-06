@@ -5,9 +5,9 @@
   "type": "ForecastDS/FoR-BP/Blueprints/Operation",
   "description": "an example operation",
   "stask": {
-      "_id": "26a4d888-3ab4-4ad2-9bd9-9614dcb066d5",
-      "name": "/STasks/mymodel_2_lbje.stask",
-      "type": "system/SIMOS/Blob"
+    "_id": "26a4d888-3ab4-4ad2-9bd9-9614dcb066d5",
+    "name": "/STasks/mymodel_2_lbje.stask",
+    "type": "system/SIMOS/Blob"
   },
   "creator": "KKJE",
   "location": {
@@ -18,16 +18,10 @@
   "start": "2020-07-25 13:45:37.352574",
   "end": "2020-09-14 13:45:37.352574",
   "status": "Upcoming",
-  "comments": [
-    {
-      "_id": "comment1",
-      "name": "comment1",
-      "type": "ForecastDS/FoR-BP/Blueprints/Comment"
-    }, {
-      "_id": "comment2",
-      "name": "comment2",
-      "type": "ForecastDS/FoR-BP/Blueprints/Comment"
-    }
-  ],
+  "comments": {
+    "_id": "MoveWindRig2020Comments",
+    "name": "MoveWindRig2020Comments",
+    "type": "ForecastDS/FoR-BP/Blueprints/Comments"
+  },
   "phases": []
 }

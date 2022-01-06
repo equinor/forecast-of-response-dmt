@@ -21,6 +21,7 @@ export enum ACLEnum {
 export enum Blueprints {
   OPERATION = 'ForecastDS/FoR-BP/Blueprints/Operation',
   Comment = 'ForecastDS/FoR-BP/Blueprints/Comment',
+  Comments = 'ForecastDS/FoR-BP/Blueprints/Comments',
   SIMULATION = 'ForecastDS/FoR-BP/Blueprints/Simulation',
   SIMULATION_CONFIG = 'ForecastDS/FoR-BP/Blueprints/SimulationConfig',
   VARIABLE = 'ForecastDS/FoR-BP/Blueprints/Variable',
@@ -31,4 +32,5 @@ export enum Blueprints {
   LOCATION = 'ForecastDS/FoR-BP/Blueprints/Location',
   STASK = 'ForecastDS/FoR-BP/Blueprints/STask',
   CONFIG = 'ForecastDS/FoR-BP/Blueprints/Config',
+  BLOB = 'system/SIMOS/Blob',
 }

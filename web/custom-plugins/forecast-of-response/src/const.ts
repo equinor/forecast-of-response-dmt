@@ -3,7 +3,6 @@ export const BLUEPRINTS = 'FoR-BP'
 export const ENTITIES = 'FoR-Data'
 export const LocationPackage = `${ENTITIES}/Locations`
 export const ConfigsPackage = `${ENTITIES}/Configs`
-export const CommentPackage = `${ENTITIES}/Comments`
 export const RESULT_FOLDER_NAME = 'Results'
 export const OperationsLocation = `${ENTITIES}/Operations`
 export const AzureContainerInstancesOmniaSubnetId =

@@ -1,22 +1,21 @@
 {
- "name" : "Variable",
- "type" : "system/SIMOS/Blueprint",
- "abstract" : false,
- "extends" : ["system/SIMOS/NamedEntity"],
- "attributes" : [{
-   "name" : "value",
-   "type" : "system/SIMOS/BlueprintAttribute",
-   "attributeType" : "string"
-  }, {
-   "name" : "valueType",
-   "type" : "system/SIMOS/BlueprintAttribute",
-   "attributeType" : "string"
-  }, {
-   "name" : "unit",
-   "type" : "system/SIMOS/BlueprintAttribute",
-   "attributeType" : "string"
-  }],
- "storageRecipes" : [],
- "uiRecipes" : []
+  "name": "Variable",
+  "type": "system/SIMOS/Blueprint",
+  "extends": ["system/SIMOS/NamedEntity"],
+  "attributes": [
+    {
+      "name": "value",
+      "type": "system/SIMOS/BlueprintAttribute",
+      "attributeType": "string"
+    }, {
+      "name": "valueType",
+      "type": "system/SIMOS/BlueprintAttribute",
+      "attributeType": "string"
+    }, {
+      "name": "unit",
+      "type": "system/SIMOS/BlueprintAttribute",
+      "attributeType": "string"
+    }
+  ]
 }
 

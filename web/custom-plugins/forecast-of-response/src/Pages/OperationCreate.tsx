@@ -104,7 +104,7 @@ const createOperationEntity = (
     type: Blueprints.OPERATION,
     stask: {
       name: stask.name,
-      type: 'system/SIMOS/Blob',
+      type: Blueprints.BLOB,
     },
     creator: user,
     location: location,
@@ -112,6 +112,11 @@ const createOperationEntity = (
     end: dateRange && dateRange[1] ? dateRange[1].toISOString() : undefined,
     status: OperationStatus.UPCOMING, // TODO: decide based on start attr? allow user to select?
     phases: config.phases,
+    comments: {
+      name: operationName,
+      type: Blueprints.Comments,
+      comments: [],
+    },
   }
   if (SIMACompute)
     body.SIMAComputeConnectInfo = {
@@ -141,11 +146,13 @@ const onClickCreate = (
 ) => {
   setLoading(true)
   const getIds = []
+
   // Prepare the uncontained entities for the Operation
   operationLocation.type = Blueprints.LOCATION
   getIds.push(
     getEntityId(operationLocation, token, isNewEntity.location, LocationPackage)
   )
+
   if (operationConfig) {
     // Optional
     operationConfig.type = Blueprints.CONFIG
@@ -168,7 +175,9 @@ const onClickCreate = (
       )
     })
   }
+
   setLoading(true)
+
   Promise.all(getIds)
     .then((documentIds: string[]) => {
       if (isNewEntity.location) operationLocation._id = documentIds[0]

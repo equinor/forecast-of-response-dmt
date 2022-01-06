@@ -54,13 +54,12 @@
       "type": "system/SIMOS/BlueprintAttribute",
       "attributeType": "string",
       "optional": true
-    },{
+    }, {
       "name": "comments",
       "type": "system/SIMOS/BlueprintAttribute",
-      "attributeType": "/Blueprints/Comment",
+      "attributeType": "/Blueprints/Comments",
       "optional": true,
-      "contained": false,
-      "dimensions": "*"
+      "contained": true
     }
   ],
   "uiRecipes": [
@@ -73,6 +72,25 @@
       "name": "OperationEdit",
       "plugin": "for-operation-edit",
       "type": "system/SIMOS/UiRecipe"
+    }
+  ],
+  "storageRecipes": [
+    {
+      "type": "system/SIMOS/StorageRecipe",
+      "name": "DEFAULT",
+      "description": "",
+      "attributes": [
+        {
+          "name": "comments",
+          "type": "/Blueprints/Comments",
+          "contained": false
+        },
+        {
+          "name": "location",
+          "type": "/Blueprints/Comments",
+          "contained": false
+        }
+      ]
     }
   ]
 }
