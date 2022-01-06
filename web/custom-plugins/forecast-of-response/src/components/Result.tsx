@@ -173,9 +173,9 @@ export default (props: {
   result: any
   addPlotWindow?: Function
   index?: string
-  deleteResultGraph?: Function
+  deletePlotWindow?: Function
 }) => {
-  const { result, addPlotWindow, index, deleteResultGraph } = props
+  const { result, addPlotWindow, index, deletePlotWindow } = props
   const [graphInfo, setGraphInfo] = useState<TGraphInfo[]>([])
   const [variableRuns, setVariableRuns] = useState<any[]>([])
   const [chartData, setChartData] = useState<TLineChartDataPoint[]>([])
@@ -189,6 +189,10 @@ export default (props: {
       setVariableRuns(document.variableRuns)
     }
   }, [document, isLoading])
+
+  useEffect(() => {
+    setGraphInfo([])
+  }, [result])
 
   function removeGraph(name: string) {
     let newDataDict: any = {}
@@ -223,7 +227,7 @@ export default (props: {
             setGraphInfo={setGraphInfo}
             graphInfo={graphInfo}
             index={index}
-            deleteResultGraph={deleteResultGraph}
+            deleteResultGraph={deletePlotWindow}
           />
           {graphInfo.length >= 1 && (
             <AddedGraphWrapper>

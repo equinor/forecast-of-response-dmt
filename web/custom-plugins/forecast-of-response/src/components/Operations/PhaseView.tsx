@@ -534,7 +534,7 @@ function SingleSimulationConfig(props: {
               key={index}
               result={results[selectedResult]}
               index={index}
-              deleteResultGraph={removePlotWindow}
+              deletePlotWindow={removePlotWindow}
             />
           ))}
       </div>
