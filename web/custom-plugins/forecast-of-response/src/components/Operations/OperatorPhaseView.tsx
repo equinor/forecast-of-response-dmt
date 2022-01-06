@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { TPhase, TSimulation, TSimulationConfig } from '../../Types'
-import { StyledSelect } from '../Input'
+import React, { useState } from 'react'
+import { TPhase, TSimulationConfig } from '../../Types'
 import Result from '../Result'
 import { sortSimulationsByNewest } from '../../utils/sort'
 
@@ -9,7 +8,6 @@ export default (props: { phase: TPhase }): JSX.Element => {
   const publishedSimulation: TSimulationConfig = phase.simulationConfigs.find(
     (simConf: TSimulationConfig) => simConf?.published === true
   )
-  const [selectedSim, setSelectedSim] = useState<number>(0)
   const [resultGraphs, setResultGraphs] = useState<any>({})
   const simulations = sortSimulationsByNewest(publishedSimulation.results)
 
@@ -33,33 +31,16 @@ export default (props: { phase: TPhase }): JSX.Element => {
       <div
         style={{ padding: '16px', display: 'flex', flexDirection: 'column' }}
       >
-        <label>Select which simulation result to view</label>
-        <StyledSelect
-          onChange={(e: Event) => {
-            setSelectedSim(parseInt(e.target.value))
-          }}
-        >
-          {simulations.map((simulation, index) => (
-            <option
-              key={index}
-              value={index}
-              onSelect={() => setSelectedSim(index)}
-            >
-              {simulation['name']}
-            </option>
-          ))}
-        </StyledSelect>
-        {simulations[selectedSim]?._id ? (
+        <label>Viewing result: {simulations[0].name}</label>
+
+        {simulations[0]?._id ? (
           <div>
-            <Result
-              result={simulations[selectedSim]}
-              addPlotWindow={addPlotWindow}
-            />
+            <Result result={simulations[0]} addPlotWindow={addPlotWindow} />
             {resultGraphs &&
               Object.keys(resultGraphs).map((index: string) => (
                 <Result
                   key={index}
-                  result={simulations[selectedSim]}
+                  result={simulations[0]}
                   index={index}
                   deletePlotWindow={removePlotWindow}
                 />

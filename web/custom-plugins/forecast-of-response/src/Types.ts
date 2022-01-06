@@ -55,7 +55,7 @@ export type StringMap = {
   [key: string]: string
 }
 
-export type TResultReference = {
+export type TReference = {
   name: string
   type: string
   _id: string
@@ -74,7 +74,7 @@ export type TSimulationConfig = {
   name: string
   variables: TVariable[]
   jobs: TJob[]
-  results: TResultReference[]
+  results: TReference[]
   cronJob: any
   published: boolean
   type?: string
