@@ -1,7 +1,7 @@
 {
   "name": "Location",
   "type": "system/SIMOS/Blueprint",
-  "extends": ["system/SIMOS/DefaultUiRecipes","system/SIMOS/NamedEntity"],
+  "extends": ["system/SIMOS/DefaultUiRecipes", "system/SIMOS/NamedEntity"],
   "description": "Coordinates for a geographical location",
   "attributes": [
     {

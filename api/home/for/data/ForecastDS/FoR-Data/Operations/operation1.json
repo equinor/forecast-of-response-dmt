@@ -10,9 +10,9 @@
     "_blob_id": "a1fb7672-a559-4c5f-913c-281e142e7f0c"
   },
   "stask": {
-      "name": "/STasks/mymodel_2_lbje.stask",
-      "type": "system/SIMOS/Blob",
-      "_blob_id": "04cf2783-6118-4bfd-a427-9485b00fa9da"
+    "name": "/STasks/mymodel_2_lbje.stask",
+    "type": "system/SIMOS/Blob",
+    "_blob_id": "04cf2783-6118-4bfd-a427-9485b00fa9da"
   },
   "creator": "eaks",
   "location": {
@@ -23,30 +23,11 @@
   "start": "2021-06-25 13:45:37.352574",
   "end": "2021-06-27 13:45:37.352574",
   "status": "Ongoing",
-  "comments": [
-    {
-      "_id": "comment1",
-      "name": "comment1",
-      "type": "ForecastDS/FoR-BP/Blueprints/Comment"
-    }, {
-      "_id": "comment2",
-      "name": "comment2",
-      "type": "ForecastDS/FoR-BP/Blueprints/Comment"
-    }, {
-      "_id": "comment3",
-      "name": "comment3",
-      "type": "ForecastDS/FoR-BP/Blueprints/Comment"
-    }, {
-      "_id": "comment4",
-      "name": "comment4",
-      "type": "ForecastDS/FoR-BP/Blueprints/Comment"
-    },
-    {
-      "_id": "comment5",
-      "name": "comment5",
-      "type": "ForecastDS/FoR-BP/Blueprints/Comment"
-    }
-  ],
+  "comments": {
+    "_id": "SverdrupAnchorReplace2021Comments",
+    "name": "SverdrupAnchorReplace2021Comments",
+    "type": "ForecastDS/FoR-BP/Blueprints/Comments"
+  },
   "phases": [
     {
       "name": "the-first_phase",

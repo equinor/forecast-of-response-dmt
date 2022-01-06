@@ -2,21 +2,13 @@ import React, { ChangeEvent, useContext, useState } from 'react'
 import styled from 'styled-components'
 import { TComment } from '../Types'
 import { colorFromString } from '../utils/colorFromString'
-import {
-  Button,
-  CircularProgress,
-  DotProgress,
-  Progress,
-  TextField,
-} from '@equinor/eds-core-react'
-import { DmssAPI, AuthContext } from '@dmt/common'
-import { CommentPackage, DEFAULT_DATASOURCE_ID } from '../const'
+import { Button, Progress, TextField } from '@equinor/eds-core-react'
+import { AuthContext } from '@dmt/common'
+import { DEFAULT_DATASOURCE_ID } from '../const'
 import { Blueprints } from '../Enums'
 import { IconWrapper } from './Other'
-import { poorMansUUID } from '../utils/uuid'
 import { getUsername } from '../utils/auth'
-import { addToPath } from '../utils/insertDocument'
-
+import { useDocument } from '@dmt/common'
 const CommentHeaderWrapper = styled.div`
   display: flex;
   flex-direction: row;
@@ -110,54 +102,28 @@ const InputWrapper = styled.div`
   margin: 15px;
 `
 export const CommentInput = (props: {
-  operationId: string
-  handleNewComment: any
+  commentsId: string
+  handleNewComment: Function
 }) => {
-  const { operationId, handleNewComment } = props
+  const { commentsId, handleNewComment } = props
   const [message, setMessage] = useState<string>('')
-  const { token, tokenData } = useContext(AuthContext)
-  const dmssAPI = new DmssAPI(token)
-  const [loading, setLoading] = useState<boolean>(false)
+  const { tokenData } = useContext(AuthContext)
+  const [commentsDocument, loading, updateComments, error] = useDocument(
+    DEFAULT_DATASOURCE_ID,
+    commentsId
+  )
 
   function handlePost() {
-    // TODO: When we can import model contained data, remove 'name' attribute from Comment
     const newComment = {
-      name: poorMansUUID(),
       type: Blueprints.Comment,
       author: getUsername(tokenData),
       date: new Date().toISOString(),
       message: message,
     }
-    setLoading(true)
-    //todo the functionality for adding new comment should be improved (note: using dmssAPI.explorerAdd cuased erors with deletion of result data for an operation)
-    //upload the comment entity to the comment package
-    addToPath(newComment, token, [], DEFAULT_DATASOURCE_ID, CommentPackage)
-      .then((uid: string) => {
-        const referenceObject = {
-          name: newComment.name,
-          id: uid,
-          type: newComment.type,
-        }
-        const dottedID = `${operationId}.comments`
-
-        //insert a reference to the operation's comments list.
-        dmssAPI
-          .insertDocumentReference({
-            dataSourceId: DEFAULT_DATASOURCE_ID,
-            documentDottedId: dottedID,
-            reference: referenceObject,
-          })
-          .then(() => {
-            handleNewComment(newComment)
-            setMessage('')
-          })
-          .finally(() => {
-            setLoading(false)
-          })
-      })
-      .catch(() => {
-        setLoading(false)
-      })
+    commentsDocument.comments.push(newComment)
+    updateComments(commentsDocument)
+    handleNewComment(newComment)
+    setMessage('')
   }
 
   return (

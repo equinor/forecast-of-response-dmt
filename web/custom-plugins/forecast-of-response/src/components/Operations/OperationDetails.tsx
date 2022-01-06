@@ -50,12 +50,10 @@ const CommentsWrapper = styled.div`
 export default (props: { operation: TOperation }): JSX.Element => {
   const { operation } = props
   const [viewACL, setViewACL] = useState<boolean>(false)
-  const [comments, setComments] = useState<TComment[]>(operation.comments)
+  const [comments, setComments] = useState<TComment[]>(
+    operation.comments?.comments
+  )
   const { tokenData } = useContext(AuthContext)
-
-  const updateComments = (newComment: TComment) => {
-    setComments([...comments, newComment])
-  }
 
   return (
     <Card style={{ maxWidth: '1200px' }}>
@@ -193,8 +191,10 @@ export default (props: { operation: TOperation }): JSX.Element => {
         ))}
       </CommentsWrapper>
       <CommentInput
-        operationId={operation._id}
-        handleNewComment={updateComments}
+        commentsId={operation.comments._id}
+        handleNewComment={(newComment: TComment) =>
+          setComments([...comments, newComment])
+        }
       />
     </Card>
   )

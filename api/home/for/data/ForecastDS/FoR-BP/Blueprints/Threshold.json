@@ -1,24 +1,23 @@
 {
- "name" : "Threshold",
- "type" : "system/SIMOS/Blueprint",
- "abstract" : false,
- "extends" : ["system/SIMOS/NamedEntity"],
- "attributes" : [{
-   "name" : "max",
-   "type" : "system/SIMOS/BlueprintAttribute",
-   "attributeType" : "number",
-   "default" : "0.0"
-  }, {
-   "name" : "min",
-   "type" : "system/SIMOS/BlueprintAttribute",
-   "attributeType" : "number",
-   "default" : "0.0"
-  }, {
-   "name" : "unit",
-   "type" : "system/SIMOS/BlueprintAttribute",
-   "attributeType" : "string"
-  }],
- "storageRecipes" : [],
- "uiRecipes" : []
+  "name": "Threshold",
+  "type": "system/SIMOS/Blueprint",
+  "extends": ["system/SIMOS/NamedEntity"],
+  "attributes": [
+    {
+      "name": "max",
+      "type": "system/SIMOS/BlueprintAttribute",
+      "attributeType": "number",
+      "default": "0.0"
+    }, {
+      "name": "min",
+      "type": "system/SIMOS/BlueprintAttribute",
+      "attributeType": "number",
+      "default": "0.0"
+    }, {
+      "name": "unit",
+      "type": "system/SIMOS/BlueprintAttribute",
+      "attributeType": "string"
+    }
+  ]
 }
 
