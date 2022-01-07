@@ -45,13 +45,15 @@ const Dashboard = (): JSX.Element => {
   const [loading, setLoading] = useState<boolean>(true)
   const [coordinates, setCoordinates] = useState<CoordinateTuple[]>()
   const [comments, commentsLoading, commentsError] = useSearch(
-    Blueprints.Comment
+    Blueprints.Comments
   )
+  const [commentsList, setCommentsList] = useState<TComment[]>([])
   const [operations, operationsLoading, operationsError] = useSearch(
     Blueprints.OPERATION
   )
   const location = useLocation()
 
+  // Fetch operations to create coordinates for the map
   useEffect(() => {
     if (operationsLoading) return
     if (operationsError || commentsError) return
@@ -78,6 +80,22 @@ const Dashboard = (): JSX.Element => {
       .then((coordinates: CoordinateTuple[]) => setCoordinates(coordinates))
       .finally(() => setLoading(false))
   }, [operations, operationsLoading])
+
+  // Fetch all comments for the 'latest comments' component
+  useEffect(() => {
+    if (commentsLoading) return
+    if (commentsError) return
+    let newCommentsList: TComment[] = []
+    Object.values(comments).forEach((operationComments: any) => {
+      newCommentsList.push(...operationComments?.comments)
+    })
+    newCommentsList.sort(
+      (a, b) =>
+        // @ts-ignore
+        new Date(b.date) - new Date(a.date)
+    )
+    setCommentsList(newCommentsList)
+  }, [comments, commentsLoading])
 
   if (operationsError || commentsError)
     return <div style={{ color: 'red' }}>Failed to fetch data</div>
@@ -148,8 +166,8 @@ const Dashboard = (): JSX.Element => {
           <DotProgress color="primary" style={{ margin: '15px' }} />
         ) : (
           <div style={{ paddingLeft: '10px', paddingRight: '10px' }}>
-            {comments ? (
-              comments.map((comment: TComment) => {
+            {commentsList ? (
+              commentsList.map((comment: TComment) => {
                 return (
                   <CompactCommentView key={comment._id} comment={comment} />
                 )
