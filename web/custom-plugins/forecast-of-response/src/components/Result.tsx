@@ -59,7 +59,7 @@ function GraphSelect(props: {
     const runName = `${variableRuns[run].name}`
     const responseName = `${variableRuns[run].responses[response].name}`
     const statisticName = `${variableRuns[run].responses[response].statistics[statistic].name}`
-    const plotName = `${runName}: ${responseName} ${statisticName}`
+    const plotName = `${runName}: ${responseName} (${statisticName})`
 
     const description = `${variableRuns[run].responses[response].statistics[statistic].description}`
 
