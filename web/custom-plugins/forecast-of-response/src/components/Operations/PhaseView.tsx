@@ -1,8 +1,10 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import {
   TBlob,
   TCronJob,
+  TGraph,
   TPhase,
+  TPlot,
   TSimulationConfig,
   TVariable,
 } from '../../Types'
@@ -36,6 +38,7 @@ import { JobLog } from '../Jobs'
 import { CreateReoccurringJob } from '../ReoccurringJob'
 import { createContainerJob } from '../../utils/createContainerJob'
 import { CustomScrim } from '../CustomScrim'
+import { poorMansUUID } from '../../utils/uuid'
 import Icons from '../Design/Icons'
 
 const SimHeaderWrapper = styled.div`
@@ -144,6 +147,7 @@ function NewSimulationConfig(props: {
       jobs: [],
       results: [],
       cronJob: {},
+      plots: [],
     }
     // Create the simulation entity
     dmssAPI.generatedDmssApi
@@ -232,6 +236,7 @@ function SingleSimulationConfig(props: {
   simaTask: string
   simaWorkflow: string
   configBlob: TBlob
+  setLoading: Function
 }) {
   const {
     simulationConfig,
@@ -241,6 +246,7 @@ function SingleSimulationConfig(props: {
     simaTask,
     simaWorkflow,
     configBlob,
+    setLoading,
   } = props
   const [selectedJob, setSelectedJob] = useState<number>(0)
   const [selectedResult, setSelectedResult] = useState<number>(0)
@@ -254,23 +260,60 @@ function SingleSimulationConfig(props: {
   const results = [...simulationConfig.results]
 
   const [viewJobDetails, setViewJobDetails] = useState<boolean>(false)
-  const [resultGraphs, setResultGraphs] = useState<any>({})
+  const [plotWindows, setPlotWindows] = useState<any>({
+    [poorMansUUID()]: { graphs: [] },
+  })
 
   const { token } = useContext(AuthContext)
   const jobAPI = new JobApi(token)
   const dmssAPI = new DmssAPI(token)
 
-  const result_dotted_id = `${dottedId}.results` //todo check if this is correct
+  const result_dotted_id = `${dottedId}.results`
 
-  const addPlotWindow = () => {
-    const index: string = (Math.random() * 100).toString()
-    setResultGraphs({ ...resultGraphs, [index]: true })
-  }
+  useEffect(() => {
+    if (simulationConfig.plots) {
+      // Retrieve the "stored plots"
+      let storedPlots: any = {}
+      simulationConfig.plots.map((storedPlot) => {
+        storedPlots[poorMansUUID()] = storedPlot
+      })
+      setPlotWindows({ ...storedPlots })
+    }
+  }, [])
 
-  const removePlotWindow = (index: string) => {
-    const graphs: any = resultGraphs
-    delete graphs[index]
-    setResultGraphs({ ...graphs })
+  const plotWindowHandlers = {
+    addPlotWindow: (key: string = poorMansUUID()): void => {
+      setPlotWindows({ ...plotWindows, [key]: { graphs: [] } })
+    },
+    deletePlotWindow: (key: string): void => {
+      const plots: any = plotWindows
+      delete plots[key]
+      setPlotWindows({ ...plots })
+    },
+    getPlots: (): TPlot[] => {
+      const plots: TPlot[] = []
+      Object.entries(plotWindows).forEach(([key, plotWindow]: any) => {
+        plotWindow.graphs.forEach((graph: TGraph) => {
+          graph.type = Blueprints.GRAPH
+        })
+        plotWindow.type = Blueprints.PLOTSTATE
+        plots.push(plotWindow)
+      })
+      return plots
+    },
+    addGraph: (plotKey: string, graph: TGraph): void => {
+      const graphs: TGraph[] = plotWindows[plotKey].graphs
+      graphs.push(graph)
+      setPlotWindows({ ...plotWindows, [plotKey]: { graphs: graphs } })
+    },
+    getGraphs: (plotKey: string): TGraph[] => {
+      return plotWindows[plotKey].graphs
+    },
+    deleteGraph: (plotKey: string, uuid: string) => {
+      let graphs: TGraph[] = plotWindows[plotKey].graphs
+      graphs = graphs.filter((graph) => graph.uuid !== uuid)
+      setPlotWindows({ ...plotWindows, [plotKey]: { graphs: graphs } })
+    },
   }
 
   function removeCronJob() {
@@ -403,6 +446,31 @@ function SingleSimulationConfig(props: {
         setLoadingJob(false)
       })
   }
+
+  function savePlots() {
+    setLoading(true)
+    // todo: add confirmation popup to ensure user intended the action
+    simulationConfig.plots = plotWindowHandlers.getPlots()
+
+    dmssAPI
+      .updateDocumentById({
+        dataSourceId: DEFAULT_DATASOURCE_ID,
+        documentId: dottedId.split('.', 1)[0],
+        data: JSON.stringify(simulationConfig),
+        attribute: dottedId.split('.').slice(1).join('.'),
+      })
+      .then(() =>
+        NotificationManager.success('The plots were saved successfully.')
+      )
+      .catch((error: any) => {
+        console.error(error)
+        NotificationManager.error(
+          error.message || 'An error occurred while saving the plots.'
+        )
+      })
+      .finally(() => setLoading(false))
+  }
+
   return (
     <div
       style={{
@@ -454,6 +522,13 @@ function SingleSimulationConfig(props: {
         >
           Configure schedule
           <Icons name="time" title="time" />
+        </StyledHeaderButton>
+        <StyledHeaderButton
+          style={{ width: '140px', marginLeft: '10px' }}
+          onClick={() => savePlots()}
+        >
+          Save plots
+          <Icons name="save" title="save" />
         </StyledHeaderButton>
         <StyledHeaderButton
           onClick={() =>
@@ -522,21 +597,25 @@ function SingleSimulationConfig(props: {
             </option>
           ))}
         </StyledSelect>
-        {results[selectedResult]?._id && (
+        {Object.keys(plotWindows).map((plotKey: string, plotKeyIndex) => (
           <Result
+            key={`plotWindow-${plotKey}`}
             result={results[selectedResult]}
-            addPlotWindow={addPlotWindow}
+            plotKey={plotKey}
+            plotWindowHandlers={{
+              addPlotWindow: (plotKey?: string | undefined) =>
+                plotWindowHandlers.addPlotWindow(plotKey),
+              deletePlotWindow: (plotKey: string) =>
+                plotWindowHandlers.deletePlotWindow(plotKey),
+              addGraph: (graph: TGraph) =>
+                plotWindowHandlers.addGraph(plotKey, graph),
+              getGraphs: () => plotWindowHandlers.getGraphs(plotKey),
+              deleteGraph: (uuid: string) =>
+                plotWindowHandlers.deleteGraph(plotKey, uuid),
+            }}
+            isRootPlot={plotKeyIndex == 0}
           />
-        )}
-        {resultGraphs &&
-          Object.keys(resultGraphs).map((index: string) => (
-            <Result
-              key={index}
-              result={results[selectedResult]}
-              index={index}
-              deletePlotWindow={removePlotWindow}
-            />
-          ))}
+        ))}
       </div>
     </div>
   )
@@ -550,6 +629,7 @@ function SimulationConfigList(props: {
   simaTask: string
   simaWorkflow: string
   configBlob: TBlob
+  setLoading: Function
 }) {
   const {
     setSimulationConfigs,
@@ -559,6 +639,7 @@ function SimulationConfigList(props: {
     simaTask,
     simaWorkflow,
     configBlob,
+    setLoading,
   } = props
   const { token } = useContext(AuthContext)
   const dmssAPI = new DmssAPI(token)
@@ -599,6 +680,7 @@ function SimulationConfigList(props: {
               <Accordion.Panel style={{ padding: '0' }}>
                 <SingleSimulationConfig
                   key={simulationConfig.name}
+                  setLoading={setLoading}
                   simulationConfig={simulationConfig}
                   dottedId={`${dottedId}.${index}`}
                   stask={stask}
@@ -673,6 +755,7 @@ export default (props: {
       )}
       <Divider />
       <SimulationConfigList
+        setLoading={setLoading}
         setSimulationConfigs={setSimulationConfigs}
         simulationConfigs={simulationConfigs}
         dottedId={`${dottedId}.simulationConfigs`}

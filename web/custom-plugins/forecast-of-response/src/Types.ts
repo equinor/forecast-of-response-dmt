@@ -70,6 +70,19 @@ export type TJob = {
   logAnalyticsWorkspaceResourceId?: string
 }
 
+export type TGraph = {
+  run: number
+  response: number
+  statistic: number
+  uuid?: string
+  type?: string
+}
+
+export type TPlot = {
+  graphs: TGraph[]
+  type?: string
+}
+
 export type TSimulationConfig = {
   name: string
   variables: TVariable[]
@@ -78,6 +91,7 @@ export type TSimulationConfig = {
   cronJob: any
   published: boolean
   type?: string
+  plots?: TPlot[]
 }
 
 export type TPhase = {

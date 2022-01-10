@@ -37,6 +37,13 @@
       "type": "system/SIMOS/BlueprintAttribute",
       "attributeType": "DMT-Internal/DMT/AzureContainerInstanceJobClassic",
       "optional": true
+    },
+    {
+      "name": "plots",
+      "type": "system/SIMOS/BlueprintAttribute",
+      "attributeType": "/Blueprints/PlotState",
+      "optional": true,
+      "dimensions": "*"
     }
   ]
 }

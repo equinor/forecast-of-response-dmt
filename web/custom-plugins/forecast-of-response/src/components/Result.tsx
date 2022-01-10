@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import LinesOverTime, { TLineChartDataPoint } from './Plots/LinesOverTime'
-import { Button, Chip, Progress, Tooltip } from '@equinor/eds-core-react'
+import { Button, Chip, Icon, Progress, Tooltip } from '@equinor/eds-core-react'
 import { NotificationManager } from 'react-notifications'
 import styled from 'styled-components'
 import { useDocument } from '@dmt/common'
@@ -10,6 +10,8 @@ import { StyledSelect } from './Input'
 import { IconWrapper } from './Other'
 
 import ArrowPlots from './Plots/ArrowPlots'
+import { TGraph, TPlot } from '../Types'
+import { poorMansUUID } from '../utils/uuid'
 import Icons from './Design/Icons'
 
 const ResultWrapper = styled.div`
@@ -35,8 +37,13 @@ function GraphSelect(props: {
   setChartData: Function
   graphInfo: TGraphInfo[]
   setGraphInfo: Function
-  index?: string
-  deleteResultGraph?: Function
+  plotKey: string
+  plotWindowHandlers: {
+    deletePlotWindow: (plotKey: string) => void
+    addGraph: (graph: TGraph) => void
+    getGraphs: () => TGraph[]
+  }
+  isRootPlot?: boolean
 }) {
   const {
     variableRuns,
@@ -44,34 +51,94 @@ function GraphSelect(props: {
     setChartData,
     graphInfo,
     setGraphInfo,
-    index,
-    deleteResultGraph,
+    plotKey,
+    plotWindowHandlers,
+    isRootPlot,
   } = props
-  const [run, setRun] = useState<number>(0)
-  const [response, setResponse] = useState<number>(0)
-  const [statistic, setStatistic] = useState<number>(0)
+  const [chosenRun, setChosenRun] = useState<number>(0)
+  const [chosenResponse, setChosenResponse] = useState<number>(0)
+  const [chosenStatistic, setChosenStatistic] = useState<number>(0)
 
   useEffect(() => {
-    setStatistic(0)
-  }, [response])
+    setChosenResponse(0)
+  }, [chosenRun])
 
   useEffect(() => {
-    setResponse(0)
-    setStatistic(0)
-  }, [run])
+    setChosenStatistic(0)
+  }, [chosenResponse])
 
-  function addGraph() {
+  useEffect(() => {
+    const storedGraphs = plotWindowHandlers.getGraphs()
+    if (storedGraphs) {
+      let newGraphInfo: TGraphInfo[] = []
+      let newDataDict: any = {}
+      storedGraphs.forEach((storedGraph) => {
+        let [newGraph, newData] = createGraph(
+          storedGraph.run,
+          storedGraph.response,
+          storedGraph.statistic,
+          storedGraph.uuid
+        )
+        newGraphInfo.push(newGraph)
+        Object.entries(newData).forEach(([key, value]: any) => {
+          newDataDict[key] = { ...newDataDict[key], ...value }
+        })
+      })
+      setGraphInfo(newGraphInfo)
+      setChartData(Object.values(newDataDict))
+    }
+  }, [])
+
+  function addGraphFromSelector() {
+    let uuid = poorMansUUID()
+    let newGraphInfo: TGraphInfo[] = graphInfo
+    let newDataDict: any = {}
+    let [newGraph, newData] = createGraph(
+      chosenRun,
+      chosenResponse,
+      chosenStatistic,
+      uuid
+    )
+    // Add graph if not already present
+    if (newGraph) {
+      newGraphInfo.push(newGraph)
+      setGraphInfo(newGraphInfo)
+      Object.entries(newData).forEach(([key, value]: any) => {
+        newDataDict[key] = { ...newDataDict[key], ...value }
+      })
+      setChartData(Object.values(newDataDict))
+      let graph: TGraph = {
+        run: chosenRun,
+        response: chosenResponse,
+        statistic: chosenStatistic,
+        uuid: uuid,
+      }
+      plotWindowHandlers.addGraph(graph)
+    } else {
+      NotificationManager.info(
+        'The selected graph is already present in the plot.'
+      )
+    }
+  }
+
+  function createGraph(
+    run: number,
+    response: number,
+    statistic: number,
+    uuid: string = poorMansUUID()
+  ) {
     // Get the timeseries and values from the selected statistic
     const result = variableRuns[run].responses[response].statistics[statistic]
 
-    // Generate a unique name for the graph based on the names of the parents
     const runName = `${variableRuns[run].name}`
     const responseName = `${variableRuns[run].responses[response].name}`
     const statisticName = `${variableRuns[run].responses[response].statistics[statistic].name}`
-    const plotName = `${runName}: ${responseName} (${statisticName})`
+    // Generate a unique name for the graph based on the names of the parents
+    const graphName = `${runName}: ${responseName} ${statisticName}`
     const description = `${variableRuns[run].responses[response].statistics[statistic].description}`
 
-    if (graphInfo.map((graph) => graph.name).includes(plotName)) return // Skip if trying to add an existing plot
+    if (graphInfo.map((graph) => graph.name).includes(graphName))
+      return [false, {}] // graph already present
     let newDataDict: any = {}
 
     // Create a object for the chartData array (so we can lookup on timestamp)
@@ -87,7 +154,7 @@ function GraphSelect(props: {
         // Value @ index 1 is lower value for upper value found at index=values.length/2+index
         newDataPoint = {
           timestamp: timestamp,
-          [plotName]: [
+          [graphName]: [
             result.values[index],
             result.values[result.values.length / 2 + index],
           ],
@@ -96,79 +163,69 @@ function GraphSelect(props: {
       } else {
         newDataPoint = {
           timestamp: timestamp,
-          [plotName]: result.values[index],
+          [graphName]: result.values[index],
           ...newDataDict[timestamp],
         }
       }
       newDataDict[timestamp] = newDataPoint
     })
 
-    setGraphInfo([
-      ...graphInfo,
+    return [
       {
-        name: plotName,
+        name: graphName,
         plotType: result?.plotType,
         unit: result?.unit,
         description: description,
+        uuid: uuid,
       },
-    ])
-    setChartData(Object.values(newDataDict))
+      newDataDict,
+    ]
   }
 
   return (
     <GraphSelectorWrapper>
-      <StyledSelect onChange={(e: Event) => setRun(e.target.value)} value={run}>
+      <StyledSelect onChange={(e: Event) => setChosenRun(e.target.value)}>
         {variableRuns.map((run: any, index) => (
           <option key={index} value={index}>
             {run.name}
           </option>
         ))}
       </StyledSelect>
-      {variableRuns[run] && (
-        <StyledSelect
-          onChange={(e: Event) => setResponse(e.target.value)}
-          value={response}
-        >
-          {variableRuns[run].responses.map((response: any, index: number) => (
+      <StyledSelect onChange={(e: Event) => setChosenResponse(e.target.value)}>
+        {variableRuns[chosenRun].responses.map(
+          (response: any, index: number) => (
             <option key={index} value={index}>
               {response.name}
             </option>
-          ))}
-        </StyledSelect>
-      )}
-      {variableRuns[run].responses[response] && (
-        <StyledSelect
-          onChange={(e: Event) => setStatistic(e.target.value)}
-          value={statistic}
-        >
-          {variableRuns[run].responses[response].statistics.map(
-            (statistic: any, index: number) => (
-              <option key={index} value={index}>
-                {statistic.name}
-              </option>
-            )
-          )}
-        </StyledSelect>
-      )}
+          )
+        )}
+      </StyledSelect>
+      <StyledSelect onChange={(e: Event) => setChosenStatistic(e.target.value)}>
+        {variableRuns[chosenRun].responses[chosenResponse].statistics.map(
+          (statistic: any, index: number) => (
+            <option key={index} value={index}>
+              {statistic.name}
+            </option>
+          )
+        )}
+      </StyledSelect>
       <Button
         style={{ width: '140px', marginLeft: '10px' }}
-        onClick={() => addGraph()}
+        onClick={() => {
+          addGraphFromSelector()
+        }}
       >
         Add graph
         <Icons name="add" title="add" />
       </Button>
-      {index ? (
+      {!isRootPlot && (
         <Button
           style={{ marginLeft: 'auto', marginRight: 0 }}
           variant="ghost_icon"
-          onClick={() => {
-            deleteResultGraph(index)
-          }}
+          onClick={() => plotWindowHandlers.deletePlotWindow(plotKey)}
         >
           <Icons name="close" title="close graph" />
         </Button>
-      ) : (
-        <></>
       )}
     </GraphSelectorWrapper>
   )
@@ -185,15 +242,22 @@ export type TGraphInfo = {
   unit: string
   plotType: PlotType
   description: string
+  uuid: string
 }
 
 export default (props: {
   result: any
-  addPlotWindow?: Function
-  index?: string
-  deletePlotWindow?: Function
+  plotKey: string
+  plotWindowHandlers: {
+    addPlotWindow: (plotKey?: string | undefined) => void
+    deletePlotWindow: (plotKey: string) => void
+    addGraph: (graph: TGraph) => void
+    getGraphs: () => TGraph[]
+    deleteGraph: (uuid: string) => void
+  }
+  isRootPlot?: boolean
 }) => {
-  const { result, addPlotWindow, index, deletePlotWindow } = props
+  const { result, plotKey, plotWindowHandlers, isRootPlot } = props
   const [graphInfo, setGraphInfo] = useState<TGraphInfo[]>([])
   const [variableRuns, setVariableRuns] = useState<any[]>([])
   const [chartData, setChartData] = useState<TLineChartDataPoint[]>([])
@@ -212,7 +276,7 @@ export default (props: {
     setGraphInfo([])
   }, [result])
 
-  function removeGraph(name: string) {
+  function removeGraph(name: string, uuid: string) {
     let newDataDict: any = {}
 
     chartData.forEach((dataPoint: any) => {
@@ -220,8 +284,9 @@ export default (props: {
       newDataDict[dataPoint.timestamp] = dataPoint
     })
 
-    setGraphInfo(graphInfo.filter((graph) => name !== graph.name))
+    setGraphInfo(graphInfo.filter((graph: TGraphInfo) => name !== graph.name))
     setChartData(Object.values(newDataDict))
+    plotWindowHandlers.deleteGraph(uuid)
   }
 
   if (isLoading) return <Progress.Linear style={{ margin: '20px' }} />
@@ -244,20 +309,28 @@ export default (props: {
             setChartData={setChartData}
             setGraphInfo={setGraphInfo}
             graphInfo={graphInfo}
-            index={index}
-            deleteResultGraph={deletePlotWindow}
+            plotKey={plotKey}
+            plotWindowHandlers={{
+              deletePlotWindow: (plotKey: string) =>
+                plotWindowHandlers.deletePlotWindow(plotKey),
+              addGraph: (graph: TGraph) => plotWindowHandlers.addGraph(graph),
+              getGraphs: () => plotWindowHandlers.getGraphs(),
+            }}
+            isRootPlot={isRootPlot}
           />
           {graphInfo.length >= 1 && (
             <AddedGraphWrapper>
-              {graphInfo.map((graph, index) => (
-                <Tooltip title={graph.description} key={index}>
+              {graphInfo.map((graph: TGraphInfo, graphIndex) => (
+                <Tooltip title={graph.description} key={graphIndex}>
                   <Chip
-                    key={index}
+                    key={graphIndex}
                     style={{ margin: '10px 5px', cursor: 'help', zIndex: 1 }}
                     variant="active"
-                    onDelete={() => removeGraph(graph.name)}
+                    onDelete={() => removeGraph(graph.name, graph.uuid)}
                   >
-                    <IconWrapper color={plotColors[index]}>&#9679;</IconWrapper>
+                    <IconWrapper color={plotColors[graphIndex]}>
+                      &#9679;
+                    </IconWrapper>
                     {graph.name}
                   </Chip>
                 </Tooltip>
@@ -267,17 +340,17 @@ export default (props: {
         </div>
         <LinesOverTime data={chartData} graphInfo={graphInfo} />
         <ArrowPlots data={chartData} graphInfo={graphInfo} />
+        {isRootPlot && (
+          <Button
+            style={{ width: '140px', marginLeft: '10px' }}
+            variant="outlined"
+            onClick={() => plotWindowHandlers.addPlotWindow()}
+          >
+            Add plot
+            <Icons name="add" title="add" />
+          </Button>
+        )}
       </ResultWrapper>
-      {addPlotWindow && (
-        <Button
-          style={{ width: '140px', marginLeft: '10px' }}
-          variant="outlined"
-          onClick={() => addPlotWindow()}
-        >
-          Add plot
-          <Icons name="add" title="add" />
-        </Button>
-      )}
     </div>
   )
 }

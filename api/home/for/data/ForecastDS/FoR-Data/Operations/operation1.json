@@ -130,6 +130,22 @@
               "valueType": "string",
               "unit": "VariableUnit"
             }
+          ],
+          "plots": [
+            {
+              "run": 0,
+              "response": 0,
+              "statistic": 0,
+              "uuid": "123123123123",
+              "type": "ForecastDS/FoR-BP/Blueprints/Graph"
+            },
+            {
+              "run": 0,
+              "response": 0,
+              "statistic": 1,
+              "uuid": "123123123125",
+              "type": "ForecastDS/FoR-BP/Blueprints/Graph"
+            }
           ]
         }
       ]

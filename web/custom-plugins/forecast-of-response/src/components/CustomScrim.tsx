@@ -9,7 +9,6 @@ export const CustomScrim = (props: {
   width?: number
 }) => {
   const { closeScrim, children, header, width } = props
-  console.log(props.header)
   return (
     <Scrim isDismissable onClose={closeScrim}>
       <Dialog style={{ width: width ? width : '100%' }}>
