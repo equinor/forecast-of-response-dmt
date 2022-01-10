@@ -16,6 +16,7 @@ export const addToPath = (
         dataSourceId: dataSourceId,
         document: JSON.stringify(body),
         directory: directory,
+        updateuncontained: false,
         files: files.filter((item: any) => item !== undefined),
       })
       .then((response: string) => {
