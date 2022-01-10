@@ -51,6 +51,15 @@ function GraphSelect(props: {
   const [response, setResponse] = useState<number>(0)
   const [statistic, setStatistic] = useState<number>(0)
 
+  useEffect(() => {
+    setStatistic(0)
+  }, [response])
+
+  useEffect(() => {
+    setResponse(0)
+    setStatistic(0)
+  }, [run])
+
   function addGraph() {
     // Get the timeseries and values from the selected statistic
     const result = variableRuns[run].responses[response].statistics[statistic]
@@ -60,7 +69,6 @@ function GraphSelect(props: {
     const responseName = `${variableRuns[run].responses[response].name}`
     const statisticName = `${variableRuns[run].responses[response].statistics[statistic].name}`
     const plotName = `${runName}: ${responseName} (${statisticName})`
-
     const description = `${variableRuns[run].responses[response].statistics[statistic].description}`
 
     if (graphInfo.map((graph) => graph.name).includes(plotName)) return // Skip if trying to add an existing plot
@@ -109,29 +117,39 @@ function GraphSelect(props: {
 
   return (
     <GraphSelectorWrapper>
-      <StyledSelect onChange={(e: Event) => setRun(e.target.value)}>
+      <StyledSelect onChange={(e: Event) => setRun(e.target.value)} value={run}>
         {variableRuns.map((run: any, index) => (
           <option key={index} value={index}>
             {run.name}
           </option>
         ))}
       </StyledSelect>
-      <StyledSelect onChange={(e: Event) => setResponse(e.target.value)}>
-        {variableRuns[run].responses.map((response: any, index: number) => (
-          <option key={index} value={index}>
-            {response.name}
-          </option>
-        ))}
-      </StyledSelect>
-      <StyledSelect onChange={(e: Event) => setStatistic(e.target.value)}>
-        {variableRuns[run].responses[response].statistics.map(
-          (statistic: any, index: number) => (
+      {variableRuns[run] && (
+        <StyledSelect
+          onChange={(e: Event) => setResponse(e.target.value)}
+          value={response}
+        >
+          {variableRuns[run].responses.map((response: any, index: number) => (
             <option key={index} value={index}>
-              {statistic.name}
+              {response.name}
             </option>
-          )
-        )}
-      </StyledSelect>
+          ))}
+        </StyledSelect>
+      )}
+      {variableRuns[run].responses[response] && (
+        <StyledSelect
+          onChange={(e: Event) => setStatistic(e.target.value)}
+          value={statistic}
+        >
+          {variableRuns[run].responses[response].statistics.map(
+            (statistic: any, index: number) => (
+              <option key={index} value={index}>
+                {statistic.name}
+              </option>
+            )
+          )}
+        </StyledSelect>
+      )}
       <Button
         style={{ width: '140px', marginLeft: '10px' }}
         onClick={() => addGraph()}

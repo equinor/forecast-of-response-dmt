@@ -107,7 +107,7 @@ export default (props: {
         width={chartWidth}
         height={plotHeight}
         theme={VictoryTheme.material}
-        domainPadding={{ y: 15 }}
+        domainPadding={{ y: 20 }}
         padding={{ top: 5, bottom: 25, right: 5, left: 55 }}
         containerComponent={
           <VictoryVoronoiContainer
