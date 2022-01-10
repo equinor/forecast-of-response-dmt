@@ -33,4 +33,6 @@ export enum Blueprints {
   STASK = 'ForecastDS/FoR-BP/Blueprints/STask',
   CONFIG = 'ForecastDS/FoR-BP/Blueprints/Config',
   BLOB = 'system/SIMOS/Blob',
+  PLOTSTATE = 'ForecastDS/FoR-BP/Blueprints/PlotState',
+  GRAPH = 'ForecastDS/FoR-BP/Blueprints/Graph',
 }
