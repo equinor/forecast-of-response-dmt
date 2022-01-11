@@ -18,6 +18,8 @@ echo $KEY
 cp .env-template .env 
 echo "SECRET_KEY=$KEY" >> .env
 docker-compose up
+docker-compose run --rm dmss reset-app
+docker-compose run --rm api reset-app
 ```
 
 Visit [http://localhost:9000] in your web browser.
