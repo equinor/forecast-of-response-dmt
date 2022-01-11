@@ -277,7 +277,7 @@ function SingleSimulationConfig(props: {
       simulationConfig.plots.map((storedPlot) => {
         storedPlots[poorMansUUID()] = storedPlot
       })
-      setPlotWindows({ ...storedPlots })
+      setPlotWindows(storedPlots)
     }
   }, [])
 
@@ -597,25 +597,24 @@ function SingleSimulationConfig(props: {
             </option>
           ))}
         </StyledSelect>
-        {Object.keys(plotWindows).map((plotKey: string, plotKeyIndex) => (
-          <Result
-            key={`plotWindow-${plotKey}`}
-            result={results[selectedResult]}
-            plotKey={plotKey}
-            plotWindowHandlers={{
-              addPlotWindow: (plotKey?: string | undefined) =>
-                plotWindowHandlers.addPlotWindow(plotKey),
-              deletePlotWindow: (plotKey: string) =>
-                plotWindowHandlers.deletePlotWindow(plotKey),
-              addGraph: (graph: TGraph) =>
-                plotWindowHandlers.addGraph(plotKey, graph),
-              getGraphs: () => plotWindowHandlers.getGraphs(plotKey),
-              deleteGraph: (uuid: string) =>
-                plotWindowHandlers.deleteGraph(plotKey, uuid),
-            }}
-            isRootPlot={plotKeyIndex == 0}
-          />
-        ))}
+        {plotWindows &&
+          Object.keys(plotWindows).map((plotKey: string, plotKeyIndex) => (
+            <Result
+              key={`plotWindow-${plotKey}`}
+              result={results[selectedResult]}
+              plotKey={plotKey}
+              plotWindowHandlers={{
+                addPlotWindow: (plotKey?: string | undefined) =>
+                  plotWindowHandlers.addPlotWindow(),
+                deletePlotWindow: (plotKey: string) =>
+                  plotWindowHandlers.deletePlotWindow(plotKey),
+                addGraph: (graph: TGraph) => plotWindowHandlers.addGraph(plotKey, graph),
+                getGraphs: () => plotWindowHandlers.getGraphs(plotKey),
+                deleteGraph: (uuid: string) => plotWindowHandlers.deleteGraph(plotKey, uuid),
+              }}
+              isRootPlot={plotKeyIndex == 0}
+            />
+          ))}
       </div>
     </div>
   )
