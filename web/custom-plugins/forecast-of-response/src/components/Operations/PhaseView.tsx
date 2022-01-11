@@ -608,9 +608,11 @@ function SingleSimulationConfig(props: {
                   plotWindowHandlers.addPlotWindow(),
                 deletePlotWindow: (plotKey: string) =>
                   plotWindowHandlers.deletePlotWindow(plotKey),
-                addGraph: (graph: TGraph) => plotWindowHandlers.addGraph(plotKey, graph),
+                addGraph: (graph: TGraph) =>
+                  plotWindowHandlers.addGraph(plotKey, graph),
                 getGraphs: () => plotWindowHandlers.getGraphs(plotKey),
-                deleteGraph: (uuid: string) => plotWindowHandlers.deleteGraph(plotKey, uuid),
+                deleteGraph: (uuid: string) =>
+                  plotWindowHandlers.deleteGraph(plotKey, uuid),
               }}
               isRootPlot={plotKeyIndex == 0}
             />
