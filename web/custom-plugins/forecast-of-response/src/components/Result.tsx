@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import LinesOverTime, { TLineChartDataPoint } from './Plots/LinesOverTime'
-import { Button, Chip, Icon, Progress, Tooltip } from '@equinor/eds-core-react'
+import { Button, Chip, Progress, Tooltip } from '@equinor/eds-core-react'
 import { NotificationManager } from 'react-notifications'
 import styled from 'styled-components'
 import { useDocument } from '@dmt/common'
