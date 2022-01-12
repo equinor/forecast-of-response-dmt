@@ -51,7 +51,10 @@ const SimHeaderWrapper = styled.div`
 `
 
 const StyledHeaderButton = styled(Button)`
-  margin: 0 20px;
+  margin-left: 20px;
+  &:disabled {
+    margin-left: 20px;
+  }
 `
 
 const OpenSummaryButton = styled.div`
@@ -535,6 +538,7 @@ function SingleSimulationConfig(props: {
             // Get the index of the current simulationConfig from dottedId
             publishSimulation(parseInt(dottedId.split('.').slice(-1)[0]))
           }
+          disabled={simulationConfig.published}
         >
           Publish simulation
         </StyledHeaderButton>
