@@ -8,10 +8,11 @@ import {
   DEFAULT_DATASOURCE_ID,
   LocationPackage,
   OperationsLocation,
+  PlotStateBlueprint,
 } from '../const'
 import DateRangePicker from '../components/DateRangePicker'
 import { Heading } from '../components/Design/Fonts'
-import { TConfig, TLocation, TOperationMeta } from '../Types'
+import { TConfig, TLocation, TOperationMeta, TPhase } from '../Types'
 import SelectOperationConfig from '../components/Operations/SelectConfig'
 import SelectOperationLocation from '../components/Operations/SelectLocation'
 import { ClickableMap } from '../components/Map'
@@ -97,6 +98,41 @@ const createOperationEntity = (
   token: string,
   user: string
 ): Promise<string> => {
+  let phases: TPhase[] = config.phases
+
+  for (let i = 0; i < phases.length; ++i) {
+    for (let j = 0; j < phases[i].simulationConfigs.length; ++j) {
+      let conf = phases[i].simulationConfigs[j]
+      if (conf.plots === undefined) {
+        conf.plots = []
+      }
+      if (conf.plots.length === 0) {
+        conf.plots = [
+          {
+            type: PlotStateBlueprint,
+            graphs: [],
+          },
+        ]
+      }
+      phases[i].simulationConfigs[j] = conf
+    }
+  }
+
+  // phases = phases.map(phase => {
+  //   phase.simulationConfigs.map(config => {
+  //     if (config.plots === []) {
+  //       config.plots = [
+  //         {
+  //           type: PlotStateBlueprint,
+  //           graphs: [],
+  //         },
+  //       ]
+  //     }
+  //   })
+  // })
+
+  console.log('PHASES IS', phases)
+
   let body = {
     name: operationName,
     label: operationLabel,
@@ -111,7 +147,7 @@ const createOperationEntity = (
     start: dateRange && dateRange[0] ? dateRange[0].toISOString() : undefined,
     end: dateRange && dateRange[1] ? dateRange[1].toISOString() : undefined,
     status: OperationStatus.UPCOMING, // TODO: decide based on start attr? allow user to select?
-    phases: config.phases,
+    phases: phases,
     comments: {
       name: operationName,
       type: Blueprints.Comments,

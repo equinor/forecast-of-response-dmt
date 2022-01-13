@@ -27,6 +27,7 @@ import { AuthContext, DmssAPI } from '@dmt/common'
 import {
   DEFAULT_DATASOURCE_ID,
   ENTITIES,
+  PlotStateBlueprint,
   RESULT_FOLDER_NAME,
 } from '../../const'
 import { Blueprints } from '../../Enums'
@@ -150,7 +151,12 @@ function NewSimulationConfig(props: {
       jobs: [],
       results: [],
       cronJob: {},
-      plots: [],
+      plots: [
+        {
+          type: PlotStateBlueprint,
+          graphs: [],
+        },
+      ],
     }
     // Create the simulation entity
     dmssAPI.generatedDmssApi

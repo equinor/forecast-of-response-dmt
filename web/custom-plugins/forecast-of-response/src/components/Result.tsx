@@ -184,31 +184,44 @@ function GraphSelect(props: {
 
   return (
     <GraphSelectorWrapper>
-      <StyledSelect onChange={(e: Event) => setChosenRun(e.target.value)}>
+      <StyledSelect
+        onChange={(e: Event) => setChosenRun(e.target.value)}
+        value={chosenRun}
+      >
         {variableRuns.map((run: any, index) => (
           <option key={index} value={index}>
             {run.name}
           </option>
         ))}
       </StyledSelect>
-      <StyledSelect onChange={(e: Event) => setChosenResponse(e.target.value)}>
-        {variableRuns[chosenRun].responses.map(
-          (response: any, index: number) => (
-            <option key={index} value={index}>
-              {response.name}
-            </option>
-          )
-        )}
-      </StyledSelect>
-      <StyledSelect onChange={(e: Event) => setChosenStatistic(e.target.value)}>
-        {variableRuns[chosenRun].responses[chosenResponse].statistics.map(
-          (statistic: any, index: number) => (
-            <option key={index} value={index}>
-              {statistic.name}
-            </option>
-          )
-        )}
-      </StyledSelect>
+      {variableRuns[chosenRun] && (
+        <StyledSelect
+          onChange={(e: Event) => setChosenResponse(e.target.value)}
+          value={chosenResponse}
+        >
+          {variableRuns[chosenRun].responses.map(
+            (response: any, index: number) => (
+              <option key={index} value={index}>
+                {response.name}
+              </option>
+            )
+          )}
+        </StyledSelect>
+      )}
+      {variableRuns[chosenRun].responses[chosenResponse] && (
+        <StyledSelect
+          onChange={(e: Event) => setChosenStatistic(e.target.value)}
+          value={chosenStatistic}
+        >
+          {variableRuns[chosenRun].responses[chosenResponse].statistics.map(
+            (statistic: any, index: number) => (
+              <option key={index} value={index}>
+                {statistic.name}
+              </option>
+            )
+          )}
+        </StyledSelect>
+      )}
       <Button
         style={{ width: '140px', marginLeft: '10px' }}
         onClick={() => {
