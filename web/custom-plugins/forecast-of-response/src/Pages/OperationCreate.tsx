@@ -8,11 +8,10 @@ import {
   DEFAULT_DATASOURCE_ID,
   LocationPackage,
   OperationsLocation,
-  PlotStateBlueprint,
 } from '../const'
 import DateRangePicker from '../components/DateRangePicker'
 import { Heading } from '../components/Design/Fonts'
-import { TConfig, TLocation, TOperationMeta, TPhase } from '../Types'
+import { TConfig, TLocation, TOperationMeta } from '../Types'
 import SelectOperationConfig from '../components/Operations/SelectConfig'
 import SelectOperationLocation from '../components/Operations/SelectLocation'
 import { ClickableMap } from '../components/Map'
@@ -98,25 +97,6 @@ const createOperationEntity = (
   token: string,
   user: string
 ): Promise<string> => {
-  let phases: TPhase[] = config.phases
-
-  //add empty plot list to all simulation configs
-  phases.map((phase) => {
-    phase.simulationConfigs.map((config) => {
-      if (config.plots === undefined) {
-        config.plots = []
-      }
-      if (config.plots.length === 0) {
-        config.plots = [
-          {
-            type: PlotStateBlueprint,
-            graphs: [],
-          },
-        ]
-      }
-    })
-  })
-
   let body = {
     name: operationName,
     label: operationLabel,
@@ -131,7 +111,7 @@ const createOperationEntity = (
     start: dateRange && dateRange[0] ? dateRange[0].toISOString() : undefined,
     end: dateRange && dateRange[1] ? dateRange[1].toISOString() : undefined,
     status: OperationStatus.UPCOMING, // TODO: decide based on start attr? allow user to select?
-    phases: phases,
+    phases: config.phases,
     comments: {
       name: operationName,
       type: Blueprints.Comments,

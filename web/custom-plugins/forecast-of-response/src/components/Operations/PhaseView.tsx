@@ -27,7 +27,6 @@ import { AuthContext, DmssAPI } from '@dmt/common'
 import {
   DEFAULT_DATASOURCE_ID,
   ENTITIES,
-  PlotStateBlueprint,
   RESULT_FOLDER_NAME,
 } from '../../const'
 import { Blueprints } from '../../Enums'
@@ -151,12 +150,7 @@ function NewSimulationConfig(props: {
       jobs: [],
       results: [],
       cronJob: {},
-      plots: [
-        {
-          type: PlotStateBlueprint,
-          graphs: [],
-        },
-      ],
+      plots: [],
     }
     // Create the simulation entity
     dmssAPI.generatedDmssApi
@@ -279,10 +273,10 @@ function SingleSimulationConfig(props: {
   const result_dotted_id = `${dottedId}.results`
 
   useEffect(() => {
-    if (simulationConfig.plots) {
+    if (simulationConfig.plots.length) {
       // Retrieve the "stored plots"
       let storedPlots: any = {}
-      simulationConfig.plots.map((storedPlot) => {
+      simulationConfig.plots.forEach((storedPlot) => {
         storedPlots[poorMansUUID()] = storedPlot
       })
       setPlotWindows(storedPlots)
