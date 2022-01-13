@@ -239,7 +239,6 @@ function SingleSimulationConfig(props: {
   simaTask: string
   simaWorkflow: string
   configBlob: TBlob
-  setLoading: Function
 }) {
   const {
     simulationConfig,
@@ -249,11 +248,10 @@ function SingleSimulationConfig(props: {
     simaTask,
     simaWorkflow,
     configBlob,
-    setLoading,
   } = props
   const [selectedJob, setSelectedJob] = useState<number>(0)
   const [selectedResult, setSelectedResult] = useState<number>(0)
-  const [loadingJob, setLoadingJob] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(false)
   const [showSummary, setShowSummary] = useState<boolean>(false)
   const [visibleReoccurringJob, setVisibleReoccurringJob] = useState<boolean>(
     false
@@ -346,7 +344,7 @@ function SingleSimulationConfig(props: {
   }
 
   function saveAndStartCronJob(cronValue: TCronJob) {
-    setLoadingJob(true)
+    setLoading(true)
     removeCronJob()
     const cronJob = createContainerJob(
       `${DEFAULT_DATASOURCE_ID}/${stask._blob_id}`, // STask
@@ -384,7 +382,7 @@ function SingleSimulationConfig(props: {
               'Failed to register cron job'
             )
           })
-          .finally(() => setLoadingJob(false))
+          .finally(() => setLoading(false))
       })
       .catch((error: Response) => {
         error.json().then((data: any) => {
@@ -394,13 +392,13 @@ function SingleSimulationConfig(props: {
             'Failed to register cron job',
             0
           )
-          setLoadingJob(false)
+          setLoading(false)
         })
       })
   }
 
   function saveAndStartJob() {
-    setLoadingJob(true)
+    setLoading(true)
     const newJob: any = createContainerJob(
       `${DEFAULT_DATASOURCE_ID}/${stask._blob_id}`, // STask
       simaTask, //Sima task in STask
@@ -437,7 +435,7 @@ function SingleSimulationConfig(props: {
               'Failed to start job'
             )
           })
-          .finally(() => setLoadingJob(false))
+          .finally(() => setLoading(false))
       })
       .catch((error: Error) => {
         console.error(error)
@@ -445,7 +443,7 @@ function SingleSimulationConfig(props: {
           error?.response?.data?.message,
           'Failed to start job'
         )
-        setLoadingJob(false)
+        setLoading(false)
       })
   }
 
@@ -559,7 +557,7 @@ function SingleSimulationConfig(props: {
           </CustomScrim>
         )}
       </SimHeaderWrapper>
-      {loadingJob && <Progress.Linear />}
+      {loading && <Progress.Linear />}
       <div
         style={{ padding: '16px', display: 'flex', flexDirection: 'column' }}
       >
@@ -635,7 +633,6 @@ function SimulationConfigList(props: {
   simaTask: string
   simaWorkflow: string
   configBlob: TBlob
-  setLoading: Function
 }) {
   const {
     setSimulationConfigs,
@@ -645,7 +642,6 @@ function SimulationConfigList(props: {
     simaTask,
     simaWorkflow,
     configBlob,
-    setLoading,
   } = props
   const { token } = useContext(AuthContext)
   const dmssAPI = new DmssAPI(token)
@@ -686,7 +682,6 @@ function SimulationConfigList(props: {
               <Accordion.Panel style={{ padding: '0' }}>
                 <SingleSimulationConfig
                   key={simulationConfig.name}
-                  setLoading={setLoading}
                   simulationConfig={simulationConfig}
                   dottedId={`${dottedId}.${index}`}
                   stask={stask}
@@ -761,7 +756,6 @@ export default (props: {
       )}
       <Divider />
       <SimulationConfigList
-        setLoading={setLoading}
         setSimulationConfigs={setSimulationConfigs}
         simulationConfigs={simulationConfigs}
         dottedId={`${dottedId}.simulationConfigs`}

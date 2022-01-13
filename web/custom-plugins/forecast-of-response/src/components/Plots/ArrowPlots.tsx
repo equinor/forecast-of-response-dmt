@@ -20,7 +20,7 @@ type RotatedArrowProps = {
   color: string
 }
 
-//RotatedArrow must be class component to get correct props from VicotryChart
+// RotatedArrow must be class component to get correct props from VictoryChart
 class RotatedArrow extends React.Component<RotatedArrowProps> {
   render() {
     const { datum, x, y, attributeNameForData, color } = this.props
@@ -31,7 +31,8 @@ class RotatedArrow extends React.Component<RotatedArrowProps> {
     const translation: string = `${x - iconWidth / 2}, ${
       y + yAxisOffset - iconWidth / 2
     }`
-    const rotation: string = `${datum[attributeNameForData]}, ${
+    // Rotate the arrow an extra 180 degree, so it points in the "going to" direction
+    const rotation: string = `${datum[attributeNameForData] - 180}, ${
       iconWidth / 2
     }, ${iconWidth / 2}`
 
