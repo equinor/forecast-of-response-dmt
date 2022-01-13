@@ -100,38 +100,22 @@ const createOperationEntity = (
 ): Promise<string> => {
   let phases: TPhase[] = config.phases
 
-  for (let i = 0; i < phases.length; ++i) {
-    for (let j = 0; j < phases[i].simulationConfigs.length; ++j) {
-      let conf = phases[i].simulationConfigs[j]
-      if (conf.plots === undefined) {
-        conf.plots = []
+  //add empty plot list to all simulation configs
+  phases.map((phase) => {
+    phase.simulationConfigs.map((config) => {
+      if (config.plots === undefined) {
+        config.plots = []
       }
-      if (conf.plots.length === 0) {
-        conf.plots = [
+      if (config.plots.length === 0) {
+        config.plots = [
           {
             type: PlotStateBlueprint,
             graphs: [],
           },
         ]
       }
-      phases[i].simulationConfigs[j] = conf
-    }
-  }
-
-  // phases = phases.map(phase => {
-  //   phase.simulationConfigs.map(config => {
-  //     if (config.plots === []) {
-  //       config.plots = [
-  //         {
-  //           type: PlotStateBlueprint,
-  //           graphs: [],
-  //         },
-  //       ]
-  //     }
-  //   })
-  // })
-
-  console.log('PHASES IS', phases)
+    })
+  })
 
   let body = {
     name: operationName,
