@@ -265,7 +265,7 @@ function SingleSimulationConfig(props: {
   const [plotWindows, setPlotWindows] = useState<any>({
     [poorMansUUID()]: { graphs: [] },
   })
-
+  const [savingPlots, setSavingPlots] = useState<boolean>(false)
   const { token } = useContext(AuthContext)
   const jobAPI = new JobApi(token)
   const dmssAPI = new DmssAPI(token)
@@ -451,7 +451,7 @@ function SingleSimulationConfig(props: {
 
   function savePlots() {
     setLoading(true)
-    // todo: add confirmation popup to ensure user intended the action
+    setSavingPlots(true)
     simulationConfig.plots = plotWindowHandlers.getPlots()
 
     dmssAPI
@@ -470,7 +470,10 @@ function SingleSimulationConfig(props: {
           error.message || 'An error occurred while saving the plots.'
         )
       })
-      .finally(() => setLoading(false))
+      .finally(() => {
+        setSavingPlots(false)
+        setLoading(false)
+      })
   }
 
   return (
@@ -530,8 +533,8 @@ function SingleSimulationConfig(props: {
           onClick={() => savePlots()}
           disabled={results.length === 0}
         >
-          Save plots
-          <Icons name="save" title="save" />
+          {(savingPlots && <Progress.Dots color="neutral" />) || 'Save plots'}
+          {!savingPlots ? <Icons name="save" title="save" /> : <></>}
         </StyledHeaderButton>
         <StyledHeaderButton
           onClick={() =>
