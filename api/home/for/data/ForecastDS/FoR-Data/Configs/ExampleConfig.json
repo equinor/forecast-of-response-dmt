@@ -48,7 +48,7 @@
         "type": "ForecastDS/FoR-BP/Blueprints/SimulationConfig",
         "published": false,
         "variables": [
-                                          {
+            {
               "type": "ForecastDS/FoR-BP/Blueprints/Variable",
               "name": "WaveHeight",
               "value": "0.6",

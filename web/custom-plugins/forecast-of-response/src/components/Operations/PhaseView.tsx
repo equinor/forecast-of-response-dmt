@@ -273,10 +273,10 @@ function SingleSimulationConfig(props: {
   const result_dotted_id = `${dottedId}.results`
 
   useEffect(() => {
-    if (simulationConfig.plots) {
+    if (simulationConfig.plots.length) {
       // Retrieve the "stored plots"
       let storedPlots: any = {}
-      simulationConfig.plots.map((storedPlot) => {
+      simulationConfig.plots.forEach((storedPlot) => {
         storedPlots[poorMansUUID()] = storedPlot
       })
       setPlotWindows(storedPlots)
