@@ -15,9 +15,9 @@ ENV REACT_APP_AUTH_ENDPOINT=https://login.microsoftonline.com/${REACT_APP_AUTH_T
 ENV REACT_APP_LOGOUT_ENDPOINT=https://login.microsoftonline.com/${REACT_APP_AUTH_TENANT}/oauth2/logout
 ENV REACT_APP_AUTH_REDIRECT_URI=$REDIRECT_URI
 USER 0
-COPY ./actions.js /code/app/src/actions.js
-COPY ./config.js /code/app/src/config.js
+COPY ./plugins.js /code/app/src/plugins.js
 COPY ./custom-plugins /code/custom-plugins
+COPY ./plugins/for-weather-plots /code/plugins/for-weather-plots
 RUN yarn install --frozen-lockfile
 
 FROM base as development

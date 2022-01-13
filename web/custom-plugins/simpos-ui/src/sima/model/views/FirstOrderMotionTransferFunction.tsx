@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDocument } from '@dmt/common'
-import { DmtUIPlugin } from '@dmt/core-plugins'
+import { DmtUIPlugin } from '@dmt/common'
 
 import { SIMA_Model_FirstOrderMotionTransferFunction } from './FirstOrderMotionTransferFunction_src.js'
 

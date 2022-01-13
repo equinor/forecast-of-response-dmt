@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 import { useDocument } from '@dmt/common'
-import { DmtPluginType, DmtUIPlugin } from '@dmt/core-plugins'
+import { DmtPluginType, DmtUIPlugin } from '@dmt/common'
 
 import { RAOSceForm } from './raoSce.js'
 

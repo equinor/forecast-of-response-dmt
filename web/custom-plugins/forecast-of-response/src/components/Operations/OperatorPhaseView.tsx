@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { TGraph, TPhase, TPlot, TSimulationConfig } from '../../Types'
-import Result from '../Result'
+// import Result from '../Result'
 import { sortSimulationsByNewest } from '../../utils/sort'
 import { poorMansUUID } from '../../utils/uuid'
 import { Blueprints } from '../../Enums'
@@ -64,27 +64,27 @@ export default (props: { phase: TPhase }): JSX.Element => {
 
         {simulations[0]?._id ? (
           <div>
-            {plotWindows &&
-              simulations[0] &&
-              Object.keys(plotWindows).map((plotKey: string, plotKeyIndex) => (
-                <Result
-                  key={`plotWindow-${plotKey}`}
-                  result={simulations[0]}
-                  plotKey={plotKey}
-                  plotWindowHandlers={{
-                    addPlotWindow: (plotKey?: string | undefined) =>
-                      plotWindowHandlers.addPlotWindow(),
-                    deletePlotWindow: (plotKey: string) =>
-                      plotWindowHandlers.deletePlotWindow(plotKey),
-                    addGraph: (graph: TGraph) =>
-                      plotWindowHandlers.addGraph(plotKey, graph),
-                    getGraphs: () => plotWindowHandlers.getGraphs(plotKey),
-                    deleteGraph: (uuid: string) =>
-                      plotWindowHandlers.deleteGraph(plotKey, uuid),
-                  }}
-                  isRootPlot={plotKeyIndex == 0}
-                />
-              ))}
+            {/*{plotWindows &&*/}
+            {/*  simulations[0] &&*/}
+            {/*  Object.keys(plotWindows).map((plotKey: string, plotKeyIndex) => (*/}
+            {/*    <Result*/}
+            {/*      key={`plotWindow-${plotKey}`}*/}
+            {/*      result={simulations[0]}*/}
+            {/*      plotKey={plotKey}*/}
+            {/*      plotWindowHandlers={{*/}
+            {/*        addPlotWindow: (plotKey?: string | undefined) =>*/}
+            {/*          plotWindowHandlers.addPlotWindow(),*/}
+            {/*        deletePlotWindow: (plotKey: string) =>*/}
+            {/*          plotWindowHandlers.deletePlotWindow(plotKey),*/}
+            {/*        addGraph: (graph: TGraph) =>*/}
+            {/*          plotWindowHandlers.addGraph(plotKey, graph),*/}
+            {/*        getGraphs: () => plotWindowHandlers.getGraphs(plotKey),*/}
+            {/*        deleteGraph: (uuid: string) =>*/}
+            {/*          plotWindowHandlers.deleteGraph(plotKey, uuid),*/}
+            {/*      }}*/}
+            {/*      isRootPlot={plotKeyIndex == 0}*/}
+            {/*    />*/}
+            {/*  ))}*/}
           </div>
         ) : (
           <div style={{ alignSelf: 'center' }}>

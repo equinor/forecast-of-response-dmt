@@ -1,4 +1,4 @@
-import { DmtSettings } from '@dmt/core-plugins'
+import { DmtSettings } from '@dmt/common'
 import { OperationStatus } from './Enums'
 
 export type DmtSettings = DmtSettings

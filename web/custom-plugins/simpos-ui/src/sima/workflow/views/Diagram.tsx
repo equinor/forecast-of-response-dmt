@@ -9,7 +9,7 @@ import { DemoCanvasWidget } from '../helpers/DemoCanvasWidget'
 
 //import {useEffect, useState} from 'react'
 import { useDocument } from '@dmt/common'
-import { DmtUIPlugin } from '@dmt/core-plugins'
+import { DmtUIPlugin } from '@dmt/common'
 
 const idFlag = '__id'
 

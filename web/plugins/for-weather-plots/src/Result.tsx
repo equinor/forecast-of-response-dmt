@@ -4,20 +4,43 @@ import { Button, Chip, Progress, Tooltip } from '@equinor/eds-core-react'
 import { NotificationManager } from 'react-notifications'
 import styled from 'styled-components'
 import { useDocument } from '@dmt/common'
-import { plotColors } from './Design/Colors'
-import { DEFAULT_DATASOURCE_ID } from '../const'
-import { StyledSelect } from './Input'
-import { IconWrapper } from './Other'
 
 import ArrowPlots from './Plots/ArrowPlots'
-import { TGraph, TPlot } from '../Types'
-import { poorMansUUID } from '../utils/uuid'
-import Icons from './Design/Icons'
+import { DEFAULT_DATASOURCE_ID } from './const'
+import { plotColors } from './Plots/plotColors'
+import { poorMansUUID } from './uuid'
+import Icons from './Icons'
 
 const ResultWrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin: 20px 0;
+`
+
+type IconWrapperProps = {
+  color?: any
+}
+
+export const IconWrapper = styled.div<IconWrapperProps>`
+  width: 22px;
+  height: 22px;
+  color: ${(props: IconWrapperProps) => props?.color};
+  font-size: x-large;
+  padding: 0 3px;
+  display: flex;
+  align-items: center;
+`
+
+export const StyledSelect = styled.select`
+  position: relative;
+  font-size: medium;
+  padding: 8px 16px;
+  border: 0;
+  border-bottom: 2px solid #dbdbdb;
+  cursor: pointer;
+  width: fit-content;
+  background-color: #f7f7f7;
+  min-width: 150px;
 `
 
 const AddedGraphWrapper = styled.div`
@@ -30,6 +53,14 @@ const GraphSelectorWrapper = styled.div`
   display: flex;
   padding-top: 20px;
 `
+
+export type TGraph = {
+  run: number
+  response: number
+  statistic: number
+  uuid?: string
+  type?: string
+}
 
 function GraphSelect(props: {
   variableRuns: any[]
@@ -340,16 +371,6 @@ export default (props: {
         </div>
         <LinesOverTime data={chartData} graphInfo={graphInfo} />
         <ArrowPlots data={chartData} graphInfo={graphInfo} />
-        {isRootPlot && (
-          <Button
-            style={{ width: '140px', marginLeft: '10px' }}
-            variant="outlined"
-            onClick={() => plotWindowHandlers.addPlotWindow()}
-          >
-            Add plot
-            <Icons name="add" title="add" />
-          </Button>
-        )}
       </ResultWrapper>
     </div>
   )

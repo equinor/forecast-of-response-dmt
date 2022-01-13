@@ -55,8 +55,7 @@ services:
     restart: unless-stopped
     volumes:
       - ./web/custom-plugins/:/code/custom-plugins
-      - ./web/config.js:/code/app/config.js
-      - ./web/actions.js:/code/app/actions.js
+      - ./web/plugins/for-weather-plots:/code/plugins/for-weather-plots
     networks:
       - for-network
 

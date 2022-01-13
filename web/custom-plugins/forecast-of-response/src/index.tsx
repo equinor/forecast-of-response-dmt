@@ -1,5 +1,5 @@
 import React from 'react'
-import { DmtPluginType } from '@dmt/core-plugins'
+import { DmtPluginType } from '@dmt/common'
 
 import App from './App'
 

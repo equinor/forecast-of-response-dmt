@@ -3,7 +3,7 @@ import { MakeDiagram } from './Diagram'
 
 //import {useEffect, useState} from 'react'
 import { useDocument } from '@dmt/common'
-import { DmtUIPlugin } from '@dmt/core-plugins'
+import { DmtUIPlugin } from '@dmt/common'
 
 const Workflow_Component = (props: DmtUIPlugin) => {
   const { dataSourceId, documentId, attribute, updateDocument } = props
