@@ -51,7 +51,10 @@ const SimHeaderWrapper = styled.div`
 `
 
 const StyledHeaderButton = styled(Button)`
-  margin: 0 20px;
+  margin-left: 20px;
+  &:disabled {
+    margin-left: 20px;
+  }
 `
 
 const OpenSummaryButton = styled.div`
@@ -258,7 +261,6 @@ function SingleSimulationConfig(props: {
   const [cronJob, setCronJob] = useState<any>({ ...simulationConfig?.cronJob })
   const [jobs, setJobs] = useState<any[]>([...simulationConfig.jobs])
   const results = [...simulationConfig.results]
-
   const [viewJobDetails, setViewJobDetails] = useState<boolean>(false)
   const [plotWindows, setPlotWindows] = useState<any>({
     [poorMansUUID()]: { graphs: [] },
@@ -526,6 +528,7 @@ function SingleSimulationConfig(props: {
         <StyledHeaderButton
           style={{ width: '140px', marginLeft: '10px' }}
           onClick={() => savePlots()}
+          disabled={results.length === 0}
         >
           Save plots
           <Icons name="save" title="save" />
@@ -535,6 +538,7 @@ function SingleSimulationConfig(props: {
             // Get the index of the current simulationConfig from dottedId
             publishSimulation(parseInt(dottedId.split('.').slice(-1)[0]))
           }
+          disabled={simulationConfig.published}
         >
           Publish simulation
         </StyledHeaderButton>
@@ -598,6 +602,7 @@ function SingleSimulationConfig(props: {
           ))}
         </StyledSelect>
         {plotWindows &&
+          results[selectedResult] &&
           Object.keys(plotWindows).map((plotKey: string, plotKeyIndex) => (
             <Result
               key={`plotWindow-${plotKey}`}
