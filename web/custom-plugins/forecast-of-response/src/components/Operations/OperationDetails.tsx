@@ -1,16 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { TOperation } from '../Types'
-import { getUsername } from '../../utils/auth'
-import {
-  Button,
-  Card,
-  Label,
-  Scrim,
-  Table,
-  Typography,
-  Dialog,
-  Icon,
-} from '@equinor/eds-core-react'
+import { getUsername, hasExpertRole } from '../../utils/auth'
+import { Button, Card, Label, Table, Typography } from '@equinor/eds-core-react'
 import { StatusDot } from '../Other'
 import styled from 'styled-components'
 import { LocationOnMap } from '../Map'
@@ -18,9 +9,9 @@ import { TComment, TPhase } from '../../Types'
 import { CommentInput, CommentView } from '../Comments'
 import { AccessControlList, AuthContext } from '@dmt/common'
 import { DEFAULT_DATASOURCE_ID } from '../../const'
-import { hasExpertRole } from '../../utils/auth'
-import { ClickableIcon } from '../App/Header'
 import { CustomScrim } from '../CustomScrim'
+import { statusFromDates } from '../../utils/statusFromDates'
+import Icons from '../Design/Icons'
 
 const FlexWrapper = styled.div`
   display: flex;
@@ -47,8 +38,11 @@ const CommentsWrapper = styled.div`
   padding: 5px;
 `
 
-export default (props: { operation: TOperation }): JSX.Element => {
-  const { operation } = props
+export default (props: {
+  operation: TOperation
+  setActiveTab: Function
+}): JSX.Element => {
+  const { operation, setActiveTab } = props
   const [viewACL, setViewACL] = useState<boolean>(false)
   const [comments, setComments] = useState<TComment[]>(
     operation.comments?.comments
@@ -89,8 +83,10 @@ export default (props: { operation: TOperation }): JSX.Element => {
           </FlexWrapper>
           <FlexWrapper>
             <Label label="Status:" />
-            {operation.status}
-            <StatusDot status={operation.status} />
+            {statusFromDates(operation.start, operation.end)}
+            <StatusDot
+              status={statusFromDates(operation.start, operation.end)}
+            />
           </FlexWrapper>
           <FlexWrapper>
             <Label label="STask:" />
@@ -114,7 +110,8 @@ export default (props: { operation: TOperation }): JSX.Element => {
               setViewACL(!viewACL)
             }}
           >
-            Open access panel
+            Access control
+            <Icons name="assignment_user" title="assignment_user" />
           </Button>
         )}
       </Card.Actions>
@@ -144,7 +141,11 @@ export default (props: { operation: TOperation }): JSX.Element => {
         <Table.Body>
           {operation.phases.length ? (
             operation.phases.map((phase: TPhase, index: number) => (
-              <Table.Row key={index}>
+              <Table.Row
+                key={index}
+                style={{ cursor: 'pointer' }}
+                onClick={() => setActiveTab(index + 1)}
+              >
                 <Table.Cell>{phase.name}</Table.Cell>
                 <Table.Cell>
                   {phase.start
@@ -158,8 +159,10 @@ export default (props: { operation: TOperation }): JSX.Element => {
                 </Table.Cell>
                 <Table.Cell>
                   <FlexWrapper>
-                    {phase.status}
-                    <StatusDot status={phase.status} />
+                    {statusFromDates(phase.start, phase.end)}
+                    <StatusDot
+                      status={statusFromDates(phase.start, phase.end)}
+                    />
                   </FlexWrapper>
                 </Table.Cell>
               </Table.Row>

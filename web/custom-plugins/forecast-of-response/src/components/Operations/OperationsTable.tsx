@@ -3,6 +3,7 @@ import DynamicTable from '../DynamicTable'
 import { DmtSettings, TOperation } from '../../Types'
 import { OperationStatus } from '../../Enums'
 import { DEFAULT_DATASOURCE_ID } from '../../const'
+import { statusFromDates } from '../../utils/statusFromDates'
 
 const columns: Array<string> = [
   'Operation name',
@@ -51,7 +52,7 @@ const OperationsTable = (props: {
       end: endDate,
       location: operation.location.name,
       creator: operation.creator,
-      status: operation.status,
+      status: statusFromDates(operation.start, operation.end),
     }
     rows.push(row)
   })

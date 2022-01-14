@@ -99,9 +99,8 @@ export type TPhase = {
   name: string
   workflowTask: string
   workflow: string
-  start?: Date
-  end?: Date
-  status?: OperationStatus
+  start?: string
+  end?: string
   defaultVariables?: TVariable
 }
 
@@ -128,9 +127,8 @@ export type TOperation = {
   SIMAComputeConnectInfo: TBlob
   description?: string
   creator: string
-  start?: Date
-  end?: Date
-  status?: OperationStatus
+  start?: string
+  end?: string
   location: TLocation
   phases: TPhase[]
   comments?: TComment

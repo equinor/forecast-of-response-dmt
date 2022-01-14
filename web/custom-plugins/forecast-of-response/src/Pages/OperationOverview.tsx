@@ -11,6 +11,7 @@ import DateRangePicker from '../components/DateRangePicker'
 import Grid from '../components/App/Grid'
 import { Blueprints, OperationStatus } from '../Enums'
 import { getUsername, hasExpertRole } from '../utils/auth'
+import { statusFromDates } from '../utils/statusFromDates'
 
 const GridContainer = styled.div`
   padding-top: 50px;
@@ -49,17 +50,20 @@ const OperationOverview = (props: DmtSettings): JSX.Element => {
       case OperationStatus.ONGOING:
         return allOperations.filter(
           (operation: TOperation) =>
-            operation.status === OperationStatus.ONGOING
+            OperationStatus.ONGOING ===
+            statusFromDates(operation.start, operation.end)
         )
       case OperationStatus.UPCOMING:
         return allOperations.filter(
           (operation: TOperation) =>
-            operation.status === OperationStatus.UPCOMING
+            OperationStatus.UPCOMING ===
+            statusFromDates(operation.start, operation.end)
         )
       case OperationStatus.CONCLUDED:
         return allOperations.filter(
           (operation: TOperation) =>
-            operation.status === OperationStatus.CONCLUDED
+            OperationStatus.CONCLUDED ===
+            statusFromDates(operation.start, operation.end)
         )
       case 'My operations':
         return allOperations.filter((operation: TOperation) => {

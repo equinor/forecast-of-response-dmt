@@ -50,11 +50,6 @@
       "optional": true
     },
     {
-      "name": "status",
-      "type": "system/SIMOS/BlueprintAttribute",
-      "attributeType": "string",
-      "optional": true
-    }, {
       "name": "comments",
       "type": "system/SIMOS/BlueprintAttribute",
       "attributeType": "/Blueprints/Comments",
