@@ -95,7 +95,7 @@ export type TSimulationConfig = {
 }
 
 export type TPhase = {
-  simulationConfigs?: TSimulationConfig[]
+  simulationConfigs: TSimulationConfig[]
   name: string
   workflowTask: string
   workflow: string

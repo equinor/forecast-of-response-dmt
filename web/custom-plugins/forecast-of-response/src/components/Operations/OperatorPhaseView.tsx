@@ -1,29 +1,37 @@
 import React, { useEffect, useState } from 'react'
-import { TGraph, TPhase, TPlot, TSimulationConfig } from '../../Types'
+import { TGraph, TPhase, TSimulationConfig } from '../../Types'
 import Result from '../Result'
 import { sortSimulationsByNewest } from '../../utils/sort'
 import { poorMansUUID } from '../../utils/uuid'
-import { Blueprints } from '../../Enums'
 
 export default (props: { phase: TPhase }): JSX.Element => {
   const { phase } = props
-  const publishedSimulation: TSimulationConfig = phase.simulationConfigs.find(
-    (simConf: TSimulationConfig) => simConf?.published === true
+  const [lastPublishedSimResult, setLastPublishedSimResult] = useState<any>(
+    undefined
   )
-  const [resultGraphs, setResultGraphs] = useState<any>({})
-  const simulations = sortSimulationsByNewest(publishedSimulation.results)
   const [plotWindows, setPlotWindows] = useState<any>({
     [poorMansUUID()]: { graphs: [] },
   })
 
   useEffect(() => {
-    if (publishedSimulation.plots) {
-      // Retrieve the "stored plots"
-      let storedPlots: any = {}
-      publishedSimulation.plots.map((storedPlot) => {
-        storedPlots[poorMansUUID()] = storedPlot
-      })
-      setPlotWindows(storedPlots)
+    // Find the published simConf
+    const publishedSimulation:
+      | TSimulationConfig
+      | undefined = phase.simulationConfigs.find(
+      (simConf: TSimulationConfig) => simConf?.published === true
+    )
+    // If there is a published sim with results. Load it's stored plots and set it in state.
+    if (publishedSimulation && publishedSimulation?.results.length) {
+      setLastPublishedSimResult(
+        sortSimulationsByNewest(publishedSimulation.results)[0]
+      )
+      if (publishedSimulation?.plots?.length) {
+        let storedPlots: any = {}
+        publishedSimulation.plots.map(
+          (storedPlot) => (storedPlots[poorMansUUID()] = storedPlot)
+        )
+        setPlotWindows(storedPlots)
+      }
     }
   }, [])
 
@@ -51,8 +59,9 @@ export default (props: { phase: TPhase }): JSX.Element => {
     },
   }
 
-  if (!publishedSimulation)
+  if (!lastPublishedSimResult)
     return <div>No results have been published for this operation phase</div>
+
   return (
     <div
       style={{ display: 'flex', flexDirection: 'column', position: 'relative' }}
@@ -60,37 +69,30 @@ export default (props: { phase: TPhase }): JSX.Element => {
       <div
         style={{ padding: '16px', display: 'flex', flexDirection: 'column' }}
       >
-        <label>Viewing most recent result: {simulations[0].name}</label>
-
-        {simulations[0]?._id ? (
-          <div>
-            {plotWindows &&
-              simulations[0] &&
-              Object.keys(plotWindows).map((plotKey: string, plotKeyIndex) => (
-                <Result
-                  key={`plotWindow-${plotKey}`}
-                  result={simulations[0]}
-                  plotKey={plotKey}
-                  plotWindowHandlers={{
-                    addPlotWindow: (plotKey?: string | undefined) =>
-                      plotWindowHandlers.addPlotWindow(),
-                    deletePlotWindow: (plotKey: string) =>
-                      plotWindowHandlers.deletePlotWindow(plotKey),
-                    addGraph: (graph: TGraph) =>
-                      plotWindowHandlers.addGraph(plotKey, graph),
-                    getGraphs: () => plotWindowHandlers.getGraphs(plotKey),
-                    deleteGraph: (uuid: string) =>
-                      plotWindowHandlers.deleteGraph(plotKey, uuid),
-                  }}
-                  isRootPlot={plotKeyIndex == 0}
-                />
-              ))}
-          </div>
-        ) : (
-          <div style={{ alignSelf: 'center' }}>
-            <label>No result for this simulation...</label>
-          </div>
-        )}
+        <label>Viewing most recent result: {lastPublishedSimResult.name}</label>
+        <div>
+          {plotWindows &&
+            lastPublishedSimResult &&
+            Object.keys(plotWindows).map((plotKey: string, plotKeyIndex) => (
+              <Result
+                key={`plotWindow-${plotKey}`}
+                result={lastPublishedSimResult}
+                plotKey={plotKey}
+                plotWindowHandlers={{
+                  addPlotWindow: (plotKey?: string | undefined) =>
+                    plotWindowHandlers.addPlotWindow(),
+                  deletePlotWindow: (plotKey: string) =>
+                    plotWindowHandlers.deletePlotWindow(plotKey),
+                  addGraph: (graph: TGraph) =>
+                    plotWindowHandlers.addGraph(plotKey, graph),
+                  getGraphs: () => plotWindowHandlers.getGraphs(plotKey),
+                  deleteGraph: (uuid: string) =>
+                    plotWindowHandlers.deleteGraph(plotKey, uuid),
+                }}
+                isRootPlot={plotKeyIndex == 0}
+              />
+            ))}
+        </div>
       </div>
     </div>
   )
