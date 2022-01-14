@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { AuthContext, useDocument } from '@dmt/common'
-import { Progress, Tabs } from '@equinor/eds-core-react'
+import { Progress, Tabs, Typography } from '@equinor/eds-core-react'
 import { TOperation, TPhase } from '../Types'
 import OperationDetails from '../components/Operations/OperationDetails'
 import PhaseView from '../components/Operations/PhaseView'
@@ -39,6 +39,7 @@ export default (): JSX.Element => {
 
   return (
     <>
+      <Typography variant="body_long">{operation.name}</Typography>
       <Tabs
         activeTab={activeTab}
         onChange={(index: number) => setActiveTab(index)}
@@ -56,7 +57,10 @@ export default (): JSX.Element => {
         </Tabs.List>
         <Tabs.Panels>
           <Tabs.Panel>
-            <OperationDetails operation={operation} />
+            <OperationDetails
+              operation={operation}
+              setActiveTab={setActiveTab}
+            />
           </Tabs.Panel>
           {phases.length ? (
             phases.map((phase: TPhase, index: number) => (

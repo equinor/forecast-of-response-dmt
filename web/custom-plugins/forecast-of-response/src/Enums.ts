@@ -2,6 +2,7 @@ export enum OperationStatus {
   UPCOMING = 'Upcoming',
   ONGOING = 'Ongoing',
   CONCLUDED = 'Concluded',
+  UNKNOWN = 'Unknown',
 }
 
 export enum SimulationStatus {

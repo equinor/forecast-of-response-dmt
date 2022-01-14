@@ -1,6 +1,7 @@
 import { Icon } from '@equinor/eds-core-react'
 import {
   accessible,
+  assignment_user,
   account_circle,
   add_circle_outlined,
   delete_forever,
@@ -28,6 +29,7 @@ import {
 } from '@equinor/eds-icons'
 
 Icon.add({
+  assignment_user,
   waves,
   notifications,
   account_circle,
