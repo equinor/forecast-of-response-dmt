@@ -58,7 +58,7 @@ spec:
       publicPort: flask
 
     - name: dmss
-      image: mariner.azurecr.io/dmss:latest
+      image: mariner.azurecr.io/dmss:v0.3.14
       alwaysPullImageOnDeploy: true
       secrets:
         - MONGO_AZURE_URI

@@ -1,9 +1,9 @@
-name: CI
+name: Pre-commit
 
 on:
   push:
   workflow_dispatch:
-  # Enables manually triggers
+  # Enables manual triggers
 
 env:
   WEB_IMAGE: mariner.azurecr.io/for/web:latest
