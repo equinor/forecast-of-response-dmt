@@ -1,4 +1,4 @@
-ARG DMT_VERSION=latest
+ARG DMT_VERSION=v0.10.1
 FROM mariner.azurecr.io/dmt/web:${DMT_VERSION} as base
 ARG AUTH_ENABLED=0
 ARG REDIRECT_URI=http://localhost:9000

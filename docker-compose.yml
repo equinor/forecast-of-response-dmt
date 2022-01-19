@@ -5,7 +5,7 @@ services:
     build:
       context: ./api
       args:
-        DMT_VERSION: ${DMT_VERSION:-latest}
+        DMT_VERSION: ${DMT_VERSION:-v0.10.1}
     restart: unless-stopped
     depends_on:
       - dmss
@@ -45,7 +45,7 @@ services:
       context: ./web
       target: development
       args:
-        DMT_VERSION: ${DMT_VERSION:-latest}
+        DMT_VERSION: ${DMT_VERSION:-v0.10.1}
         REDIRECT_URI: http://localhost:9000/
         AUTH_ENABLED: 1
         AUTH_SCOPE: api://ee7dbf49-e358-4c9c-a7e4-fb6d56c02205/FoR_test_scope
@@ -74,7 +74,7 @@ services:
       - for-network
 
   dmss:
-    image: mariner.azurecr.io/dmss:${DMSS_VERSION:-latest}
+    image: mariner.azurecr.io/dmss:${DMSS_VERSION:-:v0.3.14}
     restart: unless-stopped
     volumes:
       - ./dmss-system.local.json:/code/home/system/data_sources/system.json
