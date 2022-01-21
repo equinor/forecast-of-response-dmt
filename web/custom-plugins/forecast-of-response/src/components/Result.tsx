@@ -334,9 +334,7 @@ export default (props: {
           {graphInfo.length >= 1 && (
             <AddedGraphWrapper>
               {graphInfo.map((graph: TGraphInfo, graphIndex) => (
-                <Tooltip 
-                  placement="auto" 
-                  title={graph.description} key={graphIndex}>
+                <Tooltip title={graph.description} key={graphIndex}>
                   <Chip
                     key={graphIndex}
                     style={{ margin: '10px 5px', cursor: 'help', zIndex: 1 }}
