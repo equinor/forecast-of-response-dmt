@@ -29,8 +29,9 @@ export default (props: {
   const victoryTooltip = (
     <VictoryTooltip
       style={{ fontSize: fontSize }}
-      pointerLength={-60}
+      pointerLength={5}
       centerOffset={{ y: -10 }}
+      constrainToVisibleArea
       flyoutPadding={({ text }) =>
         text.length > 1 ? { top: 10, bottom: 10, left: 15, right: 15 } : 7
       }
@@ -107,7 +108,7 @@ export default (props: {
         width={chartWidth}
         height={plotHeight}
         theme={VictoryTheme.material}
-        domainPadding={{ y: 20 }}
+        domainPadding={{ y: 45 }}
         padding={{ top: 5, bottom: 25, right: 5, left: 55 }}
         containerComponent={
           <VictoryVoronoiContainer
