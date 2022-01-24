@@ -72,20 +72,24 @@ function GraphSelect(props: {
     if (storedGraphs) {
       let newGraphInfo: TGraphInfo[] = []
       let newDataDict: any = {}
-      storedGraphs.forEach((storedGraph) => {
-        let [newGraph, newData] = createGraph(
-          storedGraph.run,
-          storedGraph.response,
-          storedGraph.statistic,
-          storedGraph.uuid
-        )
-        newGraphInfo.push(newGraph)
-        Object.entries(newData).forEach(([key, value]: any) => {
-          newDataDict[key] = { ...newDataDict[key], ...value }
+      try {
+        storedGraphs.forEach((storedGraph) => {
+          let [newGraph, newData] = createGraph(
+            storedGraph.run,
+            storedGraph.response,
+            storedGraph.statistic,
+            storedGraph.uuid
+          )
+          newGraphInfo.push(newGraph)
+          Object.entries(newData).forEach(([key, value]: any) => {
+            newDataDict[key] = { ...newDataDict[key], ...value }
+          })
         })
-      })
-      setGraphInfo(newGraphInfo)
-      setChartData(Object.values(newDataDict))
+        setGraphInfo(newGraphInfo)
+        setChartData(Object.values(newDataDict))
+      } catch (error) {
+        NotificationManager.error(`${error}`)
+      }
     }
   }, [])
 
@@ -93,31 +97,35 @@ function GraphSelect(props: {
     let uuid = poorMansUUID()
     let newGraphInfo: TGraphInfo[] = graphInfo
     let newDataDict: any = {}
-    let [newGraph, newData] = createGraph(
-      chosenRun,
-      chosenResponse,
-      chosenStatistic,
-      uuid
-    )
-    // Add graph if not already present
-    if (newGraph) {
-      newGraphInfo.push(newGraph)
-      setGraphInfo(newGraphInfo)
-      Object.entries(newData).forEach(([key, value]: any) => {
-        newDataDict[key] = { ...newDataDict[key], ...value }
-      })
-      setChartData(Object.values(newDataDict))
-      let graph: TGraph = {
-        run: chosenRun,
-        response: chosenResponse,
-        statistic: chosenStatistic,
-        uuid: uuid,
-      }
-      plotWindowHandlers.addGraph(graph)
-    } else {
-      NotificationManager.info(
-        'The selected graph is already present in the plot.'
+    try {
+      let [newGraph, newData] = createGraph(
+        chosenRun,
+        chosenResponse,
+        chosenStatistic,
+        uuid
       )
+      // Add graph if not already present
+      if (newGraph) {
+        newGraphInfo.push(newGraph)
+        setGraphInfo(newGraphInfo)
+        Object.entries(newData).forEach(([key, value]: any) => {
+          newDataDict[key] = { ...newDataDict[key], ...value }
+        })
+        setChartData(Object.values(newDataDict))
+        let graph: TGraph = {
+          run: chosenRun,
+          response: chosenResponse,
+          statistic: chosenStatistic,
+          uuid: uuid,
+        }
+        plotWindowHandlers.addGraph(graph)
+      } else {
+        NotificationManager.info(
+          'The selected graph is already present in the plot.'
+        )
+      }
+    } catch (error) {
+      NotificationManager.error(`${error}`)
     }
   }
 
@@ -128,8 +136,17 @@ function GraphSelect(props: {
     uuid: string = poorMansUUID()
   ) {
     // Get the timeseries and values from the selected statistic
-    const result = variableRuns[run].responses[response].statistics[statistic]
 
+    if (
+      run > variableRuns.length - 1 ||
+      response > variableRuns[run].responses.length - 1 ||
+      statistic > variableRuns[run].responses[response].statistics.length
+    ) {
+      throw new Error(
+        'Could not display plot(s). Index of chosen parameters were out of bounds. Switch result and delete plots if possible.'
+      )
+    }
+    const result = variableRuns[run].responses[response].statistics[statistic]
     const runName = `${variableRuns[run].name}`
     const responseName = `${variableRuns[run].responses[response].name}`
     const statisticName = `${variableRuns[run].responses[response].statistics[statistic].name}`
@@ -278,7 +295,6 @@ export default (props: {
     DEFAULT_DATASOURCE_ID,
     result._id
   )
-
   useEffect(() => {
     if (!isLoading && document && Object.keys(document).length) {
       setVariableRuns(document.variableRuns)
@@ -287,6 +303,8 @@ export default (props: {
 
   useEffect(() => {
     setGraphInfo([])
+    setVariableRuns([])
+    setChartData([])
   }, [result])
 
   function removeGraph(name: string, uuid: string) {
