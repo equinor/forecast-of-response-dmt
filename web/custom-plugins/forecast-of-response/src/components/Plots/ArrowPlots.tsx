@@ -56,11 +56,7 @@ export default (props: {
   const arrowPlotHeight: number = 60
 
   return (
-    <div
-      style={{
-        width: '100%',
-      }}
-    >
+    <div style={{ width: '100%', maxWidth: '1270px' }}>
       {graphInfo &&
         graphInfo.map((graphInfo: TGraphInfo, index) => {
           if (graphInfo.plotType === PlotType.ARROW) {
@@ -100,6 +96,7 @@ export default (props: {
                   }}
                   labelComponent={
                     <VictoryTooltip
+                      style={{ fontSize: '7px' }}
                       y={tooltipOffset}
                       flyoutPadding={({ text }) =>
                         text.length > 1
