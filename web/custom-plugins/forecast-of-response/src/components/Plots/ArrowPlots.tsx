@@ -1,5 +1,5 @@
 import React from 'react'
-import { plotColors } from '../Design/Colors'
+import { getPlotColor } from '../Design/Colors'
 import { PlotType, TGraphInfo } from '../Result'
 import {
   VictoryAxis,
@@ -89,7 +89,7 @@ export default (props: {
                     //@ts-ignore
                     <RotatedArrow
                       attributeNameForData={graphInfo.name}
-                      color={plotColors[index]}
+                      color={getPlotColor(index)}
                     />
                   }
                   style={{ labels: { fontSize: fontSize } }}

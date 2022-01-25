@@ -8,7 +8,7 @@ export const primary = colors.infographic.primary__moss_green_100.rgba
 export const primaryGray = '#f7f7f7'
 export const lightGray = '#f6f6f6'
 
-export const plotColors = [
+const plotColors = [
   '#0e0909',
   '#3754cb',
   '#18a902',
@@ -18,4 +18,18 @@ export const plotColors = [
   '#86b7ef',
   '#f37216',
   '#E30909FF',
+  '#FFFF00',
+  '#6D4C41',
+  '#00897B',
+  '#FFCDD2',
+  '#6A1B9A',
+  '#757575',
 ]
+
+export const getPlotColor = (index: number) => {
+  if (index >= plotColors.length) {
+    return plotColors[plotColors.length - 1]
+  } else {
+    return plotColors[0]
+  }
+}

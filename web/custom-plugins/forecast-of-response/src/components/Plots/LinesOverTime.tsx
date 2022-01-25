@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import { plotColors } from '../Design/Colors'
+import { getPlotColor } from '../Design/Colors'
 import { PlotType, TGraphInfo } from '../Result'
 import {
   VictoryArea,
@@ -128,8 +128,9 @@ export default (props: {
 
         {graphInfo &&
           graphInfo.map((graphInfo: TGraphInfo, index) => {
+            const color: string = getPlotColor(index)
             if (graphInfo.plotType === PlotType.LINE) {
-              const linePlotScatterStyle = getScatterStyle(plotColors[index], 6)
+              const linePlotScatterStyle = getScatterStyle(color, 6)
               const plotData = getLinePlotData(data, graphInfo)
               return (
                 <VictoryGroup key={index}>
@@ -138,7 +139,7 @@ export default (props: {
                     key={index}
                     interpolation="natural"
                     style={{
-                      data: { stroke: plotColors[index], strokeWidth: 1 },
+                      data: { stroke: color, strokeWidth: 1 },
                     }}
                     data={plotData}
                     y={graphInfo.name}
@@ -156,7 +157,7 @@ export default (props: {
               )
             } else if (graphInfo.plotType === PlotType.SHADED) {
               const plotData = getAreaPlotData(data, graphInfo)
-              const scatterPlotStyle = getScatterStyle(plotColors[index], 4)
+              const scatterPlotStyle = getScatterStyle(color, 4)
               return (
                 <VictoryGroup key={index}>
                   <VictoryArea
@@ -165,9 +166,9 @@ export default (props: {
                     interpolation="natural"
                     style={{
                       data: {
-                        fill: plotColors[index],
+                        fill: color,
                         fillOpacity: 0.6,
-                        stroke: plotColors[index],
+                        stroke: color,
                         strokeWidth: 1,
                       },
                     }}
