@@ -5,6 +5,7 @@ import {
   TGraph,
   TPhase,
   TPlot,
+  TReference,
   TSimulationConfig,
   TVariable,
 } from '../../Types'
@@ -40,6 +41,7 @@ import { createContainerJob } from '../../utils/createContainerJob'
 import { CustomScrim } from '../CustomScrim'
 import { poorMansUUID } from '../../utils/uuid'
 import Icons from '../Design/Icons'
+import { sortSimulationsByNewest } from '../../utils/sort'
 
 const SimHeaderWrapper = styled.div`
   display: flex;
@@ -258,7 +260,7 @@ function SingleSimulationConfig(props: {
   )
   const [cronJob, setCronJob] = useState<any>({ ...simulationConfig?.cronJob })
   const [jobs, setJobs] = useState<any[]>([...simulationConfig.jobs])
-  const results = [...simulationConfig.results]
+  const results = sortSimulationsByNewest(simulationConfig.results)
   const [viewJobDetails, setViewJobDetails] = useState<boolean>(false)
   const [plotWindows, setPlotWindows] = useState<any>({
     [poorMansUUID()]: { graphs: [] },
@@ -591,7 +593,10 @@ function SingleSimulationConfig(props: {
         )}
         <Label label="Results" />
         <StyledSelect
-          onChange={(e: Event) => setSelectedResult(parseInt(e.target.value))}
+          value={selectedResult}
+          onChange={(e: Event) => {
+            setSelectedResult(parseInt(e.target.value))
+          }}
         >
           {results.map((resultRef: any, index) => (
             <option key={index} value={index}>
@@ -617,7 +622,7 @@ function SingleSimulationConfig(props: {
                 deleteGraph: (uuid: string) =>
                   plotWindowHandlers.deleteGraph(plotKey, uuid),
               }}
-              isRootPlot={plotKeyIndex == 0}
+              isRootPlot={plotKeyIndex === 0}
             />
           ))}
       </div>
