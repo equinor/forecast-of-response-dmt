@@ -4,7 +4,7 @@ import { Button, Chip, Progress, Tooltip } from '@equinor/eds-core-react'
 import { NotificationManager } from 'react-notifications'
 import styled from 'styled-components'
 import { useDocument } from '@dmt/common'
-import { plotColors } from './Design/Colors'
+import { getPlotColor } from './Design/Colors'
 import { DEFAULT_DATASOURCE_ID } from '../const'
 import { StyledSelect } from './Input'
 import { IconWrapper } from './Other'
@@ -341,7 +341,7 @@ export default (props: {
                     variant="active"
                     onDelete={() => removeGraph(graph.name, graph.uuid)}
                   >
-                    <IconWrapper color={plotColors[graphIndex]}>
+                    <IconWrapper color={getPlotColor(graphIndex)}>
                       &#9679;
                     </IconWrapper>
                     {graph.name}
