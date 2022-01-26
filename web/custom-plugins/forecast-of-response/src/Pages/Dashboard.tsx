@@ -12,7 +12,8 @@ import { StyledMapContainer } from '../components/Map'
 import { Link, useLocation } from 'react-router-dom'
 import { DEFAULT_DATASOURCE_ID } from '../const'
 import { DotProgress } from '@equinor/eds-core-react'
-
+import MarkerClusterGroup from 'react-leaflet-markercluster'
+import '../components/Design/markercluster.css'
 delete L.Icon.Default.prototype._getIconUrl
 
 L.Icon.Default.mergeOptions({
@@ -129,29 +130,31 @@ const Dashboard = (): JSX.Element => {
             attribution='<a href="https://openstreetmap.org/copyright">OpenStreetMap</a>'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          {!operationsLoading &&
-            !loading &&
-            coordinates &&
-            coordinates.length > 0 &&
-            coordinates.map((gridTuple: any) => {
-              return (
-                <Marker
-                  key={gridTuple[2]}
-                  position={[gridTuple[0], gridTuple[1]]}
-                >
-                  <Popup>
-                    <Link
-                      to={{
-                        pathname: `/for/operations/${DEFAULT_DATASOURCE_ID}/${gridTuple[3]}`,
-                        state: location.state,
-                      }}
-                    >
-                      {gridTuple[2]}
-                    </Link>
-                  </Popup>
-                </Marker>
-              )
-            })}
+          <MarkerClusterGroup>
+            {!operationsLoading &&
+              !loading &&
+              coordinates &&
+              coordinates.length > 0 &&
+              coordinates.map((gridTuple: any) => {
+                return (
+                  <Marker
+                    key={gridTuple[2]}
+                    position={[gridTuple[0], gridTuple[1]]}
+                  >
+                    <Popup>
+                      <Link
+                        to={{
+                          pathname: `/for/operations/${DEFAULT_DATASOURCE_ID}/${gridTuple[3]}`,
+                          state: location.state,
+                        }}
+                      >
+                        {gridTuple[2]}
+                      </Link>
+                    </Popup>
+                  </Marker>
+                )
+              })}
+          </MarkerClusterGroup>
         </StyledMapContainer>
       </CardWrapper>
       <CardWrapper
