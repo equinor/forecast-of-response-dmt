@@ -18,17 +18,17 @@ const plotColors = [
   '#86b7ef',
   '#f37216',
   '#E30909FF',
-  '#FFFF00',
+  '#FFCC00',
   '#6D4C41',
   '#00897B',
-  '#FFCDD2',
+  '#b69396',
   '#6A1B9A',
   '#757575',
 ]
 
 export const getPlotColor = (index: number) => {
-  if (index >= plotColors.length) {
-    return plotColors[plotColors.length - 1]
+  if (index < plotColors.length) {
+    return plotColors[index]
   } else {
     return plotColors[0]
   }
