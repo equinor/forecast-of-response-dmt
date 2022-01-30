@@ -11,12 +11,18 @@ Built with the Data Modelling Tool
 ## Running
 
 ```bash
+cp .env-template .env
 docker-compose build
 # Repository secrets are encrypted at rest. Therefore, an encryption key is needed.
-KEY=$(docker-compose run --rm dmss create-key)
-echo $KEY
-cp .env-template .env 
+# Generate key 
+docker-compose run --rm dmss create-key
+# Replace $KEY with output of previous command
 echo "SECRET_KEY=$KEY" >> .env
+# Bootstrap the DMSS database
+docker-compose run --rm dmss reset-app
+# Create and import the Forecast of Response data source
+docker-compose run --rm api reset-app
+# Start the application
 docker-compose up
 ```
 

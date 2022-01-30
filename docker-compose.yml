@@ -74,7 +74,7 @@ services:
       - for-network
 
   dmss:
-    image: mariner.azurecr.io/dmss:${DMSS_VERSION:-:v0.3.14}
+    image: mariner.azurecr.io/dmss:${DMSS_VERSION:-v0.3.14}
     restart: unless-stopped
     volumes:
       - ./dmss-system.local.json:/code/home/system/data_sources/system.json
