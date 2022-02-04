@@ -106,7 +106,7 @@ services:
     depends_on:
       - api
       - web
-    image: mariner.azurecr.io/dmt/nginx:${DMT_VERSION:-latest}
+    image: mariner.azurecr.io/dmt/nginx:latest
     ports:
       - "9000:8080"
     networks:
