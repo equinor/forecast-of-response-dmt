@@ -12,6 +12,7 @@ import {
 import {
   Accordion,
   Button,
+  Checkbox,
   Chip,
   Divider,
   Input,
@@ -265,6 +266,7 @@ function SingleSimulationConfig(props: {
   const [plotWindows, setPlotWindows] = useState<any>({
     [poorMansUUID()]: { graphs: [] },
   })
+  const [useLocalTimezone, setUseLocalTimezone] = useState<boolean>(false)
 
   const { token } = useContext(AuthContext)
   const jobAPI = new JobApi(token)
@@ -604,6 +606,12 @@ function SingleSimulationConfig(props: {
             </option>
           ))}
         </StyledSelect>
+        <Checkbox
+          style={{ outline: 'none' }}
+          label={'Use local timezone'}
+          onChange={() => setUseLocalTimezone(!useLocalTimezone)}
+          checked={useLocalTimezone}
+        ></Checkbox>
         {plotWindows &&
           results[selectedResult] &&
           Object.keys(plotWindows).map((plotKey: string, plotKeyIndex) => (
@@ -611,6 +619,7 @@ function SingleSimulationConfig(props: {
               key={`plotWindow-${plotKey}`}
               result={results[selectedResult]}
               plotKey={plotKey}
+              useLocalTimezone={useLocalTimezone}
               plotWindowHandlers={{
                 addPlotWindow: (plotKey?: string | undefined) =>
                   plotWindowHandlers.addPlotWindow(),
