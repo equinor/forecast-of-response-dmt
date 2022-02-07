@@ -14,6 +14,7 @@ import {
   VictoryVoronoiContainer,
 } from 'victory'
 
+import { getDayFromDateString, getTime } from './plotUtils'
 export type TLineChartDataPoint = {
   // @ts-ignore
   timestamp: string
@@ -22,9 +23,11 @@ export type TLineChartDataPoint = {
 
 export default (props: {
   data: TLineChartDataPoint[]
+  useLocalTimezone: boolean
+  issueWithTimeFormat: boolean
   graphInfo: TGraphInfo[]
 }): JSX.Element => {
-  const { data, graphInfo } = props
+  const { data, graphInfo, useLocalTimezone, issueWithTimeFormat } = props
   const fontSize: number = 8
   const victoryTooltip = (
     <VictoryTooltip
@@ -39,15 +42,21 @@ export default (props: {
   )
   const chartWidth: number = 800
   const plotHeight: number = 200
-  //TODO: Read threshold values from result file
 
   const getAreaPlotData = (
     data: TLineChartDataPoint[],
     graphInfo: TGraphInfo
   ) => {
     const plotData = data.map((dataPoint: TLineChartDataPoint) => {
+      let timeString: string = getTime(
+        dataPoint.timestamp,
+        issueWithTimeFormat,
+        useLocalTimezone
+      )
+      const day: string = getDayFromDateString(dataPoint.timestamp)
       if (Array.isArray(dataPoint[graphInfo.name])) {
-        const x = dataPoint.timestamp
+        const x = `${timeString} ㅤ\n ${day}`
+        // const x = `${timeString}` //+ 'a\n' + day
         //@ts-ignore - ok since the if check makes sure dataPoint[graphInfo.name] is an array
         const y = dataPoint[graphInfo.name][1]
         //@ts-ignore - ok since the if check makes sure dataPoint[graphInfo.name] is an array
@@ -56,7 +65,7 @@ export default (props: {
           x: x,
           y0: y0,
           y: y,
-          customLabel: `${x} \n ${graphInfo.name}: ${y0.toFixed(
+          customLabel: `${timeString} \n ${graphInfo.name}: ${y0.toFixed(
             2
           )} - ${y.toFixed(2)}  ${graphInfo.unit}`,
         }
@@ -75,9 +84,16 @@ export default (props: {
     graphInfo: TGraphInfo
   ) => {
     const plotData = data.map((dataPoint: TLineChartDataPoint) => {
+      let timeString: string = getTime(
+        dataPoint.timestamp,
+        issueWithTimeFormat,
+        useLocalTimezone
+      )
+      const day: string = getDayFromDateString(dataPoint.timestamp)
       return {
         ...dataPoint,
-        customLabel: `${dataPoint.timestamp} \n ${graphInfo.name}: ${dataPoint[
+        timestamp: `${timeString} ㅤ\n ${day}`,
+        customLabel: `${timeString} \n ${graphInfo.name}: ${dataPoint[
           graphInfo.name
         ].toFixed(2)} ${graphInfo.unit}`,
       }
@@ -104,12 +120,17 @@ export default (props: {
         maxWidth: '1200px',
       }}
     >
+      <p style={{ color: 'red', paddingTop: 5 }}>
+        {issueWithTimeFormat && useLocalTimezone
+          ? 'Cannot display local timezone. Timeseries date in result file is not in ISO8601 format.'
+          : ''}
+      </p>
       <VictoryChart
         width={chartWidth}
         height={plotHeight}
         theme={VictoryTheme.material}
         domainPadding={{ y: 45 }}
-        padding={{ top: 5, bottom: 25, right: 5, left: 55 }}
+        padding={{ top: 5, bottom: 55, right: 5, left: 55 }}
         containerComponent={
           <VictoryVoronoiContainer
             labels={({ datum }) => datum.customLabel}

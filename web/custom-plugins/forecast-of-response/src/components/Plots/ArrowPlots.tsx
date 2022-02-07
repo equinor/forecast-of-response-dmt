@@ -46,9 +46,11 @@ class RotatedArrow extends React.Component<RotatedArrowProps> {
 
 export default (props: {
   data: TLineChartDataPoint[]
+  useLocalTimezone: boolean
+  issueWithTimeFormat: boolean
   graphInfo: TGraphInfo[]
 }): JSX.Element => {
-  const { data, graphInfo } = props
+  const { data, graphInfo, useLocalTimezone, issueWithTimeFormat } = props
 
   const fontSize: number = 8
 
@@ -56,7 +58,7 @@ export default (props: {
   const arrowPlotHeight: number = 60
 
   return (
-    <div style={{ width: '100%', maxWidth: '1270px' }}>
+    <div style={{ width: '100%', maxWidth: '1200px' }}>
       {graphInfo &&
         graphInfo.map((graphInfo: TGraphInfo, index) => {
           if (graphInfo.plotType === PlotType.ARROW) {
@@ -68,6 +70,7 @@ export default (props: {
               <VictoryChart
                 key={index}
                 width={chartWidth}
+                padding={{ top: 5, bottom: 45, right: 5, left: 55 }}
                 height={arrowPlotHeight}
                 containerComponent={<VictoryVoronoiContainer />}
               >

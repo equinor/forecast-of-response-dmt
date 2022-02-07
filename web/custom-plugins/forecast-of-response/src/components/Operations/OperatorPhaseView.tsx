@@ -3,12 +3,14 @@ import { TGraph, TPhase, TSimulationConfig } from '../../Types'
 import Result from '../Result'
 import { sortSimulationsByNewest } from '../../utils/sort'
 import { poorMansUUID } from '../../utils/uuid'
+import { Checkbox } from '@equinor/eds-core-react'
 
 export default (props: { phase: TPhase }): JSX.Element => {
   const { phase } = props
   const [lastPublishedSimResult, setLastPublishedSimResult] = useState<any>(
     undefined
   )
+  const [useLocalTimezone, setUseLocalTimezone] = useState<boolean>(false)
   const [plotWindows, setPlotWindows] = useState<any>({
     [poorMansUUID()]: { graphs: [] },
   })
@@ -70,6 +72,12 @@ export default (props: { phase: TPhase }): JSX.Element => {
         style={{ padding: '16px', display: 'flex', flexDirection: 'column' }}
       >
         <label>Viewing most recent result: {lastPublishedSimResult.name}</label>
+        <Checkbox
+          style={{ outline: 'none' }}
+          label={'Use local timezone'}
+          onChange={() => setUseLocalTimezone(!useLocalTimezone)}
+          checked={useLocalTimezone}
+        ></Checkbox>
         <div>
           {plotWindows &&
             lastPublishedSimResult &&
@@ -77,6 +85,7 @@ export default (props: { phase: TPhase }): JSX.Element => {
               <Result
                 key={`plotWindow-${plotKey}`}
                 result={lastPublishedSimResult}
+                useLocalTimezone={useLocalTimezone}
                 plotKey={plotKey}
                 plotWindowHandlers={{
                   addPlotWindow: (plotKey?: string | undefined) =>

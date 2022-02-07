@@ -13,6 +13,7 @@ import ArrowPlots from './Plots/ArrowPlots'
 import { TGraph, TPlot } from '../Types'
 import { poorMansUUID } from '../utils/uuid'
 import Icons from './Design/Icons'
+import moment from 'moment'
 
 const ResultWrapper = styled.div`
   display: flex;
@@ -278,6 +279,7 @@ export type TGraphInfo = {
 export default (props: {
   result: any
   plotKey: string
+  useLocalTimezone: boolean
   plotWindowHandlers: {
     addPlotWindow: (plotKey?: string | undefined) => void
     deletePlotWindow: (plotKey: string) => void
@@ -287,10 +289,27 @@ export default (props: {
   }
   isRootPlot?: boolean
 }) => {
-  const { result, plotKey, plotWindowHandlers, isRootPlot } = props
+  const {
+    result,
+    plotKey,
+    plotWindowHandlers,
+    isRootPlot,
+    useLocalTimezone,
+  } = props
   const [graphInfo, setGraphInfo] = useState<TGraphInfo[]>([])
   const [variableRuns, setVariableRuns] = useState<any[]>([])
   const [chartData, setChartData] = useState<TLineChartDataPoint[]>([])
+
+  //issueWithTimeFormat will be set to true if time format in result file does not follow the ISO 8601 standard
+  let issueWithTimeFormat: boolean
+  if (
+    chartData[0] &&
+    moment(chartData[0].timestamp, moment.ISO_8601, true).isValid()
+  ) {
+    issueWithTimeFormat = false
+  } else {
+    issueWithTimeFormat = true
+  }
   const [document, isLoading, updateDocument, error] = useDocument(
     DEFAULT_DATASOURCE_ID,
     result._id
@@ -355,7 +374,11 @@ export default (props: {
                 <Tooltip title={graph.description} key={graphIndex}>
                   <Chip
                     key={graphIndex}
-                    style={{ margin: '10px 5px', cursor: 'help', zIndex: 1 }}
+                    style={{
+                      margin: '10px 5px',
+                      cursor: 'help',
+                      zIndex: 1,
+                    }}
                     variant="active"
                     onDelete={() => removeGraph(graph.name, graph.uuid)}
                   >
@@ -369,8 +392,18 @@ export default (props: {
             </AddedGraphWrapper>
           )}
         </div>
-        <LinesOverTime data={chartData} graphInfo={graphInfo} />
-        <ArrowPlots data={chartData} graphInfo={graphInfo} />
+        <LinesOverTime
+          data={chartData}
+          issueWithTimeFormat={issueWithTimeFormat}
+          graphInfo={graphInfo}
+          useLocalTimezone={useLocalTimezone}
+        />
+        <ArrowPlots
+          data={chartData}
+          issueWithTimeFormat={issueWithTimeFormat}
+          graphInfo={graphInfo}
+          useLocalTimezone={useLocalTimezone}
+        />
         {isRootPlot && (
           <Button
             style={{ width: '140px', marginLeft: '10px' }}
