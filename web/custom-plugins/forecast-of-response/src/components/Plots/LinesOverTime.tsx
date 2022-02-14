@@ -220,10 +220,10 @@ export default (props: {
       return emptyData
     }
 
-    let timeNow = new Date().getTime() //new Date('2022-02-04T18:00:00Z').getTime()
+    let timeNow = new Date().getTime()
 
-    let smallestDiff = Infinity
-    let smallestDiffIndex = 0
+    let smallestDifference = Infinity
+    let smallestDifferenceIndex = 0
     let time = 0
     //if current time is not inside the time window of the result, return empty data
     if (
@@ -235,13 +235,13 @@ export default (props: {
 
     data.map((dataPoint, index) => {
       time = new Date(dataPoint['timestamp']).getTime()
-      if (Math.abs(time - timeNow) < smallestDiff) {
-        smallestDiff = Math.abs(time - timeNow)
-        smallestDiffIndex = index
+      if (Math.abs(time - timeNow) < smallestDifference) {
+        smallestDifference = Math.abs(time - timeNow)
+        smallestDifferenceIndex = index
       }
     })
 
-    return [{ x: smallestDiffIndex + 1, y: maxY + yOffset }]
+    return [{ x: smallestDifferenceIndex + 1, y: maxY + yOffset }]
   }
 
   return (

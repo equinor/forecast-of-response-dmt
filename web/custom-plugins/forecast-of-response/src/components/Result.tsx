@@ -53,7 +53,6 @@ function GraphSelect(props: {
     setChartData,
     graphInfo,
     setGraphInfo,
-    // setMaxYValue,
     plotKey,
     plotWindowHandlers,
     isRootPlot,
@@ -114,27 +113,6 @@ function GraphSelect(props: {
         Object.entries(newData).forEach(([key, value]: any) => {
           newDataDict[key] = { ...newDataDict[key], ...value }
         })
-        // let maxY: number = -1
-        //
-        // Object.values(newDataDict).map((x) => {
-        //   console.log(x)
-        //   Object.keys(x).map((key: string) => {
-        //     if (key !== 'timestamp') {
-        //       console.log('ok')
-        //       if (Array.isArray(x[key])) {
-        //         let max = Math.max.apply(null, x[key])
-        //         if (max > maxY) {
-        //           maxY = max
-        //         }
-        //       } else {
-        //         if (x[key] > maxY) {
-        //           maxY = x[key]
-        //         }
-        //       }
-        //     }
-        //   })
-        // })
-        // setMaxYValue(maxY)
         setChartData(Object.values(newDataDict))
         let graph: TGraph = {
           run: chosenRun,
@@ -322,7 +300,7 @@ export default (props: {
   const [graphInfo, setGraphInfo] = useState<TGraphInfo[]>([])
   const [variableRuns, setVariableRuns] = useState<any[]>([])
   const [chartData, setChartData] = useState<TLineChartDataPoint[]>([])
-  // const [maxYValue, setMaxYValue] = useState<number>(-1)
+
   //issueWithTimeFormat will be set to true if time format in result
   // file does not follow the ISO 8601 standard
   let issueWithTimeFormat: boolean
@@ -360,27 +338,6 @@ export default (props: {
 
     setGraphInfo(graphInfo.filter((graph: TGraphInfo) => name !== graph.name))
     setChartData(Object.values(newDataDict))
-    // let maxY: number = -1
-    //
-    // Object.values(newDataDict).map((x) => {
-    //   console.log(x)
-    //   Object.keys(x).map((key: string) => {
-    //     if (key !== 'timestamp') {
-    //       console.log('ok')
-    //       if (Array.isArray(x[key])) {
-    //         let max = Math.max.apply(null, x[key])
-    //         if (max > maxY) {
-    //           maxY = max
-    //         }
-    //       } else {
-    //         if (x[key] > maxY) {
-    //           maxY = x[key]
-    //         }
-    //       }
-    //     }
-    //   })
-    // })
-    // setMaxYValue(maxY)
     plotWindowHandlers.deleteGraph(uuid)
   }
 
@@ -412,7 +369,6 @@ export default (props: {
               getGraphs: () => plotWindowHandlers.getGraphs(),
             }}
             isRootPlot={isRootPlot}
-            // setMaxYValue={setMaxYValue}
           />
           {graphInfo.length >= 1 && (
             <AddedGraphWrapper>
@@ -438,13 +394,11 @@ export default (props: {
             </AddedGraphWrapper>
           )}
         </div>
-
         <LinesOverTime
           data={chartData}
           issueWithTimeFormat={issueWithTimeFormat}
           graphInfo={graphInfo}
           useLocalTimezone={useLocalTimezone}
-          // maxYValue={maxYValue}
         />
         <ArrowPlots
           data={chartData}
