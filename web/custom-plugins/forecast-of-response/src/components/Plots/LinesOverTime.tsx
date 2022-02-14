@@ -15,7 +15,7 @@ import {
   VictoryVoronoiContainer,
 } from 'victory'
 
-import { getDayFromDateString, getTime } from './plotUtils'
+import { dayOfYear, getDayFromDateString, getTime } from './plotUtils'
 export type TLineChartDataPoint = {
   // @ts-ignore
   timestamp: string
@@ -165,20 +165,6 @@ export default (props: {
       })
     })
     return maxY
-  }
-
-  function dayOfYear(date: string) {
-    // Get the day of year, a number between 1 and 365 (364 for leap year)
-    // source: https://stackoverflow.com/questions/8619879/javascript-calculate-the-day-of-the-year-1-366/8619946#8619946
-    var now: Date = new Date(date)
-    var start: Date = new Date(now.getFullYear(), 0, 0)
-    //@ts-ignore
-    var diff =
-      now -
-      start +
-      (start.getTimezoneOffset() - now.getTimezoneOffset()) * 60 * 1000
-    var oneDay = 1000 * 60 * 60 * 24
-    return Math.floor(diff / oneDay)
   }
 
   const getShadedBackgroundData = (maxY: number, yOffset: number) => {

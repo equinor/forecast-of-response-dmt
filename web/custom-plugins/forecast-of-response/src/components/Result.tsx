@@ -38,7 +38,6 @@ function GraphSelect(props: {
   setChartData: Function
   graphInfo: TGraphInfo[]
   setGraphInfo: Function
-  // setMaxYValue: Function
   plotKey: string
   plotWindowHandlers: {
     deletePlotWindow: (plotKey: string) => void
@@ -301,8 +300,7 @@ export default (props: {
   const [variableRuns, setVariableRuns] = useState<any[]>([])
   const [chartData, setChartData] = useState<TLineChartDataPoint[]>([])
 
-  //issueWithTimeFormat will be set to true if time format in result
-  // file does not follow the ISO 8601 standard
+  //issueWithTimeFormat will be set to true if time format in result file does not follow the ISO 8601 standard
   let issueWithTimeFormat: boolean
   if (
     chartData[0] &&
