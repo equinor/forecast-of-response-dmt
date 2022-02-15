@@ -23,7 +23,7 @@ jobs:
       - name: Pull latest
         run: docker pull ${API_IMAGE} && docker pull ${WEB_IMAGE}
       - name: "Build API"
-        run: docker build --cache-from ${API_IMAGE} --tag ${API_IMAGE} api
+        run: docker build --build-arg DMT_VERSION=v0.10.1 --cache-from ${API_IMAGE} --tag ${API_IMAGE} api
       - name: "Build Web"
         run: |
           docker build \

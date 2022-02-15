@@ -21,7 +21,7 @@ jobs:
       - name: Pull latest
         run: docker pull ${API_IMAGE}:latest && docker pull ${WEB_IMAGE}:latest
       - name: "Build API with git tag"
-        run: docker build --cache-from ${API_IMAGE}:latest --tag ${API_IMAGE}:${GITHUB_REF#refs/*/} api
+        run: docker build --build-arg DMT_VERSION=v0.10.1 --cache-from ${API_IMAGE}:latest --tag ${API_IMAGE}:${GITHUB_REF#refs/*/} api
       - name: "Build Web with git tag"
         run: |
           docker build \
